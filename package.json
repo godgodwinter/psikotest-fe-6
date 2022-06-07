@@ -1,0 +1,52 @@
+{
+  "name": "vue-project",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite --port 3005",
+    "build": "vite build",
+    "preview": "vite preview --port 4173",
+    "test:unit": "vitest --environment jsdom",
+    "test:e2e": "start-server-and-test preview http://127.0.0.1:4173/ 'cypress open --e2e'",
+    "test:e2e:ci": "start-server-and-test preview http://127.0.0.1:4173/ 'cypress run --e2e'",
+    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
+  },
+  "dependencies": {
+    "@vuepic/vue-datepicker": "^3.0.0",
+    "@vueup/vue-quill": "^1.0.0-beta.8",
+    "aos": "^2.3.4",
+    "axios": "^0.27.2",
+    "daisyui": "^2.15.2",
+    "jspdf": "^2.5.1",
+    "jwt-decode": "^3.1.2",
+    "moment": "^2.29.3",
+    "mosha-vue-toastify": "^1.0.23",
+    "pinia": "^2.0.14",
+    "vee-validate": "^4.5.11",
+    "vue": "^3.2.36",
+    "vue-good-table-next": "^0.2.1",
+    "vue-router": "^4.0.15",
+    "vue-select": "^4.0.0-beta.3",
+    "vue-writer": "^1.2.0"
+  },
+  "devDependencies": {
+    "@rushstack/eslint-patch": "^1.1.0",
+    "@tailwindcss/aspect-ratio": "^0.4.0",
+    "@tailwindcss/forms": "^0.5.2",
+    "@tailwindcss/typography": "^0.5.2",
+    "@vitejs/plugin-vue": "^2.3.3",
+    "@vue/eslint-config-prettier": "^7.0.0",
+    "@vue/test-utils": "^2.0.0",
+    "autoprefixer": "^10.4.7",
+    "cypress": "^10.0.2",
+    "eslint": "^8.5.0",
+    "eslint-plugin-cypress": "^2.12.1",
+    "eslint-plugin-vue": "^9.1.0",
+    "jsdom": "^19.0.0",
+    "postcss": "^8.4.14",
+    "prettier": "^2.5.1",
+    "start-server-and-test": "^1.14.0",
+    "tailwindcss": "^3.0.24",
+    "vite": "^2.9.9",
+    "vitest": "^0.14.1"
+  }
+}
