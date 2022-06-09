@@ -63,8 +63,53 @@ const router = createRouter({
         },
         {
           path: '/pages/sekolah',
-          name: 'AdminSekolah',
           component: () => import("@/views/admin/sekolah/Index.vue"),
+          name: 'AdminSekolah',
+        },
+        {
+          path: '/pages/yayasan',
+          component: () => import("@/views/admin/yayasan/Index.vue"),
+          name: 'AdminYayasan',
+        },
+        {
+          path: '/pages/yayasan/:id',
+          component: () => import("@/views/admin/yayasan/Detail.vue"),
+          name: 'AdminYayasanDetail',
+        },
+        {
+          path: '/pages/klasifikasi',
+          component: () => import("@/views/admin/klasifikasi/Index.vue"),
+          name: 'AdminKlasifikasi',
+        },
+        {
+          path: '/pages/referensi',
+          component: () => import("@/views/admin/referensi/Index.vue"),
+          name: 'AdminReferensi',
+        },
+        {
+          path: '/pages/buletin',
+          component: () => import("@/views/admin/buletin/Index.vue"),
+          name: 'AdminBuletin',
+        },
+        {
+          path: '/pages/terapis',
+          component: () => import("@/views/admin/terapis/Index.vue"),
+          name: 'AdminTerapis',
+        },
+        {
+          path: '/pages/penanganan',
+          component: () => import("@/views/admin/penanganan/Index.vue"),
+          name: 'AdminPenanganan',
+        },
+        {
+          path: '/pages/katabijak',
+          component: () => import("@/views/admin/katabijak/Index.vue"),
+          name: 'AdminKatabijak',
+        },
+        {
+          path: '/pages/owner',
+          component: () => import("@/views/admin/owner/Index.vue"),
+          name: 'AdminOwner',
         },
       ],
     },

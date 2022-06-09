@@ -149,7 +149,7 @@ const pagesActiveClass = ref(
               :class="[pagesActive == 'yayasan' ? pagesActiveClass : '']"
             >
               <router-link
-                :to="{ name: 'AdminDashboard' }"
+                :to="{ name: 'AdminYayasan' }"
                 class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link"
               >
                 <svg
@@ -171,7 +171,7 @@ const pagesActiveClass = ref(
               :class="[pagesActive == 'klasifikasi' ? pagesActiveClass : '']"
             >
               <router-link
-                :to="{ name: 'AdminDashboard' }"
+                :to="{ name: 'AdminKlasifikasi' }"
                 class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link"
               >
                 <svg
@@ -194,7 +194,7 @@ const pagesActiveClass = ref(
               :class="[pagesActive == 'referensi' ? pagesActiveClass : '']"
             >
               <router-link
-                :to="{ name: 'AdminDashboard' }"
+                :to="{ name: 'AdminReferensi' }"
                 class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link"
               >
                 <svg
@@ -218,7 +218,7 @@ const pagesActiveClass = ref(
               :class="[pagesActive == 'buletin' ? pagesActiveClass : '']"
             >
               <router-link
-                :to="{ name: 'AdminDashboard' }"
+                :to="{ name: 'AdminBuletin' }"
                 class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link"
               >
                 <svg
@@ -241,7 +241,7 @@ const pagesActiveClass = ref(
               :class="[pagesActive == 'terapis' ? pagesActiveClass : '']"
             >
               <router-link
-                :to="{ name: 'AdminDashboard' }"
+                :to="{ name: 'AdminTerapis' }"
                 class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link"
               >
                 <svg
@@ -264,7 +264,7 @@ const pagesActiveClass = ref(
               :class="[pagesActive == 'penanganan' ? pagesActiveClass : '']"
             >
               <router-link
-                :to="{ name: 'AdminDashboard' }"
+                :to="{ name: 'AdminPenanganan' }"
                 class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link"
               >
                 <svg
@@ -287,7 +287,7 @@ const pagesActiveClass = ref(
               :class="[pagesActive == 'katabijak' ? pagesActiveClass : '']"
             >
               <router-link
-                :to="{ name: 'AdminDashboard' }"
+                :to="{ name: 'AdminKatabijak' }"
                 class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link"
               >
                 <svg
@@ -310,7 +310,7 @@ const pagesActiveClass = ref(
               :class="[pagesActive == 'owner' ? pagesActiveClass : '']"
             >
               <router-link
-                :to="{ name: 'AdminDashboard' }"
+                :to="{ name: 'AdminOwner' }"
                 class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link"
               >
                 <svg
