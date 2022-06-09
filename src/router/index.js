@@ -7,7 +7,7 @@ import AdminLayout from '../layouts/AdminLayout.vue';
 import NotFound from '../views/NotFound.vue';
 import Locked from '../views/Locked.vue';
 import Maintenance from '../views/Maintenance.vue';
-import LandingIndex from '../views/landing/LandingIndex.vue';
+// import LandingIndex from '../views/landing/LandingIndex.vue';
 import LandingLogin from '../views/landing/LandingLogin.vue';
 
 const router = createRouter({
@@ -65,6 +65,75 @@ const router = createRouter({
           path: '/pages/sekolah',
           component: () => import("@/views/admin/sekolah/Index.vue"),
           name: 'AdminSekolah',
+        },
+        {
+          path: '/pages/sekolah/:id',
+          component: () => import("@/views/admin/sekolah/Detail.vue"),
+          name: 'AdminSekolahDetail',
+          redirect: 'pages/admin/sekolahdetail/:id/dashboard',
+          children: [
+            {
+              path: '/pages/admin/sekolahdetail/:id/dashboard',
+              component: () => import("@/views/admin/sekolah/submenu/SekolahDashboard.vue"),
+              name: 'AdminSekolahDetailDashboard',
+            },
+            {
+              path: '/pages/admin/sekolahdetail/:id/siswa',
+              component: () => import("@/views/admin/sekolah/submenu/siswa/Index.vue"),
+              name: 'AdminSekolahDetailSiswa',
+            },
+            {
+              path: '/pages/admin/sekolahdetail/:id/kelas',
+              component: () => import("@/views/admin/sekolah/submenu/kelas/Index.vue"),
+              name: 'AdminSekolahDetailKelas',
+            },
+            {
+              path: '/pages/admin/sekolahdetail/:id/walikelas',
+              component: () => import("@/views/admin/sekolah/submenu/walikelas/Index.vue"),
+              name: 'AdminSekolahDetailWalikelas',
+            },
+            {
+              path: '/pages/admin/sekolahdetail/:id/pengguna',
+              component: () => import("@/views/admin/sekolah/submenu/pengguna/Index.vue"),
+              name: 'AdminSekolahDetailPengguna',
+            },
+            // hasil psikologi
+            {
+              path: '/pages/admin/sekolahdetail/:id/hasilpsikologi',
+              component: () => import("@/views/admin/sekolah/submenu/hasilpsikologi/Index.vue"),
+              name: 'AdminSekolahDetailHasilpsikologi',
+            },
+            {
+              path: '/pages/admin/sekolahdetail/:id/nilaipsikolgisiswa',
+              component: () => import("@/views/admin/sekolah/submenu/nilaipsikolgisiswa/Index.vue"),
+              name: 'AdminSekolahDetailNilaipsikolgiSiswa',
+            },
+            {
+              path: '/pages/admin/sekolahdetail/:id/minatbakat',
+              component: () => import("@/views/admin/sekolah/submenu/minatbakat/Index.vue"),
+              name: 'AdminSekolahDetailMinatbakat',
+            },
+            {
+              path: '/pages/admin/sekolahdetail/:id/penjurusan',
+              component: () => import("@/views/admin/sekolah/submenu/penjurusan/Index.vue"),
+              name: 'AdminSekolahDetailPenjurusan',
+            },
+            {
+              path: '/pages/admin/sekolahdetail/:id/kasus',
+              component: () => import("@/views/admin/sekolah/submenu/kasus/Index.vue"),
+              name: 'AdminSekolahDetailKasus',
+            },
+            {
+              path: '/pages/admin/sekolahdetail/:id/pengembangandiri',
+              component: () => import("@/views/admin/sekolah/submenu/pengembangandiri/Index.vue"),
+              name: 'AdminSekolahDetailPengembangandiri',
+            },
+            {
+              path: '/pages/admin/sekolahdetail/:id/prestasi',
+              component: () => import("@/views/admin/sekolah/submenu/prestasi/Index.vue"),
+              name: 'AdminSekolahDetailPrestasi',
+            },
+          ],
         },
         {
           path: '/pages/yayasan',

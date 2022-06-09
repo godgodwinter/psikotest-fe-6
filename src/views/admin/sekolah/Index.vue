@@ -149,7 +149,7 @@ getData();
                 >
                   <router-link
                     :to="{
-                      name: 'AdminSekolah',
+                      name: 'AdminSekolahDetailDashboard',
                       params: { id: props.row.id },
                     }"
                   >
