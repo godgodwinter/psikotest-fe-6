@@ -72,7 +72,7 @@ const pagesActiveClass = ref(
                 <p
                   class="text-base-content text-sm font-medium text-center link link-primary"
                 >
-                  User Sekolah
+                  Administrator
                 </p>
               </div>
             </li>
@@ -123,10 +123,10 @@ const pagesActiveClass = ref(
             </li>
             <li
               class="lg:w-full py-0"
-              :class="[pagesActive == 'siswa' ? pagesActiveClass : '']"
+              :class="[pagesActive == 'sekolah' ? pagesActiveClass : '']"
             >
               <router-link
-                :to="{ name: 'AdminSiswa' }"
+                :to="{ name: 'AdminSekolah' }"
                 class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link"
               >
                 <svg
@@ -141,90 +141,37 @@ const pagesActiveClass = ref(
                     clip-rule="evenodd"
                   />
                 </svg>
-                <span class="ml-3">Siswa </span>
+                <span class="ml-3">Sekolah </span>
               </router-link>
             </li>
             <li
               class="lg:w-full py-0"
-              :class="[pagesActive == 'kelas' ? pagesActiveClass : '']"
+              :class="[pagesActive == 'yayasan' ? pagesActiveClass : '']"
             >
               <router-link
-                :to="{ name: 'AdminKelas' }"
+                :to="{ name: 'AdminDashboard' }"
                 class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   class="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  stroke-width="2"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
                 >
+                  <path d="M8 2a1 1 0 000 2h2a1 1 0 100-2H8z" />
                   <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"
+                    d="M3 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v6h-4.586l1.293-1.293a1 1 0 00-1.414-1.414l-3 3a1 1 0 000 1.414l3 3a1 1 0 001.414-1.414L10.414 13H15v3a2 2 0 01-2 2H5a2 2 0 01-2-2V5zM15 11h2a1 1 0 110 2h-2v-2z"
                   />
                 </svg>
-                <span class="ml-3">Kelas </span>
+                <span class="ml-3">Yayasan / Dinas </span>
               </router-link>
             </li>
             <li
               class="lg:w-full py-0"
-              :class="[pagesActive == 'walikelas' ? pagesActiveClass : '']"
+              :class="[pagesActive == 'klasifikasi' ? pagesActiveClass : '']"
             >
               <router-link
-                :to="{ name: 'AdminWaliKelas' }"
-                class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-                  />
-                </svg>
-                <span class="ml-3">Wali Kelas </span>
-              </router-link>
-            </li>
-            <li
-              class="lg:w-full py-0"
-              :class="[pagesActive == 'pengguna' ? pagesActiveClass : '']"
-            >
-              <router-link
-                :to="{ name: 'AdminPengguna' }"
-                class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                  />
-                </svg>
-                <span class="ml-3">Pengguna </span>
-              </router-link>
-            </li>
-            <li
-              class="lg:w-full py-0"
-              :class="[pagesActive == 'hasilpsikologi' ? pagesActiveClass : '']"
-            >
-              <router-link
-                :to="{ name: 'AdminHasilPsikologi' }"
+                :to="{ name: 'AdminDashboard' }"
                 class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link"
               >
                 <svg
@@ -235,19 +182,43 @@ const pagesActiveClass = ref(
                 >
                   <path
                     fill-rule="evenodd"
-                    d="M10 2a1 1 0 011 1v1.323l3.954 1.582 1.599-.8a1 1 0 01.894 1.79l-1.233.616 1.738 5.42a1 1 0 01-.285 1.05A3.989 3.989 0 0115 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.715-5.349L11 6.477V16h2a1 1 0 110 2H7a1 1 0 110-2h2V6.477L6.237 7.582l1.715 5.349a1 1 0 01-.285 1.05A3.989 3.989 0 015 15a3.989 3.989 0 01-2.667-1.019 1 1 0 01-.285-1.05l1.738-5.42-1.233-.617a1 1 0 01.894-1.788l1.599.799L9 4.323V3a1 1 0 011-1zm-5 8.274l-.818 2.552c.25.112.526.174.818.174.292 0 .569-.062.818-.174L5 10.274zm10 0l-.818 2.552c.25.112.526.174.818.174.292 0 .569-.062.818-.174L15 10.274z"
+                    d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z"
                     clip-rule="evenodd"
                   />
                 </svg>
-                <span class="ml-3">Hasil Psikologi </span>
+                <span class="ml-3">Klasifikasi Akademis & Profesi</span>
               </router-link>
             </li>
             <li
               class="lg:w-full py-0"
-              :class="[pagesActive == 'nilaipsikologi' ? pagesActiveClass : '']"
+              :class="[pagesActive == 'referensi' ? pagesActiveClass : '']"
             >
               <router-link
-                :to="{ name: 'AdminNilaiPsikologi' }"
+                :to="{ name: 'AdminDashboard' }"
+                class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" />
+                  <path
+                    fill-rule="evenodd"
+                    d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                <span class="ml-3">Referensi Studi & Kerja </span>
+              </router-link>
+            </li>
+            <li
+              class="lg:w-full py-0"
+              :class="[pagesActive == 'buletin' ? pagesActiveClass : '']"
+            >
+              <router-link
+                :to="{ name: 'AdminDashboard' }"
                 class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link"
               >
                 <svg
@@ -258,19 +229,19 @@ const pagesActiveClass = ref(
                 >
                   <path
                     fill-rule="evenodd"
-                    d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11 4a1 1 0 10-2 0v4a1 1 0 102 0V7zm-3 1a1 1 0 10-2 0v3a1 1 0 102 0V8zM8 9a1 1 0 00-2 0v2a1 1 0 102 0V9z"
+                    d="M4 4a2 2 0 012-2h8a2 2 0 012 2v12a1 1 0 110 2h-3a1 1 0 01-1-1v-2a1 1 0 00-1-1H9a1 1 0 00-1 1v2a1 1 0 01-1 1H4a1 1 0 110-2V4zm3 1h2v2H7V5zm2 4H7v2h2V9zm2-4h2v2h-2V5zm2 4h-2v2h2V9z"
                     clip-rule="evenodd"
                   />
                 </svg>
-                <span class="ml-3">Nilai Psikologi Siswa </span>
+                <span class="ml-3">Buletin Psikologi </span>
               </router-link>
             </li>
             <li
               class="lg:w-full py-0"
-              :class="[pagesActive == 'minatbakat' ? pagesActiveClass : '']"
+              :class="[pagesActive == 'terapis' ? pagesActiveClass : '']"
             >
               <router-link
-                :to="{ name: 'AdminAnalisaMinatBakat' }"
+                :to="{ name: 'AdminDashboard' }"
                 class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link"
               >
                 <svg
@@ -281,67 +252,19 @@ const pagesActiveClass = ref(
                 >
                   <path
                     fill-rule="evenodd"
-                    d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z"
+                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
                     clip-rule="evenodd"
                   />
                 </svg>
-                <span class="ml-3">Analisa Minat dan Bakat </span>
+                <span class="ml-3">Terapis Karakter Positif </span>
               </router-link>
             </li>
             <li
               class="lg:w-full py-0"
-              :class="[pagesActive == 'penjurusan' ? pagesActiveClass : '']"
+              :class="[pagesActive == 'penanganan' ? pagesActiveClass : '']"
             >
               <router-link
-                :to="{ name: 'AdminAnalisaPenjurusan' }"
-                class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
-                >
-                  <path
-                    d="M10 3.5a1.5 1.5 0 013 0V4a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-.5a1.5 1.5 0 000 3h.5a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-.5a1.5 1.5 0 00-3 0v.5a1 1 0 01-1 1H6a1 1 0 01-1-1v-3a1 1 0 00-1-1h-.5a1.5 1.5 0 010-3H4a1 1 0 001-1V6a1 1 0 011-1h3a1 1 0 001-1v-.5z"
-                  />
-                </svg>
-                <span class="ml-3">Analisa Penjurusan </span>
-              </router-link>
-            </li>
-            <li
-              class="lg:w-full py-0"
-              :class="[pagesActive == 'kasus' ? pagesActiveClass : '']"
-            >
-              <router-link
-                :to="{ name: 'AdminCatatanKasus' }"
-                class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  class="h-5 w-5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  stroke-width="2"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"
-                  />
-                </svg>
-                <span class="ml-3">Catatan Kasus Siswa </span>
-              </router-link>
-            </li>
-            <li
-              class="lg:w-full py-0"
-              :class="[
-                pagesActive == 'pengembangandiri' ? pagesActiveClass : '',
-              ]"
-            >
-              <router-link
-                :to="{ name: 'AdminCatatanPengembangandiri' }"
+                :to="{ name: 'AdminDashboard' }"
                 class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link"
               >
                 <svg
@@ -352,20 +275,19 @@ const pagesActiveClass = ref(
                 >
                   <path
                     fill-rule="evenodd"
-                    d="M2 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 002 2H4a2 2 0 01-2-2V5zm3 1h6v4H5V6zm6 6H5v2h6v-2z"
+                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
                     clip-rule="evenodd"
                   />
-                  <path d="M15 7h1a2 2 0 012 2v5.5a1.5 1.5 0 01-3 0V7z" />
                 </svg>
-                <span class="ml-3">Catatan Pengembangan Diri Siswa </span>
+                <span class="ml-3">Penanganan Deteksi Masalah </span>
               </router-link>
             </li>
             <li
               class="lg:w-full py-0"
-              :class="[pagesActive == 'prestasi' ? pagesActiveClass : '']"
+              :class="[pagesActive == 'katabijak' ? pagesActiveClass : '']"
             >
               <router-link
-                :to="{ name: 'AdminCatatanPrestasi' }"
+                :to="{ name: 'AdminDashboard' }"
                 class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link"
               >
                 <svg
@@ -375,10 +297,35 @@ const pagesActiveClass = ref(
                   fill="currentColor"
                 >
                   <path
-                    d="M11 3a1 1 0 10-2 0v1a1 1 0 102 0V3zM15.657 5.757a1 1 0 00-1.414-1.414l-.707.707a1 1 0 001.414 1.414l.707-.707zM18 10a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.05 6.464A1 1 0 106.464 5.05l-.707-.707a1 1 0 00-1.414 1.414l.707.707zM5 10a1 1 0 01-1 1H3a1 1 0 110-2h1a1 1 0 011 1zM8 16v-1h4v1a2 2 0 11-4 0zM12 14c.015-.34.208-.646.477-.859a4 4 0 10-4.954 0c.27.213.462.519.476.859h4.002z"
+                    fill-rule="evenodd"
+                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                    clip-rule="evenodd"
                   />
                 </svg>
-                <span class="ml-3">Catatan Prestasi Siswa </span>
+                <span class="ml-3">Kata - Kata Bijak </span>
+              </router-link>
+            </li>
+            <li
+              class="lg:w-full py-0"
+              :class="[pagesActive == 'owner' ? pagesActiveClass : '']"
+            >
+              <router-link
+                :to="{ name: 'AdminDashboard' }"
+                class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                <span class="ml-3">Owner </span>
               </router-link>
             </li>
           </ul>

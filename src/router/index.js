@@ -49,11 +49,25 @@ const router = createRouter({
     {
       path: '/:catchAll(.*)', redirect: '/404',
     },
-    // {
-    //   path: "/about",
-    //   name: "about",
-    //   component: () => import("../views/AboutView.vue"),
-    // },
+
+    {
+      path: '/pages/',
+      name: 'LandingAdmin',
+      component: AdminLayout,
+      redirect: '/pages/admin',
+      children: [
+        {
+          path: '/pages/admin',
+          name: 'AdminDashboard',
+          component: () => import("@/views/admin/DashBoard.vue"),
+        },
+        {
+          path: '/pages/sekolah',
+          name: 'AdminSekolah',
+          component: () => import("@/views/admin/sekolah/Index.vue"),
+        },
+      ],
+    },
   ],
 });
 

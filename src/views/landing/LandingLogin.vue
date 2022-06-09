@@ -13,7 +13,7 @@ const password = ref();
 
 const doLogin = async (username, password) => {
   try {
-    const response = await Api.post("siswa/auth/login", {
+    const response = await Api.post("owner/auth/login", {
       email: username,
       password,
     });

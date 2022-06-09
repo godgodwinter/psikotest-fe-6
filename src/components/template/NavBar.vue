@@ -110,7 +110,7 @@ getData();
         <div class="flex items-center">
           <div class="hidden lg:flex items-center">
             <span class="text-base font-bold uppercase text-gray-500 mr-5"
-              >Paket {{ paket.nama }} ❤️
+              >Administrator ❤️
             </span>
             <div class="-mb-1">
               <div></div>
