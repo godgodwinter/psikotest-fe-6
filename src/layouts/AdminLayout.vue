@@ -13,6 +13,7 @@ const getData = async () => {
   try {
     const response = await Api.post(`owner/auth/me`);
     storeGuruBk.setIdentitas(response.identitas);
+    storeGuruBk.setStats(response.stats);
     // data.value = response.data;
     // data.value.map((item, index) => {
     // arr.value.push(item.penjelasan);
@@ -28,6 +29,7 @@ const loading = ref(false);
 getData();
 
 const identitas = computed(() => storeGuruBk.getIdentitas);
+const stats = computed(() => storeGuruBk.getStats);
 storeGuruBk.$subscribe((mutation, state) => {
   // console.log(mutation, state);
   // console.log(paket.value);

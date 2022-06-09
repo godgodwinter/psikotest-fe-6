@@ -178,7 +178,7 @@ const getDataKelas = async () => {
           </svg>
         </div>
         <div class="stat-title">Yayasan</div>
-        <div class="stat-value">{{ getStats.kelas }} Yayasan</div>
+        <div class="stat-value">{{ getStats.jml_yayasan }} Yayasan</div>
         <!-- <div class="stat-desc">Last Updated : 21 Juni 2022</div> -->
       </div>
       <div class="stat">
@@ -198,7 +198,7 @@ const getDataKelas = async () => {
           </svg>
         </div>
         <div class="stat-title">Sekolah</div>
-        <div class="stat-value">{{ getStats.kelas }} Sekolah</div>
+        <div class="stat-value">{{ getStats.jml_sekolah }} Sekolah</div>
         <!-- <div class="stat-desc">Last Updated : 21 Juni 2022</div> -->
       </div>
       <div class="stat">
@@ -218,7 +218,7 @@ const getDataKelas = async () => {
           </svg>
         </div>
         <div class="stat-title">Kelas</div>
-        <div class="stat-value">{{ getStats.kelas }} Kelas</div>
+        <div class="stat-value">{{ getStats.jml_kelas }} Kelas</div>
         <!-- <div class="stat-desc">Last Updated : 21 Juni 2022</div> -->
       </div>
 
@@ -239,7 +239,7 @@ const getDataKelas = async () => {
           </svg>
         </div>
         <div class="stat-title">Siswa</div>
-        <div class="stat-value">{{ getStats.siswa }} Siswa</div>
+        <div class="stat-value">{{ getStats.jml_siswa }} Siswa</div>
         <!-- <div class="stat-desc">Last Updated : 21 Juni 2022</div> -->
       </div>
     </div>
