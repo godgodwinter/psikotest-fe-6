@@ -26,7 +26,7 @@ if (getIsLogin.value == false) {
   router.push({ name: "LandingLogin" });
 }
 const pagesActiveClass = ref(
-  "border border-primary rounded-lg bg-primary text-primary-content"
+  "border border-info rounded-lg bg-info text-info-content"
 );
 </script>
 <template>
