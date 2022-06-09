@@ -7,7 +7,7 @@ import { useStoreAdminBar } from "@/stores/adminBar";
 const storeAdminBar = useStoreAdminBar();
 const subMenuActive = computed(() => storeAdminBar.getsubMenuActive);
 const pagesActiveClass = ref(
-  "border border-primary rounded-lg bg-primary text-primary-content"
+  "border border-success rounded-lg bg-success text-success-content"
 );
 
 const router = useRouter();
@@ -291,7 +291,7 @@ const doUpdateStatus = async () => {
             <li
               class="bg-base-100 lg:w-full py-2"
               :class="[
-                subMenuActive == 'hasilpsikolgi' ? pagesActiveClass : '',
+                subMenuActive == 'hasilpsikologi' ? pagesActiveClass : '',
               ]"
             >
               <router-link

@@ -54,9 +54,9 @@ const id = route.params.id;
     <div class="md:py-0 py-4">
       <router-link :to="{ name: 'AdminSekolah' }">
         <button
-          class="btn hover:shadow-lg shadow text-white hover:text-gray-100 gap-2"
+          class="btn btn-secondary hover:shadow-lg shadow text-white hover:text-gray-100 gap-2"
         >
-          <svg
+          <!-- <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-6 w-6"
             fill="none"
@@ -69,8 +69,8 @@ const id = route.params.id;
               stroke-width="2"
               d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
             />
-          </svg>
-          Kembali
+          </svg> -->
+          MENU SEKOLAH
         </button></router-link
       >
     </div>
