@@ -30,6 +30,11 @@ const columns = [
     field: "nama",
     type: "String",
   },
+  {
+    label: "Username",
+    field: "username",
+    type: "String",
+  },
 ];
 const getData = async () => {
   try {

@@ -168,7 +168,7 @@ const doPilihKelas = () => {
                   <div v-if="props.row.siswadetail.length > 0">
                     <router-link
                       :to="{
-                        name: 'AdminSekolah',
+                        name: 'AdminSekolahDetailHasilpsikologiDeteksi',
                         params: { id, id2: props.row.id },
                       }"
                     >
@@ -221,7 +221,7 @@ const doPilihKelas = () => {
                   <div v-if="props.row.siswadetail.length > 0">
                     <router-link
                       :to="{
-                        name: 'AdminSekolah',
+                        name: 'AdminSekolahDetailHasilpsikologiPenanganan',
                         params: { id, id2: props.row.id },
                       }"
                     >
@@ -274,7 +274,7 @@ const doPilihKelas = () => {
                   <div v-if="props.row.siswadetail.length > 0">
                     <router-link
                       :to="{
-                        name: 'AdminSekolah',
+                        name: 'AdminSekolahDetailHasilpsikologiSertifikat',
                         params: { id, id2: props.row.id },
                       }"
                     >
@@ -327,7 +327,7 @@ const doPilihKelas = () => {
                   <div v-if="props.row.siswadetail.length > 0">
                     <router-link
                       :to="{
-                        name: 'AdminSekolah',
+                        name: 'AdminSekolahDetailHasilpsikologiTerapis',
                         params: { id, id2: props.row.id },
                       }"
                     >

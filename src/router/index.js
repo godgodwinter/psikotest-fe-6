@@ -62,6 +62,11 @@ const router = createRouter({
           component: () => import("@/views/admin/DashBoard.vue"),
         },
         {
+          path: '/pages/apiprobk',
+          component: () => import("@/views/admin/apiprobk/Index.vue"),
+          name: 'AdminApiprobk',
+        },
+        {
           path: '/pages/sekolah',
           component: () => import("@/views/admin/sekolah/Index.vue"),
           name: 'AdminSekolah',
@@ -122,6 +127,31 @@ const router = createRouter({
               path: '/pages/admin/sekolahdetail/:id/hasilpsikologi',
               component: () => import("@/views/admin/sekolah/submenu/hasilpsikologi/Index.vue"),
               name: 'AdminSekolahDetailHasilpsikologi',
+            },
+            {
+              path: '/pages/admin/sekolahdetail/:id/hasilpsikologi',
+              component: () => import("@/views/admin/sekolah/submenu/hasilpsikologi/Index.vue"),
+              name: 'AdminHasilPsikologi',
+            },
+            {
+              path: '/pages/admin/sekolahdetail/:id/hasilpsikologi/:id2/deteksi',
+              component: () => import("@/views/admin/sekolah/submenu/hasilpsikologi/Deteksi.vue"),
+              name: 'AdminSekolahDetailHasilpsikologiDeteksi',
+            },
+            {
+              path: '/pages/admin/sekolahdetail/:id/hasilpsikologi/:id2/penanganan',
+              component: () => import("@/views/admin/sekolah/submenu/hasilpsikologi/Penanganan.vue"),
+              name: 'AdminSekolahDetailHasilpsikologiPenanganan',
+            },
+            {
+              path: '/pages/admin/sekolahdetail/:id/hasilpsikologi/:id2/sertifikat',
+              component: () => import("@/views/admin/sekolah/submenu/hasilpsikologi/Sertifikat.vue"),
+              name: 'AdminSekolahDetailHasilpsikologiSertifikat',
+            },
+            {
+              path: '/pages/admin/sekolahdetail/:id/hasilpsikologi/:id2/terapis',
+              component: () => import("@/views/admin/sekolah/submenu/hasilpsikologi/Terapis.vue"),
+              name: 'AdminSekolahDetailHasilpsikologiTerapis',
             },
             {
               path: '/pages/admin/sekolahdetail/:id/nilaipsikolgisiswa',

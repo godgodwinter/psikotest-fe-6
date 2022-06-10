@@ -123,6 +123,29 @@ const pagesActiveClass = ref(
             </li>
             <li
               class="lg:w-full py-0"
+              :class="[pagesActive == 'apiprobk' ? pagesActiveClass : '']"
+            >
+              <router-link
+                :to="{ name: 'AdminApiprobk' }"
+                class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-5 w-5"
+                  viewBox="0 0 20 20"
+                  fill="currentColor"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+                <span class="ml-3">APIPROBK </span>
+              </router-link>
+            </li>
+            <li
+              class="lg:w-full py-0"
               :class="[pagesActive == 'sekolah' ? pagesActiveClass : '']"
             >
               <router-link
@@ -325,7 +348,7 @@ const pagesActiveClass = ref(
                     clip-rule="evenodd"
                   />
                 </svg>
-                <span class="ml-3">Owner </span>
+                <span class="ml-3">Administrator </span>
               </router-link>
             </li>
           </ul>
