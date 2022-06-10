@@ -166,9 +166,29 @@ const router = createRouter({
           name: 'AdminKlasifikasi',
         },
         {
+          path: '/pages/klasifikasi/tambah',
+          component: () => import("@/views/admin/klasifikasi/Tambah.vue"),
+          name: 'AdminKlasifikasiTambah',
+        },
+        {
+          path: '/pages/klasifikasi/:id/edit',
+          component: () => import("@/views/admin/klasifikasi/Edit.vue"),
+          name: 'AdminKlasifikasiEdit',
+        },
+        {
           path: '/pages/referensi',
           component: () => import("@/views/admin/referensi/Index.vue"),
           name: 'AdminReferensi',
+        },
+        {
+          path: '/pages/referensi/tambah',
+          component: () => import("@/views/admin/referensi/Tambah.vue"),
+          name: 'AdminReferensiTambah',
+        },
+        {
+          path: '/pages/referensi/:id/edit',
+          component: () => import("@/views/admin/referensi/Edit.vue"),
+          name: 'AdminReferensiEdit',
         },
         {
           path: '/pages/buletin',

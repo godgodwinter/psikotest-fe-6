@@ -5,6 +5,7 @@ import { ref, watch, computed } from "vue";
 import BreadCrumb from "@/components/atoms/BreadCrumb.vue";
 import BreadCrumbSpace from "@/components/atoms/BreadCrumbSpace.vue";
 import ButtonEdit from "@/components/atoms/ButtonEdit.vue";
+import ButtonDelete from "@/components/atoms/ButtonDel.vue";
 import { useRouter, useRoute } from "vue-router";
 import { useStoreAdminBar } from "@/stores/adminBar";
 
@@ -63,6 +64,24 @@ const getData = async () => {
   }
 };
 getData();
+const doEditData = async (id, index) => {
+  router.push({
+    name: "AdminKlasifikasiEdit",
+    params: { id: id },
+  });
+};
+const doDeleteData = async (id, index) => {
+  if (confirm("Apakah anda yakin menghapus data ini?")) {
+    try {
+      const response = await Api.delete(`owner/klasifikasi/${id}`);
+      data.value.splice(index, 1);
+      Toast.success("Success", "Data Berhasil dihapus!");
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+};
 </script>
 <template>
   <div class="pt-4 px-10 md:flex justify-between">
@@ -79,16 +98,34 @@ getData();
     </div>
   </div>
 
-  <div class="pt-4 px-10 md:flex justify-between">
-    <div>
-      <span
-        class="text-2xl sm:text-3xl leading-none font-bold text-gray-700 shadow-sm"
-      ></span>
-    </div>
-    <div class="md:py-0 py-4 space-x-2 space-y-2">
-      <!-- <span @click="router.go(-1)">
-        <button
-          class="btn hover:shadow-lg shadow text-white hover:text-gray-100 gap-2"
+  <div class="md:pt-6">
+    <div class="md:flex justify-between px-10">
+      <div class="space-x-1 space-y-1 pt-1 md:pt-0">
+        <router-link :to="{ name: 'AdminKlasifikasiTambah' }">
+          <button
+            class="btn btn-info hover:shadow-lg shadow text-white hover:text-gray-100 gap-2"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+              />
+            </svg>
+            Tambah
+          </button></router-link
+        >
+      </div>
+      <div class="space-x-1 space-y-1 pt-1 md:pt-0">
+        <!-- <button
+          class="btn btn-info hover:shadow-lg shadow text-white hover:text-gray-100 gap-2"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -104,9 +141,28 @@ getData();
               d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
             />
           </svg>
-          Kembali
-        </button></span
-      > -->
+          Import
+        </button>
+        <button
+          class="btn btn-info hover:shadow-lg shadow text-white hover:text-gray-100 gap-2"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+            />
+          </svg>
+          Export
+        </button> -->
+      </div>
     </div>
   </div>
 
@@ -130,8 +186,12 @@ getData();
             <template #table-row="props">
               <span v-if="props.column.field == 'actions'">
                 <div
-                  class="text-sm font-medium text-center flex justify-center space-x-0"
+                  class="text-sm font-medium text-center flex justify-center space-x-1"
                 >
+                  <ButtonEdit @click="doEditData(props.row.id, props.index)" />
+                  <ButtonDelete
+                    @click="doDeleteData(props.row.id, props.index)"
+                  />
                   <router-link
                     :to="{
                       name: 'AdminYayasanDetail',
