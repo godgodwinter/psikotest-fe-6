@@ -176,17 +176,17 @@ const doPilihKelas = () => {
       >
         Generate Akun Baru
       </button>
-      <button
+      <!-- <button
         class="btn btn-sm btn-error text-base-content"
         @click="doGenerateAkunAll()"
       >
         Generate Semua Akun
-      </button>
-      <router-link :to="{ name: 'AdminSekolah' }">
+      </button> -->
+      <!-- <router-link :to="{ name: 'AdminSekolah' }">
         <button class="btn btn-sm btn-info text-base-content">
           Tambah
         </button></router-link
-      >
+      > -->
     </div>
   </div>
   <div class="w-full bg-base-200 shadow py-4 px-4">

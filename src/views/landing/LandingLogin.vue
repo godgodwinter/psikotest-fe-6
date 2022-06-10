@@ -47,11 +47,23 @@ const onSubmit = () => {
   <div class="">
     <div class="hero bg-base-100 py-32">
       <div class="hero-content flex-col lg:flex-row-reverse">
-        <div class="text-center lg:text-left">
+        <div
+          class="text-center lg:text-left"
+          data-aos="zoom-in"
+          data-aos-offset="200"
+          data-aos-easing="ease-in-sine"
+          data-aos-duration="600"
+        >
           <h1 class="text-5xl font-bold">Menu Administrator</h1>
           <p class="py-6">Masuk sebagai Administrator.</p>
         </div>
-        <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+        <div
+          class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100"
+          data-aos="slide-right"
+          data-aos-offset="200"
+          data-aos-easing="ease-in-sine"
+          data-aos-duration="600"
+        >
           <div class="card-body">
             <div class="form-control">
               <label class="label">

@@ -5,8 +5,11 @@ import { ref, watch, computed } from "vue";
 import BreadCrumb from "@/components/atoms/BreadCrumb.vue";
 import BreadCrumbSpace from "@/components/atoms/BreadCrumbSpace.vue";
 import ButtonEdit from "@/components/atoms/ButtonEdit.vue";
+import ButtonDelete from "@/components/atoms/ButtonDel.vue";
 import { useRouter, useRoute } from "vue-router";
 import { useStoreAdminBar } from "@/stores/adminBar";
+import Toast from "@/components/lib/Toast.js";
+import { Field, Form } from "vee-validate";
 
 import { useStoreGuruBk } from "@/stores/guruBk";
 const storeGuruBk = useStoreGuruBk();
@@ -92,6 +95,76 @@ const getData = async () => {
   }
 };
 getData();
+
+let pilihSelect = ref([]);
+const inputPilihSekolah = ref({
+  label: "Pilih Sekolah",
+  id: null,
+});
+const getDataSekolah = async () => {
+  try {
+    const response = await Api.get(`owner/yayasan/${id}/detail/getsekolah`);
+    pilihSelect.value = response.data.map((item, index) => {
+      return {
+        label: item.nama,
+        id: item.id,
+      };
+    });
+    return response;
+  } catch (error) {
+    Toast.danger("Warning", "Data Gagal dimuat");
+    console.error(error);
+  }
+};
+getDataSekolah();
+
+const onSubmit = () => {
+  if (inputPilihSekolah.value.id) {
+    const res = doStoreData();
+  } else {
+    Toast.warning("Warning", "Pilih Sekolah Terlebih Dahulu");
+  }
+};
+const doStoreData = async (d) => {
+  let dataStore = {
+    sekolah_id: inputPilihSekolah.value.id,
+  };
+  try {
+    const response = await Api.post(`owner/yayasan/${id}/detail`, dataStore);
+    Toast.success("Success", "Data Berhasil diupdate!");
+    // resetForm();
+    // router.push({ name: "AdminYayasanDetail", params: { id: id } });
+    getData();
+    getDataSekolah();
+    resetForm();
+
+    return response.data;
+  } catch (error) {
+    Toast.danger("Warning", "Data gagal ditambahkan!");
+    console.error(error);
+  }
+};
+
+const resetForm = () => {
+  inputPilihSekolah.value.id = null;
+  inputPilihSekolah.value.label = "Pilih Sekolah";
+  dataDetail.value = {
+    sekolah_id: "",
+  };
+};
+
+const doDeleteData = async (kode, index) => {
+  if (confirm("Apakah anda yakin menghapus data ini?")) {
+    try {
+      const response = await Api.delete(`owner/yayasan/${id}/detail/${kode}`);
+      data.value.splice(index, 1);
+      Toast.success("Success", "Data Berhasil dihapus!");
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+};
 </script>
 <template>
   <div class="pt-4 px-10 md:flex justify-between">
@@ -115,7 +188,7 @@ getData();
         class="text-2xl sm:text-3xl leading-none font-bold text-gray-700 shadow-sm"
       ></span>
     </div>
-    <div class="md:py-0 py-4 space-x-2 space-y-2">
+    <div class="md:py-0 py-2 space-x-2 space-y-2">
       <span @click="router.go(-1)">
         <button
           class="btn hover:shadow-lg shadow text-white hover:text-gray-100 gap-2"
@@ -137,6 +210,49 @@ getData();
           Kembali
         </button></span
       >
+    </div>
+  </div>
+
+  <div class="px-4 py-4">
+    <div class="w-full">
+      <div class="bg-white shadow rounded-lg px-0 py-0">
+        <div class="w-full lg:w-full mx-4">
+          <div class="p-0 sm:p-6 xl:p-8">
+            <Form v-slot="{ errors }" @submit="onSubmit">
+              <div class="pt-0 px-0">
+                <div class="w-full mx-0">
+                  <div class="bg-white rounded-lg p-0 sm:p-6 xl:p-0">
+                    <div class="grid md:grid-cols-2 gap-2">
+                      <div>
+                        <label
+                          for="name"
+                          class="text-sm font-medium text-gray-900 block mb-2"
+                          >Pilih Sekolah</label
+                        >
+                        <v-select
+                          class="py-2 px-3 w-72 mx-auto md:mx-0"
+                          :options="pilihSelect"
+                          v-model="inputPilihSekolah"
+                          v-bind:class="{ disabled: false }"
+                        ></v-select>
+                        <div class="text-xs text-red-600 mt-1">
+                          {{ errors.sekolah_id }}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="w-full flex justify-start mt-4 px-4">
+                      <button class="btn btn-active btn-lg btn-primary">
+                        Tambahkan
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </Form>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -162,9 +278,12 @@ getData();
                 <div
                   class="text-sm font-medium text-center flex justify-center space-x-0"
                 >
+                  <ButtonDelete
+                    @click="doDeleteData(props.row.id, props.index)"
+                  />
                   <router-link
                     :to="{
-                      name: 'AdminSekolah',
+                      name: 'AdminSekolahDetailDashboard',
                       params: { id: props.row.id },
                     }"
                   >

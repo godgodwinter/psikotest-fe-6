@@ -78,6 +78,12 @@ const getData = async () => {
   }
 };
 getData();
+const doEditData = async (id, index) => {
+  router.push({
+    name: "AdminSekolahEdit",
+    params: { id: id },
+  });
+};
 </script>
 <template>
   <div class="pt-4 px-10 md:flex justify-between">
@@ -147,6 +153,7 @@ getData();
                 <div
                   class="text-sm font-medium text-center flex justify-center space-x-0"
                 >
+                  <ButtonEdit @click="doEditData(props.row.id, props.index)" />
                   <router-link
                     :to="{
                       name: 'AdminSekolahDetailDashboard',

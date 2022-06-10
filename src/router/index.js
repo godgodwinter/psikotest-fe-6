@@ -68,6 +68,11 @@ const router = createRouter({
         },
         {
           path: '/pages/sekolah/:id',
+          component: () => import("@/views/admin/sekolah/Edit.vue"),
+          name: 'AdminSekolahEdit',
+        },
+        {
+          path: '/pages/sekolah/:id/detail',
           component: () => import("@/views/admin/sekolah/Detail.vue"),
           name: 'AdminSekolahDetail',
           redirect: 'pages/admin/sekolahdetail/:id/dashboard',
@@ -139,6 +144,16 @@ const router = createRouter({
           path: '/pages/yayasan',
           component: () => import("@/views/admin/yayasan/Index.vue"),
           name: 'AdminYayasan',
+        },
+        {
+          path: '/pages/yayasan/tambah',
+          component: () => import("@/views/admin/yayasan/Tambah.vue"),
+          name: 'AdminYayasanTambah',
+        },
+        {
+          path: '/pages/yayasan/:id/edit',
+          component: () => import("@/views/admin/yayasan/Edit.vue"),
+          name: 'AdminYayasanEdit',
         },
         {
           path: '/pages/yayasan/:id',

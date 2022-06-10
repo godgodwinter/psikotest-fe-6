@@ -1,6 +1,6 @@
 <template>
   <button
-    class="tooltip text-yellow-100 block rounded-md font-bold py-1 px-1 mr-2 flex items-center hover:text-yellow-300 rounded-lg bg-yellow-400"
+    class="tooltip text-yellow-100 block rounded-md font-bold py-1 px-1 flex items-center hover:text-yellow-300 rounded-lg bg-yellow-400"
     data-tip="Edit"
   >
     <svg
