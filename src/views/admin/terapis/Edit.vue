@@ -18,7 +18,7 @@ storeGuruBk.$subscribe((mutation, state) => {
 });
 
 const storeAdminBar = useStoreAdminBar();
-storeAdminBar.setPagesActive("yayasan");
+storeAdminBar.setPagesActive("terapis");
 const router = useRouter();
 const route = useRoute();
 
@@ -30,7 +30,7 @@ const data = ref([]);
 
 const getDataDetail = async () => {
   try {
-    const response = await Api.get(`owner/klasifikasi/${id}`);
+    const response = await Api.get(`owner/terapis/${id}`);
     dataDetail.value = response.data;
     return response.data;
   } catch (error) {
@@ -71,20 +71,16 @@ const onSubmit = () => {
 };
 const doStoreData = async (d) => {
   let dataStore = {
-    bidang: dataDetail.value.bidang,
-    akademis: dataDetail.value.akademis,
-    profesi: dataDetail.value.profesi,
-    nilaistandart: dataDetail.value.nilaistandart,
-    iqstandart: dataDetail.value.iqstandart,
-    jurusandanbidangstudi: dataDetail.value.jurusandanbidangstudi,
-    pekerjaandanketerangan: dataDetail.value.pekerjaandanketerangan,
-    ket: dataDetail.value.ket,
+    namakarakter: dataDetail.value.namakarakter,
+    pemahaman: dataDetail.value.pemahaman,
+    tujuandanmanfaat: dataDetail.value.tujuandanmanfaat,
+    pembiasaansikap: dataDetail.value.pembiasaansikap,
   };
   try {
-    const response = await Api.put(`owner/klasifikasi/${id}`, dataStore);
+    const response = await Api.put(`owner/terapis/${id}`, dataStore);
     Toast.success("Success", "Data Berhasil ditambahkan!");
     // resetForm();
-    router.push({ name: "AdminKlasifikasi" });
+    router.push({ name: "AdminTerapis" });
 
     return response.data;
   } catch (error) {
@@ -104,9 +100,7 @@ const doStoreData = async (d) => {
     </div>
     <div class="md:py-0 py-4">
       <BreadCrumb>
-        <template v-slot:content>
-          Klasifikasi <BreadCrumbSpace /> Edit
-        </template>
+        <template v-slot:content> Terapis <BreadCrumbSpace /> Edit </template>
       </BreadCrumb>
     </div>
   </div>
@@ -156,151 +150,76 @@ const doStoreData = async (d) => {
                         <label
                           for="name"
                           class="text-sm font-medium text-gray-900 block mb-2"
-                          >Bidang</label
+                          >Nama Karakter Positif</label
                         >
                         <Field
-                          v-model="dataDetail.bidang"
+                          v-model="dataDetail.namakarakter"
                           :rules="validateData"
                           type="text"
-                          name="bidang"
-                          ref="bidang"
+                          name="namakarakter"
+                          ref="namakarakter"
                           class="input input-bordered md:w-full max-w-2xl"
                           required
                         />
                         <div class="text-xs text-red-600 mt-1">
-                          {{ errors.bidang }}
+                          {{ errors.namakarakter }}
                         </div>
                       </div>
                       <div>
                         <label
                           for="name"
                           class="text-sm font-medium text-gray-900 block mb-2"
-                          >Akademis</label
+                          >Pemahaman dan Pengertian</label
                         >
                         <Field
-                          v-model="dataDetail.akademis"
+                          v-model="dataDetail.pemahaman"
                           :rules="validateData"
                           type="text"
-                          name="akademis"
-                          ref="akademis"
+                          name="pemahaman"
+                          ref="pemahaman"
                           class="input input-bordered md:w-full max-w-2xl"
                           required
                         />
                         <div class="text-xs text-red-600 mt-1">
-                          {{ errors.akademis }}
+                          {{ errors.pemahaman }}
                         </div>
                       </div>
                       <div>
                         <label
                           for="name"
                           class="text-sm font-medium text-gray-900 block mb-2"
-                          >Profesi</label
+                          >Tujuan dan Manfaat</label
                         >
                         <Field
-                          v-model="dataDetail.profesi"
+                          v-model="dataDetail.tujuandanmanfaat"
                           :rules="validateData"
                           type="text"
-                          name="profesi"
-                          ref="profesi"
+                          name="tujuandanmanfaat"
+                          ref="tujuandanmanfaat"
                           class="input input-bordered md:w-full max-w-2xl"
                           required
                         />
                         <div class="text-xs text-red-600 mt-1">
-                          {{ errors.profesi }}
+                          {{ errors.tujuandanmanfaat }}
                         </div>
                       </div>
                       <div>
                         <label
                           for="name"
                           class="text-sm font-medium text-gray-900 block mb-2"
-                          >Nilai Standart</label
+                          >Pembiasaan Sikap dan Penerapan</label
                         >
                         <Field
-                          v-model="dataDetail.nilaistandart"
+                          v-model="dataDetail.pembiasaansikap"
                           :rules="validateData"
                           type="text"
-                          name="nilaistandart"
-                          ref="nilaistandart"
+                          name="pembiasaansikap"
+                          ref="pembiasaansikap"
                           class="input input-bordered md:w-full max-w-2xl"
                           required
                         />
                         <div class="text-xs text-red-600 mt-1">
-                          {{ errors.nilaistandart }}
-                        </div>
-                      </div>
-                      <div>
-                        <label
-                          for="name"
-                          class="text-sm font-medium text-gray-900 block mb-2"
-                          >IQ Standart</label
-                        >
-                        <Field
-                          v-model="dataDetail.iqstandart"
-                          :rules="validateData"
-                          type="text"
-                          name="iqstandart"
-                          ref="iqstandart"
-                          class="input input-bordered md:w-full max-w-2xl"
-                          required
-                        />
-                        <div class="text-xs text-red-600 mt-1">
-                          {{ errors.iqstandart }}
-                        </div>
-                      </div>
-                      <div>
-                        <label
-                          for="name"
-                          class="text-sm font-medium text-gray-900 block mb-2"
-                          >Jurusan dan Bidang Studi yang ditekuni</label
-                        >
-                        <Field
-                          v-model="dataDetail.jurusandanbidangstudi"
-                          :rules="validateData"
-                          type="text"
-                          name="jurusandanbidangstudi"
-                          ref="jurusandanbidangstudi"
-                          class="input input-bordered md:w-full max-w-2xl"
-                          required
-                        />
-                        <div class="text-xs text-red-600 mt-1">
-                          {{ errors.jurusandanbidangstudi }}
-                        </div>
-                      </div>
-                      <div>
-                        <label
-                          for="name"
-                          class="text-sm font-medium text-gray-900 block mb-2"
-                          >Pekerjaan dan Keterangan</label
-                        ><textarea
-                          v-model="dataDetail.pekerjaandanketerangan"
-                          :rules="validateData"
-                          name="pekerjaandanketerangan"
-                          ref="pekerjaandanketerangan"
-                          class="textarea textarea-bordered md:w-full max-w-2xl"
-                          placeholder=""
-                        ></textarea>
-
-                        <div class="text-xs text-red-600 mt-1">
-                          {{ errors.pekerjaandanketerangan }}
-                        </div>
-                      </div>
-                      <div>
-                        <label
-                          for="name"
-                          class="text-sm font-medium text-gray-900 block mb-2"
-                          >Link</label
-                        >
-                        <Field
-                          v-model="dataDetail.ket"
-                          :rules="validateData"
-                          type="text"
-                          name="ket"
-                          ref="ket"
-                          class="input input-bordered md:w-full max-w-2xl"
-                          required
-                        />
-                        <div class="text-xs text-red-600 mt-1">
-                          {{ errors.ket }}
+                          {{ errors.pembiasaansikap }}
                         </div>
                       </div>
                     </div>

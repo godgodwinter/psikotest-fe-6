@@ -18,7 +18,7 @@ storeGuruBk.$subscribe((mutation, state) => {
 });
 
 const storeAdminBar = useStoreAdminBar();
-storeAdminBar.setPagesActive("yayasan");
+storeAdminBar.setPagesActive("buletin");
 const router = useRouter();
 const route = useRoute();
 
@@ -30,7 +30,7 @@ const data = ref([]);
 
 const getDataDetail = async () => {
   try {
-    const response = await Api.get(`owner/klasifikasi/${id}`);
+    const response = await Api.get(`owner/buletinpsikologi/${id}`);
     dataDetail.value = response.data;
     return response.data;
   } catch (error) {
@@ -71,20 +71,16 @@ const onSubmit = () => {
 };
 const doStoreData = async (d) => {
   let dataStore = {
-    bidang: dataDetail.value.bidang,
-    akademis: dataDetail.value.akademis,
-    profesi: dataDetail.value.profesi,
-    nilaistandart: dataDetail.value.nilaistandart,
-    iqstandart: dataDetail.value.iqstandart,
-    jurusandanbidangstudi: dataDetail.value.jurusandanbidangstudi,
-    pekerjaandanketerangan: dataDetail.value.pekerjaandanketerangan,
-    ket: dataDetail.value.ket,
+    nama: dataDetail.value.nama,
+    tipe: dataDetail.value.tipe,
+    link: dataDetail.value.link,
+    file: dataDetail.value.file,
   };
   try {
-    const response = await Api.put(`owner/klasifikasi/${id}`, dataStore);
+    const response = await Api.put(`owner/buletinpsikologi/${id}`, dataStore);
     Toast.success("Success", "Data Berhasil ditambahkan!");
     // resetForm();
-    router.push({ name: "AdminKlasifikasi" });
+    router.push({ name: "AdminBuletin" });
 
     return response.data;
   } catch (error) {
@@ -105,7 +101,7 @@ const doStoreData = async (d) => {
     <div class="md:py-0 py-4">
       <BreadCrumb>
         <template v-slot:content>
-          Klasifikasi <BreadCrumbSpace /> Edit
+          Buletin Psikologi <BreadCrumbSpace /> Edit
         </template>
       </BreadCrumb>
     </div>
@@ -152,155 +148,78 @@ const doStoreData = async (d) => {
                 <div class="w-full mx-0">
                   <div class="bg-white rounded-lg p-0 sm:p-6 xl:p-0">
                     <div class="grid md:grid-cols-2 gap-2">
-                      <div>
+                      <div class="grid col-span-2">
                         <label
                           for="name"
                           class="text-sm font-medium text-gray-900 block mb-2"
-                          >Bidang</label
-                        >
-                        <Field
-                          v-model="dataDetail.bidang"
-                          :rules="validateData"
-                          type="text"
-                          name="bidang"
-                          ref="bidang"
-                          class="input input-bordered md:w-full max-w-2xl"
-                          required
-                        />
-                        <div class="text-xs text-red-600 mt-1">
-                          {{ errors.bidang }}
-                        </div>
-                      </div>
-                      <div>
-                        <label
-                          for="name"
-                          class="text-sm font-medium text-gray-900 block mb-2"
-                          >Akademis</label
-                        >
-                        <Field
-                          v-model="dataDetail.akademis"
-                          :rules="validateData"
-                          type="text"
-                          name="akademis"
-                          ref="akademis"
-                          class="input input-bordered md:w-full max-w-2xl"
-                          required
-                        />
-                        <div class="text-xs text-red-600 mt-1">
-                          {{ errors.akademis }}
-                        </div>
-                      </div>
-                      <div>
-                        <label
-                          for="name"
-                          class="text-sm font-medium text-gray-900 block mb-2"
-                          >Profesi</label
-                        >
-                        <Field
-                          v-model="dataDetail.profesi"
-                          :rules="validateData"
-                          type="text"
-                          name="profesi"
-                          ref="profesi"
-                          class="input input-bordered md:w-full max-w-2xl"
-                          required
-                        />
-                        <div class="text-xs text-red-600 mt-1">
-                          {{ errors.profesi }}
-                        </div>
-                      </div>
-                      <div>
-                        <label
-                          for="name"
-                          class="text-sm font-medium text-gray-900 block mb-2"
-                          >Nilai Standart</label
-                        >
-                        <Field
-                          v-model="dataDetail.nilaistandart"
-                          :rules="validateData"
-                          type="text"
-                          name="nilaistandart"
-                          ref="nilaistandart"
-                          class="input input-bordered md:w-full max-w-2xl"
-                          required
-                        />
-                        <div class="text-xs text-red-600 mt-1">
-                          {{ errors.nilaistandart }}
-                        </div>
-                      </div>
-                      <div>
-                        <label
-                          for="name"
-                          class="text-sm font-medium text-gray-900 block mb-2"
-                          >IQ Standart</label
-                        >
-                        <Field
-                          v-model="dataDetail.iqstandart"
-                          :rules="validateData"
-                          type="text"
-                          name="iqstandart"
-                          ref="iqstandart"
-                          class="input input-bordered md:w-full max-w-2xl"
-                          required
-                        />
-                        <div class="text-xs text-red-600 mt-1">
-                          {{ errors.iqstandart }}
-                        </div>
-                      </div>
-                      <div>
-                        <label
-                          for="name"
-                          class="text-sm font-medium text-gray-900 block mb-2"
-                          >Jurusan dan Bidang Studi yang ditekuni</label
-                        >
-                        <Field
-                          v-model="dataDetail.jurusandanbidangstudi"
-                          :rules="validateData"
-                          type="text"
-                          name="jurusandanbidangstudi"
-                          ref="jurusandanbidangstudi"
-                          class="input input-bordered md:w-full max-w-2xl"
-                          required
-                        />
-                        <div class="text-xs text-red-600 mt-1">
-                          {{ errors.jurusandanbidangstudi }}
-                        </div>
-                      </div>
-                      <div>
-                        <label
-                          for="name"
-                          class="text-sm font-medium text-gray-900 block mb-2"
-                          >Pekerjaan dan Keterangan</label
+                          >Judul</label
                         ><textarea
-                          v-model="dataDetail.pekerjaandanketerangan"
+                          v-model="dataDetail.nama"
                           :rules="validateData"
-                          name="pekerjaandanketerangan"
-                          ref="pekerjaandanketerangan"
+                          name="nama"
+                          ref="nama"
                           class="textarea textarea-bordered md:w-full max-w-2xl"
                           placeholder=""
                         ></textarea>
-
                         <div class="text-xs text-red-600 mt-1">
-                          {{ errors.pekerjaandanketerangan }}
+                          {{ errors.nama }}
                         </div>
                       </div>
                       <div>
+                        <label
+                          for="name"
+                          class="text-sm font-medium text-gray-900 block mb-2"
+                          >Tipe</label
+                        >
+                        <select
+                          class="select select-bordered w-full max-w-xs"
+                          v-model="dataDetail.tipe"
+                          :rules="validateData"
+                        >
+                          <option disabled selected>Pilih ?</option>
+                          <option>Link</option>
+                          <option>Upload</option>
+                        </select>
+
+                        <div class="text-xs text-red-600 mt-1">
+                          {{ errors.tipe }}
+                        </div>
+                      </div>
+                      <div v-if="dataDetail.tipe == 'Link'">
                         <label
                           for="name"
                           class="text-sm font-medium text-gray-900 block mb-2"
                           >Link</label
                         >
                         <Field
-                          v-model="dataDetail.ket"
-                          :rules="validateData"
+                          v-model="dataDetail.link"
                           type="text"
-                          name="ket"
-                          ref="ket"
+                          name="link"
+                          ref="link"
                           class="input input-bordered md:w-full max-w-2xl"
                           required
                         />
                         <div class="text-xs text-red-600 mt-1">
-                          {{ errors.ket }}
+                          {{ errors.link }}
+                        </div>
+                      </div>
+                      <div v-if="dataDetail.tipe == 'Upload'">
+                        <label
+                          for="name"
+                          class="text-sm font-medium text-gray-900 block mb-2"
+                          >File</label
+                        >
+
+                        <Field
+                          v-model="dataDetail.file"
+                          type="text"
+                          name="file"
+                          ref="file"
+                          class="input input-bordered md:w-full max-w-2xl"
+                          required
+                        />
+                        <div class="text-xs text-red-600 mt-1">
+                          {{ errors.file }}
                         </div>
                       </div>
                     </div>

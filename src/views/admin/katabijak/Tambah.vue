@@ -18,7 +18,7 @@ storeGuruBk.$subscribe((mutation, state) => {
 });
 
 const storeAdminBar = useStoreAdminBar();
-storeAdminBar.setPagesActive("klasifikasi");
+storeAdminBar.setPagesActive("katabijak");
 const router = useRouter();
 const route = useRoute();
 
@@ -43,20 +43,14 @@ const onSubmit = () => {
 };
 const doStoreData = async (d) => {
   let dataStore = {
-    bidang: dataDetail.value.bidang,
-    akademis: dataDetail.value.akademis,
-    profesi: dataDetail.value.profesi,
-    nilaistandart: dataDetail.value.nilaistandart,
-    iqstandart: dataDetail.value.iqstandart,
-    jurusandanbidangstudi: dataDetail.value.jurusandanbidangstudi,
-    pekerjaandanketerangan: dataDetail.value.pekerjaandanketerangan,
-    ket: dataDetail.value.ket,
+    judul: dataDetail.value.judul,
+    status: dataDetail.value.status,
   };
   try {
-    const response = await Api.post(`owner/klasifikasi`, dataStore);
+    const response = await Api.post(`owner/katabijak`, dataStore);
     Toast.success("Success", "Data Berhasil ditambahkan!");
     // resetForm();
-    router.push({ name: "AdminKlasifikasi" });
+    router.push({ name: "AdminKatabijak" });
 
     return response.data;
   } catch (error) {
@@ -124,155 +118,41 @@ const doStoreData = async (d) => {
                 <div class="w-full mx-0">
                   <div class="bg-white rounded-lg p-0 sm:p-6 xl:p-0">
                     <div class="grid md:grid-cols-2 gap-2">
-                      <div>
+                      <div class="grid col-span-2">
                         <label
                           for="name"
                           class="text-sm font-medium text-gray-900 block mb-2"
-                          >Bidang</label
-                        >
-                        <Field
-                          v-model="dataDetail.bidang"
-                          :rules="validateData"
-                          type="text"
-                          name="bidang"
-                          ref="bidang"
-                          class="input input-bordered md:w-full max-w-2xl"
-                          required
-                        />
-                        <div class="text-xs text-red-600 mt-1">
-                          {{ errors.bidang }}
-                        </div>
-                      </div>
-                      <div>
-                        <label
-                          for="name"
-                          class="text-sm font-medium text-gray-900 block mb-2"
-                          >Akademis</label
-                        >
-                        <Field
-                          v-model="dataDetail.akademis"
-                          :rules="validateData"
-                          type="text"
-                          name="akademis"
-                          ref="akademis"
-                          class="input input-bordered md:w-full max-w-2xl"
-                          required
-                        />
-                        <div class="text-xs text-red-600 mt-1">
-                          {{ errors.akademis }}
-                        </div>
-                      </div>
-                      <div>
-                        <label
-                          for="name"
-                          class="text-sm font-medium text-gray-900 block mb-2"
-                          >Profesi</label
-                        >
-                        <Field
-                          v-model="dataDetail.profesi"
-                          :rules="validateData"
-                          type="text"
-                          name="profesi"
-                          ref="profesi"
-                          class="input input-bordered md:w-full max-w-2xl"
-                          required
-                        />
-                        <div class="text-xs text-red-600 mt-1">
-                          {{ errors.profesi }}
-                        </div>
-                      </div>
-                      <div>
-                        <label
-                          for="name"
-                          class="text-sm font-medium text-gray-900 block mb-2"
-                          >Nilai Standart</label
-                        >
-                        <Field
-                          v-model="dataDetail.nilaistandart"
-                          :rules="validateData"
-                          type="text"
-                          name="nilaistandart"
-                          ref="nilaistandart"
-                          class="input input-bordered md:w-full max-w-2xl"
-                          required
-                        />
-                        <div class="text-xs text-red-600 mt-1">
-                          {{ errors.nilaistandart }}
-                        </div>
-                      </div>
-                      <div>
-                        <label
-                          for="name"
-                          class="text-sm font-medium text-gray-900 block mb-2"
-                          >IQ Standart</label
-                        >
-                        <Field
-                          v-model="dataDetail.iqstandart"
-                          :rules="validateData"
-                          type="text"
-                          name="iqstandart"
-                          ref="iqstandart"
-                          class="input input-bordered md:w-full max-w-2xl"
-                          required
-                        />
-                        <div class="text-xs text-red-600 mt-1">
-                          {{ errors.iqstandart }}
-                        </div>
-                      </div>
-                      <div>
-                        <label
-                          for="name"
-                          class="text-sm font-medium text-gray-900 block mb-2"
-                          >Jurusan dan Bidang Studi yang ditekuni</label
-                        >
-                        <Field
-                          v-model="dataDetail.jurusandanbidangstudi"
-                          :rules="validateData"
-                          type="text"
-                          name="jurusandanbidangstudi"
-                          ref="jurusandanbidangstudi"
-                          class="input input-bordered md:w-full max-w-2xl"
-                          required
-                        />
-                        <div class="text-xs text-red-600 mt-1">
-                          {{ errors.jurusandanbidangstudi }}
-                        </div>
-                      </div>
-                      <div>
-                        <label
-                          for="name"
-                          class="text-sm font-medium text-gray-900 block mb-2"
-                          >Pekerjaan dan Keterangan</label
+                          >Judul</label
                         ><textarea
-                          v-model="dataDetail.pekerjaandanketerangan"
+                          v-model="dataDetail.judul"
                           :rules="validateData"
-                          name="pekerjaandanketerangan"
-                          ref="pekerjaandanketerangan"
+                          name="judul"
+                          ref="judul"
                           class="textarea textarea-bordered md:w-full max-w-2xl"
                           placeholder=""
                         ></textarea>
-
                         <div class="text-xs text-red-600 mt-1">
-                          {{ errors.pekerjaandanketerangan }}
+                          {{ errors.judul }}
                         </div>
                       </div>
                       <div>
                         <label
                           for="name"
                           class="text-sm font-medium text-gray-900 block mb-2"
-                          >Link</label
+                          >Status</label
                         >
-                        <Field
-                          v-model="dataDetail.ket"
+                        <select
+                          class="select select-bordered w-full max-w-xs"
+                          v-model="dataDetail.status"
                           :rules="validateData"
-                          type="text"
-                          name="ket"
-                          ref="ket"
-                          class="input input-bordered md:w-full max-w-2xl"
-                          required
-                        />
+                        >
+                          <option disabled selected>Pilih ?</option>
+                          <option>Ditampilkan</option>
+                          <option>Disembunyikan</option>
+                        </select>
+
                         <div class="text-xs text-red-600 mt-1">
-                          {{ errors.ket }}
+                          {{ errors.status }}
                         </div>
                       </div>
                     </div>

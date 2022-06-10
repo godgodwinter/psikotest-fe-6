@@ -196,9 +196,29 @@ const router = createRouter({
           name: 'AdminBuletin',
         },
         {
+          path: '/pages/buletin/tambah',
+          component: () => import("@/views/admin/buletin/Tambah.vue"),
+          name: 'AdminBuletinTambah',
+        },
+        {
+          path: '/pages/buletin/:id/edit',
+          component: () => import("@/views/admin/buletin/Edit.vue"),
+          name: 'AdminBuletinEdit',
+        },
+        {
           path: '/pages/terapis',
           component: () => import("@/views/admin/terapis/Index.vue"),
           name: 'AdminTerapis',
+        },
+        {
+          path: '/pages/terapis/tambah',
+          component: () => import("@/views/admin/terapis/Tambah.vue"),
+          name: 'AdminTerapisTambah',
+        },
+        {
+          path: '/pages/terapis/:id/edit',
+          component: () => import("@/views/admin/terapis/Edit.vue"),
+          name: 'AdminTerapisEdit',
         },
         {
           path: '/pages/penanganan',
@@ -206,14 +226,54 @@ const router = createRouter({
           name: 'AdminPenanganan',
         },
         {
+          path: '/pages/penanganan/:id/detail',
+          component: () => import("@/views/admin/penanganan/Detail.vue"),
+          name: 'AdminPenangananDetail',
+        },
+        {
           path: '/pages/katabijak',
           component: () => import("@/views/admin/katabijak/Index.vue"),
           name: 'AdminKatabijak',
         },
         {
+          path: '/pages/katabijak/tambah',
+          component: () => import("@/views/admin/katabijak/Tambah.vue"),
+          name: 'AdminKatabijakTambah',
+        },
+        {
+          path: '/pages/katabijak/:id/edit',
+          component: () => import("@/views/admin/katabijak/Edit.vue"),
+          name: 'AdminKatabijakEdit',
+        },
+        {
+          path: '/pages/katabijak/:id/detail',
+          component: () => import("@/views/admin/katabijak/Detail.vue"),
+          name: 'AdminKatabijakDetail',
+        },
+        {
+          path: '/pages/katabijak/:id/detail/tambah',
+          component: () => import("@/views/admin/katabijak/DetailTambah.vue"),
+          name: 'AdminKatabijakDetailTambah',
+        },
+        {
+          path: '/pages/katabijak/:id/detail/:id2/edit',
+          component: () => import("@/views/admin/katabijak/DetailEdit.vue"),
+          name: 'AdminKatabijakDetailEdit',
+        },
+        {
           path: '/pages/owner',
           component: () => import("@/views/admin/owner/Index.vue"),
           name: 'AdminOwner',
+        },
+        {
+          path: '/pages/owner/tambah',
+          component: () => import("@/views/admin/owner/Tambah.vue"),
+          name: 'AdminOwnerTambah',
+        },
+        {
+          path: '/pages/owner/:id/edit',
+          component: () => import("@/views/admin/owner/Edit.vue"),
+          name: 'AdminOwnerEdit',
         },
       ],
     },

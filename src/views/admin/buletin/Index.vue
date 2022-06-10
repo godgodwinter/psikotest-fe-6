@@ -71,7 +71,7 @@ const getData = async () => {
 getData();
 const doEditData = async (id, index) => {
   router.push({
-    name: "AdminKlasifikasiEdit",
+    name: "AdminBuletinEdit",
     params: { id: id },
   });
 };
@@ -106,7 +106,7 @@ const doDeleteData = async (id, index) => {
   <div class="md:pt-6">
     <div class="md:flex justify-between px-10">
       <div class="space-x-1 space-y-1 pt-1 md:pt-0">
-        <router-link :to="{ name: 'AdminKlasifikasiTambah' }">
+        <router-link :to="{ name: 'AdminBuletinTambah' }">
           <button
             class="btn btn-info hover:shadow-lg shadow text-white hover:text-gray-100 gap-2"
           >

@@ -26,13 +26,6 @@ const data = ref([]);
 
 const columns = [
   {
-    label: "No",
-    field: "no",
-    width: "50px",
-    tdClass: "text-center",
-    thClass: "text-center",
-  },
-  {
     label: "Actions",
     field: "actions",
     sortable: false,
@@ -54,7 +47,9 @@ const columns = [
 
 const getData = async () => {
   try {
-    const response = await Api.get(`owner/penanganan`);
+    const response = await Api.get(
+      `owner/penanganandeteksimasalah/masterdeteksi`
+    );
     dataAsli.value = response.data;
     data.value = response.data;
 
@@ -73,7 +68,7 @@ const doEditData = async (id, index) => {
 const doDeleteData = async (id, index) => {
   if (confirm("Apakah anda yakin menghapus data ini?")) {
     try {
-      const response = await Api.delete(`owner/klasifikasi/${id}`);
+      const response = await Api.delete(`owner/penanganan/${id}`);
       data.value.splice(index, 1);
       Toast.success("Success", "Data Berhasil dihapus!");
       return response.data;
@@ -103,7 +98,7 @@ const doDeleteData = async (id, index) => {
   <div class="md:pt-6">
     <div class="md:flex justify-between px-10">
       <div class="space-x-1 space-y-1 pt-1 md:pt-0">
-        <router-link :to="{ name: 'AdminKlasifikasiTambah' }">
+        <!-- <router-link :to="{ name: 'AdminKlasifikasiTambah' }">
           <button
             class="btn btn-info hover:shadow-lg shadow text-white hover:text-gray-100 gap-2"
           >
@@ -123,7 +118,7 @@ const doDeleteData = async (id, index) => {
             </svg>
             Tambah
           </button></router-link
-        >
+        > -->
       </div>
       <div class="space-x-1 space-y-1 pt-1 md:pt-0">
         <!-- <button
@@ -175,6 +170,7 @@ const doDeleteData = async (id, index) => {
           <vue-good-table
             :columns="columns"
             :rows="data"
+            :line-numbers="true"
             :search-options="{
               enabled: true,
             }"
@@ -190,13 +186,13 @@ const doDeleteData = async (id, index) => {
                 <div
                   class="text-sm font-medium text-center flex justify-center space-x-1"
                 >
-                  <ButtonEdit @click="doEditData(props.row.id, props.index)" />
+                  <!-- <ButtonEdit @click="doEditData(props.row.id, props.index)" />
                   <ButtonDelete
                     @click="doDeleteData(props.row.id, props.index)"
-                  />
+                  /> -->
                   <router-link
                     :to="{
-                      name: 'AdminYayasanDetail',
+                      name: 'AdminPenangananDetail',
                       params: { id: props.row.id },
                     }"
                   >
@@ -222,11 +218,54 @@ const doDeleteData = async (id, index) => {
                 </div>
               </span>
 
-              <span v-else-if="props.column.field == 'no'">
+              <!-- <span v-else-if="props.column.field == 'no'">
                 <div class="text-center">{{ props.index + 1 }}</div>
-              </span>
-              <span v-else-if="props.column.field == 'jml_sekolah'">
-                <div class="text-left">{{ props.row.jml_sekolah }} Sekolah</div>
+              </span> -->
+              <span v-else-if="props.column.field == 'status'">
+                <div
+                  class="text-sm font-medium text-center flex justify-center"
+                >
+                  <button
+                    v-if="props.row.penanganandeteksimasalah.length > 0"
+                    class="tooltip btn btn-sm btn-success"
+                    data-tip="Sudah Terisi"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    v-else
+                    class="tooltip btn btn-sm"
+                    data-tip="Belum Terisi"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"
+                      />
+                    </svg>
+                  </button>
+                </div>
               </span>
 
               <span v-else>
