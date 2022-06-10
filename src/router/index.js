@@ -93,14 +93,29 @@ const router = createRouter({
               name: 'AdminSekolahDetailKelas',
             },
             {
+              path: '/pages/admin/sekolahdetail/:id/kelas/:id2/edit',
+              component: () => import("@/views/admin/sekolah/submenu/kelas/Edit.vue"),
+              name: 'AdminSekolahDetailKelasEdit',
+            },
+            {
               path: '/pages/admin/sekolahdetail/:id/walikelas',
               component: () => import("@/views/admin/sekolah/submenu/walikelas/Index.vue"),
               name: 'AdminSekolahDetailWalikelas',
             },
             {
+              path: '/pages/admin/sekolahdetail/:id/walikelas/:id2/edit',
+              component: () => import("@/views/admin/sekolah/submenu/walikelas/Edit.vue"),
+              name: 'AdminSekolahDetailWalikelasEdit',
+            },
+            {
               path: '/pages/admin/sekolahdetail/:id/pengguna',
               component: () => import("@/views/admin/sekolah/submenu/pengguna/Index.vue"),
               name: 'AdminSekolahDetailPengguna',
+            },
+            {
+              path: '/pages/admin/sekolahdetail/:id/pengguna/:id/edit',
+              component: () => import("@/views/admin/sekolah/submenu/pengguna/Edit.vue"),
+              name: 'AdminSekolahDetailPenggunaEdit',
             },
             // hasil psikologi
             {

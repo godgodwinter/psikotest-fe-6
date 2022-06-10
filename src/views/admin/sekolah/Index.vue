@@ -151,7 +151,7 @@ const doEditData = async (id, index) => {
             <template #table-row="props">
               <span v-if="props.column.field == 'actions'">
                 <div
-                  class="text-sm font-medium text-center flex justify-center space-x-0"
+                  class="text-sm font-medium text-center flex justify-center space-x-1"
                 >
                   <ButtonEdit @click="doEditData(props.row.id, props.index)" />
                   <router-link

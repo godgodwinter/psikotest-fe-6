@@ -18,13 +18,6 @@ const data = ref([]);
 
 const columns = [
   {
-    label: "No",
-    field: "no",
-    width: "50px",
-    tdClass: "text-center",
-    thClass: "text-center",
-  },
-  {
     label: "Actions",
     field: "actions",
     sortable: false,
@@ -50,6 +43,24 @@ const getData = async () => {
   }
 };
 getData();
+const doEditData = async (id2, index) => {
+  router.push({
+    name: "AdminSekolahDetailPenggunaEdit",
+    params: { id, id2: id2 },
+  });
+};
+const doDeleteData = async (id2, index) => {
+  if (confirm("Apakah anda yakin menghapus data ini?")) {
+    try {
+      const response = await Api.delete(`owner/kelas/${id}`);
+      data.value.splice(index, 1);
+      Toast.success("Success", "Data Berhasil dihapus!");
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+};
 </script>
 <template>
   <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
@@ -59,6 +70,7 @@ getData();
           <vue-good-table
             :columns="columns"
             :rows="data"
+            :line-numbers="true"
             :search-options="{
               enabled: true,
             }"
@@ -74,37 +86,10 @@ getData();
                 <div
                   class="text-sm font-medium text-center flex justify-center space-x-0"
                 >
-                  <router-link
-                    :to="{
-                      name: 'AdminYayasanDetail',
-                      params: { id: props.row.id },
-                    }"
-                  >
-                    <button
-                      class="btn btn-sm btn-primary tooltip"
-                      data-tip="Detail"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-5 w-5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg></button
-                  ></router-link>
+                  <ButtonEdit @click="doEditData(props.row.id, props.index)" />
                 </div>
               </span>
 
-              <span v-else-if="props.column.field == 'no'">
-                <div class="text-center">{{ props.index + 1 }}</div>
-              </span>
               <span v-else-if="props.column.field == 'jml_sekolah'">
                 <div class="text-left">{{ props.row.jml_sekolah }} Sekolah</div>
               </span>
