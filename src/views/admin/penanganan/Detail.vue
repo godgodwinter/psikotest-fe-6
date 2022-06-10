@@ -25,13 +25,27 @@ const route = useRoute();
 // get params id
 const id = route.params.id;
 const dataAsli = ref([]);
-const dataDetail = ref([]);
+const dataDetail = ref([
+  { batasbawah: 54.5, batasatas: 70.0, keterangan: "" },
+  { batasbawah: 71.0, batasatas: 80.0, keterangan: "" },
+  { batasbawah: 81.0, batasatas: 99.0, keterangan: "" },
+]);
 const data = ref([]);
 
 const getDataDetail = async () => {
   try {
-    const response = await Api.get(`owner/klasifikasi/${id}`);
-    dataDetail.value = response.data;
+    const response = await Api.get(
+      `owner/penanganandeteksimasalah/masterdeteksi/${id}`
+    );
+    data.value = response.data;
+    if (response.data.penanganandeteksimasalah.length == 3) {
+      dataDetail.value[0].keterangan =
+        response.data.penanganandeteksimasalah[0].keterangan;
+      dataDetail.value[1].keterangan =
+        response.data.penanganandeteksimasalah[1].keterangan;
+      dataDetail.value[2].keterangan =
+        response.data.penanganandeteksimasalah[2].keterangan;
+    }
     return response.data;
   } catch (error) {
     console.error(error);
@@ -71,26 +85,45 @@ const onSubmit = () => {
 };
 const doStoreData = async (d) => {
   let dataStore = {
-    bidang: dataDetail.value.bidang,
-    akademis: dataDetail.value.akademis,
-    profesi: dataDetail.value.profesi,
-    nilaistandart: dataDetail.value.nilaistandart,
-    iqstandart: dataDetail.value.iqstandart,
-    jurusandanbidangstudi: dataDetail.value.jurusandanbidangstudi,
-    pekerjaandanketerangan: dataDetail.value.pekerjaandanketerangan,
-    ket: dataDetail.value.ket,
+    dataForm: [
+      {
+        batasbawah: 54.5,
+        batasatas: 70.0,
+        keterangan: dataDetail.value[0].keterangan,
+      },
+      {
+        batasbawah: 71.0,
+        batasatas: 80.0,
+        keterangan: dataDetail.value[1].keterangan,
+      },
+      {
+        batasbawah: 81.0,
+        batasatas: 99.0,
+        keterangan: dataDetail.value[2].keterangan,
+      },
+    ],
   };
   try {
-    const response = await Api.put(`owner/klasifikasi/${id}`, dataStore);
-    Toast.success("Success", "Data Berhasil ditambahkan!");
+    const response = await Api.post(
+      `owner/penanganandeteksimasalah/masterdeteksi/${id}`,
+      dataStore
+    );
+    Toast.success("Success", "Data Berhasil diupdate!");
     // resetForm();
-    router.push({ name: "AdminKlasifikasi" });
+    router.push({ name: "AdminPenanganan" });
 
     return response.data;
   } catch (error) {
     Toast.danger("Warning", "Data gagal ditambahkan!");
     console.error(error);
   }
+};
+const resetForm = () => {
+  dataDetail.value = [
+    { batasbawah: 54.5, batasatas: 70.0, keterangan: "" },
+    { batasbawah: 71.0, batasatas: 80.0, keterangan: "" },
+    { batasbawah: 81.0, batasatas: 99.0, keterangan: "" },
+  ];
 };
 </script>
 <template>
@@ -99,7 +132,7 @@ const doStoreData = async (d) => {
       <span
         class="text-2xl sm:text-3xl leading-none font-bold text-base-content shadow-sm"
       >
-        {{ dataDetail.nama }}
+        {{ data.nama }}
       </span>
     </div>
     <div class="md:py-0 py-4">
@@ -156,151 +189,72 @@ const doStoreData = async (d) => {
                         <label
                           for="name"
                           class="text-sm font-medium text-gray-900 block mb-2"
-                          >Bidang</label
+                          >Keterangan 1 (54,5 - 70)</label
                         >
-                        <Field
-                          v-model="dataDetail.bidang"
+                        <!-- <Field
+                          v-model="dataDetail[0].keterangan"
                           :rules="validateData"
                           type="text"
-                          name="bidang"
-                          ref="bidang"
+                          name="keterangan1"
+                          ref="keterangan1"
                           class="input input-bordered md:w-full max-w-2xl"
                           required
-                        />
-                        <div class="text-xs text-red-600 mt-1">
-                          {{ errors.bidang }}
-                        </div>
-                      </div>
-                      <div>
-                        <label
-                          for="name"
-                          class="text-sm font-medium text-gray-900 block mb-2"
-                          >Akademis</label
-                        >
-                        <Field
-                          v-model="dataDetail.akademis"
+                        /> -->
+                        <textarea
+                          v-model="dataDetail[0].keterangan"
                           :rules="validateData"
-                          type="text"
-                          name="akademis"
-                          ref="akademis"
-                          class="input input-bordered md:w-full max-w-2xl"
-                          required
-                        />
-                        <div class="text-xs text-red-600 mt-1">
-                          {{ errors.akademis }}
-                        </div>
-                      </div>
-                      <div>
-                        <label
-                          for="name"
-                          class="text-sm font-medium text-gray-900 block mb-2"
-                          >Profesi</label
-                        >
-                        <Field
-                          v-model="dataDetail.profesi"
-                          :rules="validateData"
-                          type="text"
-                          name="profesi"
-                          ref="profesi"
-                          class="input input-bordered md:w-full max-w-2xl"
-                          required
-                        />
-                        <div class="text-xs text-red-600 mt-1">
-                          {{ errors.profesi }}
-                        </div>
-                      </div>
-                      <div>
-                        <label
-                          for="name"
-                          class="text-sm font-medium text-gray-900 block mb-2"
-                          >Nilai Standart</label
-                        >
-                        <Field
-                          v-model="dataDetail.nilaistandart"
-                          :rules="validateData"
-                          type="text"
-                          name="nilaistandart"
-                          ref="nilaistandart"
-                          class="input input-bordered md:w-full max-w-2xl"
-                          required
-                        />
-                        <div class="text-xs text-red-600 mt-1">
-                          {{ errors.nilaistandart }}
-                        </div>
-                      </div>
-                      <div>
-                        <label
-                          for="name"
-                          class="text-sm font-medium text-gray-900 block mb-2"
-                          >IQ Standart</label
-                        >
-                        <Field
-                          v-model="dataDetail.iqstandart"
-                          :rules="validateData"
-                          type="text"
-                          name="iqstandart"
-                          ref="iqstandart"
-                          class="input input-bordered md:w-full max-w-2xl"
-                          required
-                        />
-                        <div class="text-xs text-red-600 mt-1">
-                          {{ errors.iqstandart }}
-                        </div>
-                      </div>
-                      <div>
-                        <label
-                          for="name"
-                          class="text-sm font-medium text-gray-900 block mb-2"
-                          >Jurusan dan Bidang Studi yang ditekuni</label
-                        >
-                        <Field
-                          v-model="dataDetail.jurusandanbidangstudi"
-                          :rules="validateData"
-                          type="text"
-                          name="jurusandanbidangstudi"
-                          ref="jurusandanbidangstudi"
-                          class="input input-bordered md:w-full max-w-2xl"
-                          required
-                        />
-                        <div class="text-xs text-red-600 mt-1">
-                          {{ errors.jurusandanbidangstudi }}
-                        </div>
-                      </div>
-                      <div>
-                        <label
-                          for="name"
-                          class="text-sm font-medium text-gray-900 block mb-2"
-                          >Pekerjaan dan Keterangan</label
-                        ><textarea
-                          v-model="dataDetail.pekerjaandanketerangan"
-                          :rules="validateData"
-                          name="pekerjaandanketerangan"
-                          ref="pekerjaandanketerangan"
-                          class="textarea textarea-bordered md:w-full max-w-2xl"
+                          name="keterangan1"
+                          ref="keterangan1"
+                          class="textarea textarea-bordered md:w-full max-w-2xl h-52"
                           placeholder=""
                         ></textarea>
-
                         <div class="text-xs text-red-600 mt-1">
-                          {{ errors.pekerjaandanketerangan }}
+                          {{ errors.keterangan1 }}
                         </div>
                       </div>
                       <div>
                         <label
                           for="name"
                           class="text-sm font-medium text-gray-900 block mb-2"
-                          >Link</label
+                          >Keterangan 2 (71 - 80)</label
                         >
-                        <Field
-                          v-model="dataDetail.ket"
+                        <textarea
+                          v-model="dataDetail[1].keterangan"
+                          :rules="validateData"
+                          name="keterangan2"
+                          ref="keterangan2"
+                          class="textarea textarea-bordered md:w-full max-w-2xl h-52"
+                          placeholder=""
+                        ></textarea>
+                        <!-- <Field
+                          v-model="dataDetail[1].keterangan"
                           :rules="validateData"
                           type="text"
-                          name="ket"
-                          ref="ket"
+                          name="keterangan2"
+                          ref="keterangan2"
                           class="input input-bordered md:w-full max-w-2xl"
                           required
-                        />
+                        /> -->
                         <div class="text-xs text-red-600 mt-1">
-                          {{ errors.ket }}
+                          {{ errors.keterangan2 }}
+                        </div>
+                      </div>
+                      <div>
+                        <label
+                          for="name"
+                          class="text-sm font-medium text-gray-900 block mb-2"
+                          >Keterangan 3 (81 - 99)</label
+                        >
+                        <textarea
+                          v-model="dataDetail[2].keterangan"
+                          :rules="validateData"
+                          name="keterangan2"
+                          ref="keterangan2"
+                          class="textarea textarea-bordered md:w-full max-w-2xl h-52"
+                          placeholder=""
+                        ></textarea>
+                        <div class="text-xs text-red-600 mt-1">
+                          {{ errors.keterangan3 }}
                         </div>
                       </div>
                     </div>

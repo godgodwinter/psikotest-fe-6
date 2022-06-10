@@ -28,16 +28,16 @@ const dataAsli = ref([]);
 const dataDetail = ref([]);
 const data = ref([]);
 
-const getDataDetail = async () => {
-  try {
-    const response = await Api.get(`owner/katabijak/${id}`);
-    dataDetail.value = response.data;
-    return response.data;
-  } catch (error) {
-    console.error(error);
-  }
-};
-getDataDetail();
+// const getDataDetail = async () => {
+//   try {
+//     const response = await Api.get(`owner/katabijak/${id}`);
+//     dataDetail.value = response.data;
+//     return response.data;
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
+// getDataDetail();
 
 const dataPaket = ref([]);
 const getPaket = async () => {
@@ -71,14 +71,13 @@ const onSubmit = () => {
 };
 const doStoreData = async (d) => {
   let dataStore = {
-    judul: dataDetail.value.judul,
-    status: dataDetail.value.status,
+    penjelasan: dataDetail.value.penjelasan,
   };
   try {
-    const response = await Api.put(`owner/katabijak/${id}`, dataStore);
+    const response = await Api.post(`owner/katabijak/${id}/detail`, dataStore);
     Toast.success("Success", "Data Berhasil ditambahkan!");
     // resetForm();
-    router.push({ name: "AdminKatabijak" });
+    router.push({ name: "AdminKatabijakDetail", params: { id } });
 
     return response.data;
   } catch (error) {
@@ -150,37 +149,17 @@ const doStoreData = async (d) => {
                         <label
                           for="name"
                           class="text-sm font-medium text-gray-900 block mb-2"
-                          >Judul</label
+                          >Penjelasan</label
                         ><textarea
-                          v-model="dataDetail.judul"
+                          v-model="dataDetail.penjelasan"
                           :rules="validateData"
-                          name="judul"
-                          ref="judul"
+                          name="penjelasan"
+                          ref="penjelasan"
                           class="textarea textarea-bordered md:w-full max-w-2xl"
                           placeholder=""
                         ></textarea>
                         <div class="text-xs text-red-600 mt-1">
-                          {{ errors.judul }}
-                        </div>
-                      </div>
-                      <div>
-                        <label
-                          for="name"
-                          class="text-sm font-medium text-gray-900 block mb-2"
-                          >Status</label
-                        >
-                        <select
-                          class="select select-bordered w-full max-w-xs"
-                          v-model="dataDetail.status"
-                          :rules="validateData"
-                        >
-                          <option disabled selected>Pilih ?</option>
-                          <option>Ditampilkan</option>
-                          <option>Disembunyikan</option>
-                        </select>
-
-                        <div class="text-xs text-red-600 mt-1">
-                          {{ errors.status }}
+                          {{ errors.penjelasan }}
                         </div>
                       </div>
                     </div>

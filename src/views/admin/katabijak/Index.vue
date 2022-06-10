@@ -8,6 +8,7 @@ import ButtonEdit from "@/components/atoms/ButtonEdit.vue";
 import ButtonDelete from "@/components/atoms/ButtonDel.vue";
 import { useRouter, useRoute } from "vue-router";
 import { useStoreAdminBar } from "@/stores/adminBar";
+import Toast from "@/components/lib/Toast.js";
 
 import { useStoreGuruBk } from "@/stores/guruBk";
 const storeGuruBk = useStoreGuruBk();
