@@ -174,6 +174,21 @@ const router = createRouter({
               name: 'AdminSekolahDetailKasus',
             },
             {
+              path: '/pages/admin/sekolahdetail/:id/kasus/:id2/detail',
+              component: () => import("@/views/admin/sekolah/submenu/kasus/Detail.vue"),
+              name: 'AdminSekolahDetailKasusDetail',
+            },
+            {
+              path: '/pages/admin/sekolahdetail/:id/kasus/:id2/detail/tambah',
+              component: () => import("@/views/admin/sekolah/submenu/kasus/DetailTambah.vue"),
+              name: 'AdminSekolahDetailKasusDetailTambah',
+            },
+            {
+              path: '/pages/admin/sekolahdetail/:id/kasus/:id2/detail/edit/:id3',
+              component: () => import("@/views/admin/sekolah/submenu/kasus/DetailEdit.vue"),
+              name: 'AdminSekolahDetailKasusDetailEdit',
+            },
+            {
               path: '/pages/admin/sekolahdetail/:id/pengembangandiri',
               component: () => import("@/views/admin/sekolah/submenu/pengembangandiri/Index.vue"),
               name: 'AdminSekolahDetailPengembangandiri',
