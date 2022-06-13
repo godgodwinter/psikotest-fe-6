@@ -187,10 +187,18 @@ const doCetak = (id = null, token = moment().format("YYYY-MM-Do")) => {
           >
             <template #table-row="props">
               <span v-if="props.column.field == 'actions'">
-                 <div
+                <div
                   class="text-sm font-medium text-center flex justify-center space-x-1"
-                > <ButtonCetak @click="doCetak(props.row.id)" />
-                <ButtonMore />
+                >
+                  <ButtonCetak @click="doCetak(props.row.id)" />
+                  <router-link
+                    :to="{
+                      name: 'AdminSekolahDetailPengembangandiriDetail',
+                      params: { id, id2: props.row.id },
+                    }"
+                  >
+                    <ButtonMore />
+                  </router-link>
                 </div>
               </span>
 

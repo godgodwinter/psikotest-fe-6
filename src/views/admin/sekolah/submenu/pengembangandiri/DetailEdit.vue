@@ -19,7 +19,7 @@ import { useRouter, useRoute } from "vue-router";
 import { useStoreAdminBar } from "@/stores/adminBar";
 import Toast from "@/components/lib/Toast.js";
 const storeAdminBar = useStoreAdminBar();
-storeAdminBar.setsubMenuActive("kasus");
+storeAdminBar.setsubMenuActive("pengembangandiri");
 
 const router = useRouter();
 const route = useRoute();
@@ -33,7 +33,7 @@ const data = ref([]);
 const getData = async () => {
   try {
     const response = await Api.get(
-      `owner/datasekolah/${id}/catatankasussiswa/siswa`
+      `owner/datasekolah/${id}/catatanpengembangandiri/siswa`
     );
     dataAsli.value = response.data;
 
@@ -66,9 +66,9 @@ const doCetak = (id = null, token = moment().format("YYYY-MM-Do")) => {
     Toast.danger("Warning", "Data tidak valid!");
   } else {
     window.open(
-      `${BASE_URL}api/guest/cetak/catatankasus/${encode(id)}?token=${encode(
-        token
-      )}`
+      `${BASE_URL}api/guest/cetak/catatanpengembangandiri/${encode(
+        id
+      )}?token=${encode(token)}`
     );
   }
 };
@@ -79,25 +79,26 @@ const onSubmit = () => {
 
 const doStoreData = async (d) => {
   let dataStore = {
-    kasus: dataDetail.value.kasus,
     tanggal: dataDetail.value.tanggal,
-    pengambilandata: dataDetail.value.pengambilandata,
-    sumberkasus: dataDetail.value.sumberkasus,
-    golkasus: dataDetail.value.golkasus,
-    penyebabtimbulkasus: dataDetail.value.penyebabtimbulkasus,
-    teknikkonseling: dataDetail.value.teknikkonseling,
-    keberhasilanpenanganankasus: dataDetail.value.keberhasilanpenanganankasus,
+    idedanimajinasi: dataDetail.value.idedanimajinasi,
+    ketrampilan: dataDetail.value.ketrampilan,
+    kreatif: dataDetail.value.kreatif,
+    organisasi: dataDetail.value.organisasi,
+    kelanjutanstudi: dataDetail.value.kelanjutanstudi,
+    hobi: dataDetail.value.hobi,
+    citacita: dataDetail.value.citacita,
+    kemampuankhusus: dataDetail.value.kemampuankhusus,
     keterangan: dataDetail.value.keterangan,
   };
   try {
     const response = await Api.put(
-      `owner/datasekolah/${id}/siswa/${id2}/catatankasussiswa/${id3}`,
+      `owner/datasekolah/${id}/siswa/${id2}/catatanpengembangandiri/${id3}`,
       dataStore
     );
     Toast.success("Success", "Data Berhasil ditambahkan!");
     // resetForm();
     router.push({
-      name: "AdminSekolahDetailKasusDetail",
+      name: "AdminSekolahDetailPengembangandiriDetail",
       params: { id, id2 },
     });
 
@@ -111,17 +112,18 @@ const doStoreData = async (d) => {
 const getDataId = async () => {
   try {
     const response = await Api.get(
-      `owner/datasekolah/${id}/siswa/${id2}/catatankasussiswa/${id3}`
+      `owner/datasekolah/${id}/siswa/${id2}/catatanpengembangandiri/${id3}`
     );
     dataDetail.value = {
-      kasus: response.data.kasus,
       tanggal: response.data.tanggal,
-      pengambilandata: response.data.pengambilandata,
-      sumberkasus: response.data.sumberkasus,
-      golkasus: response.data.golkasus,
-      penyebabtimbulkasus: response.data.penyebabtimbulkasus,
-      teknikkonseling: response.data.teknikkonseling,
-      keberhasilanpenanganankasus: response.data.keberhasilanpenanganankasus,
+      idedanimajinasi: response.data.idedanimajinasi,
+      ketrampilan: response.data.ketrampilan,
+      kreatif: response.data.kreatif,
+      organisasi: response.data.organisasi,
+      hobi: response.data.hobi,
+      citacita: response.data.citacita,
+      kelanjutanstudi: response.data.kelanjutanstudi,
+      kemampuankhusus: response.data.kemampuankhusus,
       keterangan: response.data.keterangan,
     };
     // console.log(data.value);
@@ -198,136 +200,153 @@ getDataId();
                         <label
                           for="name"
                           class="text-sm font-medium text-gray-900 block mb-2"
-                          >Kasus</label
+                          >Ide dan Imajinasi</label
                         >
                         <Field
-                          v-model="dataDetail.kasus"
+                          v-model="dataDetail.idedanimajinasi"
                           :rules="validateData"
                           type="text"
-                          name="kasus"
-                          ref="kasus"
+                          name="idedanimajinasi"
+                          ref="idedanimajinasi"
                           class="input input-bordered md:w-full max-w-2xl"
                           required
                         />
                         <div class="text-xs text-red-600 mt-1">
-                          {{ errors.kasus }}
+                          {{ errors.idedanimajinasi }}
                         </div>
                       </div>
                       <div>
                         <label
                           for="name"
                           class="text-sm font-medium text-gray-900 block mb-2"
-                          >Pengambilan data</label
+                          >Ketrampilan</label
                         >
                         <Field
-                          v-model="dataDetail.pengambilandata"
+                          v-model="dataDetail.ketrampilan"
                           :rules="validateData"
                           type="text"
-                          name="pengambilandata"
-                          ref="pengambilandata"
+                          name="ketrampilan"
+                          ref="ketrampilan"
                           class="input input-bordered md:w-full max-w-2xl"
                           required
                         />
                         <div class="text-xs text-red-600 mt-1">
-                          {{ errors.pengambilandata }}
+                          {{ errors.ketrampilan }}
                         </div>
                       </div>
                       <div>
                         <label
                           for="name"
                           class="text-sm font-medium text-gray-900 block mb-2"
-                          >Sumber kasus</label
+                          >Kreatif</label
                         >
                         <Field
-                          v-model="dataDetail.sumberkasus"
+                          v-model="dataDetail.kreatif"
                           :rules="validateData"
                           type="text"
-                          name="sumberkasus"
-                          ref="sumberkasus"
+                          name="kreatif"
+                          ref="kreatif"
                           class="input input-bordered md:w-full max-w-2xl"
                           required
                         />
                         <div class="text-xs text-red-600 mt-1">
-                          {{ errors.sumberkasus }}
+                          {{ errors.kreatif }}
                         </div>
                       </div>
                       <div>
                         <label
                           for="name"
                           class="text-sm font-medium text-gray-900 block mb-2"
-                          >Golongan kasus</label
+                          >Organisasi</label
                         >
-                        <select
-                          class="select select-bordered w-full max-w-xs"
-                          v-model="dataDetail.golkasus"
-                          name="golkasus"
-                          ref="golkasus"
-                        >
-                          <option disabled selected>Pilih ?</option>
-                          <option>Sedang</option>
-                          <option>Ringan</option>
-                          <option>Berat</option>
-                        </select>
+                        <Field
+                          v-model="dataDetail.organisasi"
+                          :rules="validateData"
+                          type="text"
+                          name="organisasi"
+                          ref="organisasi"
+                          class="input input-bordered md:w-full max-w-2xl"
+                          required
+                        />
 
                         <div class="text-xs text-red-600 mt-1">
-                          {{ errors.golkasus }}
+                          {{ errors.organisasi }}
                         </div>
                       </div>
                       <div>
                         <label
                           for="name"
                           class="text-sm font-medium text-gray-900 block mb-2"
-                          >Penyebab timbul kasus</label
+                          >Kelanjutan Studi</label
                         >
                         <Field
-                          v-model="dataDetail.penyebabtimbulkasus"
+                          v-model="dataDetail.kelanjutanstudi"
                           :rules="validateData"
                           type="text"
-                          name="penyebabtimbulkasus"
-                          ref="penyebabtimbulkasus"
+                          name="kelanjutanstudi"
+                          ref="kelanjutanstudi"
                           class="input input-bordered md:w-full max-w-2xl"
                           required
                         />
                         <div class="text-xs text-red-600 mt-1">
-                          {{ errors.penyebabtimbulkasus }}
+                          {{ errors.kelanjutanstudi }}
                         </div>
                       </div>
                       <div>
                         <label
                           for="name"
                           class="text-sm font-medium text-gray-900 block mb-2"
-                          >Teknik Konseling</label
+                          >Hobi</label
                         >
                         <Field
-                          v-model="dataDetail.teknikkonseling"
+                          v-model="dataDetail.hobi"
                           :rules="validateData"
                           type="text"
-                          name="teknikkonseling"
-                          ref="teknikkonseling"
+                          name="hobi"
+                          ref="hobi"
                           class="input input-bordered md:w-full max-w-2xl"
                           required
                         />
                         <div class="text-xs text-red-600 mt-1">
-                          {{ errors.teknikkonseling }}
+                          {{ errors.hobi }}
                         </div>
                       </div>
                       <div>
                         <label
                           for="name"
                           class="text-sm font-medium text-gray-900 block mb-2"
-                          >Keberhasilan Penanganan kasus</label
+                          >Cita - cita</label
                         >
                         <Field
-                          v-model="dataDetail.keberhasilanpenanganankasus"
+                          v-model="dataDetail.citacita"
                           :rules="validateData"
                           type="text"
-                          name="keberhasilanpenanganankasus"
-                          ref="keberhasilanpenanganankasus"
+                          name="citacita"
+                          ref="citacita"
                           class="input input-bordered md:w-full max-w-2xl"
                           required
                         />
                         <div class="text-xs text-red-600 mt-1">
-                          {{ errors.keberhasilanpenanganankasus }}
+                          {{ errors.citacita }}
+                        </div>
+                      </div>
+                      <div>
+                        <label
+                          for="name"
+                          class="text-sm font-medium text-gray-900 block mb-2"
+                          >Kemampuan Khusus</label
+                        >
+                        <Field
+                          v-model="dataDetail.kemampuankhusus"
+                          :rules="validateData"
+                          type="text"
+                          name="kemampuankhusus"
+                          ref="kemampuankhusus"
+                          class="input input-bordered md:w-full max-w-2xl"
+                          required
+                        />
+                        <div class="text-xs text-red-600 mt-1">
+                          {{ errors.kemampuankhusus }}
                         </div>
                       </div>
                       <div>
@@ -336,12 +355,12 @@ getDataId();
                           class="text-sm font-medium text-gray-900 block mb-2"
                           >Keterangan</label
                         >
-
                         <textarea
                           v-model="dataDetail.keterangan"
                           class="textarea textarea-accent md:w-full max-w-2xl"
                           placeholder=""
                         ></textarea>
+
                         <div class="text-xs text-red-600 mt-1">
                           {{ errors.keterangan }}
                         </div>

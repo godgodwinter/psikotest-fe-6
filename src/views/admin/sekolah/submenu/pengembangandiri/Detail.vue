@@ -19,7 +19,7 @@ import { useStoreAdminBar } from "@/stores/adminBar";
 import Toast from "@/components/lib/Toast.js";
 import ButtonKembali from "@/components/atoms/ButtonKembali.vue";
 const storeAdminBar = useStoreAdminBar();
-storeAdminBar.setsubMenuActive("kasus");
+storeAdminBar.setsubMenuActive("pengembangandiri");
 
 const router = useRouter();
 const route = useRoute();
@@ -39,15 +39,15 @@ const columns = [
     thClass: "text-center",
   },
   {
-    label: "Judul ",
-    field: "kasus",
+    label: "Ide dan imajinasi ",
+    field: "idedanimajinasi",
     type: "String",
   },
 ];
 const getData = async () => {
   try {
     const response = await Api.get(
-      `owner/datasekolah/${id}/siswa/${id2}/catatankasussiswa`
+      `owner/datasekolah/${id}/siswa/${id2}/catatanpengembangandiri`
     );
     dataAsli.value = response.data;
 
@@ -92,7 +92,7 @@ const doDeleteData = async (dataId, index) => {
   if (confirm("Apakah anda yakin menghapus data ini?")) {
     try {
       const response = await Api.delete(
-        `owner/datasekolah/${id}/siswa/${id2}/catatankasussiswa/${dataId}`
+        `owner/datasekolah/${id}/siswa/${id2}/catatanpengembangandiri/${dataId}`
       );
       data.value.splice(index, 1);
       Toast.success("Success", "Data Berhasil dihapus!");
@@ -115,7 +115,7 @@ const doDeleteData = async (dataId, index) => {
     <div class="md:py-0 py-4 space-x-2 space-y-2">
       <router-link
         :to="{
-          name: 'AdminSekolahDetailKasusDetailTambah',
+          name: 'AdminSekolahDetailPengembangandiriDetailTambah',
           params: { id: id, id2: id2 },
         }"
       >
@@ -150,7 +150,7 @@ const doDeleteData = async (dataId, index) => {
                 >
                   <router-link
                     :to="{
-                      name: 'AdminSekolahDetailKasusDetailEdit',
+                      name: 'AdminSekolahDetailPengembangandiriDetailEdit',
                       params: { id: id, id2: id2, id3: props.row.id },
                     }"
                   >
