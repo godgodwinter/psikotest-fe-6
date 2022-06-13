@@ -74,8 +74,11 @@ const doStoreData = async (d) => {
     nama: dataDetail.value.nama,
     email: dataDetail.value.email,
     username: dataDetail.value.username,
-    password: dataDetail.value.password,
+    status_login: dataDetail.value.status_login,
   };
+  if (dataDetail.value.password) {
+    dataStore.password = dataDetail.value.password;
+  }
   try {
     const response = await Api.put(`owner/yayasan/${id}`, dataStore);
     Toast.success("Success", "Data Berhasil ditambahkan!");
@@ -211,7 +214,6 @@ const doStoreData = async (d) => {
                         >
                         <Field
                           v-model="dataDetail.password"
-                          :rules="validateData"
                           type="password"
                           name="password"
                           ref="password"
@@ -220,6 +222,24 @@ const doStoreData = async (d) => {
                         />
                         <div class="text-xs text-red-600 mt-1">
                           {{ errors.password }}
+                        </div>
+                      </div>
+                      <div>
+                        <label
+                          for="name"
+                          class="text-sm font-medium text-gray-900 block mb-2"
+                          >Status</label
+                        >
+                        <select
+                          class="select select-bordered w-full max-w-xs"
+                          v-model="dataDetail.status_login"
+                        >
+                          <option disabled selected>Pilih Status ?</option>
+                          <option>Aktif</option>
+                          <option>Nonaktif</option>
+                        </select>
+                        <div class="text-xs text-red-600 mt-1">
+                          {{ errors.status }}
                         </div>
                       </div>
                     </div>

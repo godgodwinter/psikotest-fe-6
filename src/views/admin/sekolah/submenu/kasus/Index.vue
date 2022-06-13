@@ -2,6 +2,10 @@
 const BASE_URL = import.meta.env.VITE_API_URL
   ? import.meta.env.VITE_API_URL
   : "http://localhost:8000/";
+
+import moment from "moment/min/moment-with-locales";
+import localization from "moment/locale/id";
+moment.updateLocale("id", localization);
 import Api from "@/axios/axios";
 import { ref, watch, computed } from "vue";
 import BreadCrumb from "@/components/atoms/BreadCrumb.vue";
@@ -15,7 +19,6 @@ storeAdminBar.setsubMenuActive("kasus");
 
 const router = useRouter();
 const route = useRoute();
-
 const id = route.params.id;
 const dataAsli = ref([]);
 const data = ref([]);
@@ -120,6 +123,20 @@ const doPilihKelas = () => {
     data.value = dataFiltered;
   }
 };
+
+const encode = (value) => window.btoa(value);
+
+const doCetak = (id = null, token = moment().format("YYYY-MM-Do")) => {
+  if (id === null) {
+    Toast.danger("Warning", "Data tidak valid!");
+  } else {
+    window.open(
+      `${BASE_URL}api/guest/cetak/catatankasus/${encode(id)}?token=${encode(
+        token
+      )}`
+    );
+  }
+};
 </script>
 <template>
   <div class="pt-4 px-10 md:flex justify-between">
@@ -127,8 +144,8 @@ const doPilihKelas = () => {
       <span
         class="text-2xl sm:text-3xl leading-none font-bold text-base-content shadow-sm"
       >
-        Catatan Kasus Siswa</span
-      >
+        Catatan Kasus Siswa
+      </span>
     </div>
     <div class="md:py-0 py-4 space-x-2 space-y-2"></div>
   </div>
@@ -166,222 +183,32 @@ const doPilihKelas = () => {
             class="py-0"
           >
             <template #table-row="props">
-              <span v-if="props.column.field == 'deteksi'">
-                <div
-                  class="text-sm font-medium text-center flex justify-center"
+              <span v-if="props.column.field == 'actions'">
+                <button
+                  class="btn btn-primary btn-sm tooltip"
+                  data-tip="cetak"
+                  @click="doCetak(props.row.id)"
                 >
-                  <!-- {{ props.row.siswadetail.length }} -->
-                  <div v-if="props.row.siswadetail.length > 0">
-                    <router-link
-                      :to="{
-                        name: 'AdminSekolah',
-                        params: { id, id2: props.row.id },
-                      }"
-                    >
-                      <button
-                        data-tip="Deteksi"
-                        class="tooltip btn btn-success btn-sm text-base-content"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          class="h-5 w-5"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          stroke-width="2"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
-                          />
-                        </svg></button
-                    ></router-link>
-                  </div>
-                  <button
-                    data-tip="Data API PRO BK tidak ditemukan"
-                    class="tooltip btn btn-warning btn-sm text-base-content"
-                    v-else
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="h-6 w-6"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      stroke-width="2"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                      />
-                    </svg>
-                  </button>
-                </div>
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"
+                    />
+                  </svg>
+                </button>
               </span>
-              <span v-else-if="props.column.field == 'deteksipenanganan'">
-                <div
-                  class="text-sm font-medium text-center flex justify-center"
-                >
-                  <div v-if="props.row.siswadetail.length > 0">
-                    <router-link
-                      :to="{
-                        name: 'AdminSekolah',
-                        params: { id, id2: props.row.id },
-                      }"
-                    >
-                      <button
-                        data-tip="Penanganan Masalah Deteksi"
-                        class="tooltip btn btn-success btn-sm text-base-content"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          class="h-5 w-5"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          stroke-width="2"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
-                          />
-                        </svg></button
-                    ></router-link>
-                  </div>
-                  <button
-                    data-tip="Data API PRO BK tidak ditemukan"
-                    class="tooltip btn btn-warning btn-sm text-base-content"
-                    v-else
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="h-6 w-6"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      stroke-width="2"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                      />
-                    </svg>
-                  </button>
-                </div>
-              </span>
-              <span v-else-if="props.column.field == 'sertifikat'">
-                <div
-                  class="text-sm font-medium text-center flex justify-center"
-                >
-                  <div v-if="props.row.siswadetail.length > 0">
-                    <router-link
-                      :to="{
-                        name: 'AdminSekolah',
-                        params: { id, id2: props.row.id },
-                      }"
-                    >
-                      <button
-                        data-tip="Sertifikat"
-                        class="tooltip btn btn-success btn-sm text-base-content"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          class="h-5 w-5"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          stroke-width="2"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
-                          />
-                        </svg></button
-                    ></router-link>
-                  </div>
-                  <button
-                    data-tip="Data API PRO BK tidak ditemukan"
-                    class="tooltip btn btn-warning btn-sm text-base-content"
-                    v-else
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="h-6 w-6"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      stroke-width="2"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                      />
-                    </svg>
-                  </button>
-                </div>
-              </span>
-              <span v-else-if="props.column.field == 'terapis'">
-                <div
-                  class="text-sm font-medium text-center flex justify-center"
-                >
-                  <div v-if="props.row.siswadetail.length > 0">
-                    <router-link
-                      :to="{
-                        name: 'AdminSekolah',
-                        params: { id, id2: props.row.id },
-                      }"
-                    >
-                      <button
-                        data-tip="Terapis"
-                        class="tooltip btn btn-success btn-sm text-base-content"
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          class="h-5 w-5"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          stroke-width="2"
-                        >
-                          <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"
-                          />
-                        </svg></button
-                    ></router-link>
-                  </div>
-                  <button
-                    data-tip="Data API PRO BK tidak ditemukan"
-                    class="tooltip btn btn-warning btn-sm text-base-content"
-                    v-else
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="h-6 w-6"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
-                      stroke-width="2"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                      />
-                    </svg>
-                  </button>
-                </div>
-              </span>
-
               <span v-else-if="props.column.field == 'no'">
-                <div class="text-center">{{ props.index + 1 }}</div>
+                <div class="text-center">
+                  {{ props.index + 1 }}
+                </div>
               </span>
 
               <span v-else>
