@@ -213,6 +213,21 @@ const router = createRouter({
               component: () => import("@/views/admin/sekolah/submenu/prestasi/Index.vue"),
               name: 'AdminSekolahDetailPrestasi',
             },
+            {
+              path: '/pages/admin/sekolahdetail/:id/prestasi/detail/:id',
+              component: () => import("@/views/admin/sekolah/submenu/prestasi/Detail.vue"),
+              name: 'AdminSekolahDetailPrestasiDetail',
+            },
+            {
+              path: '/pages/admin/sekolahdetail/:id/prestasi/detail/:id2/tambah',
+              component: () => import("@/views/admin/sekolah/submenu/prestasi/DetailTambah.vue"),
+              name: 'AdminSekolahDetailPrestasiDetailTambah',
+            },
+            {
+              path: '/pages/admin/sekolahdetail/:id/prestasi/detail/:id2/edit/:id3',
+              component: () => import("@/views/admin/sekolah/submenu/prestasi/DetailEdit.vue"),
+              name: 'AdminSekolahDetailPrestasiDetailEdit',
+            },
           ],
         },
         {
