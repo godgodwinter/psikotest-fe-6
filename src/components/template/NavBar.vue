@@ -53,7 +53,7 @@ getData();
         :array="arr"
         :eraseSpeed="50"
         :typeSpeed="40"
-        :delay="10000"
+        :delay="2000"
         :intervals="500"
       />
     </div>
