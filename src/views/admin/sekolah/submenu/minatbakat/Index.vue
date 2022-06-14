@@ -251,7 +251,9 @@ const onToggleList = (index) => {
     columns.value.push({
       label: ListTampilkan.value[index].label,
       field: ListTampilkan.value[index].id,
-      type: "String",
+      type: ListTampilkan.value[index].type
+        ? ListTampilkan.value[index].type
+        : "String",
     });
   } else {
     columns.value.forEach((item, index2) => {

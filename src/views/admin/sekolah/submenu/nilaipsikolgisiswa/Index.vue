@@ -252,7 +252,7 @@ const ListTampilkan = ref([
   { label: "Keterangan Kecerdasan Intrapersonal", id: "kah", checked: false },
   { label: "Kecerdasan Natural", id: "kn_persen", checked: false },
   { label: "Keterangan Kecerdasan Natural", id: "knh", checked: false },
-  { label: "Intelligence Quotient", id: "iq", checked: false },
+  { label: "Intelligence Quotient", id: "iq", checked: false, type: "number" },
   {
     label: "Persentase Intelligence Quotient",
     id: "iq_persen",
@@ -512,7 +512,9 @@ const onToggleList = (index) => {
     columns.value.push({
       label: ListTampilkan.value[index].label,
       field: ListTampilkan.value[index].id,
-      type: "String",
+      type: ListTampilkan.value[index].type
+        ? ListTampilkan.value[index].type
+        : "String",
     });
   } else {
     columns.value.forEach((item, index2) => {
