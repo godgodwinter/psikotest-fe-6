@@ -44,6 +44,44 @@ const getData = async () => {
 getData();
 </script>
 <template>
+  <div class="fixed bottom-4 right-4 xl:right-20 z-50 block">
+    <button
+      id="toggleSidebarMobile"
+      aria-expanded="true"
+      aria-controls="sidebar"
+      data-tip="Menu"
+      class="tooltip bg-gradient-to-br from-sky-500 to-teal-500 transform duration-500 ease-in-out animate-bounce lg:hidden mr-2 text-white hover:text-gray-900 cursor-pointer p-2 hover:bg-gray-100 focus:bg-gray-100 focus:ring-2 focus:ring-gray-100 rounded"
+      @click="toggleSideBar()"
+    >
+      <svg
+        id="toggleSidebarMobileHamburger"
+        class="w-6 h-6 fill-current"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+          clip-rule="evenodd"
+        />
+      </svg>
+      <svg
+        id="toggleSidebarMobileClose"
+        class="w-6 h-6 hidden"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          fill-rule="evenodd"
+          d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+          clip-rule="evenodd"
+        />
+      </svg>
+    </button>
+  </div>
+
   <div class="static bg-base-100" v-if="!isSidebarActive">
     <div
       class="fixed z-50 w-full font-serif font-semibold text-sm text-base-200 bg-base-content flex justify-center py-2 px-4 text-center"

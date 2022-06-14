@@ -59,7 +59,7 @@ const pagesActiveClass = ref(
                   <div
                     class="w-24 rounded-full border border-sky-200 hover:border-sky-400 shadow hover:shadow-lg"
                   >
-                    <img src="@/assets/img/avatar/baemon-ava-2.jpg" />
+                    <img src="@/assets/img/avatar/user.png" />
                   </div>
                 </div>
               </div>
