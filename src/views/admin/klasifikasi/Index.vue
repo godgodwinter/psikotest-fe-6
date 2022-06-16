@@ -1,4 +1,7 @@
 <script setup>
+import moment from "moment/min/moment-with-locales";
+import localization from "moment/locale/id";
+moment.updateLocale("id", localization);
 const BASE_URL = import.meta.env.VITE_API_URL;
 import Api from "@/axios/axios";
 import { ref, watch, computed } from "vue";
@@ -25,13 +28,6 @@ const dataAsli = ref([]);
 const data = ref([]);
 
 const columns = [
-  {
-    label: "No",
-    field: "no",
-    width: "50px",
-    tdClass: "text-center",
-    thClass: "text-center",
-  },
   {
     label: "Actions",
     field: "actions",
@@ -113,6 +109,36 @@ const doDeleteData = async (id, index) => {
     }
   }
 };
+
+const myTable = ref([]);
+// const selected = ref(myTable.value.selectedRows);
+const selected = computed(() =>
+  myTable.value.selectedRows ? setSelected() : myTable.value.selectedRows
+);
+
+const encode = (value) => window.btoa(value);
+const doCetak = (token = moment().format("YYYY-MM-Do")) => {
+  if (selected.value.length < 1) {
+    Toast.danger("Warning", "Pilih data terlebih dahulu!");
+  } else {
+    window.open(
+      `${BASE_URL}api/guest/cetak/klasifikasi/?token=${encode(
+        token
+      )}&data=${encode(JSON.stringify(selected.value))}`
+    );
+  }
+};
+const setSelected = () => {
+  let hasil = [];
+  if (myTable.value.selectedRows.length > 0) {
+    myTable.value.selectedRows.forEach((element) => {
+      hasil.push(element.id);
+      // hasil.push(encode(element.id));
+      // hasil.push({ id: element.id });
+    });
+  }
+  return hasil;
+};
 </script>
 <template>
   <div class="pt-4 px-10 md:flex justify-between">
@@ -155,6 +181,25 @@ const doDeleteData = async (id, index) => {
             Tambah
           </button></router-link
         >
+
+        <a @click="doCetak()">
+          <button class="btn btn-sm">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="h-5 w-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"
+              />
+            </svg>
+          </button>
+        </a>
       </div>
       <div class="space-x-1 space-y-1 pt-1 md:pt-0">
         <!-- <button
@@ -204,6 +249,10 @@ const doDeleteData = async (id, index) => {
       <div class="bg-white shadow rounded-lg px-4 py-4">
         <div v-if="data">
           <vue-good-table
+            ref="myTable"
+            @on-selected-rows-change="selectionChanged"
+            :line-numbers="true"
+            :select-options="{ enabled: true }"
             :columns="columns"
             :rows="data"
             :search-options="{
@@ -256,8 +305,11 @@ const doDeleteData = async (id, index) => {
               <span v-else-if="props.column.field == 'no'">
                 <div class="text-center">{{ props.index + 1 }}</div>
               </span>
-              <span v-else-if="props.column.field == 'jml_sekolah'">
-                <div class="text-left">{{ props.row.jml_sekolah }} Sekolah</div>
+
+              <span v-else-if="props.column.field == 'pekerjaandanketerangan'">
+                <div class="text-left">
+                  {{ props.row.pekerjaandanketerangan.slice(0, 40) + "..." }}
+                </div>
               </span>
 
               <span v-else>
