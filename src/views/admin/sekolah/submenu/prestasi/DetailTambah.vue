@@ -104,6 +104,38 @@ const doStoreData = async (d) => {
     console.error(error);
   }
 };
+
+const doEditData = async (id2) => {
+  router.push({ name: "AdminCatatanKasusEdit", params: { id: id2 } });
+};
+
+const doDeleteData = async (dataId, index) => {
+  if (confirm("Apakah anda yakin menghapus data ini?")) {
+    try {
+      const response = await Api.delete(
+        `ortu/data/catatan/kasus/data/${dataId}`
+      );
+      data.value.splice(index, 1);
+      Toast.success("Success", "Data Berhasil dihapus!");
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+};
+const encode = (value) => window.btoa(value);
+
+const doCetak = (id = null, token = moment().format("YYYY-MM-Do")) => {
+  if (id === null) {
+    Toast.danger("Warning", "Data tidak valid!");
+  } else {
+    window.open(
+      `${BASE_URL}api/guest/cetak/catatankasus/${encode(id)}?token=${encode(
+        token
+      )}`
+    );
+  }
+};
 </script>
 <template>
   <div class="pt-4 px-10 md:flex justify-between">

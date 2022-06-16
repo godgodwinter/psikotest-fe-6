@@ -266,7 +266,6 @@ getDataId();
                           <option disabled selected>Pilih ?</option>
                           <option>Sedang</option>
                           <option>Ringan</option>
-                          <option>Berat</option>
                         </select>
 
                         <div class="text-xs text-red-600 mt-1">
