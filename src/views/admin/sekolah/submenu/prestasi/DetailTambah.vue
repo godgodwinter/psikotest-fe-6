@@ -59,19 +59,6 @@ const getDataSiswa = async () => {
   }
 };
 getDataSiswa();
-const encode = (value) => window.btoa(value);
-
-const doCetak = (id = null, token = moment().format("YYYY-MM-Do")) => {
-  if (id === null) {
-    Toast.danger("Warning", "Data tidak valid!");
-  } else {
-    window.open(
-      `${BASE_URL}api/guest/cetak/catatankasus/${encode(id)}?token=${encode(
-        token
-      )}`
-    );
-  }
-};
 
 const onSubmit = () => {
   const res = doStoreData();

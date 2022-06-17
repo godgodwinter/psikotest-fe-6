@@ -1,4 +1,13 @@
 <script setup>
+import ButtonCetak from "@/components/atoms/ButtonCetak.vue";
+import moment from "moment/min/moment-with-locales";
+import localization from "moment/locale/id";
+moment.updateLocale("id", localization);
+
+const BASE_URL = import.meta.env.VITE_API_URL
+  ? import.meta.env.VITE_API_URL
+  : "http://localhost:8000/";
+
 import CardLockedFitur from "@/components/organismes/CardLockedFitur.vue";
 import Api from "@/axios/axios";
 import { ref, watch, computed } from "vue";
@@ -37,7 +46,7 @@ const tempPositifDiungkap = ref([]);
 const getDataId = async () => {
   try {
     const response = await Api.get(
-      `owner/hasilpsikologi/detail/${route.params.id}`
+      `owner/hasilpsikologi/detail/${route.params.id2}`
     );
     dataAsli.value = response.data;
     dataDetail.value = response.data;
@@ -354,6 +363,7 @@ getDataId();
 const triggetData = ref("");
 
 const id = route.params.id;
+const id2 = route.params.id2;
 
 const getTerapisPerKalimat = async (arrPerKalimat, index) => {
   let dataStore = {
@@ -381,6 +391,18 @@ watch(triggetData, async (newData, oldData) => {
     getTerapisPerKalimat(tempPositifDiungkap.value[i].dataSend, i);
   }
 });
+
+const encode = (value) => window.btoa(value);
+
+const doCetak = (id = null, token = moment().format("YYYY-MM-Do")) => {
+  if (id === null) {
+    Toast.danger("Warning", "Data tidak valid!");
+  } else {
+    window.open(
+      `${BASE_URL}api/guest/cetak/terapis/${encode(id)}?token=${encode(token)}`
+    );
+  }
+};
 </script>
 <template>
   <div class="pt-4 px-10 md:flex justify-between">
@@ -400,9 +422,11 @@ watch(triggetData, async (newData, oldData) => {
   <div class="pt-4 px-10 md:flex justify-between">
     <div>
       <span
-        class="text-2xl sm:text-3xl leading-none font-bold text-gray-700 shadow-sm"
-        >Terapis Karakter Positif</span
-      >
+        class="text-2xl sm:text-3xl leading-none font-bold text-gray-700 shadow-sm px-2"
+        >Terapis Karakter Positif
+      </span>
+
+      <ButtonCetak @click="doCetak(id2)" />
     </div>
     <div class="md:py-0 py-4 space-x-2 space-y-2">
       <router-link :to="{ name: 'AdminHasilPsikologi' }">
