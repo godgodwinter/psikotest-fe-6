@@ -232,7 +232,7 @@ const doPilihKelas = () => {
 
 // seleksi yang ditampilkan
 const ListTampilkan = ref([
-  { label: "Kecerdasan Bahasa/Lingustik", id: "kb_persen", checked: true },
+  { label: "Kecerdasan Bahasa/Lingustik", id: "kb_persen", checked: true type: "number" },
   {
     label: "Keterangan Kecerdasan Bahasa/Lingustik",
     id: "kbh",
@@ -256,7 +256,7 @@ const ListTampilkan = ref([
   {
     label: "Persentase Intelligence Quotient",
     id: "iq_persen",
-    checked: false,
+    checked: false, type: "number"
   },
   { label: "Keterangan Intelligence Quotient", id: "iqh", checked: false },
   { label: "Persentase Emotional Quotient", id: "eq_persen", checked: false, type: "number" },
