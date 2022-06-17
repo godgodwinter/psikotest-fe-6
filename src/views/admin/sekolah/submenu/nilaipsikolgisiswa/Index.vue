@@ -232,7 +232,7 @@ const doPilihKelas = () => {
 
 // seleksi yang ditampilkan
 const ListTampilkan = ref([
-  { label: "Kecerdasan Bahasa/Lingustik", id: "kb_persen", checked: true type: "number" },
+  { label: "Kecerdasan Bahasa/Lingustik", id: "kb_persen", checked: true, type: "number" },
   {
     label: "Keterangan Kecerdasan Bahasa/Lingustik",
     id: "kbh",
