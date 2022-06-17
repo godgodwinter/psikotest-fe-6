@@ -38,7 +38,7 @@ const kelas = ref(null);
 const getDataId = async () => {
   try {
     const response = await Api.get(
-      `owner/hasilpsikologi/detail/${route.params.id}`
+      `owner/hasilpsikologi/detail/${route.params.id2}`
     );
     dataAsli.value = response.data;
     dataDetail.value = response.data;
@@ -336,6 +336,7 @@ const getDataId = async () => {
 getDataId();
 
 const id = route.params.id;
+const id2 = route.params.id2;
 
 const kecerdasanList = ref([
   {
