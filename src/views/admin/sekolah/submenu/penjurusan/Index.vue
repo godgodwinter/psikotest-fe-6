@@ -241,6 +241,41 @@ const ListTampilkan = ref([
     checked: false,
   },
   {
+    label: "Jurusan SMA yg diinginkan",
+    id: "mnt_studi_lanjut_sma",
+    checked: false,
+  },
+  {
+    label: "Jurusan SMK yg diinginkan 1",
+    id: "mnt_studi_lanjut_smk_1",
+    checked: false,
+  },
+  {
+    label: "Jurusan SMK yg diinginkan 2",
+    id: "mnt_studi_lanjut_smk_2",
+    checked: false,
+  },
+  {
+    label: "Jurusan SMK yg diinginkan 3",
+    id: "mnt_studi_lanjut_smk_3",
+    checked: false,
+  },
+  {
+    label: "Disarankan Jurusan 1",
+    id: "saran_fakultas_1",
+    checked: false,
+  },
+  {
+    label: "Dipertimbangkan Jurusan 2",
+    id: "saran_fakultas_2",
+    checked: false,
+  },
+  {
+    label: "Tidak Disarankan Jurusan 3",
+    id: "kesimpulan_tambahan",
+    checked: false,
+  },
+  {
     label: "Studi Lanjut SMA/SMK Fakultas 1",
     id: "mnt_studi_lanjut_sma_smk_1_fakultas",
     checked: false,
@@ -263,26 +298,6 @@ const ListTampilkan = ref([
   {
     label: "Studi Lanjut SMA/SMK Kedinasan",
     id: "mnt_studi_lanjut_sma_smk_kedinasan",
-    checked: false,
-  },
-  {
-    label: "Jurusan SMA yg diinginkan",
-    id: "mnt_studi_lanjut_sma",
-    checked: false,
-  },
-  {
-    label: "Jurusan SMK yg diinginkan 1",
-    id: "mnt_studi_lanjut_smk_1",
-    checked: false,
-  },
-  {
-    label: "Jurusan SMK yg diinginkan 2",
-    id: "mnt_studi_lanjut_smk_2",
-    checked: false,
-  },
-  {
-    label: "Jurusan SMK yg diinginkan 3",
-    id: "mnt_studi_lanjut_smk_3",
     checked: false,
   },
   {
