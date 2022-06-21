@@ -1,4 +1,5 @@
 <script setup>
+import Api from "@/axios/axios";
 import { ref } from "vue";
 import Fungsi from "@/components/lib/Psikotest.js";
 const props = defineProps({
@@ -14,7 +15,7 @@ const props = defineProps({
   default() {
     return null;
   },
-  paket: Object,
+  kelas: Object,
   default() {
     return null;
   },
@@ -22,7 +23,8 @@ const props = defineProps({
 const siswa = ref(props.siswa);
 const aspekKepribadianRank = ref(props.aspekKepribadianRank);
 const temp = ref(props.temp);
-const paket = ref(props.paket);
+const paket = ref([]);
+const kelas = ref(props.kelas);
 
 siswa.value.iq_ket = Fungsi.iqKet(props.siswa.sertifikat.iq);
 siswa.value.eq_persen_keterangan = Fungsi.kepanjangan(
@@ -83,6 +85,19 @@ const kecerdasanList = ref([
     code: "SBS",
   },
 ]);
+
+const getDataPaket = async (paket_id) => {
+  try {
+    const response = await Api.get(`owner/paket/${paket_id}`);
+    paket.value = response.data;
+    // console.log(paket.value);
+    return response.data;
+  } catch (error) {
+    // Toast.danger("Warning", "Data Gagal dimuat");
+    console.error(error);
+  }
+};
+getDataPaket(siswa.value.paket_id);
 </script>
 <template>
   <div v-if="siswa">
@@ -203,7 +218,7 @@ const kecerdasanList = ref([
     <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
       <div class="w-full lg:w-full">
         <div class="bg-base-100 shadow rounded-lg px-4 py-4">
-          <div class="overflow-x-auto">
+          <div class="overflow-x-auto w-full md:w-10/12 2xl:w-full">
             <table
               class="table table-compact w-full border-collapse border border-gray-400"
             >
@@ -608,9 +623,7 @@ const kecerdasanList = ref([
         <span
           class="text-2xl sm:text-xl leading-none font-bold text-gray-600 shadow-sm"
           >XI. KESIMPULAN DAN SARAN
-
-          {{ kelas }}</span
-        >
+        </span>
       </div>
       <div class="md:py-0 py-4 space-x-2 space-y-2"></div>
     </div>

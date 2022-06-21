@@ -14,11 +14,13 @@ import CardSertifikat2 from "@/components/organismes/sertifikat/CardSertifikat2.
 
 import { useStoreGuruBk } from "@/stores/guruBk";
 const storeGuruBk = useStoreGuruBk();
-const paket = computed(() => storeGuruBk.getPaket);
+// const paket = computed(() => storeGuruBk.getPaket);
 storeGuruBk.$subscribe((mutation, state) => {
   // console.log(mutation, state);
   // console.log(paket.value);
 });
+
+const paket = ref([]);
 
 const storeAdminBar = useStoreAdminBar();
 storeAdminBar.setsubMenuActive("hasilpsikologi");
@@ -45,6 +47,7 @@ const getDataId = async () => {
     kelas.value = Fungsi.getKelas(response.data.kelas_nama);
     data.value = response.data.sertifikat;
     siswa.value = response.data;
+    // console.log(paket.value.id);
 
     if (response.status == "failed") {
       Toast.danger("Warning", "Anda tidak memiliki Akses siswa ini!");
@@ -594,8 +597,8 @@ function romanize(num) {
     <div>
       <span
         class="text-2xl sm:text-3xl leading-none font-bold text-gray-700 shadow-sm"
-        >Sertifikat Psikologis {{ kelas }}</span
-      >
+        >Sertifikat Psikologis
+      </span>
     </div>
     <div class="md:py-0 py-4 space-x-2 space-y-2">
       <router-link :to="{ name: 'AdminHasilPsikologi' }">
@@ -627,7 +630,6 @@ function romanize(num) {
       :siswa="siswa"
       :aspekKepribadianRank="aspekKepribadianRank"
       :temp="temp"
-      :paket="paket"
       :kelas="kelas"
     />
     <CardSertifikat1
@@ -635,7 +637,6 @@ function romanize(num) {
       :siswa="siswa"
       :aspekKepribadianRank="aspekKepribadianRank"
       :temp="temp"
-      :paket="paket"
       :kelas="kelas"
     />
   </div>
