@@ -281,7 +281,7 @@ const kecerdasanList = ref([
                     {{ item.nama }}
                   </td>
                   <td
-                    class="whitespace-nowrap w-1/100 border-collapse border border-gray-400"
+                    class="whitespace-nowrap w-1/100 border-collapse border border-gray-400 text-center"
                   >
                     {{ index + 1 }}
                   </td>
