@@ -63,19 +63,20 @@ const kecerdasanList = ref([
   {
     label: "Cukup",
     code: "C",
-    altCode: "CB",
   },
   {
-    label: "Kurang Baik",
-    code: "KB",
+    label: "Cukup Baik",
+    code: "CB",
+    // altCode: "CB",
   },
   {
     label: "Baik",
     code: "B",
   },
   {
-    label: "Sangat Baik",
-    code: "SB",
+    label: "Sangat Baik", //Baik sekali
+    code: "BS",
+    // altCode: "BS",
   },
   {
     label: "Sangat Baik Sekali",
@@ -150,7 +151,7 @@ const kecerdasanList = ref([
                 <tr>
                   <td class="whitespace-nowrap w-1/100">I.</td>
                   <td class="whitespace-nowrap w-1/100">
-                    IQ (Intelegence Quotient) / CFIT
+                    IQ (Intelegence Quotient) / IST
                   </td>
                   <td class="whitespace-nowrap w-1/100">:</td>
                   <td class="whitespace-nowrap w-1/100">
@@ -203,39 +204,89 @@ const kecerdasanList = ref([
       <div class="w-full lg:w-full">
         <div class="bg-base-100 shadow rounded-lg px-4 py-4">
           <div class="overflow-x-auto">
-            <table class="table table-compact w-full">
+            <table
+              class="table table-compact w-full border-collapse border border-gray-400"
+            >
               <tbody>
                 <!-- row 1 -->
                 <tr>
-                  <td class="whitespace-nowrap w-1/100">IV.</td>
-                  <td class="whitespace-nowrap w-1/100">
+                  <td
+                    class="whitespace-nowrap w-1/100 border-collapse border border-gray-400 text-center"
+                  >
+                    IV.
+                  </td>
+                  <td
+                    class="whitespace-nowrap w-1/100 border-collapse border border-gray-400"
+                  >
                     IQ (KM) 8 Kecerdasan
                   </td>
-                  <td class="whitespace-pre-wrap w-1/100">Rank Nilai</td>
-                  <td class="whitespace-pre-wrap w-1/100">
+                  <td
+                    class="whitespace-pre-wrap w-1/100 border-collapse border border-gray-400"
+                  >
+                    Rank Nilai
+                  </td>
+                  <td
+                    class="whitespace-pre-wrap w-1/100 border-collapse border border-gray-400"
+                  >
                     Sangat Kurang Sekali
                   </td>
-                  <td class="whitespace-pre-wrap w-1/100">Kurang Sekali</td>
-                  <td class="whitespace-pre-wrap w-1/100">Kurang</td>
-                  <td class="whitespace-pre-wrap w-1/100">Hampir Cukup</td>
-                  <td class="whitespace-pre-wrap w-1/100">Cukup</td>
-                  <td class="whitespace-pre-wrap w-1/100">Kurang Baik</td>
-                  <td class="whitespace-pre-wrap w-1/100">Baik</td>
-                  <td class="whitespace-pre-wrap w-1/100">Baik Sekali</td>
-                  <td class="whitespace-pre-wrap w-1/100">
+                  <td
+                    class="whitespace-pre-wrap w-1/100 border-collapse border border-gray-400"
+                  >
+                    Kurang Sekali
+                  </td>
+                  <td
+                    class="whitespace-pre-wrap w-1/100 border-collapse border border-gray-400"
+                  >
+                    Kurang
+                  </td>
+                  <td
+                    class="whitespace-pre-wrap w-1/100 border-collapse border border-gray-400"
+                  >
+                    Hampir Cukup
+                  </td>
+                  <td
+                    class="whitespace-pre-wrap w-1/100 border-collapse border border-gray-400"
+                  >
+                    Cukup
+                  </td>
+                  <td
+                    class="whitespace-pre-wrap w-1/100 border-collapse border border-gray-400"
+                  >
+                    Cukup Baik
+                  </td>
+                  <td
+                    class="whitespace-pre-wrap w-1/100 border-collapse border border-gray-400"
+                  >
+                    Baik
+                  </td>
+                  <td
+                    class="whitespace-pre-wrap w-1/100 border-collapse border border-gray-400"
+                  >
+                    Baik Sekali
+                  </td>
+                  <td
+                    class="whitespace-pre-wrap w-1/100 border-collapse border border-gray-400"
+                  >
                     Sangat Baik Sekali
                   </td>
                 </tr>
                 <tr v-for="(item, index) in temp">
-                  <td class="whitespace-nowrap w-1/100"></td>
-                  <td class="whitespace-nowrap w-1/100">
+                  <td
+                    class="whitespace-nowrap w-1/100 border-collapse border border-gray-400"
+                  ></td>
+                  <td
+                    class="whitespace-nowrap w-1/100 border-collapse border border-gray-400"
+                  >
                     {{ item.nama }}
                   </td>
-                  <td class="whitespace-nowrap w-1/100">
+                  <td
+                    class="whitespace-nowrap w-1/100 border-collapse border border-gray-400"
+                  >
                     {{ index + 1 }}
                   </td>
                   <td
-                    class="whitespace-nowrap w-1/100"
+                    class="whitespace-nowrap w-1/100 border-collapse border border-gray-400"
                     v-for="kList in kecerdasanList"
                   >
                     <span
@@ -261,11 +312,21 @@ const kecerdasanList = ref([
                 </tr>
 
                 <tr>
-                  <td class="whitespace-nowrap w-1/100">V.</td>
-                  <td class="whitespace-nowrap w-1/100">Pengetahuan Umum</td>
-                  <td class="whitespace-nowrap w-1/100"></td>
                   <td
-                    class="whitespace-nowrap w-1/100"
+                    class="whitespace-nowrap w-1/100 border-collapse border border-gray-400 text-center"
+                  >
+                    V.
+                  </td>
+                  <td
+                    class="whitespace-nowrap w-1/100 border-collapse border border-gray-400"
+                  >
+                    Pengetahuan Umum
+                  </td>
+                  <td
+                    class="whitespace-nowrap w-1/100 border-collapse border border-gray-400"
+                  ></td>
+                  <td
+                    class="whitespace-nowrap w-1/100 border-collapse border border-gray-400"
                     v-for="item in kecerdasanList"
                   >
                     <span
@@ -291,11 +352,21 @@ const kecerdasanList = ref([
                   </td>
                 </tr>
                 <tr>
-                  <td class="whitespace-nowrap w-1/100">VI.</td>
-                  <td class="whitespace-nowrap w-1/100">Kreativitas</td>
-                  <td class="whitespace-nowrap w-1/100"></td>
                   <td
-                    class="whitespace-nowrap w-1/100"
+                    class="whitespace-nowrap w-1/100 border-collapse border border-gray-400 text-center"
+                  >
+                    VI.
+                  </td>
+                  <td
+                    class="whitespace-nowrap w-1/100 border-collapse border border-gray-400"
+                  >
+                    Kreativitas
+                  </td>
+                  <td
+                    class="whitespace-nowrap w-1/100 border-collapse border border-gray-400"
+                  ></td>
+                  <td
+                    class="whitespace-nowrap w-1/100 border-collapse border border-gray-400"
                     v-for="item in kecerdasanList"
                   >
                     <span
@@ -321,11 +392,21 @@ const kecerdasanList = ref([
                   </td>
                 </tr>
                 <tr>
-                  <td class="whitespace-nowrap w-1/100">VII.</td>
-                  <td class="whitespace-nowrap w-1/100">Kemampuan Mengingat</td>
-                  <td class="whitespace-nowrap w-1/100"></td>
                   <td
-                    class="whitespace-nowrap w-1/100"
+                    class="whitespace-nowrap w-1/100 border-collapse border border-gray-400 text-center"
+                  >
+                    VII.
+                  </td>
+                  <td
+                    class="whitespace-nowrap w-1/100 border-collapse border border-gray-400"
+                  >
+                    Kemampuan Mengingat
+                  </td>
+                  <td
+                    class="whitespace-nowrap w-1/100 border-collapse border border-gray-400"
+                  ></td>
+                  <td
+                    class="whitespace-nowrap w-1/100 border-collapse border border-gray-400"
                     v-for="item in kecerdasanList"
                   >
                     <span
@@ -526,7 +607,9 @@ const kecerdasanList = ref([
       <div>
         <span
           class="text-2xl sm:text-xl leading-none font-bold text-gray-600 shadow-sm"
-          >XI. KESIMPULAN DAN SARAN</span
+          >XI. KESIMPULAN DAN SARAN
+
+          {{ kelas }}</span
         >
       </div>
       <div class="md:py-0 py-4 space-x-2 space-y-2"></div>
@@ -541,7 +624,7 @@ const kecerdasanList = ref([
             Potensi kecerdasan subyek yang dapat digunakan saat ini
             <b> {{ siswa.iq }}</b
             >,(IQ=<b>{{ siswa.iq }}</b
-            >, CFIT = <b>{{ siswa.sertifikat.iq_persen }}%)</b> artinya dengan
+            >, IST = <b>{{ siswa.sertifikat.iq_persen }}%)</b> artinya dengan
             tingkat kemampuan menggunakan kecerdasan majemuk tergolong
             <b>{{ siswa.iqh }}</b
             >.

@@ -1,6 +1,17 @@
 const getKelas = (item = "") => {
-    // function split string
     let response = item ? item.split("/") : null;
+    if (item.indexOf("/")) {
+        response = item ? item.split("/") : null;
+    } else if (item.indexOf("-")) {
+        response = item ? item.split("-") : null;
+    } else if (item.indexOf(".")) {
+        response = item ? item.split(".") : null;
+    } else {
+        response = item ? item.split(" ") : null;
+    }
+    console.log(item, response, item.indexOf("-"));
+    // function split string
+    // let response = item ? item.split("/") : null;
 
     return response ? response[0] : null;
 };

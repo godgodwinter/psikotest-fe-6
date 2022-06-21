@@ -63,25 +63,27 @@ const kecerdasanList = ref([
   {
     label: "Cukup",
     code: "C",
-    altCode: "CB",
   },
   {
-    label: "Kurang Baik",
-    code: "KB",
+    label: "Cukup Baik",
+    code: "CB",
+    // altCode: "CB",
   },
   {
     label: "Baik",
     code: "B",
   },
   {
-    label: "Sangat Baik",
-    code: "SB",
+    label: "Sangat Baik", //Baik sekali
+    code: "BS",
+    // altCode: "BS",
   },
   {
     label: "Sangat Baik Sekali",
     code: "SBS",
   },
 ]);
+
 </script>
 <template>
   <div v-if="siswa">
@@ -403,6 +405,8 @@ const kecerdasanList = ref([
               {{ aspekKepribadianRank[3].nama }},
               {{ aspekKepribadianRank[4].nama }}
             </b>
+
+            {{ kelas }}
             terdiri dari aspek positif dan perlu ditingkatkan, dikembangkan, dan
             dipertahankan, sedangkan aspek negatif perlu dirubah dan
             dikendalikan supaya tidak menghambat prestasi subyek.
