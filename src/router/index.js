@@ -149,6 +149,11 @@ const router = createRouter({
               name: 'AdminSekolahDetailHasilpsikologiSertifikat',
             },
             {
+              path: '/pages/admin/sekolahdetail/:id/hasilpsikologi/:id2/kecerdasanmajemuk',
+              component: () => import("@/views/admin/sekolah/submenu/hasilpsikologi/KecerdasanMajemuk.vue"),
+              name: 'AdminSekolahDetailHasilpsikologiKecerdasanMajemuk',
+            },
+            {
               path: '/pages/admin/sekolahdetail/:id/hasilpsikologi/:id2/terapis',
               component: () => import("@/views/admin/sekolah/submenu/hasilpsikologi/Terapis.vue"),
               name: 'AdminSekolahDetailHasilpsikologiTerapis',

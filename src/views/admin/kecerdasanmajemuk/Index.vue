@@ -232,7 +232,7 @@ const setSelected = () => {
             ref="myTable"
             @on-selected-rows-change="selectionChanged"
             :line-numbers="true"
-            :select-options="{ enabled: true }"
+            :select-options="{ enabled: false }"
             :columns="columns"
             :rows="data"
             :search-options="{
