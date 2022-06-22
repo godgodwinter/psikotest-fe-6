@@ -20,7 +20,7 @@ storeGuruBk.$subscribe((mutation, state) => {
 });
 
 const storeAdminBar = useStoreAdminBar();
-storeAdminBar.setPagesActive("klasifikasi");
+storeAdminBar.setPagesActive("kecerdasanmajemuk");
 const router = useRouter();
 const route = useRoute();
 
@@ -37,50 +37,30 @@ const columns = [
     thClass: "text-center",
   },
   {
-    label: "Bidang",
-    field: "bidang",
+    label: "Multiple Intellegences",
+    field: "nama",
     type: "String",
   },
   {
-    label: "Akademis",
-    field: "akademis",
+    label: "Visual",
+    field: "visual",
     type: "String",
   },
   {
-    label: "Profesi",
-    field: "profesi",
+    label: "Auditif",
+    field: "auditif",
     type: "String",
   },
   {
-    label: "Nilai Standart",
-    field: "nilaistandart",
-    type: "String",
-  },
-  {
-    label: "IQ Standart",
-    field: "iqstandart",
-    type: "String",
-  },
-  {
-    label: "Jurusan & Bidang Studi yang ditekuni",
-    field: "jurusandanbidangstudi",
-    type: "String",
-  },
-  {
-    label: "Pekerjaan & Keterangan",
-    field: "pekerjaandanketerangan",
-    type: "String",
-  },
-  {
-    label: "Link",
-    field: "ket",
+    label: "KInestetik",
+    field: "kinestetik",
     type: "String",
   },
 ];
 
 const getData = async () => {
   try {
-    const response = await Api.get(`owner/klasifikasi`);
+    const response = await Api.get(`owner/kecerdasanmajemuk`);
     dataAsli.value = response.data;
     data.value = response.data;
 
@@ -93,14 +73,14 @@ getData();
 
 const doEditData = async (id, index) => {
   router.push({
-    name: "AdminKlasifikasiEdit",
+    name: "AdminKecerdasanMajemukEdit",
     params: { id: id },
   });
 };
 const doDeleteData = async (id, index) => {
   if (confirm("Apakah anda yakin menghapus data ini?")) {
     try {
-      const response = await Api.delete(`owner/klasifikasi/${id}`);
+      const response = await Api.delete(`owner/kecerdasanmajemuk/${id}`);
       data.value.splice(index, 1);
       Toast.success("Success", "Data Berhasil dihapus!");
       return response.data;
@@ -122,7 +102,7 @@ const doCetak = (token = moment().format("YYYY-MM-Do")) => {
     Toast.danger("Warning", "Pilih data terlebih dahulu!");
   } else {
     window.open(
-      `${BASE_URL}api/guest/cetak/klasifikasi/?token=${encode(
+      `${BASE_URL}api/guest/cetak/kecerdasanmajemuk/?token=${encode(
         token
       )}&data=${encode(JSON.stringify(selected.value))}`
     );
@@ -145,13 +125,13 @@ const setSelected = () => {
     <div>
       <span
         class="text-2xl sm:text-3xl leading-none font-bold text-base-content shadow-sm"
-        >Klasifikasi Akademis dan Profesi
+        >Kecerdasan Majemuk
       </span>
     </div>
     <div class="md:py-0 py-4">
       <BreadCrumb>
         <template v-slot:content>
-          Klasifikasi <BreadCrumbSpace /> Index
+          Kecerdasan Majemuk <BreadCrumbSpace /> Index
         </template>
       </BreadCrumb>
     </div>
@@ -160,7 +140,7 @@ const setSelected = () => {
   <div class="md:pt-6">
     <div class="md:flex justify-between px-10">
       <div class="space-x-1 space-y-1 pt-1 md:pt-0">
-        <router-link :to="{ name: 'AdminKlasifikasiTambah' }">
+        <router-link :to="{ name: 'AdminKecerdasanMajemukTambah' }">
           <button
             class="btn btn-info hover:shadow-lg shadow text-white hover:text-gray-100 gap-2"
           >

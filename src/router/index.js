@@ -350,6 +350,22 @@ const router = createRouter({
           component: () => import("@/views/admin/katabijak/DetailEdit.vue"),
           name: 'AdminKatabijakDetailEdit',
         },
+
+        {
+          path: '/pages/kecerdasanmajemuk',
+          component: () => import("@/views/admin/kecerdasanmajemuk/Index.vue"),
+          name: 'AdminKecerdasanMajemuk',
+        },
+        {
+          path: '/pages/kecerdasanmajemuk/tambah',
+          component: () => import("@/views/admin/kecerdasanmajemuk/Tambah.vue"),
+          name: 'AdminKecerdasanMajemukTambah',
+        },
+        {
+          path: '/pages/kecerdasanmajemuk/:id/edit',
+          component: () => import("@/views/admin/kecerdasanmajemuk/Edit.vue"),
+          name: 'AdminKecerdasanMajemukEdit',
+        },
         {
           path: '/pages/owner',
           component: () => import("@/views/admin/owner/Index.vue"),
