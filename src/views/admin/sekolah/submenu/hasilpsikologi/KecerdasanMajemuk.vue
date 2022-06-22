@@ -1,4 +1,5 @@
 <script setup>
+import CardLockedFitur from "@/components/organismes/CardLockedFitur.vue";
 import ButtonCetak from "@/components/atoms/ButtonCetak.vue";
 import moment from "moment/min/moment-with-locales";
 import localization from "moment/locale/id";
@@ -8,7 +9,6 @@ const BASE_URL = import.meta.env.VITE_API_URL
   ? import.meta.env.VITE_API_URL
   : "http://localhost:8000/";
 
-import CardLockedFitur from "@/components/organismes/CardLockedFitur.vue";
 import Api from "@/axios/axios";
 import { ref, watch, computed } from "vue";
 import BreadCrumb from "@/components/atoms/BreadCrumb.vue";
@@ -42,19 +42,18 @@ const aspekKepribadianRank = ref([]);
 const temp = ref([{ nama: "" }]);
 const kecerdasan = ref([]);
 const tempPositifDiungkap = ref([]);
+const paket = ref([]);
 
 const getDataId = async () => {
   try {
     const response = await Api.get(
-      `owner/hasilpsikologi/kecerdasanmajemuk/${route.params.id2}`
+      `guest/hasilpsikologi/kecerdasanmajemuk/${route.params.id2}`
     );
     dataAsli.value = response.data;
     data.value = response.data;
     siswa.value = response.siswa;
+    paket.value = response.siswa.paket;
 
-    console.log("====================================");
-    console.log(data.value);
-    console.log("====================================");
     return response.data;
   } catch (error) {
     Toast.danger("Warning", "Data Siswa tidak ditemukan!");
@@ -74,25 +73,12 @@ const doCetak = (id = null, token = moment().format("YYYY-MM-Do")) => {
     Toast.danger("Warning", "Data tidak valid!");
   } else {
     window.open(
-      `${BASE_URL}api/guest/cetak/terapis/${encode(id)}?token=${encode(token)}`
+      `${BASE_URL}api/guest/cetak/kecerdasanmajemuk/${encode(
+        id2
+      )}?token=${encode(token)}`
     );
   }
 };
-
-const paket = ref([]);
-
-const getDataPaket = async (paket_id) => {
-  try {
-    const response = await Api.get(`owner/paket/${paket_id}`);
-    paket.value = response.data;
-    console.log(paket.value);
-    return response.data;
-  } catch (error) {
-    // Toast.danger("Warning", "Data Gagal dimuat");
-    console.error(error);
-  }
-};
-// getDataPaket(siswa.value.paket_id);
 </script>
 <template>
   <div class="pt-4 px-10 md:flex justify-between">
@@ -115,7 +101,7 @@ const getDataPaket = async (paket_id) => {
     <div>
       <span
         class="text-2xl sm:text-3xl leading-none font-bold text-gray-700 shadow-sm px-2"
-        >Kecerdasan Majemuk
+        >8 KECERDASAN MAJEMUK DENGAN GAYA BESAR
       </span>
 
       <ButtonCetak @click="doCetak(id2)" />
@@ -145,7 +131,11 @@ const getDataPaket = async (paket_id) => {
     </div>
   </div>
 
-  <div>
+  <div v-if="paket.kecerdasanmajemuk != 'Aktif'">
+    <CardLockedFitur />
+  </div>
+
+  <div v-else>
     <div v-if="siswa">
       <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
         <div class="w-full lg:w-full">
