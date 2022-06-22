@@ -101,7 +101,7 @@ const doCetak = (id = null, token = moment().format("YYYY-MM-Do")) => {
     <div>
       <span
         class="text-2xl sm:text-3xl leading-none font-bold text-gray-700 shadow-sm px-2"
-        >8 KECERDASAN MAJEMUK DENGAN GAYA BESAR
+        >8 KECERDASAN MAJEMUK DENGAN GAYA BELAJAR
       </span>
 
       <ButtonCetak @click="doCetak(id2)" />
