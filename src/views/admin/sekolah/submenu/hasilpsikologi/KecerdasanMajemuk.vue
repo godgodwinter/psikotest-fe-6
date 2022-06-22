@@ -196,7 +196,8 @@ const doCetak = (id = null, token = moment().format("YYYY-MM-Do")) => {
                   <h1
                     class="text-lg font-bold text-gray-700 py-2 bg-gray-100 capitalize"
                   >
-                    {{ item.nama }} - {{ item.persen }} - {{ item.kepanjangan }}
+                    {{ index + 1 }}. {{ item.nama }} - {{ item.persen }} -
+                    {{ item.kepanjangan }}
                   </h1>
                   <h1 class="text-md font-bold text-gray-700 bg-gray-50">
                     a. VISUAL :
