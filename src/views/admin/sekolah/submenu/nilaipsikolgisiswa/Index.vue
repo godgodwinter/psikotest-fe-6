@@ -116,6 +116,7 @@ const getDataKelas = async () => {
 getDataKelas();
 
 const doPilihKelas = () => {
+  data.value = [];
   if (inputCariKelas.value.id === "Semua Kelas") {
     // data.value = dataAsli.value.map((item, index) => {
     //   return {
