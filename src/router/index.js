@@ -62,6 +62,11 @@ const router = createRouter({
           component: () => import("@/views/admin/DashBoard.vue"),
         },
         {
+          path: '/pages/settings/profile',
+          name: 'AdminSettingsProfile',
+          component: () => import("@/views/admin/settings/MyProfile.vue"),
+        },
+        {
           path: '/pages/apiprobk',
           component: () => import("@/views/admin/apiprobk/Index.vue"),
           name: 'AdminApiprobk',
