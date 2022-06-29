@@ -18,21 +18,21 @@ const dataAsli = ref([]);
 const data = ref([]);
 
 const columns = [
-  {
-    label: "No",
-    field: "no",
-    width: "50px",
-    tdClass: "text-center",
-    thClass: "text-center",
-  },
-  {
-    label: "Actions",
-    field: "actions",
-    sortable: false,
-    width: "50px",
-    tdClass: "text-center",
-    thClass: "text-center",
-  },
+  // {
+  //   label: "No",
+  //   field: "no",
+  //   width: "50px",
+  //   tdClass: "text-center",
+  //   thClass: "text-center",
+  // },
+  // {
+  //   label: "Actions",
+  //   field: "actions",
+  //   sortable: false,
+  //   width: "50px",
+  //   tdClass: "text-center",
+  //   thClass: "text-center",
+  // },
   {
     label: "Nama Siswa",
     field: "nama",
@@ -209,6 +209,7 @@ const doPilihKelas = () => {
       <div class="bg-base-200 shadow rounded-lg px-4 py-4">
         <div v-if="data">
           <vue-good-table
+            :line-numbers="true"
             :columns="columns"
             :rows="data"
             :search-options="{
