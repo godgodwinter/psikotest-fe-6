@@ -137,11 +137,11 @@ const fnValidateFile = (file) => {
 const fnDoUploadFile = async (file, jenis) => {
   let link = "";
   if (jenis == "logo") {
-    link = `yayasan/myprofile/upload/logo`;
+    link = `owner/myprofile/upload/logo`;
   } else if (jenis == "kepala") {
-    link = `yayasan/myprofile/upload/kepala`;
+    link = `owner/myprofile/upload/kepala`;
   } else {
-    link = `yayasan/myprofile/upload/user`;
+    link = `owner/myprofile/upload/user`;
   }
 
   let formData = new FormData();
@@ -184,27 +184,11 @@ const onChangePhotoLogoSekolah = (e) => {
   console.log(file, photoLogoSekolah.value);
 };
 
-const photoKepalaSekolah = ref(null);
-const photoKepalaSekolahFile = ref(null);
-const doUploadPhotoKepalaSekolah = () => {
-  if (fnValidateFile(photoKepalaSekolahFile.value)) {
-    fnDoUploadFile(photoKepalaSekolahFile.value, "kepala");
-    // Toast.babeng("Info", "Fitur belum tersedia!");
-  }
-};
-const onChangePhotoKepalaSekolah = (e) => {
-  let file = e.target.files[0];
-  photoKepalaSekolahFile.value = file;
-  photoKepalaSekolah.value = URL.createObjectURL(file);
-  console.log(file, photoKepalaSekolah.value);
-};
-
 const getDataPhoto = async () => {
   try {
-    const response = await Api.get(`yayasan/myprofile/upload/getphoto`);
+    const response = await Api.get(`owner/myprofile/upload/getphoto`);
 
     photoLogoSekolah.value = response.data.logo;
-    photoKepalaSekolah.value = response.data.kepala;
     return response.data;
   } catch (error) {
     console.error(error);
@@ -229,7 +213,7 @@ getDataPhoto();
   </div>
 
   <div class="px-4 pt-10">
-    <h3 class="font-bold">UPDATE DATA YAYASAN</h3>
+    <h3 class="font-bold">UPDATE DATA ADMINISTRATOR</h3>
   </div>
   <div class="px-4 py-0">
     <div class="w-full">
@@ -258,78 +242,6 @@ getDataPhoto();
                         />
                         <div class="text-xs text-red-600 mt-1">
                           {{ errors.nama }}
-                        </div>
-                      </div>
-                      <div>
-                        <label
-                          for="name"
-                          class="text-sm font-medium text-base-content block mb-2"
-                          >Alamat</label
-                        >
-                        <Field
-                          v-model="dataDetail.alamat"
-                          :rules="validateData"
-                          type="text"
-                          name="alamat"
-                          ref="alamat"
-                          class="input input-bordered md:w-full max-w-2xl"
-                          required
-                        />
-                        <div class="text-xs text-red-600 mt-1">
-                          {{ errors.alamat }}
-                        </div>
-                      </div>
-                      <div>
-                        <label
-                          for="name"
-                          class="text-sm font-medium text-base-content block mb-2"
-                          >Status</label
-                        >
-                        <select class="select select-bordered w-full" disabled>
-                          <!-- <option disabled selected>Pilih Status ?</option> -->
-                          <option>Aktif</option>
-                          <option>Nonaktif</option>
-                        </select>
-                        <!-- <div class="text-xs text-red-600 mt-1">
-                          {{ errors.status }}
-                        </div> -->
-                      </div>
-                      <div>
-                        <label
-                          for="name"
-                          class="text-sm font-medium text-base-content block mb-2"
-                          >Nama Kepala Yayasan</label
-                        >
-                        <Field
-                          v-model="dataDetail.kepala"
-                          :rules="validateData"
-                          type="text"
-                          name="kepala"
-                          ref="kepala"
-                          class="input input-bordered md:w-full max-w-2xl"
-                          required
-                        />
-                        <div class="text-xs text-red-600 mt-1">
-                          {{ errors.kepala }}
-                        </div>
-                      </div>
-                      <div>
-                        <label
-                          for="name"
-                          class="text-sm font-medium text-base-content block mb-2"
-                          >No Telp</label
-                        >
-                        <Field
-                          v-model="dataDetail.telp"
-                          :rules="validateData"
-                          type="text"
-                          name="telp"
-                          ref="telp"
-                          class="input input-bordered md:w-full max-w-2xl"
-                          required
-                        />
-                        <div class="text-xs text-red-600 mt-1">
-                          {{ errors.telp }}
                         </div>
                       </div>
                     </div>
