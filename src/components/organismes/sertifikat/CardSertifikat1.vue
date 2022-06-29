@@ -270,12 +270,43 @@ getDataPaket(siswa.value.paket_id);
                   </th>
                 </tr>
                 <!-- row 1 -->
-                <tr v-for="(item, index) in aspekKepribadianRank.slice(0, 5)">
+
+                <tr>
+                  <td>1.</td>
+                  <td class="whitespace-pre-wrap">
+                    {{ siswa.sertifikat.hspq_rank_1_positif }}
+                  </td>
+                </tr>
+                <tr>
+                  <td>2.</td>
+                  <td class="whitespace-pre-wrap">
+                    {{ siswa.sertifikat.hspq_rank_2_positif }}
+                  </td>
+                </tr>
+                <tr>
+                  <td>3.</td>
+                  <td class="whitespace-pre-wrap">
+                    {{ siswa.sertifikat.hspq_rank_3_positif }}
+                  </td>
+                </tr>
+                <tr>
+                  <td>4.</td>
+                  <td class="whitespace-pre-wrap">
+                    {{ siswa.sertifikat.hspq_rank_4_positif }}
+                  </td>
+                </tr>
+                <tr>
+                  <td>5.</td>
+                  <td class="whitespace-pre-wrap">
+                    {{ siswa.sertifikat.hspq_rank_5_positif }}
+                  </td>
+                </tr>
+                <!-- <tr v-for="(item, index) in aspekKepribadianRank.slice(0, 5)">
                   <td>{{ index + 1 }}.</td>
                   <td class="whitespace-pre-wrap">
                     {{ item.positif_diungkap }}
                   </td>
-                </tr>
+                </tr> -->
 
                 <!-- row 2 -->
               </tbody>
@@ -294,12 +325,43 @@ getDataPaket(siswa.value.paket_id);
                   </th>
                 </tr>
                 <!-- row 1 -->
-                <tr v-for="(item, index) in aspekKepribadianRank.slice(0, 5)">
+
+                <tr>
+                  <td>1.</td>
+                  <td class="whitespace-pre-wrap">
+                    {{ siswa.sertifikat.hspq_rank_1_negatif }}
+                  </td>
+                </tr>
+                <tr>
+                  <td>2.</td>
+                  <td class="whitespace-pre-wrap">
+                    {{ siswa.sertifikat.hspq_rank_2_negatif }}
+                  </td>
+                </tr>
+                <tr>
+                  <td>3.</td>
+                  <td class="whitespace-pre-wrap">
+                    {{ siswa.sertifikat.hspq_rank_3_negatif }}
+                  </td>
+                </tr>
+                <tr>
+                  <td>4.</td>
+                  <td class="whitespace-pre-wrap">
+                    {{ siswa.sertifikat.hspq_rank_4_negatif }}
+                  </td>
+                </tr>
+                <tr>
+                  <td>5.</td>
+                  <td class="whitespace-pre-wrap">
+                    {{ siswa.sertifikat.hspq_rank_5_negatif }}
+                  </td>
+                </tr>
+                <!-- <tr v-for="(item, index) in aspekKepribadianRank.slice(0, 5)">
                   <td>{{ index + 1 }}.</td>
                   <td class="whitespace-pre-wrap">
                     {{ item.negatif_diungkap }}
                   </td>
-                </tr>
+                </tr> -->
 
                 <!-- row 2 -->
               </tbody>
