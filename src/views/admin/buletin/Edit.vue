@@ -147,6 +147,7 @@ const fnDoUploadFile = async (file, jenis) => {
     // router.go();
     // resetForm();
     console.log(response);
+    router.push({ name: "AdminBuletin" });
     return response.data;
   } catch (error) {
     Toast.danger("Warning", "Data gagal ditambahkan!");
