@@ -81,7 +81,7 @@ const onChangeFileUpload = (e) => {
 
 const fnValidateFile = (file) => {
   if (file) {
-    if (file.size > 2048576) {
+    if (file.size > 5048576) {
       Toast.danger("Warning", "File harus kurang dari 2mb!");
       return false;
     }
