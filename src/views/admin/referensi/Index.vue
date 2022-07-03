@@ -8,6 +8,7 @@ import ButtonEdit from "@/components/atoms/ButtonEdit.vue";
 import ButtonDelete from "@/components/atoms/ButtonDel.vue";
 import { useRouter, useRoute } from "vue-router";
 import { useStoreAdminBar } from "@/stores/adminBar";
+import Toast from "@/components/lib/Toast";
 
 import { useStoreGuruBk } from "@/stores/guruBk";
 const storeGuruBk = useStoreGuruBk();
@@ -25,13 +26,6 @@ const dataAsli = ref([]);
 const data = ref([]);
 
 const columns = [
-  {
-    label: "No",
-    field: "no",
-    width: "50px",
-    tdClass: "text-center",
-    thClass: "text-center",
-  },
   {
     label: "Actions",
     field: "actions",
@@ -78,7 +72,7 @@ const doEditData = async (id, index) => {
 const doDeleteData = async (id, index) => {
   if (confirm("Apakah anda yakin menghapus data ini?")) {
     try {
-      const response = await Api.delete(`owner/klasifikasi/${id}`);
+      const response = await Api.delete(`owner/referensi/${id}`);
       data.value.splice(index, 1);
       Toast.success("Success", "Data Berhasil dihapus!");
       return response.data;
@@ -178,6 +172,7 @@ const doDeleteData = async (id, index) => {
       <div class="bg-white shadow rounded-lg px-4 py-4">
         <div v-if="data">
           <vue-good-table
+            :line-numbers="true"
             :columns="columns"
             :rows="data"
             :search-options="{
@@ -199,39 +194,31 @@ const doDeleteData = async (id, index) => {
                   <ButtonDelete
                     @click="doDeleteData(props.row.id, props.index)"
                   />
-                  <router-link
-                    :to="{
-                      name: 'AdminYayasanDetail',
-                      params: { id: props.row.id },
-                    }"
-                  >
-                    <button
-                      class="btn btn-sm btn-primary tooltip"
-                      data-tip="Detail"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-5 w-5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg></button
-                  ></router-link>
                 </div>
               </span>
 
               <span v-else-if="props.column.field == 'no'">
                 <div class="text-center">{{ props.index + 1 }}</div>
               </span>
-              <span v-else-if="props.column.field == 'jml_sekolah'">
-                <div class="text-left">{{ props.row.jml_sekolah }} Sekolah</div>
+              <span v-else-if="props.column.field == 'file'">
+                <div class="text-left" v-if="props.row.tipe != 'Upload'">
+                  <a
+                    :href="props.row.link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <button class="btn btn-primary">Download</button>
+                  </a>
+                </div>
+                <div v-else>
+                  <a
+                    :href="BASE_URL + props.row.file"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <button class="btn btn-primary">Download</button>
+                  </a>
+                </div>
               </span>
 
               <span v-else>

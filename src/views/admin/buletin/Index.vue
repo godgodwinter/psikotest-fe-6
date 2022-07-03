@@ -170,7 +170,7 @@ const doDeleteData = async (id, index) => {
       <div class="bg-white shadow rounded-lg px-4 py-4">
         <div v-if="data">
           <vue-good-table
-            :line_numbers="true"
+            :line-numbers="true"
             :columns="columns"
             :rows="data"
             :search-options="{

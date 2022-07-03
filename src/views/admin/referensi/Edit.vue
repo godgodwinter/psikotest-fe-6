@@ -67,7 +67,16 @@ const validateData = (value) => {
   return true;
 };
 const onSubmit = () => {
-  const res = doStoreData();
+  if (dataDetail.value.tipe == "Upload") {
+    if (fnValidateFile(fileUpload.value)) {
+      // const res = doStoreData();
+      fnDoUploadFile(fileUpload.value, "logo");
+      // Toast.babeng("Info", "Fitur belum tersedia!");
+    }
+  } else {
+    const res = doStoreData();
+    // Toast.babeng("Info", "Fitur belum tersedia!");
+  }
 };
 const doStoreData = async (d) => {
   let dataStore = {
@@ -83,6 +92,63 @@ const doStoreData = async (d) => {
     // resetForm();
     router.push({ name: "AdminReferensi" });
 
+    return response.data;
+  } catch (error) {
+    Toast.danger("Warning", "Data gagal ditambahkan!");
+    console.error(error);
+  }
+};
+const fileUpload = ref(null);
+const filePreview = ref(null);
+const onChangeFileUpload = (e) => {
+  let file = e.target.files[0];
+  fileUpload.value = file;
+  filePreview.value = URL.createObjectURL(file);
+  console.log(file, filePreview.value);
+};
+
+const fnValidateFile = (file) => {
+  if (file) {
+    if (file.size > 2048576) {
+      Toast.danger("Warning", "File harus kurang dari 2mb!");
+      return false;
+    }
+    // if (
+    //   file.type != "application/pdf" &&
+    //   file.type != "application/msword" &&
+    //   file.type !=
+    //     "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    // ) {
+    //   Toast.danger("Warning", "File harus .pdf/.doc/.docx!");
+    //   return false;
+    // }
+    return true;
+  } else {
+    Toast.danger("Info", "Pilih File terlebih dahulu!");
+    return false;
+  }
+};
+const fnDoUploadFile = async (file, jenis) => {
+  let link = `owner/referensi/${id}`;
+  let formData = new FormData();
+  formData.append("nama", dataDetail.value.nama);
+  formData.append("tipe", dataDetail.value.tipe);
+  formData.append("link", dataDetail.value.link);
+  formData.append("jenis", dataDetail.value.jenis);
+  formData.append("file", file);
+  try {
+    // const response = await Api.post(link, dataStore);
+
+    const response = await Api.post(link, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    Toast.success("Success", "Data Berhasil update!");
+    // router.go();
+    // resetForm();
+    console.log(response);
+    router.push({ name: "AdminReferensi" });
     return response.data;
   } catch (error) {
     Toast.danger("Warning", "Data gagal ditambahkan!");
@@ -230,12 +296,17 @@ const doStoreData = async (d) => {
                           >File</label
                         >
 
-                        <Field
-                          v-model="dataDetail.file"
-                          type="text"
-                          name="file"
-                          ref="file"
-                          class="input input-bordered md:w-full max-w-2xl"
+                        <p class="text-sm font-bold">
+                          Pilih file :
+                          <code class="text-red-400"
+                            >.doc/docx/pdf - max 2 MB</code
+                          >
+                        </p>
+                        <input
+                          type="file"
+                          name="fileUpload"
+                          @change="onChangeFileUpload($event)"
+                          class="input md:w-full max-w-2xl"
                           required
                         />
                         <div class="text-xs text-red-600 mt-1">
