@@ -176,6 +176,14 @@ const doPilihKelas = () => {
       >
         Generate Akun Baru
       </button>
+      <router-link
+        :to="{ name: 'AdminSekolahDetailSiswaGenerate', params: { id: id } }"
+      >
+        <button class="btn btn-sm btn-info text-base-content">
+          Generate Akun
+        </button></router-link
+      >
+
       <!-- <button
         class="btn btn-sm btn-error text-base-content"
         @click="doGenerateAkunAll()"

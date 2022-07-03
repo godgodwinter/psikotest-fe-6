@@ -3225,6 +3225,11 @@ vue-writer@^1.2.0:
   resolved "https://registry.npmjs.org/vue-writer/-/vue-writer-1.2.0.tgz"
   integrity sha512-EtunS6F12cyhXkKgIKDQxr6QEJpSmj4rUSqE149XZN5vbPQuX7PIbWovA1oPvGYUxrlq5HHobdZAzOzSeNAG7g==
 
+vue3-radial-progress@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/vue3-radial-progress/-/vue3-radial-progress-1.1.1.tgz#f8c0a5099f3eafde656985db095c1640b0726f90"
+  integrity sha512-2S7N2njsH9ud2+lfZxDGz+JRRk1NV+5apoSJp+2tdM8TnZrwFcrAVMHti+XhfnNgbHKF3M2qYZm7jDQqbzW4cQ==
+
 vue@^3.2.36:
   version "3.2.37"
   resolved "https://registry.npmjs.org/vue/-/vue-3.2.37.tgz"

@@ -98,6 +98,11 @@ const router = createRouter({
               name: 'AdminSekolahDetailSiswa',
             },
             {
+              path: '/pages/admin/sekolahdetail/:id/generate',
+              component: () => import("@/views/admin/sekolah/submenu/siswa/Generate.vue"),
+              name: 'AdminSekolahDetailSiswaGenerate',
+            },
+            {
               path: '/pages/admin/sekolahdetail/:id/kelas',
               component: () => import("@/views/admin/sekolah/submenu/kelas/Index.vue"),
               name: 'AdminSekolahDetailKelas',
