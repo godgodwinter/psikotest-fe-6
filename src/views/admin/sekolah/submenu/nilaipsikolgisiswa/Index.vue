@@ -39,9 +39,9 @@ const columns = ref([
     type: "String",
   },
   {
-    label: "Kecerdasan Bahasa/Lingustik",
-    field: "kb_persen",
-    type: "String",
+    label: "Intelligence Quotient",
+    field: "iq",
+    type: "number",
   },
 ]);
 const getData = async () => {
@@ -221,10 +221,59 @@ const doPilihKelas = () => {
 
 // seleksi yang ditampilkan
 const ListTampilkan = ref([
+  { label: "Intelligence Quotient", id: "iq", checked: true, type: "number" },
+  {
+    label: "Prosentase Auditif",
+    id: "prosentase_auditif",
+    checked: false,
+    type: "number",
+  },
+  {
+    label: "Prosentase Visual",
+    id: "prosentase_visual",
+    checked: false,
+    type: "number",
+  },
+  {
+    label: "Keterangan Auditif",
+    id: "keterangan_auditif",
+    checked: false,
+    type: "number",
+  },
+  {
+    label: "Keterangan Visual",
+    id: "keterangan_visual",
+    checked: false,
+    type: "number",
+  },
+  {
+    label: "Keterangan Kinestetik",
+    id: "keterangan_kinestetik",
+    checked: false,
+    type: "number",
+  },
+  {
+    label: "Rank Auditif",
+    id: "rank_auditif",
+    checked: false,
+    type: "number",
+  },
+  {
+    label: "Rank Visual",
+    id: "rank_visual",
+    checked: false,
+    type: "number",
+  },
+  {
+    label: "Rank Kinestetik",
+    id: "rank_kinestetik",
+    checked: false,
+    type: "number",
+  },
   {
     label: "Kecerdasan Bahasa/Lingustik",
     id: "kb_persen",
-    checked: true,
+    checked: false,
     type: "number",
   },
   {
@@ -281,7 +330,6 @@ const ListTampilkan = ref([
     type: "number",
   },
   { label: "Keterangan Kecerdasan Natural", id: "knh", checked: false },
-  { label: "Intelligence Quotient", id: "iq", checked: false, type: "number" },
   {
     label: "Persentase Intelligence Quotient",
     id: "iq_persen",
