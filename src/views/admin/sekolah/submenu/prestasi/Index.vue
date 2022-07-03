@@ -129,7 +129,7 @@ const doPilihKelas = () => {
 
 const encode = (value) => window.btoa(value);
 
-const doCetak = (id = null, token = moment().format("YYYY-MM-Do")) => {
+const doCetak = (id = null, token = moment().format("YYYY-MM-DD")) => {
   if (id === null) {
     Toast.danger("Warning", "Data tidak valid!");
   } else {

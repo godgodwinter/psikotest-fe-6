@@ -97,7 +97,7 @@ const selected = computed(() =>
 );
 
 const encode = (value) => window.btoa(value);
-const doCetak = (token = moment().format("YYYY-MM-Do")) => {
+const doCetak = (token = moment().format("YYYY-MM-DD")) => {
   if (selected.value.length < 1) {
     Toast.danger("Warning", "Pilih data terlebih dahulu!");
   } else {
@@ -162,7 +162,7 @@ const setSelected = () => {
           </button></router-link
         >
 
-        <a @click="doCetak()">
+        <!-- <a @click="doCetak()">
           <button class="btn btn-sm">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -179,7 +179,7 @@ const setSelected = () => {
               />
             </svg>
           </button>
-        </a>
+        </a> -->
       </div>
       <div class="space-x-1 space-y-1 pt-1 md:pt-0">
         <!-- <button

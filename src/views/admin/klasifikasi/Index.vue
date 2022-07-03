@@ -117,7 +117,7 @@ const selected = computed(() =>
 );
 
 const encode = (value) => window.btoa(value);
-const doCetak = (token = moment().format("YYYY-MM-Do")) => {
+const doCetak = (token = moment().format("YYYY-MM-DD")) => {
   if (selected.value.length < 1) {
     Toast.danger("Warning", "Pilih data terlebih dahulu!");
   } else {
