@@ -189,7 +189,7 @@ const doEditData = async (id, index) => {
                 <div class="text-center">{{ props.row.jml_siswa }} Siswa</div>
               </span>
               <span v-else-if="props.column.field == 'jml_kelas'">
-                <div class="text-center">{{ props.row.jml_siswa }} Kelas</div>
+                <div class="text-center">{{ props.row.jml_kelas }} Kelas</div>
               </span>
 
               <span v-else>
