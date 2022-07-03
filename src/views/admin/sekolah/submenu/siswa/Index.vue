@@ -170,12 +170,12 @@ const doPilihKelas = () => {
       >
     </div>
     <div class="md:py-0 py-4 space-x-2 space-y-2">
-      <button
+      <!-- <button
         class="btn btn-sm btn-warning text-base-content"
         @click="doGenerateAkun()"
       >
         Generate Akun Baru
-      </button>
+      </button> -->
       <router-link
         :to="{ name: 'AdminSekolahDetailSiswaGenerate', params: { id: id } }"
       >
