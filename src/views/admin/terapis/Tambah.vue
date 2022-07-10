@@ -126,7 +126,7 @@ const doStoreData = async (d) => {
                           class="text-sm font-medium text-gray-900 block mb-2"
                           >Nama Karakter Positif</label
                         >
-                        <Field
+                        <!-- <Field
                           v-model="dataDetail.namakarakter"
                           :rules="validateData"
                           type="text"
@@ -134,7 +134,15 @@ const doStoreData = async (d) => {
                           ref="namakarakter"
                           class="input input-bordered md:w-full max-w-2xl"
                           required
-                        />
+                        /> -->
+                        <textarea
+                          v-model="dataDetail.namakarakter"
+                          :rules="validateData"
+                          name="namakarakter"
+                          ref="namakarakter"
+                          class="textarea textarea-bordered md:w-full max-w-2xl h-32"
+                          placeholder=""
+                        ></textarea>
                         <div class="text-xs text-red-600 mt-1">
                           {{ errors.namakarakter }}
                         </div>
@@ -145,7 +153,7 @@ const doStoreData = async (d) => {
                           class="text-sm font-medium text-gray-900 block mb-2"
                           >Pemahaman dan Pengertian</label
                         >
-                        <Field
+                        <!-- <Field
                           v-model="dataDetail.pemahaman"
                           :rules="validateData"
                           type="text"
@@ -153,7 +161,16 @@ const doStoreData = async (d) => {
                           ref="pemahaman"
                           class="input input-bordered md:w-full max-w-2xl"
                           required
-                        />
+                        /> -->
+
+                        <textarea
+                          v-model="dataDetail.pemahaman"
+                          :rules="validateData"
+                          name="pemahaman"
+                          ref="pemahaman"
+                          class="textarea textarea-bordered md:w-full max-w-2xl h-32"
+                          placeholder=""
+                        ></textarea>
                         <div class="text-xs text-red-600 mt-1">
                           {{ errors.pemahaman }}
                         </div>
@@ -164,7 +181,7 @@ const doStoreData = async (d) => {
                           class="text-sm font-medium text-gray-900 block mb-2"
                           >Tujuan dan Manfaat</label
                         >
-                        <Field
+                        <!-- <Field
                           v-model="dataDetail.tujuandanmanfaat"
                           :rules="validateData"
                           type="text"
@@ -172,7 +189,16 @@ const doStoreData = async (d) => {
                           ref="tujuandanmanfaat"
                           class="input input-bordered md:w-full max-w-2xl"
                           required
-                        />
+                        /> -->
+
+                        <textarea
+                          v-model="dataDetail.tujuandanmanfaat"
+                          :rules="validateData"
+                          name="tujuandanmanfaat"
+                          ref="tujuandanmanfaat"
+                          class="textarea textarea-bordered md:w-full max-w-2xl h-32"
+                          placeholder=""
+                        ></textarea>
                         <div class="text-xs text-red-600 mt-1">
                           {{ errors.tujuandanmanfaat }}
                         </div>
@@ -183,7 +209,7 @@ const doStoreData = async (d) => {
                           class="text-sm font-medium text-gray-900 block mb-2"
                           >Pembiasaan Sikap dan Penerapan</label
                         >
-                        <Field
+                        <!-- <Field
                           v-model="dataDetail.pembiasaansikap"
                           :rules="validateData"
                           type="text"
@@ -191,7 +217,15 @@ const doStoreData = async (d) => {
                           ref="pembiasaansikap"
                           class="input input-bordered md:w-full max-w-2xl"
                           required
-                        />
+                        /> -->
+                        <textarea
+                          v-model="dataDetail.pembiasaansikap"
+                          :rules="validateData"
+                          name="pembiasaansikap"
+                          ref="pembiasaansikap"
+                          class="textarea textarea-bordered md:w-full max-w-2xl h-32"
+                          placeholder=""
+                        ></textarea>
                         <div class="text-xs text-red-600 mt-1">
                           {{ errors.pembiasaansikap }}
                         </div>
