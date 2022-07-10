@@ -82,7 +82,7 @@ const onChangeFileUpload = (e) => {
 const fnValidateFile = (file) => {
   if (file) {
     if (file.size > 5048576) {
-      Toast.danger("Warning", "File harus kurang dari 2mb!");
+      Toast.danger("Warning", "File harus kurang dari 5mb!");
       return false;
     }
     // if (
@@ -259,7 +259,7 @@ const fnDoUploadFile = async (file, jenis) => {
                         <p class="text-sm font-bold">
                           Pilih file :
                           <code class="text-red-400"
-                            >.doc/docx/pdf - max 2 MB</code
+                            >.doc/docx/pdf - max 5 MB</code
                           >
                         </p>
                         <input

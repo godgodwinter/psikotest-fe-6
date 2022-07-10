@@ -426,7 +426,9 @@ watch(ListTampilkan.value, (newValue, oldValue) => {
           List Pilihan Data
         </div>
         <div class="collapse-content">
-          <div class="flex justify-center gap-2 w-full flex-wrap py-2">
+          <div
+            class="flex justify-center gap-2 w-full lg:w-10/12 2xl:w-full flex-wrap py-2"
+          >
             <div v-for="(item, index) in ListTampilkan">
               <div class="form-control">
                 <label
@@ -448,7 +450,7 @@ watch(ListTampilkan.value, (newValue, oldValue) => {
     </div>
   </div>
   <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
-    <div class="w-full lg:w-full">
+    <div class="w-full lg:w-10/12 2xl:w-full">
       <div class="bg-base-200 shadow rounded-lg px-4 py-4">
         <div v-if="data">
           <vue-good-table
