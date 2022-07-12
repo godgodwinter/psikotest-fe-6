@@ -10,7 +10,9 @@
     "test:e2e:ci": "start-server-and-test preview http://127.0.0.1:4173/ 'cypress run --e2e'",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "copy:owner": "vite build && rm -rf ../deploy/d-psikotest/owner && mkdir ../deploy/d-psikotest/owner  && cp -r dist/* ../deploy/d-psikotest/owner && cp -r ../deploy/d-psikotest/.htaccess ../deploy/d-psikotest/owner",
-    "build:copy": "npm run copy:owner"
+    "build:copy": "npm run copy:owner",
+    "copy:owner2": "vite build && rm -rf ../deploy/d-psikotest/owner && mkdir ../deploy/d-psikotest/owner  && cp -r dist/* ../deploy/d-psikotest/owner && cp -r ../deploy/d-psikotest/.htaccess ../deploy/d-psikotest/owner",
+    "build:copy2": "npm run copy:owner2"
   },
   "dependencies": {
     "@vuepic/vue-datepicker": "^3.0.0",
