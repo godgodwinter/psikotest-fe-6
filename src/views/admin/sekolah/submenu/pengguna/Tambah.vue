@@ -29,19 +29,19 @@ const dataAsli = ref([]);
 const dataDetail = ref([]);
 const data = ref([]);
 
-const getDataDetail = async () => {
-  try {
-    const response = await Api.get(`owner/datasekolah/${id}/gurubk/${id2}`);
-    dataDetail.value = {
-      nama: response.data.nama,
-      username: response.data.username,
-    };
-    return response.data;
-  } catch (error) {
-    console.error(error);
-  }
-};
-getDataDetail();
+// const getDataDetail = async () => {
+//   try {
+//     const response = await Api.get(`owner/datasekolah/${id}/gurubk/${id2}`);
+//     dataDetail.value = {
+//       nama: response.data.nama,
+//       username: response.data.username,
+//     };
+//     return response.data;
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
+// getDataDetail();
 
 // validasi
 const validateData = (value) => {
@@ -63,8 +63,8 @@ const doStoreData = async (d) => {
     password: dataDetail.value.password,
   };
   try {
-    const response = await Api.put(
-      `owner/datasekolah/${id}/gurubk/${id2}`,
+    const response = await Api.post(
+      `owner/datasekolah/${id}/gurubk`,
       dataStore
     );
     Toast.success("Success", "Data Berhasil ditambahkan!");
@@ -110,7 +110,9 @@ getDataKelas();
     </div>
     <div class="md:py-0 py-4">
       <BreadCrumb>
-        <template v-slot:content> Pengguna <BreadCrumbSpace /> Edit </template>
+        <template v-slot:content>
+          Pengguna <BreadCrumbSpace /> Tambah
+        </template>
       </BreadCrumb>
     </div>
   </div>

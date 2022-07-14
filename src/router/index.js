@@ -128,6 +128,11 @@ const router = createRouter({
               name: 'AdminSekolahDetailPengguna',
             },
             {
+              path: '/pages/admin/sekolahdetail/:id/pengguna/tambah',
+              component: () => import("@/views/admin/sekolah/submenu/pengguna/Tambah.vue"),
+              name: 'AdminSekolahDetailPenggunaTambah',
+            },
+            {
               path: '/pages/admin/sekolahdetail/:id/pengguna/:id/edit',
               component: () => import("@/views/admin/sekolah/submenu/pengguna/Edit.vue"),
               name: 'AdminSekolahDetailPenggunaEdit',

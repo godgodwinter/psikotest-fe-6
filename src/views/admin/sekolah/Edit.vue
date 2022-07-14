@@ -28,10 +28,16 @@ const dataAsli = ref([]);
 const dataDetail = ref([]);
 const data = ref([]);
 
+const dataDetailTemp = ref({});
 const getDataDetail = async () => {
   try {
     const response = await Api.get(`owner/sekolah/${id}`);
     dataDetail.value = response.data;
+    dataDetailTemp.value = {
+      kecamatan: dataDetail.value.kecamatan,
+      kabupaten: dataDetail.value.kabupaten,
+      provinsi: dataDetail.value.provinsi,
+    };
     return response.data;
   } catch (error) {
     console.error(error);
@@ -94,6 +100,130 @@ const doStoreData = async (d) => {
     console.error(error);
   }
 };
+
+const listProvinsi = ref([]);
+
+const listKabupaten = ref([]);
+
+const listKecamatan = ref([]);
+
+// https://dev.farizdotid.com/api/daerahindonesia/provinsi
+const getProvinsi = async () => {
+  try {
+    const response = await Api.get(
+      `https://dev.farizdotid.com/api/daerahindonesia/provinsi`
+    );
+    response.provinsi.forEach((element) => {
+      let tempDAta = {
+        code: element.id,
+        label: element.nama,
+      };
+      listProvinsi.value.push(tempDAta);
+    });
+    // console.log(response, listProvinsi.value);
+    return response.provinsi;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const fnGetLabelProvinci = (id) => {
+  let label = "";
+  listProvinsi.value.forEach((element) => {
+    if (element.code == id) {
+      label = element.label;
+    }
+  });
+  return label;
+};
+const fnGetLabelKabupaten = (id) => {
+  let label = "";
+  listKabupaten.value.forEach((element) => {
+    if (element.code == id) {
+      label = element.label;
+    }
+  });
+  return label;
+};
+const fnGetLabelKecamatan = (id) => {
+  let label = "";
+  listKecamatan.value.forEach((element) => {
+    if (element.code == id) {
+      label = element.label;
+    }
+  });
+  return label;
+};
+
+const getKabupaten = async (e) => {
+  dataDetail.value.provinsi = fnGetLabelProvinci(e.target.value);
+  //   console.log(fnGetLabelProvinci(e.target.value));
+  //   console.log(e.target.value);
+  let id = e.target.value;
+  try {
+    const response = await Api.get(
+      `https://dev.farizdotid.com/api/daerahindonesia/kota?id_provinsi=${id}`
+    );
+    // console.log(response.kota_kabupaten);
+    listKabupaten.value = [
+      {
+        code: "0",
+        label: "-",
+      },
+    ];
+
+    response.kota_kabupaten.forEach((element) => {
+      let tempDAta = {
+        code: element.id,
+        label: element.nama,
+      };
+      listKabupaten.value.push(tempDAta);
+    });
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};
+// https://dev.farizdotid.com/api/daerahindonesia/kecamatan?id_kota=${id}
+const getKecamatan = async (e) => {
+  dataDetail.value.kabupaten = fnGetLabelKabupaten(e.target.value);
+  //   console.log(fnGetLabelKabupaten(e.target.value));
+  //   console.log(e.target.value);
+  let id = e.target.value;
+  try {
+    const response = await Api.get(
+      `https://dev.farizdotid.com/api/daerahindonesia/kecamatan?id_kota=${id}`
+    );
+    // console.log(response.kecamatan);
+
+    listKecamatan.value = [
+      {
+        code: "0",
+        label: "-",
+      },
+    ];
+
+    response.kecamatan.forEach((element) => {
+      let tempDAta = {
+        code: element.id,
+        label: element.nama,
+      };
+      listKecamatan.value.push(tempDAta);
+    });
+    return response;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const setKecamatan = async (e) => {
+  dataDetail.value.kecamatan = fnGetLabelKecamatan(e.target.value);
+  //   console.log(dataDetail.value.kecamatan, fnGetLabelKecamatan(e.target.value));
+  //   console.log(e.target.value, listKecamatan.value);
+  //   let id = e.target.value;
+};
+
+getProvinsi();
 </script>
 <template>
   <div class="pt-4 px-10 md:flex justify-between">
@@ -284,21 +414,30 @@ const doStoreData = async (d) => {
                           {{ errors.semester_nama }}
                         </div>
                       </div>
+
                       <div>
                         <label
                           for="name"
-                          class="text-sm font-medium text-gray-900 block mb-2"
+                          class="text-sm font-medium text-base-content block mb-2"
                           >Provinsi</label
                         >
-                        <Field
+
+                        <select
+                          class="select select-bordered w-full"
                           v-model="dataDetail.provinsi"
-                          :rules="validateData"
-                          type="text"
-                          name="provinsi"
-                          ref="provinsi"
-                          class="input input-bordered md:w-full max-w-2xl"
-                          required
-                        />
+                          @change="getKabupaten($event)"
+                        >
+                          <option selected>
+                            {{ dataDetail.provinsi }}
+                          </option>
+                          <option
+                            v-for="item in listProvinsi"
+                            :key="item.code"
+                            :value="item.code"
+                          >
+                            {{ item.label }}
+                          </option>
+                        </select>
                         <div class="text-xs text-red-600 mt-1">
                           {{ errors.provinsi }}
                         </div>
@@ -306,18 +445,27 @@ const doStoreData = async (d) => {
                       <div>
                         <label
                           for="name"
-                          class="text-sm font-medium text-gray-900 block mb-2"
+                          class="text-sm font-medium text-base-content block mb-2"
                           >Kabupaten</label
                         >
-                        <Field
+
+                        <select
+                          class="select select-bordered w-full"
                           v-model="dataDetail.kabupaten"
-                          :rules="validateData"
-                          type="text"
-                          name="kabupaten"
-                          ref="kabupaten"
-                          class="input input-bordered md:w-full max-w-2xl"
-                          required
-                        />
+                          @change="getKecamatan($event)"
+                        >
+                          <!-- <option disabled selected>Pilih Kabupaten</option> -->
+                          <option selected>
+                            {{ dataDetail.kabupaten }}
+                          </option>
+                          <option
+                            v-for="item in listKabupaten"
+                            :key="item.code"
+                            :value="item.code"
+                          >
+                            {{ item.label }}
+                          </option>
+                        </select>
                         <div class="text-xs text-red-600 mt-1">
                           {{ errors.kabupaten }}
                         </div>
@@ -325,18 +473,27 @@ const doStoreData = async (d) => {
                       <div>
                         <label
                           for="name"
-                          class="text-sm font-medium text-gray-900 block mb-2"
+                          class="text-sm font-medium text-base-content block mb-2"
                           >Kecamatan</label
                         >
-                        <Field
+
+                        <select
+                          class="select select-bordered w-full"
                           v-model="dataDetail.kecamatan"
-                          :rules="validateData"
-                          type="text"
-                          name="kecamatan"
-                          ref="kecamatan"
-                          class="input input-bordered md:w-full max-w-2xl"
-                          required
-                        />
+                          @change="setKecamatan($event)"
+                        >
+                          <!-- <option disabled selected>Pilih Kecamatan</option> -->
+                          <option selected>
+                            {{ dataDetail.kecamatan }}
+                          </option>
+                          <option
+                            v-for="item in listKecamatan"
+                            :key="item.code"
+                            :value="item.code"
+                          >
+                            {{ item.label }}
+                          </option>
+                        </select>
                         <div class="text-xs text-red-600 mt-1">
                           {{ errors.kecamatan }}
                         </div>
