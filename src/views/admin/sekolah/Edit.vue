@@ -18,7 +18,7 @@ storeGuruBk.$subscribe((mutation, state) => {
 });
 
 const storeAdminBar = useStoreAdminBar();
-storeAdminBar.setPagesActive("yayasan");
+storeAdminBar.setPagesActive("sekolah");
 const router = useRouter();
 const route = useRoute();
 
