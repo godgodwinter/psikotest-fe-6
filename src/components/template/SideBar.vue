@@ -427,7 +427,7 @@ const pagesActiveClass = ref(
               :class="[pagesActive == 'banksoal' ? pagesActiveClass : '']"
             >
               <router-link
-                :to="{ name: 'admin-banksoal' }"
+                :to="{ name: 'admin.banksoal' }"
                 class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link"
               >
                 <svg
@@ -450,7 +450,7 @@ const pagesActiveClass = ref(
               :class="[pagesActive == 'ujian' ? pagesActiveClass : '']"
             >
               <router-link
-                :to="{ name: 'admin-banksoal' }"
+                :to="{ name: 'admin.ujian' }"
                 class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link"
               >
                 <svg
