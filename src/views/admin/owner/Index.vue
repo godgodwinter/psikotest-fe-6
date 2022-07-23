@@ -94,7 +94,7 @@ const doDeleteData = async (id, index) => {
     <div class="md:py-0 py-4">
       <BreadCrumb>
         <template v-slot:content>
-          Administrator - O <BreadCrumbSpace /> Index
+          Administrator <BreadCrumbSpace /> Index
         </template>
       </BreadCrumb>
     </div>
