@@ -1,6 +1,6 @@
 {
   "name": "vue-project",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "scripts": {
     "dev": "vite --port 3005",
     "build": "vite build",
