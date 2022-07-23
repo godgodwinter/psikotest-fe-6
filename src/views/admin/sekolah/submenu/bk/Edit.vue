@@ -18,7 +18,7 @@ storeGuruBk.$subscribe((mutation, state) => {
 });
 
 const storeAdminBar = useStoreAdminBar();
-storeAdminBar.setPagesActive("sekolah");
+storeAdminBar.setPagesActive("bk");
 const router = useRouter();
 const route = useRoute();
 
@@ -31,7 +31,7 @@ const data = ref([]);
 
 const getDataDetail = async () => {
   try {
-    const response = await Api.get(`owner/datasekolah/${id}/walikelas/${id2}`);
+    const response = await Api.get(`owner/datasekolah/${id}/bk/${id2}`);
     dataDetail.value = {
       nama: response.data.nama,
       nomerinduk: response.data.nomerinduk,
@@ -63,12 +63,12 @@ const doStoreData = async (d) => {
   };
   try {
     const response = await Api.put(
-      `owner/datasekolah/${id}/walikelas/${id2}`,
+      `owner/datasekolah/${id}/bk/${id2}`,
       dataStore
     );
     Toast.success("Success", "Data Berhasil ditambahkan!");
     // resetForm();
-    router.push({ name: "AdminSekolahDetailWalikelas", params: { id } });
+    router.push({ name: "AdminSekolahDetailBk", params: { id } });
 
     return response.data;
   } catch (error) {

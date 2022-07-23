@@ -7,7 +7,7 @@ import ButtonEdit from "@/components/atoms/ButtonEdit.vue";
 import { useRouter, useRoute } from "vue-router";
 import { useStoreAdminBar } from "@/stores/adminBar";
 const storeAdminBar = useStoreAdminBar();
-storeAdminBar.setsubMenuActive("walikelas");
+storeAdminBar.setsubMenuActive("bk");
 
 const router = useRouter();
 const route = useRoute();
@@ -38,7 +38,7 @@ const columns = [
 ];
 const getData = async () => {
   try {
-    const response = await Api.get(`owner/datasekolah/${id}/walikelas`);
+    const response = await Api.get(`owner/datasekolah/${id}/bk`);
     dataAsli.value = response.data;
     data.value = response.data;
 
@@ -50,7 +50,7 @@ const getData = async () => {
 getData();
 const doEditData = async (id2, index) => {
   router.push({
-    name: "AdminSekolahDetailWalikelasEdit",
+    name: "AdminSekolahDetailBkEdit",
     params: { id, id2: id2 },
   });
 };
