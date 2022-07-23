@@ -36,6 +36,11 @@ const columns = [
     type: "String",
   },
   {
+    label: "Guru BK",
+    field: "bk_nama",
+    type: "String",
+  },
+  {
     label: "Jumlah Siswa",
     field: "jmlsiswa",
     type: "String",

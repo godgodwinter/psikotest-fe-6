@@ -35,6 +35,11 @@ const columns = [
     field: "nomerinduk",
     type: "String",
   },
+  {
+    label: "Jumlah Kelas",
+    field: "jmlkelas",
+    type: "String",
+  },
 ];
 const getData = async () => {
   try {

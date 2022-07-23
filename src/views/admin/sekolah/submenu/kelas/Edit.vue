@@ -41,6 +41,10 @@ const getDataDetail = async () => {
         label: `${response.data.walikelas ? response.data.walikelas.nama : ""}`,
         id: response.data.walikelas_id,
       },
+      bk_id: {
+        label: `${response.data.bk ? response.data.bk.nama : ""}`,
+        id: response.data.bk_id,
+      },
     };
     return response.data;
   } catch (error) {
@@ -66,6 +70,7 @@ const doStoreData = async (d) => {
   let dataStore = {
     nama: dataDetail.value.nama,
     walikelas_id: dataDetail.value.walikelas_id.id,
+    bk_id: dataDetail.value.bk_id.id,
   };
   try {
     const response = await Api.put(
@@ -103,6 +108,28 @@ const getDataKelas = async () => {
   }
 };
 getDataKelas();
+
+const dataBk = ref([]);
+let pilihBk = ref([]);
+// get Kelas
+const getDataBk = async () => {
+  try {
+    const response = await Api.get(`owner/datasekolah/${id}/bk`);
+    // console.log(response);
+    dataBk.value = response.data;
+    dataBk.value.forEach((item) => {
+      pilihBk.value.push({
+        label: item.nama,
+        id: item.id,
+      });
+    });
+    return response;
+  } catch (error) {
+    Toast.danger("Warning", "Data Gagal dimuat");
+    console.error(error);
+  }
+};
+getDataBk();
 </script>
 <template>
   <div class="pt-4 px-10 md:flex justify-between">
@@ -193,6 +220,22 @@ getDataKelas();
                           class="py-2 px-3 w-72 mx-auto md:mx-0"
                           :options="pilihWalikelas"
                           v-model="dataDetail.walikelas_id"
+                          v-bind:class="{ disabled: false }"
+                        ></v-select>
+                        <div class="text-xs text-red-600 mt-1">
+                          {{ errors.nama }}
+                        </div>
+                      </div>
+                      <div>
+                        <label
+                          for="name"
+                          class="text-sm font-medium text-gray-900 block mb-2"
+                          >Guru Bk</label
+                        >
+                        <v-select
+                          class="py-2 px-3 w-72 mx-auto md:mx-0"
+                          :options="pilihBk"
+                          v-model="dataDetail.bk_id"
                           v-bind:class="{ disabled: false }"
                         ></v-select>
                         <div class="text-xs text-red-600 mt-1">
