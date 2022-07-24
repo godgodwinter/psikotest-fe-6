@@ -3,13 +3,16 @@ import { ref } from "vue";
 import Examples from "./banksoalExamples.js";
 
 const dataKategori = ref([]);
+const dataKategoriTab = ref(null);
 const dataAsli = ref([]);
 const data = ref([]);
 
 dataKategori.value = Examples.kategori;
+dataKategoriTab.value = dataKategori.value[0].id;
 dataAsli.value = Examples.data;
 
-const getData = (kategori_id = 1) => {
+const getData = (kategori_id = dataKategoriTab.value) => {
+  dataKategoriTab.value = kategori_id;
   data.value = dataAsli.value.filter((item) => {
     return item.kategori_id === kategori_id;
   });
@@ -51,8 +54,9 @@ const columns = [
         v-for="(item, index) in dataKategori"
         :key="item.id"
         @click="getData(item.id)"
-        >{{ item.nama }}</a
-      >
+        :class="{ 'tab-active': dataKategoriTab == item.id }"
+        >{{ item.nama }}
+      </a>
     </div>
   </div>
 
