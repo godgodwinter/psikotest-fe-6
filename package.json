@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@vuepic/vue-datepicker": "^3.0.0",
-    "@vueup/vue-quill": "^1.0.0-beta.8",
+    "@vueup/vue-quill": "^1.0.0-beta.9",
     "aos": "^2.3.4",
     "axios": "^0.27.2",
     "daisyui": "^2.15.2",
