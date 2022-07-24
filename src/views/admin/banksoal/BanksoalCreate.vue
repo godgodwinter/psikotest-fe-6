@@ -25,40 +25,69 @@ const toolbarOptions = [
 ];
 
 const editorPertanyaan = ref("<b>tes123</b>");
+
+const pagesActive = ref("tulis");
 </script>
 <template>
   <div class="py-2 lg:py-4 px-4">
-    <div>
-      <div>
+    <div class="space-y-4">
+      <div class="flex flex-col">
         <label
           >Tipe :
           <code class="text-red-500 text-sm font-semibold"
             >Pilihan Ganda | TrueFalse</code
           ></label
         >
+        <div>
+          <select class="select select-bordered w-full max-w-lg">
+            <option selected>Pilihan Ganda</option>
+            <option>TrueFalse</option>
+          </select>
+        </div>
       </div>
-      <div>
+      <div class="flex flex-col">
         <label
           >Skor :
           <code class="text-red-500 text-sm font-semibold"
             >100/50/0</code
           ></label
         >
+        <div>
+          <select class="select select-bordered w-full max-w-lg">
+            <option selected>100</option>
+            <option>50</option>
+            <option>0</option>
+          </select>
+        </div>
       </div>
-      <div>
-        <label
-          >Status Jawaban :
-          <code class="text-red-500 text-sm font-semibold"
-            >Benar / Salah
-          </code></label
-        >
+      <div class="flex flex-col">
+        <label>Tingkat Kesulitan : </label>
+        <div>
+          <select class="select select-bordered w-full max-w-lg">
+            <option selected>Mudah</option>
+            <option>Sedang</option>
+            <option>Sulit</option>
+          </select>
+        </div>
       </div>
-      <div class="shadow-sm py-10 px-10">
-        <label for="" class="underline">Preview</label>
 
-        <div v-html="editorPertanyaan"></div>
+      <div class="py-10 w-full bg-base-100 shadow-sm">
+        <div class="tabs">
+          <a
+            class="tab tab-bordered"
+            @click="pagesActive = 'tulis'"
+            :class="{ 'tab-active': pagesActive == 'tulis' }"
+            >Tulis</a
+          >
+          <a
+            class="tab tab-bordered"
+            @click="pagesActive = 'preview'"
+            :class="{ 'tab-active': pagesActive == 'preview' }"
+            >Preview</a
+          >
+        </div>
       </div>
-      <div>
+      <div v-if="pagesActive == 'tulis'">
         <label>Pertanyaan :</label>
         <QuillEditor
           theme="snow"
@@ -68,9 +97,16 @@ const editorPertanyaan = ref("<b>tes123</b>");
         >
           <template #toolbar>
             <div id="my-toolbar">
+              <!-- <select class="ql-align"></select> -->
+              <button class="ql-align"></button>
+              <button class="ql-align" value="center"></button>
+              <button class="ql-align" value="right"></button>
+
+              <button class="ql-align" value="justify"></button>
               <button class="ql-bold"></button>
               <button class="ql-italic"></button>
-              <select class="ql-align"></select>
+              <button class="ql-underline"></button>
+              <!-- <button class="ql-strike"></button> -->
               <!-- Add font size dropdown -->
               <select class="ql-size">
                 <option value="small"></option>
@@ -91,9 +127,17 @@ const editorPertanyaan = ref("<b>tes123</b>");
           </template>
         </QuillEditor>
       </div>
+      <div class="shadow-sm py-10 px-10 space-y-4" v-else>
+        <label for="" class="underline">Preview : </label>
+
+        <div
+          class="w-full border-2 min-h-16 p-10"
+          v-html="editorPertanyaan"
+        ></div>
+      </div>
     </div>
 
-    <div>
+    <div class="py-10 px-4">
       <label for="">Gambar</label>
       <input type="file" class="input w-full" />
     </div>
@@ -130,8 +174,21 @@ const editorPertanyaan = ref("<b>tes123</b>");
           </QuillEditor>
         </div>
         <div class="space-y-4 py-4 px-4">
-          <label for="">Status :</label>
-          <label for="">Benar / Slah</label>
+          <div class="flex flex-col">
+            <label
+              >Status Jawaban :
+              <code class="text-red-500 text-sm font-semibold"
+                >Benar / Salah
+              </code></label
+            >
+            <div>
+              <select class="select select-bordered w-full max-w-xs">
+                <option selected>Benar</option>
+                <option>50</option>
+                <option>0</option>
+              </select>
+            </div>
+          </div>
         </div>
       </div>
 
