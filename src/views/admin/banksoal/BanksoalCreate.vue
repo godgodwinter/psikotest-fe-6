@@ -1,7 +1,12 @@
 <script setup>
 import { ref } from "vue";
 import { useStoreAdminBar } from "@/stores/adminBar";
-import { useStoreBanksoal } from "../../../stores/data/banksoal";
+import { useStoreBanksoal } from "@/stores/data/banksoal";
+import ToolBar from "@/components/atoms/editor/ToolBar.vue";
+import { Form, Field } from "vee-validate";
+import fnValidasi from "@/components/lib/babengValidasi";
+import fnCampur from "@/components/lib/FungsiCampur";
+import Toast from "@/components/lib/Toast";
 const storeAdminBar = useStoreAdminBar();
 const storeBanksoal = useStoreBanksoal();
 storeAdminBar.setPagesActive("banksoal");
@@ -30,217 +35,262 @@ const toolbarOptions = [
 const editorPertanyaan = ref("<b>tes123</b>");
 
 const pagesActive = ref("tulis");
+const dataForm = ref({
+  tipe: "Pilihan Ganda",
+  skor: 100,
+  tingkatkesulitan: "Mudah",
+  pertanyaan: "",
+  pilihanJawaban: [],
+});
+
+const dataPilihanJawaban = ref([
+  {
+    // id: 1,
+    jawaban: null,
+    status: "Benar",
+  },
+  {
+    // id: 2,
+    jawaban: null,
+    status: "Salah",
+  },
+]);
+
+const onSubmit = async (values) => {
+  values.pertanyaan = dataForm.value.pertanyaan;
+  values.pertanyaan = dataForm.value.pertanyaan;
+  values.pilihanJawaban = dataPilihanJawaban.value;
+  dataPilihanJawaban.value.forEach((item, index) => {
+    if (item.jawaban === null) {
+      Toast.danger(
+        "Info",
+        `Jawaban ${fnCampur.fnNumberToAlphabet(index + 1)} harus diisi!`
+      );
+      return false;
+    }
+    if (item.status === null) {
+      Toast.danger(
+        "Info",
+        `Status Jawaban  ${fnCampur.fnNumberToAlphabet(index + 1)} harus diisi!`
+      );
+      return false;
+    }
+  });
+  // console.log(dataPilihanJawaban.value[0].jawaban);
+  console.log(values);
+  // const resSubmit = await ApiKategori.doStoreData(values);
+  // if (resSubmit) {
+  //   Toast.success("Info", "Data berhasil ditambahkan!");
+  //   // router.push({ name: "AdminKategori" });
+  // }
+};
+
+const doTambahPilihanJawaban = () => {
+  dataPilihanJawaban.value.push({
+    // id: dataPilihanJawaban.value.length+1,
+    jawaban: null,
+    status: "Salah",
+  });
+};
+
+const doHapusPilihanJawaban = () => {
+  dataPilihanJawaban.value.pop();
+};
 </script>
 <template>
-  <div class="py-2 lg:py-4 px-4">
-    <div class="space-y-4">
-      <div class="flex flex-col">
-        <label
-          >Tipe :
-          <code class="text-red-500 text-sm font-semibold"
-            >Pilihan Ganda | TrueFalse</code
-          ></label
-        >
-        <div>
-          <select class="select select-bordered w-full max-w-lg">
-            <option selected>Pilihan Ganda</option>
-            <option>TrueFalse</option>
-          </select>
-        </div>
-      </div>
-      <div class="flex flex-col">
-        <label
-          >Skor :
-          <code class="text-red-500 text-sm font-semibold"
-            >100/50/0</code
-          ></label
-        >
-        <div>
-          <select class="select select-bordered w-full max-w-lg">
-            <option selected>100</option>
-            <option>50</option>
-            <option>0</option>
-          </select>
-        </div>
-      </div>
-      <div class="flex flex-col">
-        <label>Tingkat Kesulitan : </label>
-        <div>
-          <select class="select select-bordered w-full max-w-lg">
-            <option selected>Mudah</option>
-            <option>Sedang</option>
-            <option>Sulit</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="py-10 w-full bg-base-100 shadow-sm">
-        <div class="tabs">
-          <a
-            class="tab tab-bordered"
-            @click="pagesActive = 'tulis'"
-            :class="{ 'tab-active': pagesActive == 'tulis' }"
-            >Tulis</a
+  <Form v-slot="{ errors }" @submit="onSubmit">
+    <div class="py-2 lg:py-4 px-4">
+      <div class="space-y-4">
+        <div class="flex flex-col">
+          <label
+            >Tipe :
+            <code class="text-red-500 text-sm font-semibold"
+              >Pilihan Ganda
+            </code></label
           >
-          <a
-            class="tab tab-bordered"
-            @click="pagesActive = 'preview'"
-            :class="{ 'tab-active': pagesActive == 'preview' }"
-            >Preview</a
-          >
-        </div>
-      </div>
-      <div v-if="pagesActive == 'tulis'">
-        <label>Pertanyaan :</label>
-        <QuillEditor
-          theme="snow"
-          toolbar="#my-toolbar"
-          v-model:content="editorPertanyaan"
-          contentType="html"
-        >
-          <template #toolbar>
-            <div id="my-toolbar">
-              <!-- <select class="ql-align"></select> -->
-              <button class="ql-align"></button>
-              <button class="ql-align" value="center"></button>
-              <button class="ql-align" value="right"></button>
+          <div>
+            <Field
+              :rules="fnValidasi.validateSelect"
+              v-model="dataForm.tipe"
+              name="tipe"
+              class="select select-bordered w-11/12"
+              as="select"
+            >
+              <option selected>Pilihan Ganda</option>
+            </Field>
 
-              <button class="ql-align" value="justify"></button>
-              <button class="ql-bold"></button>
-              <button class="ql-italic"></button>
-              <button class="ql-underline"></button>
-              <!-- <button class="ql-strike"></button> -->
-              <!-- Add font size dropdown -->
-              <select class="ql-size">
-                <option value="small"></option>
-                <!-- Note a missing, thus falsy value, is used to reset to default -->
-                <option selected></option>
-                <option value="large"></option>
-                <option value="huge"></option>
-              </select>
-              <!-- Add a bold button -->
-              <button class="ql-bold"></button>
-              <!-- Add subscript and superscript buttons -->
-              <button class="ql-script" value="sub"></button>
-              <button class="ql-script" value="super"></button>
-              <!-- But you can also add your own -->
-              <!-- <button id="custom-button">tes</button> -->
+            <div class="text-xs text-red-600 mt-1">
+              {{ errors.tipe }}
             </div>
-            <div id="editor"></div>
-          </template>
-        </QuillEditor>
-      </div>
-      <div class="shadow-sm py-10 px-10 space-y-4" v-else>
-        <label for="" class="underline">Preview : </label>
+          </div>
+        </div>
+        <div class="flex flex-col">
+          <label
+            >Skor :
+            <code class="text-red-500 text-sm font-semibold"
+              >Ex : 100/50/0</code
+            ></label
+          >
+          <div>
+            <Field
+              :rules="fnValidasi.validateDataSkor"
+              v-model="dataForm.skor"
+              name="skor"
+              type="text"
+              max="100"
+              min="0"
+              class="input input-bordered w-11/12"
+            />
+            <div class="text-xs text-red-600 mt-1">
+              {{ errors.skor }}
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-col">
+          <label>Tingkat Kesulitan : </label>
 
-        <div
-          class="w-full border-2 min-h-16 p-10"
-          v-html="editorPertanyaan"
-        ></div>
-      </div>
-    </div>
+          <div>
+            <Field
+              :rules="fnValidasi.validateSelect"
+              v-model="dataForm.tingkatkesulitan"
+              name="tingkatkesulitan"
+              class="select select-bordered w-11/12"
+              as="select"
+            >
+              <option value="Mudah" selected>Mudah</option>
+              <option value="Sedang">Sedang</option>
+              <option value="Sulit">Sulit</option>
+            </Field>
 
-    <div class="py-10 px-4">
-      <label for="">Gambar</label>
-      <input type="file" class="input w-full" />
-    </div>
+            <div class="text-xs text-red-600 mt-1">
+              {{ errors.tingkatkesulitan }}
+            </div>
+          </div>
+        </div>
 
-    <!-- Pilihan Jawaban -->
-    <div class="py-10 px-4 space-y-4">
-      <div class="space-y-4 shadow-lg">
-        <div class="py-4 px-4">
-          <label for="">Jawaban 1 : </label>
-
-          <QuillEditor theme="snow" toolbar="#my-toolbar1">
+        <div class="py-10 w-full bg-base-100 shadow-sm">
+          <div class="tabs">
+            <a
+              class="tab tab-bordered"
+              @click="pagesActive = 'tulis'"
+              :class="{ 'tab-active': pagesActive == 'tulis' }"
+              >Tulis</a
+            >
+            <a
+              class="tab tab-bordered"
+              @click="pagesActive = 'preview'"
+              :class="{ 'tab-active': pagesActive == 'preview' }"
+              >Preview</a
+            >
+          </div>
+        </div>
+        <div v-if="pagesActive == 'tulis'">
+          <label>Pertanyaan :</label>
+          <QuillEditor
+            theme="snow"
+            toolbar="#my-toolbar"
+            v-model:content="dataForm.pertanyaan"
+            contentType="html"
+            class="ql-editor2"
+          >
             <template #toolbar>
-              <div id="my-toolbar1">
-                <button class="ql-bold"></button>
-                <button class="ql-italic"></button>
-                <select class="ql-align"></select>
-                <!-- Add font size dropdown -->
-                <select class="ql-size">
-                  <option value="small"></option>
-                  <!-- Note a missing, thus falsy value, is used to reset to default -->
-                  <option selected></option>
-                  <option value="large"></option>
-                  <option value="huge"></option>
-                </select>
-                <!-- Add a bold button -->
-                <button class="ql-bold"></button>
-                <!-- Add subscript and superscript buttons -->
-                <button class="ql-script" value="sub"></button>
-                <button class="ql-script" value="super"></button>
-                <!-- But you can also add your own -->
-                <!-- <button id="custom-button">tes</button> -->
+              <div id="my-toolbar">
+                <ToolBar></ToolBar>
               </div>
+              <div id="editor"></div>
             </template>
           </QuillEditor>
         </div>
-        <div class="space-y-4 py-4 px-4">
-          <div class="flex flex-col">
-            <label
-              >Status Jawaban :
-              <code class="text-red-500 text-sm font-semibold"
-                >Benar / Salah
-              </code></label
-            >
-            <div>
-              <select class="select select-bordered w-full max-w-xs">
-                <option selected>Benar</option>
-                <option>50</option>
-                <option>0</option>
-              </select>
+        <div class="shadow-sm py-4 px-4 space-y-4" v-else>
+          <label for="" class="underline">Preview : </label>
+          <div
+            class="w-full border-2 min-h-16 p-10"
+            v-html="editorPertanyaan"
+          ></div>
+        </div>
+      </div>
+
+      <!-- <div class="py-10 px-4">
+        <label for="">Gambar</label>
+        <input type="file" class="input w-full" />
+      </div> -->
+
+      <!-- Pilihan Jawaban -->
+
+      <div v-for="(item, index) in dataPilihanJawaban" :key="index">
+        <div class="py-10 px-4 space-y-4">
+          <div class="space-y-4 shadow-lg">
+            <div class="py-4 px-4">
+              <label for=""
+                >Pilihan Jawaban {{ fnCampur.fnNumberToAlphabet(index + 1) }} :
+              </label>
+
+              <QuillEditor
+                theme="snow"
+                :toolbar="toolbarOptions"
+                v-model:content="dataPilihanJawaban[index].jawaban"
+                contentType="html"
+              >
+              </QuillEditor>
+            </div>
+            <div class="space-y-4 py-4 px-4">
+              <div class="flex flex-col">
+                <label
+                  >Status Jawaban :
+                  <code class="text-red-500 text-sm font-semibold"
+                    >{{ dataPilihanJawaban[index].status }}
+                  </code></label
+                >
+                <div>
+                  <Field
+                    v-model="dataPilihanJawaban[index].status"
+                    :name="dataPilihanJawaban + '[' + index + ']'"
+                    class="select select-bordered w-11/12"
+                    as="select"
+                  >
+                    <option value="Salah">Salah</option>
+                    <option value="Benar">Benar</option>
+                  </Field>
+                  <!-- <div class="text-xs text-red-600 mt-1">
+                    {{ errors.dataPilihanJawaban + "[" + index + "]" }}
+                  </div> -->
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
-
-      <div class="space-y-4 shadow-lg">
-        <div class="py-4 px-4">
-          <label for="">Jawaban 2 : </label>
-
-          <QuillEditor theme="snow" toolbar="#my-toolbar2">
-            <template #toolbar>
-              <div id="my-toolbar2">
-                <button class="ql-bold"></button>
-                <button class="ql-italic"></button>
-                <select class="ql-align"></select>
-                <!-- Add font size dropdown -->
-                <select class="ql-size">
-                  <option value="small"></option>
-                  <!-- Note a missing, thus falsy value, is used to reset to default -->
-                  <option selected></option>
-                  <option value="large"></option>
-                  <option value="huge"></option>
-                </select>
-                <!-- Add a bold button -->
-                <button class="ql-bold"></button>
-                <!-- Add subscript and superscript buttons -->
-                <button class="ql-script" value="sub"></button>
-                <button class="ql-script" value="super"></button>
-                <!-- But you can also add your own -->
-                <!-- <button id="custom-button">tes</button> -->
-              </div>
-            </template>
-          </QuillEditor>
-        </div>
-        <div class="space-y-4 py-4 px-4">
-          <label for="">Status :</label>
-          <label for="">Benar / Slah</label>
+      <!-- Pilihan Jawaban -->
+      <div class="px-4">
+        <div class="space-x-2">
+          <button
+            class="btn btn-danger btn-sm btn-outline"
+            @click="doHapusPilihanJawaban()"
+          >
+            Hapus
+          </button>
+          <button
+            class="btn btn-primary btn-sm btn-outline"
+            @click="doTambahPilihanJawaban()"
+          >
+            Tambah
+          </button>
         </div>
       </div>
-    </div>
-    <!-- Pilihan Jawaban -->
 
-    <div class="w-full flex justify-end py-10 px-10 gap-4">
-      <button class="btn btn-warning">Draft</button>
-      <button class="btn btn-primary">Simpan</button>
-    </div>
-  </div>
+      <div class="w-full flex justify-end py-10 px-10 gap-4">
+        <!-- <button class="btn btn-warning">Draft</button> -->
+        <button class="btn btn-primary">Simpan</button>
+      </div>
+    </div></Form
+  >
 </template>
 
 <style>
 .ql-editor {
+  min-height: 50px;
+}
+.ql-editor2 {
   min-height: 200px;
 }
 </style>
