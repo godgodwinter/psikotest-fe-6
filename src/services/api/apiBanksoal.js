@@ -20,13 +20,19 @@ const getData = async () => {
 
 const doStoreData = async (data) => {
   let dataForm = {
-    nama: data.nama,
-    jenis: data.jenis,
+    tipe: data.tipe,
+    skor: data.skor,
+    tingkatkesulitan: data.tingkatkesulitan,
+    pertanyaan: data.pertanyaan,
+    // pilihanJawaban: data.pilihanJawaban,
+    pilihanJawaban: JSON.stringify(data.pilihanJawaban),
   };
+  // console.log(dataForm);
   try {
-    const response = await Api.post(`admin/banksoal`, dataForm);
-    data.id = response.id;
-    dataAsli.value.push(data);
+    const response = await Api.post(`admin/menuujian/banksoal`, dataForm);
+    console.log(response);
+    // data.id = response.id;
+    // dataAsli.value.push(data);
 
     // getData()
     // console.log(dataAsli.value);

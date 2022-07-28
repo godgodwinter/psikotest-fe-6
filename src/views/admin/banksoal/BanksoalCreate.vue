@@ -7,6 +7,7 @@ import { Form, Field } from "vee-validate";
 import fnValidasi from "@/components/lib/babengValidasi";
 import fnCampur from "@/components/lib/FungsiCampur";
 import Toast from "@/components/lib/Toast";
+import ApiBanksoal from "@/services/api/apiBanksoal";
 const storeAdminBar = useStoreAdminBar();
 const storeBanksoal = useStoreBanksoal();
 storeAdminBar.setPagesActive("banksoal");
@@ -58,7 +59,6 @@ const dataPilihanJawaban = ref([
 
 const onSubmit = async (values) => {
   values.pertanyaan = dataForm.value.pertanyaan;
-  values.pertanyaan = dataForm.value.pertanyaan;
   values.pilihanJawaban = dataPilihanJawaban.value;
   dataPilihanJawaban.value.forEach((item, index) => {
     if (item.jawaban === null) {
@@ -77,12 +77,12 @@ const onSubmit = async (values) => {
     }
   });
   // console.log(dataPilihanJawaban.value[0].jawaban);
-  console.log(values);
-  // const resSubmit = await ApiKategori.doStoreData(values);
-  // if (resSubmit) {
-  //   Toast.success("Info", "Data berhasil ditambahkan!");
-  //   // router.push({ name: "AdminKategori" });
-  // }
+  // console.log(values);
+  const resSubmit = await ApiBanksoal.doStoreData(values);
+  if (resSubmit) {
+    Toast.success("Info", "Data berhasil ditambahkan!");
+    // router.push({ name: "AdminKategori" });
+  }
 };
 
 const doTambahPilihanJawaban = () => {
@@ -263,18 +263,18 @@ const doHapusPilihanJawaban = () => {
       <!-- Pilihan Jawaban -->
       <div class="px-4">
         <div class="space-x-2">
-          <button
+          <span
             class="btn btn-danger btn-sm btn-outline"
             @click="doHapusPilihanJawaban()"
           >
             Hapus
-          </button>
-          <button
+          </span>
+          <span
             class="btn btn-primary btn-sm btn-outline"
             @click="doTambahPilihanJawaban()"
           >
             Tambah
-          </button>
+          </span>
         </div>
       </div>
 
