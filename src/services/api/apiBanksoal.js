@@ -7,7 +7,7 @@ const dataAsli = computed(() => storeBanksoal.getData);
 
 const getData = async () => {
   try {
-    const response = await Api.get(`admin/banksoal`);
+    const response = await Api.get(`admin/menuujian/banksoal`);
     let res = response.data;
     storeBanksoal.setData(res);
     // console.log(res);
@@ -49,7 +49,7 @@ const getDataId = async (id) => {
     if (dataAsli.value.length < 1) {
       await getData();
     }
-    const response = await Api.get(`admin/banksoal/${id}`);
+    const response = await Api.get(`admin/menuujian/banksoal/${id}`);
     let res = response.data;
     // let res = dataAsli.value.filter((item) => item.id == id);
     // console.log(res.id, dataAsli.value, id);
@@ -69,7 +69,7 @@ const doUpdate = async (id, data) => {
       await getData();
     }
     // eslint-disable-next-line no-unused-vars
-    const response = await Api.put(`admin/banksoal/${id}`, dataForm);
+    const response = await Api.put(`admin/menuujian/banksoal/${id}`, dataForm);
     // update data
     let dataUpdate = dataAsli.value.filter((item) => item.id == id);
     dataUpdate[0].nama = data.nama;
@@ -84,7 +84,7 @@ const doUpdate = async (id, data) => {
 const deleteData = async (id) => {
   try {
     // eslint-disable-next-line no-unused-vars
-    const response = await Api.delete(`admin/banksoal/${id}`);
+    const response = await Api.delete(`admin/menuujian/banksoal/${id}`);
     let data = dataAsli.value.filter((item) => item.id !== id);
     storeBanksoal.setData(data);
     return true;

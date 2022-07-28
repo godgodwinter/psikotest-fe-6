@@ -1,25 +1,52 @@
 <script setup>
-import { ref } from "vue";
-import Examples from "./banksoalExamples.js";
+import { ref, computed } from "vue";
+// import Examples from "./banksoalExamples.js";
 import { useStoreBanksoal } from "@/stores/data/banksoal";
+import { useStoreKategori } from "@/stores/data/kategori";
+import ApiKategori from "@/services/api/apiKategori";
+import ApiBanksoal from "@/services/api/apiBanksoal";
+import Toast from "@/components/lib/Toast";
+const storeKategori = useStoreKategori();
 const storeBanksoal = useStoreBanksoal();
 storeBanksoal.setPagesActive("soal");
-const dataKategori = ref([]);
-const dataKategoriTab = ref(null);
-const dataAsli = ref([]);
 const data = ref([]);
+const dataAsli = computed(() => storeBanksoal.getData);
+const dataKategori = computed(() => storeKategori.getData);
+storeBanksoal.$subscribe((mutation, state) => {
+  //   console.log(mutation, state);
+  data.value = dataAsli.value;
+  if (dataKategori.value.length > 0) {
+    dataKategoriTab.value = dataKategori.value[0].id;
+    getData(dataKategori.value[0].id);
+  }
+});
+storeKategori.$subscribe((mutation, state) => {
+  //   console.log(mutation, state);
+});
+data.value = dataAsli.value;
 
-dataKategori.value = Examples.kategori;
-dataKategoriTab.value = dataKategori.value[0].id;
-dataAsli.value = Examples.data;
+const dataKategoriTab = ref(null);
+
+// if (dataAsli.value.length < 1) {
+ApiBanksoal.getData();
+// }
+// if (dataKategori.value.length < 1) {
+ApiKategori.getData();
+// }
+
+// dataKategori.value = Examples.kategori;
+// dataAsli.value = Examples.data;
 
 const getData = (kategori_id = dataKategoriTab.value) => {
   dataKategoriTab.value = kategori_id;
   data.value = dataAsli.value.filter((item) => {
-    return item.kategori_id === kategori_id;
+    return item.kategori_id == kategori_id;
   });
 };
-getData();
+if (dataKategori.value.length > 0) {
+  dataKategoriTab.value = dataKategori.value[0].id;
+  getData(dataKategori.value[0].id);
+}
 
 const columns = [
   {
@@ -46,6 +73,36 @@ const columns = [
     type: "Number",
   },
 ];
+
+const doEditData = async (id, index) => {
+  router.push({
+    name: "admin.banksoal.kategori.edit",
+    params: { id: id },
+  });
+};
+
+const doDeleteData = async (id, index) => {
+  if (confirm("Apakah anda yakin menghapus data ini?")) {
+    // data.value.splice(index, 1);
+    const resDelete = await ApiBanksoal.deleteData(id);
+    if (resDelete) {
+      // jenis.value = null;
+      // isAllActive.value = true;
+      // isPengeluaranActive.value = false;
+      // isPemasukanActive.value = false;
+      Toast.success("Info", "Data berhasil dihapus!");
+      // ApiKategori.getData();
+    }
+  }
+};
+
+const doRefreshData = () => {
+  if (confirm("Apakah anda yakin menghapus data ini?")) {
+    ApiKategori.getData();
+    ApiBanksoal.getData();
+    Toast.success("Info", "Refresh Data!");
+  }
+};
 </script>
 <template>
   <div class="py-2 lg:py-4 px-4 flex justify-start flex-col">
@@ -137,7 +194,7 @@ const columns = [
                   <div
                     class="text-sm font-medium text-center flex justify-center space-x-1"
                   >
-                    <button
+                    <!-- <button
                       class="btn btn-sm btn-warning"
                       @click="doEditData(props.row.id, props.index)"
                     >
@@ -156,7 +213,7 @@ const columns = [
                           clip-rule="evenodd"
                         />
                       </svg>
-                    </button>
+                    </button> -->
                     <button
                       class="btn btn-sm btn-danger"
                       @click="doDeleteData(props.row.id, props.index)"

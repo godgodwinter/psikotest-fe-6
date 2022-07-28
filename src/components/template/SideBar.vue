@@ -465,7 +465,7 @@ const pagesActiveClass = ref(
                     clip-rule="evenodd"
                   />
                 </svg>
-                <span class="ml-3">Penjadwalan Ujian </span>
+                <span class="ml-3">Menu Ujian </span>
               </router-link>
             </li>
           </ul>
