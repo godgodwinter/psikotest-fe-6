@@ -20,6 +20,7 @@ const getData = async () => {
 
 const doStoreData = async (data) => {
   let dataForm = {
+    ujian_kategori_id: data.ujian_kategori_id,
     tipe: data.tipe,
     skor: data.skor,
     tingkatkesulitan: data.tingkatkesulitan,
