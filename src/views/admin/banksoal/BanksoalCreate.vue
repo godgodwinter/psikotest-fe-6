@@ -1,8 +1,11 @@
 <script setup>
 import { ref } from "vue";
 import { useStoreAdminBar } from "@/stores/adminBar";
+import { useStoreBanksoal } from "../../../stores/data/banksoal";
 const storeAdminBar = useStoreAdminBar();
+const storeBanksoal = useStoreBanksoal();
 storeAdminBar.setPagesActive("banksoal");
+storeBanksoal.setPagesActive("buatbaru");
 const toolbar = ["bold", "italic", "underline"];
 const toolbarOptions = [
   ["bold", "italic", "underline", "strike"], // toggled buttons

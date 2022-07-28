@@ -1,25 +1,22 @@
 <script setup>
-import { ref } from "vue";
-import Examples from "./banksoalExamples.js";
-import { useStoreBanksoal } from "@/stores/data/banksoal";
-const storeBanksoal = useStoreBanksoal();
-storeBanksoal.setPagesActive("soal");
-const dataKategori = ref([]);
-const dataKategoriTab = ref(null);
-const dataAsli = ref([]);
+import { ref, computed } from "vue";
+import { useStoreKategori } from "@/stores/data/kategori";
+import ApiKategori from "@/services/api/apiKategori";
+import Toast from "@/components/lib/Toast";
+import { useRouter, useRoute } from "vue-router";
+const router = useRouter();
+const storeKategori = useStoreKategori();
+storeKategori.setPagesActive("index");
 const data = ref([]);
-
-dataKategori.value = Examples.kategori;
-dataKategoriTab.value = dataKategori.value[0].id;
-dataAsli.value = Examples.data;
-
-const getData = (kategori_id = dataKategoriTab.value) => {
-  dataKategoriTab.value = kategori_id;
-  data.value = dataAsli.value.filter((item) => {
-    return item.kategori_id === kategori_id;
-  });
-};
-getData();
+const dataAsli = computed(() => storeKategori.getData);
+storeKategori.$subscribe((mutation, state) => {
+  //   console.log(mutation, state);
+  data.value = dataAsli.value;
+});
+data.value = dataAsli.value;
+if (dataAsli.value.length < 1) {
+  ApiKategori.getData();
+}
 
 const columns = [
   {
@@ -31,37 +28,42 @@ const columns = [
     thClass: "text-center",
   },
   {
-    label: "Pertanyaan",
-    field: "pertanyaan",
+    label: "Nama",
+    field: "nama",
     type: "String",
-  },
-  {
-    label: "Tipe Soal",
-    field: "tipe",
-    type: "String",
-  },
-  {
-    label: "Jumlah PIlihan Jawaban",
-    field: "jml_pilihanjawaban",
-    type: "Number",
   },
 ];
+
+const doRefreshData = () => {
+  if (confirm("Apakah anda yakin menghapus data ini?")) {
+    ApiKategori.getData();
+    Toast.success("Info", "Refresh Data!");
+  }
+};
+
+const doEditData = async (id, index) => {
+  router.push({
+    name: "admin.banksoal.kategori.edit",
+    params: { id: id },
+  });
+};
+
+const doDeleteData = async (id, index) => {
+  if (confirm("Apakah anda yakin menghapus data ini?")) {
+    // data.value.splice(index, 1);
+    const resDelete = await ApiKategori.deleteData(id);
+    if (resDelete) {
+      // jenis.value = null;
+      // isAllActive.value = true;
+      // isPengeluaranActive.value = false;
+      // isPemasukanActive.value = false;
+      Toast.success("Info", "Data berhasil dihapus!");
+      // ApiKategori.getData();
+    }
+  }
+};
 </script>
 <template>
-  <div class="py-2 lg:py-4 px-4 flex justify-start flex-col">
-    <h1 class="font-bold text-xl">Kategori :</h1>
-    <div class="tabs gap-4 flex justify-center">
-      <a
-        class="tab tab-bordered"
-        v-for="(item, index) in dataKategori"
-        :key="item.id"
-        @click="getData(item.id)"
-        :class="{ 'tab-active': dataKategoriTab == item.id }"
-        >{{ item.nama }}
-      </a>
-    </div>
-  </div>
-
   <div class="py-2 lg:py-4 px-4">
     <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
       <div class="w-full lg:w-full">
@@ -103,30 +105,29 @@ const columns = [
                       />
                     </svg>
                   </button>
-                  <!-- <router-link
+                  <RouterLink
                     :to="{
-                      name: 'AdminKategoriTambah',
-                      params: { jenis: jenis },
+                      name: 'admin.banksoal.kategori.tambah',
                     }"
-                  > -->
-                  <button
-                    class="btn btn-sm btn-primary tooltip"
-                    data-tip="Tambah Data"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="h-5 w-5"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
+                    <button
+                      class="btn btn-sm btn-primary tooltip"
+                      data-tip="Tambah Data"
                     >
-                      <path
-                        fill-rule="evenodd"
-                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
-                        clip-rule="evenodd"
-                      />
-                    </svg>
-                  </button>
-                  <!-- </router-link> -->
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-5 w-5"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </button>
+                  </RouterLink>
                 </div>
               </template>
               <!-- <template #table-actions-bottom>

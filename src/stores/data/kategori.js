@@ -1,10 +1,10 @@
 import { defineStore } from "pinia";
 
-export const useStoreBanksoal = defineStore({
-  id: "storeBanksoal",
+export const useStoreKategori = defineStore({
+  id: "storeKategori",
   state: () => ({
     data: [],
-    pagesActive: "",
+    pagesActive: "soal",
   }),
   getters: {
     getData: (state) => state.data,

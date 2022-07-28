@@ -20,10 +20,35 @@ const BanksoalRoutes = [
               import("@/views/admin/banksoal/BanksoalCreate.vue"),
           },
           {
-            path: `${prefix}/banksoal/kategori`,
-            name: "admin.banksoal.kategori",
+            path: `${prefix}/banksoal/kategori/layout`,
             component: () =>
-              import("@/views/admin/banksoal/BanksoalKategori.vue"),
+              import("@/views/admin/banksoal/BanksoalKategoriLayout.vue"),
+            children: [
+              {
+                path: `${prefix}/banksoal/kategori`,
+                name: "admin.banksoal.kategori",
+                component: () =>
+                  import(
+                    "@/views/admin/banksoal/kategori/BanksoalKategoriIndex.vue"
+                  ),
+              },
+              {
+                path: `${prefix}/banksoal/kategori/tambah`,
+                name: "admin.banksoal.kategori.tambah",
+                component: () =>
+                  import(
+                    "@/views/admin/banksoal/kategori/BanksoalKategoriTambah.vue"
+                  ),
+              },
+              {
+                path: `${prefix}/banksoal/kategori/edit/:id`,
+                name: "admin.banksoal.kategori.edit",
+                component: () =>
+                  import(
+                    "@/views/admin/banksoal/kategori/BanksoalKategoriEdit.vue"
+                  ),
+              },
+            ],
           },
         ],
       },
