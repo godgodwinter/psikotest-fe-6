@@ -59,6 +59,7 @@ const dataPilihanJawaban = ref([
 ]);
 
 const onSubmit = async (values) => {
+  let doSubmit = 1;
   values.ujian_kategori_id = dataForm.value.ujian_kategori_id.id;
   values.pertanyaan = dataForm.value.pertanyaan;
   values.pilihanJawaban = dataPilihanJawaban.value;
@@ -68,6 +69,7 @@ const onSubmit = async (values) => {
         "Info",
         `Jawaban ${fnCampur.fnNumberToAlphabet(index + 1)} harus diisi!`
       );
+      doSubmit = 0;
       return false;
     }
     if (item.status === null) {
@@ -75,16 +77,19 @@ const onSubmit = async (values) => {
         "Info",
         `Status Jawaban  ${fnCampur.fnNumberToAlphabet(index + 1)} harus diisi!`
       );
+      doSubmit = 0;
       return false;
     }
   });
   // console.log(dataPilihanJawaban.value[0].jawaban);
   // console.log(dataForm.value.ujian_kategori_id);
   // console.log(values);
-  const resSubmit = await ApiBanksoal.doStoreData(values);
-  if (resSubmit) {
-    Toast.success("Info", "Data berhasil ditambahkan!");
-    // router.push({ name: "AdminKategori" });
+  if (doSubmit > 0) {
+    const resSubmit = await ApiBanksoal.doStoreData(values);
+    if (resSubmit) {
+      Toast.success("Info", "Data berhasil ditambahkan!");
+      // router.push({ name: "AdminKategori" });
+    }
   }
 };
 

@@ -50,7 +50,7 @@ const onSubmit = async (values) => {
 };
 </script>
 <template>
-  <div class="py-2 lg:py-4 px-4">Form Buat Paket Soal</div>
+  <div class="py-2 lg:py-4 px-4">Form Buat Paket Kategori Soal</div>
   <div>
     <h1>Judul</h1>
     <h1>Pilih Kategori</h1>
