@@ -234,6 +234,9 @@ const doRefreshData = () => {
                   </div>
                 </span>
 
+                <span v-else-if="props.column.field == 'pertanyaan'"
+                  ><span v-html="props.row.pertanyaan"></span>
+                </span>
                 <span v-else>
                   {{ props.formattedRow[props.column.field] }}
                 </span>

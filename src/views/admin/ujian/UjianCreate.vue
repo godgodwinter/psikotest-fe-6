@@ -1,8 +1,8 @@
 <script setup></script>
 <template>
   <div class="py-2 lg:py-4 px-4">Form Buat Jadwal Ujian</div>
-  <div class="py-2 lg:py-4 px-4">Data :</div>
-  <div class="py-2 lg:py-4 px-4">Waktu : 90mnt | 120mnt | etc</div>
+  <!-- <div class="py-2 lg:py-4 px-4">Data :</div> -->
+  <!-- <div class="py-2 lg:py-4 px-4">Waktu : 90mnt | 120mnt | etc</div> -->
   <div class="py-2 lg:py-4 px-4">
     Pilih Paket Soal : Data dari Tabel Paket soal
   </div>
