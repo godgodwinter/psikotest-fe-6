@@ -255,7 +255,7 @@ getDataKategori();
           <label for="" class="underline">Preview : </label>
           <div
             class="w-full border-2 min-h-16 p-10"
-            v-html="editorPertanyaan"
+            v-html="dataForm.pertanyaan"
           ></div>
         </div>
       </div>
