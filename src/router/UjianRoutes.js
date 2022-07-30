@@ -30,6 +30,20 @@ const BanksoalRoutes = [
             component: () =>
               import("@/views/admin/ujian/paketsoal/PaketSoalCreate.vue"),
           },
+          {
+            path: `${prefix}/paketsoal/kategori`,
+            name: "admin.ujian.paketsoal.kategori",
+            component: () =>
+              import("@/views/admin/ujian/paketsoal/PaketSoalKategori.vue"),
+          },
+          {
+            path: `${prefix}/paketsoal/kategori/create`,
+            name: "admin.ujian.paketsoal.kategori.create",
+            component: () =>
+              import(
+                "@/views/admin/ujian/paketsoal/PaketSoalKategoriCreate.vue"
+              ),
+          },
         ],
       },
     ],

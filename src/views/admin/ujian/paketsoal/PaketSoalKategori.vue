@@ -52,50 +52,5 @@ const onSubmit = async (values) => {
 </script>
 <template>
   <TabLinkPaketSoal />
-  <!-- <div class="py-2 lg:py-4 px-4">Form Buat Paket Soal</div>
-  <div>
-    <h1>Judul</h1>
-    <h1>Pilih Prefix //Umum atau siswa</h1>
-    <h1>Pilih Paket Kategori []</h1>
-  </div> -->
-
-  <Form v-slot="{ errors }" @submit="onSubmit">
-    <div class="py-2 lg:py-4 px-4">
-      <div class="space-y-4">
-        <div class="flex flex-col">
-          <label>Nama / Judul : </label>
-          <div>
-            <Field
-              :rules="fnValidasi.validateData"
-              v-model="dataForm.nama"
-              name="nama"
-              type="text"
-              class="input input-bordered w-11/12"
-            />
-            <div class="text-xs text-red-600 mt-1">
-              {{ errors.nama }}
-            </div>
-          </div>
-        </div>
-        <div class="flex flex-col">
-          <label> Peserta : </label>
-          <div>
-            <select class="select select-bordered w-full max-w-xs">
-              <option selected>Sekolah</option>
-              <option>Umum</option>
-            </select>
-
-            <div class="text-xs text-red-600 mt-1">
-              {{ errors.select }}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="w-full flex justify-end py-10 px-10 gap-4">
-      <!-- <button class="btn btn-warning">Draft</button> -->
-      <button class="btn btn-primary">Simpan</button>
-    </div>
-  </Form>
+  <div class="py-2 lg:py-4 px-4">List Kategori Soal => DESC TGL CREATE</div>
 </template>

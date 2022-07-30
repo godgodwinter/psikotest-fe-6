@@ -1,12 +1,25 @@
 <script setup></script>
 <template>
-  <div class="py-2 lg:py-4 px-4">Form Buat Jadwal Ujian</div>
   <!-- <div class="py-2 lg:py-4 px-4">Data :</div> -->
   <!-- <div class="py-2 lg:py-4 px-4">Waktu : 90mnt | 120mnt | etc</div> -->
-  <div class="py-2 lg:py-4 px-4">
-    Pilih Paket Soal : Data dari Tabel Paket soal
+  <div class="flex flex-col">
+    <label> Peserta : </label>
+    <div>
+      <select class="select select-bordered w-full max-w-xs">
+        <option selected>Sekolah</option>
+        <option>Umum</option>
+      </select>
+    </div>
   </div>
-  <div class="py-2 lg:py-4 px-4">Peserta : Sekolah | Umum</div>
+  <div class="flex flex-col">
+    <label> Pilih Paket Soal : </label>
+    <div>
+      <select class="select select-bordered w-full max-w-xs">
+        <option selected>IPA A</option>
+        <option>IPA B</option>
+      </select>
+    </div>
+  </div>
   <div>
     <h1 class="font-bold text-2xl">jika sekolah</h1>
     <div class="py-2 lg:py-4 px-4">Pilih Sekolah : dari Tabel Sekolah</div>
