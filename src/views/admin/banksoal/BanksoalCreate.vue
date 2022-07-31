@@ -39,7 +39,7 @@ const editorPertanyaan = ref("<b>tes123</b>");
 const pagesActive = ref("tulis");
 const dataForm = ref({
   tipe: "Pilihan Ganda",
-  skor: 100,
+  // skor: 100,
   tingkatkesulitan: "Mudah",
   pertanyaan: "",
   pilihanJawaban: [],
@@ -174,7 +174,7 @@ getDataKategori();
             </div>
           </div>
         </div>
-        <div class="flex flex-col">
+        <!-- <div class="flex flex-col">
           <label
             >Skor :
             <code class="text-red-500 text-sm font-semibold"
@@ -195,7 +195,7 @@ getDataKategori();
               {{ errors.skor }}
             </div>
           </div>
-        </div>
+        </div> -->
         <div class="flex flex-col">
           <label>Tingkat Kesulitan : </label>
 

@@ -31,17 +31,25 @@ const BanksoalRoutes = [
               import("@/views/admin/ujian/paketsoal/PaketSoalCreate.vue"),
           },
           {
-            path: `${prefix}/paketsoal/kategori`,
+            path: `${prefix}/paketsoal/:paketsoal_id?/kategori`,
             name: "admin.ujian.paketsoal.kategori",
             component: () =>
               import("@/views/admin/ujian/paketsoal/PaketSoalKategori.vue"),
           },
           {
-            path: `${prefix}/paketsoal/kategori/create`,
+            path: `${prefix}/paketsoal/:paketsoal_id?/kategori/create`,
             name: "admin.ujian.paketsoal.kategori.create",
             component: () =>
               import(
                 "@/views/admin/ujian/paketsoal/PaketSoalKategoriCreate.vue"
+              ),
+          },
+          {
+            path: `${prefix}/paketsoal/:paketsoal_id?/kategori/detail/:kategori_id`,
+            name: "admin.ujian.paketsoal.kategori.detail",
+            component: () =>
+              import(
+                "@/views/admin/ujian/paketsoal/PaketSoalKategoriDetail.vue"
               ),
           },
         ],

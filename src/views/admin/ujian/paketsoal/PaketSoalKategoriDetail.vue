@@ -1,23 +1,32 @@
 <script setup>
-import { ref, computed } from "vue";
 import TabLinkPaketSoal from "./TabLinkPaketSoal.vue";
-import { useStoreUjian } from "@/stores/data/ujian";
-import ApiPaketsoal from "@/services/api/apiPaketsoal";
-import { useRouter, useRoute } from "vue-router";
+import { ref, computed } from "vue";
+import Api from "@/axios/axios";
+import { useStoreAdminBar } from "@/stores/adminBar";
+import { useStoreBanksoal } from "@/stores/data/banksoal";
+import ToolBar from "@/components/atoms/editor/ToolBar.vue";
+import { Form, Field } from "vee-validate";
+import fnValidasi from "@/components/lib/babengValidasi";
+import fnCampur from "@/components/lib/FungsiCampur";
 import Toast from "@/components/lib/Toast";
+import { useRouter, useRoute } from "vue-router";
+import ApiPaketsoalKategori from "@/services/api/apiPaketsoalKategori";
+import { useStoreUjian } from "@/stores/data/ujian";
 
 const router = useRouter();
 const route = useRoute();
+const paketsoal_id = route.params.paketsoal_id;
+
 const storeUjian = useStoreUjian();
 storeUjian.$subscribe((mutation, state) => {
   data.value = dataAsli.value;
 });
 
 const data = ref([]);
-const dataAsli = computed(() => storeUjian.getDataPaketsoal);
+const dataAsli = computed(() => storeUjian.getDataPaketsoalKategori);
 data.value = dataAsli.value;
 // if (dataAsli.value.length < 1) {
-ApiPaketsoal.getData();
+ApiPaketsoalKategori.getData(paketsoal_id);
 // }
 
 const columns = [
@@ -35,13 +44,8 @@ const columns = [
     type: "String",
   },
   {
-    label: "Peserta",
-    field: "prefix",
-    type: "String",
-  },
-  {
-    label: "Jumlah Kategori",
-    field: "jml_kategori",
+    label: "Waktu Pengerjaan",
+    field: "waktu",
     type: "String",
   },
   {
@@ -50,31 +54,15 @@ const columns = [
     type: "Number",
   },
 ];
-
-const doDetailData = async (id, index) => {
-  router.push({
-    name: "admin.ujian.paketsoal.kategori",
-    params: { paketsoal_id: id },
-  });
-};
-
-const doDeleteData = async (id, index) => {
-  if (confirm("Apakah anda yakin menghapus data ini?")) {
-    // data.value.splice(index, 1);
-    const resDelete = await ApiPaketsoal.deleteData(id);
-    if (resDelete) {
-      // jenis.value = null;
-      // isAllActive.value = true;
-      // isPengeluaranActive.value = false;
-      // isPemasukanActive.value = false;
-      Toast.success("Info", "Data berhasil dihapus!");
-      // ApiKategori.getData();
-    }
-  }
-};
 </script>
 <template>
   <TabLinkPaketSoal />
+  <div class="font-bold">
+    <h1>Nama Paket : -</h1>
+    <h1>Peserta : -</h1>
+    <h1>Kategori : -</h1>
+    <h1>Waktu : -</h1>
+  </div>
   <div class="py-2 lg:py-4 px-4">
     <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
       <div class="w-full lg:w-full">
@@ -116,17 +104,21 @@ const doDeleteData = async (id, index) => {
                       />
                     </svg>
                   </button> -->
+                  <span class="btn btn-secondary btn-sm" @click="router.go(-1)"
+                    >Kembali</span
+                  >
                   <router-link
                     :to="{
-                      name: 'admin.ujian.paketsoal.create',
-                      params: { jenis: jenis },
+                      name: 'admin.ujian.paketsoal.kategori.create',
+                      params: { paketsoal_id: paketsoal_id },
                     }"
                   >
                     <button
                       class="btn btn-sm btn-primary tooltip"
                       data-tip="Tambah Data"
                     >
-                      <svg
+                      TAMBAH SOAL
+                      <!-- <svg
                         xmlns="http://www.w3.org/2000/svg"
                         class="h-5 w-5"
                         viewBox="0 0 20 20"
@@ -137,7 +129,7 @@ const doDeleteData = async (id, index) => {
                           d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
                           clip-rule="evenodd"
                         />
-                      </svg>
+                      </svg> -->
                     </button>
                   </router-link>
                 </div>

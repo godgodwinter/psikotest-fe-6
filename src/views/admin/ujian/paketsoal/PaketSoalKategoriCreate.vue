@@ -9,6 +9,11 @@ import { Form, Field } from "vee-validate";
 import fnValidasi from "@/components/lib/babengValidasi";
 import fnCampur from "@/components/lib/FungsiCampur";
 import Toast from "@/components/lib/Toast";
+import { useRoute, useRouter } from "vue-router";
+
+const router = useRouter();
+const route = useRoute();
+const paketsoal_id = route.params.paketsoal_id;
 
 const dataForm = ref({
   ujian_kategori_id: "",
@@ -52,6 +57,9 @@ const onSubmit = async (values) => {
 </script>
 <template>
   <TabLinkPaketSoal />
+  <div class="p-4">
+    <span class="btn btn-secondary btn-sm" @click="router.go(-1)">Kembali</span>
+  </div>
   <!-- <div class="py-2 lg:py-4 px-4">Form Buat Paket Kategori Soal</div>
   <div>
     <h1>Judul</h1>
@@ -184,6 +192,7 @@ const onSubmit = async (values) => {
 
     <div class="w-full flex justify-end py-10 px-10 gap-4">
       <!-- <button class="btn btn-warning">Draft</button> -->
+      <span class="btn btn-secondary" @click="router.go(-1)">Batal</span>
       <button class="btn btn-primary">Simpan</button>
     </div>
   </Form>

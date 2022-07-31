@@ -20,7 +20,7 @@ storeAdminBar.setPagesActive("ujian");
   <div class="py-2 lg:py-4 px-4 flex justify-start flex-col">
     <div class="tabs tabs-boxed">
       <RouterLink :to="{ name: 'admin.ujian' }">
-        <span class="tab tab-bordered">Buat Jadwal</span></RouterLink
+        <span class="tab tab-bordered">List Ujian</span></RouterLink
       >
       <RouterLink :to="{ name: 'admin.ujian.create' }" class="tab tab-bordered">
         <a class="tab tab-bordered">Buat Baru</a></RouterLink

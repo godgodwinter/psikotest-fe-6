@@ -160,30 +160,30 @@ const doRefreshData = () => {
                       />
                     </svg>
                   </button>
-                  <!-- <router-link
+                  <router-link
                     :to="{
-                      name: 'AdminKategoriTambah',
+                      name: 'admin.banksoal.create',
                       params: { jenis: jenis },
                     }"
-                  > -->
-                  <button
-                    class="btn btn-sm btn-primary tooltip"
-                    data-tip="Tambah Data"
                   >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="h-5 w-5"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
+                    <button
+                      class="btn btn-sm btn-primary tooltip"
+                      data-tip="Tambah Data"
                     >
-                      <path
-                        fill-rule="evenodd"
-                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
-                        clip-rule="evenodd"
-                      />
-                    </svg>
-                  </button>
-                  <!-- </router-link> -->
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-5 w-5"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </button>
+                  </router-link>
                 </div>
               </template>
               <!-- <template #table-actions-bottom>

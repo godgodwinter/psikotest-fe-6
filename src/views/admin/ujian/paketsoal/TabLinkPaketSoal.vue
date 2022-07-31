@@ -7,7 +7,7 @@
       <RouterLink :to="{ name: 'admin.ujian.paketsoal.create' }">
         <span class="tab tab-bordered">Buat Paket Soal </span></RouterLink
       >
-      <RouterLink :to="{ name: 'admin.ujian.paketsoal.kategori' }">
+      <!-- <RouterLink :to="{ name: 'admin.ujian.paketsoal.kategori' }">
         <span class="tab tab-bordered">Kategori</span></RouterLink
       >
       <RouterLink
@@ -15,7 +15,7 @@
         class="tab tab-bordered"
       >
         <a class="tab tab-bordered">Add Kategori</a></RouterLink
-      >
+      > -->
       <!-- <RouterLink
         :to="{ name: 'admin.ujian.paketsoal' }"
         class="tab tab-bordered"

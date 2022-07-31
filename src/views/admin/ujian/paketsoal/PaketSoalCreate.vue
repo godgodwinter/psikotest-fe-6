@@ -2,6 +2,7 @@
 import TabLinkPaketSoal from "./TabLinkPaketSoal.vue";
 import { ref } from "vue";
 import Api from "@/axios/axios";
+import ApiPaketsoal from "@/services/api/apiPaketsoal";
 import { useStoreAdminBar } from "@/stores/adminBar";
 import { useStoreBanksoal } from "@/stores/data/banksoal";
 import ToolBar from "@/components/atoms/editor/ToolBar.vue";
@@ -11,8 +12,8 @@ import fnCampur from "@/components/lib/FungsiCampur";
 import Toast from "@/components/lib/Toast";
 
 const dataForm = ref({
-  ujian_kategori_id: "",
   nama: "",
+  prefix: "Sekolah",
 });
 const dataKategori = ref([]);
 let pilihKategori = ref([]);
@@ -42,12 +43,12 @@ const getDataKategori = async () => {
 getDataKategori();
 
 const onSubmit = async (values) => {
-  console.log(values);
-  // const resSubmit = await ApiBanksoal.doStoreData(values);
-  // if (resSubmit) {
-  //   Toast.success("Info", "Data berhasil ditambahkan!");
-  //   // router.push({ name: "AdminKategori" });
-  // }
+  // console.log(values);
+  const resSubmit = await ApiPaketsoal.doStoreData(values);
+  if (resSubmit) {
+    Toast.success("Info", "Data berhasil ditambahkan!");
+    // router.push({ name: "AdminKategori" });
+  }
 };
 </script>
 <template>
@@ -63,7 +64,7 @@ const onSubmit = async (values) => {
     <div class="py-2 lg:py-4 px-4">
       <div class="space-y-4">
         <div class="flex flex-col">
-          <label>Nama / Judul : </label>
+          <label>Nama Paket Soal : </label>
           <div>
             <Field
               :rules="fnValidasi.validateData"
@@ -80,13 +81,19 @@ const onSubmit = async (values) => {
         <div class="flex flex-col">
           <label> Peserta : </label>
           <div>
-            <select class="select select-bordered w-full max-w-xs">
-              <option selected>Sekolah</option>
-              <option>Umum</option>
-            </select>
+            <Field
+              :rules="fnValidasi.validateSelect"
+              v-model="dataForm.prefix"
+              name="prefix"
+              class="select select-bordered w-11/12"
+              as="select"
+            >
+              <option value="Sekolah" selected>Sekolah</option>
+              <option value="Umum">Umum</option>
+            </Field>
 
             <div class="text-xs text-red-600 mt-1">
-              {{ errors.select }}
+              {{ errors.prefix }}
             </div>
           </div>
         </div>
@@ -94,7 +101,7 @@ const onSubmit = async (values) => {
     </div>
 
     <div class="w-full flex justify-end py-10 px-10 gap-4">
-      <!-- <button class="btn btn-warning">Draft</button> -->
+      <!-- <span class="btn btn-secondary">Batal</span> -->
       <button class="btn btn-primary">Simpan</button>
     </div>
   </Form>
