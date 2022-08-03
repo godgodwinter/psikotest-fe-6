@@ -39,24 +39,25 @@ const columns = [
     thClass: "text-center",
   },
   {
-    label: "Nama",
-    field: "nama",
+    label: "Pertanyaan",
+    field: "pertanyaan",
     type: "String",
   },
   {
-    label: "Waktu Pengerjaan",
-    field: "waktu",
-    type: "String",
+    label: "Jumlah Pilihan Jawaban",
+    field: "jml_pilihanjawaban",
+    type: "Number",
   },
   {
-    label: "Jumlah Soal",
-    field: "jml_soal",
+    label: "Jumlah Pilihan Jawaban Benar",
+    field: "jml_pilihanjawaban_benar",
     type: "Number",
   },
 ];
 </script>
 <template>
   <TabLinkPaketSoal />
+
   <div class="font-bold">
     <h1>Nama Paket : -</h1>
     <h1>Peserta : -</h1>
@@ -104,9 +105,14 @@ const columns = [
                       />
                     </svg>
                   </button> -->
-                  <span class="btn btn-secondary btn-sm" @click="router.go(-1)"
-                    >Kembali</span
+                  <RouterLink
+                    :to="{
+                      name: 'admin.ujian.paketsoal.kategori',
+                      params: { paketsoal_id: paketsoal_id },
+                    }"
                   >
+                    <button class="btn btn-sm btn-secondary">Kembali</button>
+                  </RouterLink>
                   <router-link
                     :to="{
                       name: 'admin.ujian.paketsoal.kategori.create',

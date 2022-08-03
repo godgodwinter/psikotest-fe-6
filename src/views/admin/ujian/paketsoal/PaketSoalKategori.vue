@@ -44,7 +44,12 @@ const columns = [
     type: "String",
   },
   {
-    label: "Waktu Pengerjaan",
+    label: "Relasi",
+    field: "kategori_nama",
+    type: "String",
+  },
+  {
+    label: "Waktu Pengerjaan (menit)",
     field: "waktu",
     type: "String",
   },
@@ -61,10 +66,25 @@ const doDetailData = async (id, index) => {
     params: { paketsoal_id: paketsoal_id, kategori_id: id },
   });
 };
+const doDeleteData = async (id, index) => {
+  if (confirm("Apakah anda yakin menghapus data ini?")) {
+    // data.value.splice(index, 1);
+    const resDelete = await ApiPaketsoalKategori.deleteData(id, paketsoal_id);
+    if (resDelete) {
+      // jenis.value = null;
+      // isAllActive.value = true;
+      // isPengeluaranActive.value = false;
+      // isPemasukanActive.value = false;
+      Toast.success("Info", "Data berhasil dihapus!");
+      // ApiKategori.getData();
+    }
+  }
+};
 </script>
 <template>
   <TabLinkPaketSoal />
   <div class="font-bold">
+    <h1>Paket Soal > Kategori</h1>
     <h1>Nama Paket : -</h1>
     <h1>Peserta : -</h1>
   </div>

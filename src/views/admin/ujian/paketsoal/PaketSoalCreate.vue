@@ -10,7 +10,9 @@ import { Form, Field } from "vee-validate";
 import fnValidasi from "@/components/lib/babengValidasi";
 import fnCampur from "@/components/lib/FungsiCampur";
 import Toast from "@/components/lib/Toast";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const dataForm = ref({
   nama: "",
   prefix: "Sekolah",
@@ -47,7 +49,7 @@ const onSubmit = async (values) => {
   const resSubmit = await ApiPaketsoal.doStoreData(values);
   if (resSubmit) {
     Toast.success("Info", "Data berhasil ditambahkan!");
-    // router.push({ name: "AdminKategori" });
+    router.push({ name: "admin.ujian.paketsoal" });
   }
 };
 </script>

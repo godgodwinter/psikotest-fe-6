@@ -10,6 +10,7 @@ import fnValidasi from "@/components/lib/babengValidasi";
 import fnCampur from "@/components/lib/FungsiCampur";
 import Toast from "@/components/lib/Toast";
 import { useRoute, useRouter } from "vue-router";
+import ApiPaketsoalKategori from "@/services/api/apiPaketsoalKategori";
 
 const router = useRouter();
 const route = useRoute();
@@ -18,6 +19,9 @@ const paketsoal_id = route.params.paketsoal_id;
 const dataForm = ref({
   ujian_kategori_id: "",
   nama: "",
+  instruksiStatus: false,
+  lembar_prasoalStatus: false,
+  instruksi_pengerjaanStatus: false,
 });
 const dataKategori = ref([]);
 let pilihKategori = ref([]);
@@ -47,12 +51,28 @@ const getDataKategori = async () => {
 getDataKategori();
 
 const onSubmit = async (values) => {
-  console.log(values);
-  // const resSubmit = await ApiBanksoal.doStoreData(values);
-  // if (resSubmit) {
-  //   Toast.success("Info", "Data berhasil ditambahkan!");
-  //   // router.push({ name: "AdminKategori" });
-  // }
+  values.ujian_kategori_id = dataForm.value.ujian_kategori_id.id;
+  values.instruksi_status = dataForm.value.instruksiStatus
+    ? "Aktif"
+    : "Nonaktif";
+  values.lembar_prasoal_status = dataForm.value.lembar_prasoalStatus
+    ? "Aktif"
+    : "Nonaktif";
+  values.instruksi_pengerjaan_status = dataForm.value.instruksi_pengerjaanStatus
+    ? "Aktif"
+    : "Nonaktif";
+  // console.log(values);
+  const resSubmit = await ApiPaketsoalKategori.doStoreData(
+    paketsoal_id,
+    values
+  );
+  if (resSubmit) {
+    Toast.success("Info", "Data berhasil ditambahkan!");
+    router.push({
+      name: "admin.ujian.paketsoal.kategori",
+      params: { paketsoal_id },
+    });
+  }
 };
 </script>
 <template>
@@ -126,16 +146,23 @@ const onSubmit = async (values) => {
             <div class="form-control">
               <label class="label cursor-pointer">
                 <span class="label-text">Instruksi</span>
-                <input type="checkbox" class="toggle" />
+                <input
+                  type="checkbox"
+                  class="toggle"
+                  v-model="dataForm.instruksiStatus"
+                  name="instruksiStatus"
+                />
               </label>
             </div>
           </div>
           <div>
             <Field
+              v-if="dataForm.instruksiStatus"
               :rules="fnValidasi.validateData"
               v-model="dataForm.instruksi"
               name="instruksi"
               type="text"
+              placeholder="Instruksi"
               class="input input-bordered w-11/12"
             />
             <div class="text-xs text-red-600 mt-1">
@@ -148,12 +175,18 @@ const onSubmit = async (values) => {
             <div class="form-control">
               <label class="label cursor-pointer">
                 <span class="label-text">Lembar Prasoal </span>
-                <input type="checkbox" class="toggle" />
+                <input
+                  type="checkbox"
+                  class="toggle"
+                  v-model="dataForm.lembar_prasoalStatus"
+                  name="lembar_prasoalStatus"
+                />
               </label>
             </div>
           </div>
           <div>
             <Field
+              v-if="dataForm.lembar_prasoalStatus"
               :rules="fnValidasi.validateData"
               v-model="dataForm.lembar_prasoal"
               name="lembar_prasoal"
@@ -170,12 +203,18 @@ const onSubmit = async (values) => {
             <div class="form-control">
               <label class="label cursor-pointer">
                 <span class="label-text">Instruksi Pengerjaan</span>
-                <input type="checkbox" class="toggle" />
+                <input
+                  type="checkbox"
+                  class="toggle"
+                  v-model="dataForm.instruksi_pengerjaanStatus"
+                  name="instruksi_pengerjaanStatus"
+                />
               </label>
             </div>
           </div>
           <div>
             <Field
+              v-if="dataForm.instruksi_pengerjaanStatus"
               :rules="fnValidasi.validateData"
               v-model="dataForm.instruksi_pengerjaan"
               name="instruksi_pengerjaan"

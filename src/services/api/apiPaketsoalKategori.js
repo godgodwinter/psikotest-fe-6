@@ -20,17 +20,25 @@ const getData = async (id) => {
   }
 };
 
-const doStoreData = async (data) => {
+const doStoreData = async (id, data) => {
   let dataForm = {
+    ujian_kategori_id: data.ujian_kategori_id,
     nama: data.nama,
-    prefix: data.prefix,
-    users_id: 1,
-    users_tipe: "owner",
+    waktu: data.waktu,
+    instruksi: data.instruksi,
+    instruksi_status: data.instruksi_status,
+    lembar_prasoal: data.lembar_prasoal,
+    lembar_prasoal_status: data.lembar_prasoal_status,
+    instruksi_pengerjaan: data.instruksi_pengerjaan,
+    instruksi_pengerjaan_status: data.instruksi_pengerjaan_status,
   };
-  // console.log(dataForm);
+  // console.log(id, dataForm);
   try {
-    const response = await Api.post(`admin/menuujian/paketsoal`, dataForm);
-    // console.log(response);
+    const response = await Api.post(
+      `admin/menuujian/menupaketsoal/${id}/kategori`,
+      dataForm
+    );
+    console.log(response);
     // data.id = response.id;
     // dataAsli.value.push(data);
 
@@ -80,13 +88,16 @@ const doUpdate = async (id, data) => {
   }
 };
 
-const deleteData = async (id) => {
+const deleteData = async (id, paketsoal_id) => {
   try {
+    // console.log(paketsoal_id, id);
     // eslint-disable-next-line no-unused-vars
-    const response = await Api.delete(`admin/menuujian/paketsoal/${id}`);
+    const response = await Api.delete(
+      `admin/menuujian/menupaketsoal/kategori/${id}`
+    );
     // let data = dataAsli.value.filter((item) => item.id !== id);
     // storeUjian.setDataPaketsoal(data);
-    getData();
+    getData(paketsoal_id);
     return true;
   } catch (error) {
     console.error(error);
