@@ -9,6 +9,8 @@ import fnValidasi from "@/components/lib/babengValidasi";
 import fnCampur from "@/components/lib/FungsiCampur";
 import Toast from "@/components/lib/Toast";
 import ApiBanksoal from "@/services/api/apiBanksoal";
+import { useRouter } from "vue-router";
+const router = useRouter();
 const storeAdminBar = useStoreAdminBar();
 const storeBanksoal = useStoreBanksoal();
 storeAdminBar.setPagesActive("banksoal");
@@ -41,6 +43,8 @@ const dataForm = ref({
   tipe: "Pilihan Ganda",
   // skor: 100,
   tingkatkesulitan: "Mudah",
+  status: "Aktif",
+  desc: "",
   pertanyaan: "",
   pilihanJawaban: [],
 });
@@ -49,12 +53,13 @@ const dataPilihanJawaban = ref([
   {
     // id: 1,
     jawaban: null,
-    status: "Benar",
+    // status: "Benar",
+    skor: 1,
   },
   {
     // id: 2,
     jawaban: null,
-    status: "Salah",
+    skor: 0,
   },
 ]);
 
@@ -62,6 +67,7 @@ const onSubmit = async (values) => {
   let doSubmit = 1;
   values.ujian_kategori_id = dataForm.value.ujian_kategori_id.id;
   values.pertanyaan = dataForm.value.pertanyaan;
+  values.desc = dataForm.value.desc;
   values.pilihanJawaban = dataPilihanJawaban.value;
   dataPilihanJawaban.value.forEach((item, index) => {
     if (item.jawaban === null) {
@@ -72,10 +78,18 @@ const onSubmit = async (values) => {
       doSubmit = 0;
       return false;
     }
-    if (item.status === null) {
+    // if (item.status == null && item.status == "") {
+    //   Toast.danger(
+    //     "Info",
+    //     `Status Jawaban  ${fnCampur.fnNumberToAlphabet(index + 1)} harus diisi!`
+    //   );
+    //   doSubmit = 0;
+    //   return false;
+    // }
+    if (item.skor == null) {
       Toast.danger(
         "Info",
-        `Status Jawaban  ${fnCampur.fnNumberToAlphabet(index + 1)} harus diisi!`
+        `Skor Jawaban  ${fnCampur.fnNumberToAlphabet(index + 1)} harus diisi!`
       );
       doSubmit = 0;
       return false;
@@ -88,7 +102,7 @@ const onSubmit = async (values) => {
     const resSubmit = await ApiBanksoal.doStoreData(values);
     if (resSubmit) {
       Toast.success("Info", "Data berhasil ditambahkan!");
-      // router.push({ name: "AdminKategori" });
+      router.push({ name: "admin.banksoal" });
     }
   }
 };
@@ -97,7 +111,8 @@ const doTambahPilihanJawaban = () => {
   dataPilihanJawaban.value.push({
     // id: dataPilihanJawaban.value.length+1,
     jawaban: null,
-    status: "Salah",
+    // status: "Salah",
+    skor: 0,
   });
 };
 
@@ -174,6 +189,26 @@ getDataKategori();
             </div>
           </div>
         </div>
+        <div class="flex flex-col">
+          <label>Status : </label>
+          <div>
+            <Field
+              :rules="fnValidasi.validateSelect"
+              v-model="dataForm.status"
+              name="status"
+              class="select select-bordered w-11/12"
+              as="select"
+            >
+              <option selected value="Aktif">Aktif</option>
+              <option value="Nonaktif">NonAktif</option>
+              <!-- <option value="Draft">Draft</option> -->
+            </Field>
+
+            <div class="text-xs text-red-600 mt-1">
+              {{ errors.status }}
+            </div>
+          </div>
+        </div>
         <!-- <div class="flex flex-col">
           <label
             >Skor :
@@ -196,6 +231,50 @@ getDataKategori();
             </div>
           </div>
         </div> -->
+        <div class="flex flex-col">
+          <label>Nomer Urut : </label>
+          <div>
+            <Field
+              :rules="fnValidasi.validateDataNumber"
+              v-model="dataForm.nomer_urut"
+              name="nomer_urut"
+              type="number"
+              class="input input-bordered w-11/12"
+            />
+            <div class="text-xs text-red-600 mt-1">
+              {{ errors.nomer_urut }}
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-col">
+          <label>Kode : </label>
+          <div>
+            <Field
+              :rules="fnValidasi.validateData"
+              v-model="dataForm.kode"
+              name="kode"
+              type="text"
+              class="input input-bordered w-11/12"
+            />
+            <div class="text-xs text-red-600 mt-1">
+              {{ errors.kode }}
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-col">
+          <label>Deskribsi : </label>
+          <div>
+            <input
+              v-model="dataForm.desc"
+              name="desc"
+              type="text"
+              class="input input-bordered w-11/12"
+            />
+            <div class="text-xs text-red-600 mt-1">
+              {{ errors.desc }}
+            </div>
+          </div>
+        </div>
         <div class="flex flex-col">
           <label>Tingkat Kesulitan : </label>
 
@@ -284,7 +363,7 @@ getDataKategori();
               </QuillEditor>
             </div>
             <div class="space-y-4 py-4 px-4">
-              <div class="flex flex-col">
+              <!-- <div class="flex flex-col">
                 <label
                   >Status Jawaban :
                   <code class="text-red-500 text-sm font-semibold"
@@ -301,9 +380,27 @@ getDataKategori();
                     <option value="Salah">Salah</option>
                     <option value="Benar">Benar</option>
                   </Field>
+                </div>
+              </div> -->
+              <div class="flex flex-col">
+                <label
+                  >Skor :
+                  <code class="text-red-500 text-sm font-semibold"
+                    >{{ dataPilihanJawaban[index].skor }}
+                  </code></label
+                >
+                <div>
+                  <input
+                    :rules="fnValidasi.validateDataSkor"
+                    v-model="dataPilihanJawaban[index].skor"
+                    :name="dataPilihanJawaban + '[' + index + ']'"
+                    type="number"
+                    max="100"
+                    class="input input-bordered w-11/12"
+                  />
                   <!-- <div class="text-xs text-red-600 mt-1">
-                    {{ errors.dataPilihanJawaban + "[" + index + "]" }}
-                  </div> -->
+                      {{ errors.dataPilihanJawabanSkor + "[" + index + "]" }}
+                    </div> -->
                 </div>
               </div>
             </div>

@@ -22,7 +22,11 @@ const doStoreData = async (data) => {
   let dataForm = {
     ujian_kategori_id: data.ujian_kategori_id,
     tipe: data.tipe,
-    skor: data.skor,
+    status: data.status,
+    nomer_urut: data.nomer_urut,
+    desc: data.desc,
+    kode: data.kode,
+    // skor: data.skor,
     tingkatkesulitan: data.tingkatkesulitan,
     pertanyaan: data.pertanyaan,
     // pilihanJawaban: data.pilihanJawaban,
