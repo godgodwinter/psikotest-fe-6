@@ -4,6 +4,7 @@ import { computed } from "vue";
 const storeUjian = useStoreUjian();
 
 const dataAsli = computed(() => storeUjian.getData);
+const dataAsliDetail = computed(() => storeUjian.dataPaketsoalKategoriDetail);
 
 const getData = async (id) => {
   try {
@@ -51,21 +52,6 @@ const doStoreData = async (id, data) => {
   }
 };
 
-const getDataId = async (id) => {
-  try {
-    if (dataAsli.value.length < 1) {
-      await getData();
-    }
-    const response = await Api.get(`admin/menuujian/paketsoal/${id}`);
-    let res = response.data;
-    // let res = dataAsli.value.filter((item) => item.id == id);
-    // console.log(res.id, dataAsli.value, id);
-    return res;
-  } catch (error) {
-    console.error(error);
-  }
-};
-
 const doUpdate = async (id, data) => {
   let dataForm = {
     nama: data.nama,
@@ -104,11 +90,46 @@ const deleteData = async (id, paketsoal_id) => {
   }
 };
 
+// with soal
+const getDataId = async (id) => {
+  try {
+    // if (dataAsli.value.length < 1) {
+    //   await getData();
+    // }
+    const response = await Api.get(
+      `admin/menuujian/menupaketsoal/kategori/${id}`
+    );
+    let res = response.data;
+    storeUjian.setDataPaketsoalKategoriDetail(res);
+    // let res = dataAsli.value.filter((item) => item.id == id);
+    // console.log(res.id, dataAsli.value, id);
+    return res;
+  } catch (error) {
+    console.error(error);
+  }
+};
+const deleteDataSoal = async (id, kategori_id) => {
+  try {
+    // console.log(paketsoal_id, id);
+    // eslint-disable-next-line no-unused-vars
+    const response = await Api.delete(
+      `admin/menuujian/menupaketsoal/menukategori/soal/${id}`
+    );
+    // let data = dataAsli.value.filter((item) => item.id !== id);
+    // storeUjian.setDataPaketsoal(data);
+    getDataId(kategori_id);
+    return true;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const ApiUjian = {
   getData,
   deleteData,
-  getDataId,
   doUpdate,
   doStoreData,
+  getDataId,
+  deleteDataSoal,
 };
 export default ApiUjian;

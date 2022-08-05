@@ -16,17 +16,18 @@ import { useStoreUjian } from "@/stores/data/ujian";
 const router = useRouter();
 const route = useRoute();
 const paketsoal_id = route.params.paketsoal_id;
+const kategori_id = route.params.kategori_id;
 
 const storeUjian = useStoreUjian();
 storeUjian.$subscribe((mutation, state) => {
-  data.value = dataAsli.value;
+  data.value = dataAsli.value ? dataAsli.value.soal : [];
 });
 
 const data = ref([]);
-const dataAsli = computed(() => storeUjian.getDataPaketsoalKategori);
-data.value = dataAsli.value;
+const dataAsli = computed(() => storeUjian.dataPaketsoalKategoriDetail);
+data.value = dataAsli.value ? dataAsli.value.soal : [];
 // if (dataAsli.value.length < 1) {
-ApiPaketsoalKategori.getData(paketsoal_id);
+ApiPaketsoalKategori.getDataId(kategori_id);
 // }
 
 const columns = [
@@ -54,15 +55,32 @@ const columns = [
     type: "Number",
   },
 ];
+const doDeleteData = async (id, index) => {
+  if (confirm("Apakah anda yakin menghapus data ini?")) {
+    // data.value.splice(index, 1);
+    const resDelete = await ApiPaketsoalKategori.deleteDataSoal(
+      id,
+      kategori_id
+    );
+    if (resDelete) {
+      // jenis.value = null;
+      // isAllActive.value = true;
+      // isPengeluaranActive.value = false;
+      // isPemasukanActive.value = false;
+      Toast.success("Info", "Data berhasil dihapus!");
+      // ApiKategori.getData();
+    }
+  }
+};
 </script>
 <template>
   <TabLinkPaketSoal />
 
-  <div class="font-bold">
-    <h1>Nama Paket : -</h1>
-    <h1>Peserta : -</h1>
-    <h1>Kategori : -</h1>
-    <h1>Waktu : -</h1>
+  <div class="font-bold" v-if="dataAsli">
+    <h1>Nama Paket : {{ dataAsli.paket_nama }}</h1>
+    <h1>Peserta : {{ dataAsli.paket_prefix }}</h1>
+    <h1>Kategori : {{ dataAsli.nama }}</h1>
+    <h1>Waktu : {{ dataAsli.waktu }} Menit</h1>
   </div>
   <div class="py-2 lg:py-4 px-4">
     <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">

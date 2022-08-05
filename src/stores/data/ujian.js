@@ -6,12 +6,15 @@ export const useStoreUjian = defineStore({
     data: [],
     dataPaketsoal: [],
     dataPaketsoalKategori: [],
+    dataPaketsoalKategoriDetail: [],
     pagesActive: "",
   }),
   getters: {
     getData: (state) => state.data,
     getDataPaketsoal: (state) => state.dataPaketsoal,
     getDataPaketsoalKategori: (state) => state.dataPaketsoalKategori,
+    getDataPaketsoalKategoriDetail: (state) =>
+      state.dataPaketsoalKategoriDetail,
     getPagesActive: (state) => state.pagesActive,
   },
   actions: {
@@ -23,6 +26,9 @@ export const useStoreUjian = defineStore({
     },
     setDataPaketsoalKategori(dataPaketsoalKategori) {
       this.dataPaketsoalKategori = dataPaketsoalKategori;
+    },
+    setDataPaketsoalKategoriDetail(dataPaketsoalKategoriDetail) {
+      this.dataPaketsoalKategoriDetail = dataPaketsoalKategoriDetail;
     },
     setPagesActive(pages) {
       this.pagesActive = pages;
