@@ -56,7 +56,7 @@ const getDataId = async (id) => {
     const response = await Api.get(`admin/menuujian/banksoal/${id}`);
     let res = response.data;
     // let res = dataAsli.value.filter((item) => item.id == id);
-    // console.log(res.id, dataAsli.value, id);
+    console.log(res.id, dataAsli.value, id);
     return res;
   } catch (error) {
     console.error(error);

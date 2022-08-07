@@ -124,6 +124,30 @@ const deleteDataSoal = async (id, kategori_id) => {
   }
 };
 
+const doStoreDataSoal = async (paketsoal_kategori_id, data) => {
+  let dataForm = {
+    listId: data,
+  };
+  //
+  console.log(paketsoal_kategori_id, JSON.stringify(dataForm), dataForm);
+  try {
+    const response = await Api.post(
+      `admin/menuujian/menupaketsoal/soal/${paketsoal_kategori_id}`,
+      dataForm
+    );
+    // console.log(response);
+    // data.id = response.id;
+    // dataAsli.value.push(data);
+
+    // getData()
+    // console.log(dataAsli.value);
+
+    return true;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const ApiUjian = {
   getData,
   deleteData,
@@ -131,5 +155,6 @@ const ApiUjian = {
   doStoreData,
   getDataId,
   deleteDataSoal,
+  doStoreDataSoal,
 };
 export default ApiUjian;

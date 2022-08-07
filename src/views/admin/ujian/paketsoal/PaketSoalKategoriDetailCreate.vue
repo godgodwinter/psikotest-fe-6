@@ -12,88 +12,131 @@ import Toast from "@/components/lib/Toast";
 import { useRouter, useRoute } from "vue-router";
 import ApiPaketsoalKategori from "@/services/api/apiPaketsoalKategori";
 import { useStoreUjian } from "@/stores/data/ujian";
+import apiBanksoal from "@/services/api/apiBanksoal";
 
 const router = useRouter();
 const route = useRoute();
 const paketsoal_id = route.params.paketsoal_id;
 const kategori_id = route.params.kategori_id;
-
+const ujian_kategori_id = route.params.ujian_kategori_id;
 const storeUjian = useStoreUjian();
-storeUjian.$subscribe((mutation, state) => {
-  data.value = dataAsli.value ? dataAsli.value.soal : [];
-});
+const storeBanksoal = useStoreBanksoal();
 
 const data = ref([]);
-const dataAsli = computed(() => storeUjian.dataPaketsoalKategoriDetail);
-data.value = dataAsli.value ? dataAsli.value.soal : [];
+const dataAsli = ref([]);
 // if (dataAsli.value.length < 1) {
-ApiPaketsoalKategori.getDataId(kategori_id);
+const getDataId = async (id) => {
+  try {
+    const response = await Api.get(
+      `admin/menuujian/menubanksoal/kategori/${id}`
+    );
+    let res = response.data;
+    console.log(res);
+    dataAsli.value = res;
+    data.value = dataAsli.value ? dataAsli.value : [];
+    if (data.value.length < 1) {
+      Toast.babeng("Soal tidak tersedia", "Periksa banksoal ");
+    }
+    // let res = dataAsli.value.filter((item) => item.id == id);
+    // console.log(res.id, dataAsli.value, id);
+    return res;
+  } catch (error) {
+    Toast.babeng("Soal tidak tersedia", "Periksa banksoal ");
+    console.error(error);
+  }
+};
+getDataId(ujian_kategori_id);
+
 // }
 
 const columns = [
-  {
-    label: "Actions",
-    field: "actions",
-    sortable: false,
-    width: "50px",
-    tdClass: "text-center",
-    thClass: "text-center",
-  },
+  // {
+  //   label: "Actions",
+  //   field: "actions",
+  //   sortable: false,
+  //   width: "50px",
+  //   tdClass: "text-center",
+  //   thClass: "text-center",
+  // },
   {
     label: "Pertanyaan",
     field: "pertanyaan",
     type: "String",
   },
   {
-    label: "Jumlah Pilihan Jawaban",
+    label: "Tipe Soal",
+    field: "tipe",
+    type: "String",
+  },
+  {
+    label: "Jumlah PIlihan Jawaban",
     field: "jml_pilihanjawaban",
     type: "Number",
   },
-  {
-    label: "Jumlah Pilihan Jawaban Benar",
-    field: "jml_pilihanjawaban_benar",
-    type: "Number",
-  },
 ];
-const doDeleteData = async (id, index) => {
-  if (confirm("Apakah anda yakin menghapus data ini?")) {
-    try {
-      const response = await Api.delete(
-        `admin/menuujian/menupaketsoal/menukategori/soal/${id}`
-      );
-      // let data = dataAsli.value.filter((item) => item.id !== id);
-      // storeUjian.setDataPaketsoal(data);
-      // getDataId(kategori_id);
-      Toast.success("Info", "Data berhasil dihapus!");
-      ApiPaketsoalKategori.getDataId(kategori_id);
-      return true;
-    } catch (error) {
-      console.error(error);
-    }
+const myTable = ref(null);
+const rowSelection = ref([]);
+const doAdd = async () => {
+  // selectionChanged();
+  // get id and filter unique
+  const dataId = myTable.value.selectedRows.map((item) => item.id);
+  const response = await ApiPaketsoalKategori.doStoreDataSoal(
+    kategori_id,
+    dataId
+  );
+
+  if (response == true) {
+    Toast.babeng("Data berhasil ditambahkan", "Berhasil");
+    router.push({
+      name: "admin.ujian.paketsoal.kategori.detail",
+      params: { paketsoal_id, kategori_id },
+    });
+  } else {
+    Toast.babeng("Info", "Gagal di tambahkan!");
   }
+  // console.log(myTable.value.selectedRows, dataId);
+};
+const selectionChanged = (selection) => {
+  // rowSelection.value = selection;
+  console.log(rowSelection.value, selection);
+};
+const doAddAll = () => {
+  // console.log(props);
 };
 </script>
 <template>
   <TabLinkPaketSoal />
+  <RouterLink
+    :to="{
+      name: 'admin.ujian.paketsoal.kategori.detail',
+      params: { paketsoal_id: paketsoal_id, kategori_id },
+    }"
+  >
+    <button class="btn btn-sm btn-secondary">Kembali</button>
+  </RouterLink>
 
   <div class="font-bold" v-if="dataAsli">
+    <h1>TAMBAH</h1>
     <h1>Nama Paket : {{ dataAsli.paket_nama }}</h1>
     <h1>Peserta : {{ dataAsli.paket_prefix }}</h1>
-    <h1>Nama Kategori : {{ dataAsli.nama }}</h1>
-    <h1>Kategori Banksoal : {{ dataAsli.kategori_nama }}</h1>
+    <h1>Kategori : {{ dataAsli.nama }}</h1>
     <h1>Waktu : {{ dataAsli.waktu }} Menit</h1>
   </div>
+
   <div class="py-2 lg:py-4 px-4">
     <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
       <div class="w-full lg:w-full">
         <div class="bg-white shadow rounded-lg px-4 py-4">
           <div v-if="data">
             <vue-good-table
+              ref="myTable"
               theme="polar-bear"
               :line-numbers="true"
               compactMode
               :columns="columns"
               :rows="data"
+              @on-selected-rows-change="selectionChanged"
+              :select-options="{ enabled: true }"
               :search-options="{
                 enabled: true,
               }"
@@ -104,9 +147,31 @@ const doDeleteData = async (id, index) => {
               styleClass="vgt-table striped bordered condensed"
               class="py-0"
             >
+              <template #selected-row-actions>
+                <button
+                  @click="doAdd()"
+                  class="btn btn-sm btn-success tooltip"
+                  data-tip="Tambah Terpilih"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
+                    />
+                  </svg>
+                </button>
+              </template>
               <template #table-actions>
                 <div class="space-x-1 space-y-1 gap-1">
-                  <!-- <button
+                  <button
                     class="btn btn-sm btn-secondary tooltip"
                     data-tip="Refresh Data"
                     @click="doRefreshData()"
@@ -123,44 +188,26 @@ const doDeleteData = async (id, index) => {
                         clip-rule="evenodd"
                       />
                     </svg>
-                  </button> -->
-                  <RouterLink
-                    :to="{
-                      name: 'admin.ujian.paketsoal.kategori',
-                      params: { paketsoal_id: paketsoal_id },
-                    }"
+                  </button>
+
+                  <button
+                    @click="doAddAll()"
+                    class="btn btn-sm btn-primary tooltip"
+                    data-tip="Tambah Semua"
                   >
-                    <button class="btn btn-sm btn-secondary">Kembali</button>
-                  </RouterLink>
-                  <router-link
-                    :to="{
-                      name: 'admin.ujian.paketsoal.kategori.detail.create',
-                      params: {
-                        paketsoal_id: paketsoal_id,
-                        kategori_id: kategori_id,
-                        ujian_kategori_id: dataAsli.ujian_kategori_id,
-                      },
-                    }"
-                  >
-                    <button
-                      class="btn btn-sm btn-primary tooltip"
-                      data-tip="Tambah SOAL"
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-5 w-5"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
                     >
-                      TAMBAH SOAL
-                      <!-- <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-5 w-5"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
-                          clip-rule="evenodd"
-                        />
-                      </svg> -->
-                    </button>
-                  </router-link>
+                      <path
+                        fill-rule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </button>
                 </div>
               </template>
               <!-- <template #table-actions-bottom>
@@ -192,29 +239,6 @@ const doDeleteData = async (id, index) => {
                       </svg>
                     </button> -->
                     <!-- <button
-                      class="btn btn-sm btn-secondary tooltip"
-                      data-tip="Detail Data"
-                      @click="doDetailData(props.row.id, props.index)"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-5 w-5"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M10.293 15.707a1 1 0 010-1.414L14.586 10l-4.293-4.293a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z"
-                          clip-rule="evenodd"
-                        />
-                        <path
-                          fill-rule="evenodd"
-                          d="M4.293 15.707a1 1 0 010-1.414L8.586 10 4.293 5.707a1 1 0 011.414-1.414l5 5a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0z"
-                          clip-rule="evenodd"
-                        />
-                      </svg>
-                    </button> -->
-                    <button
                       class="btn btn-sm btn-danger"
                       @click="doDeleteData(props.row.id, props.index)"
                     >
@@ -230,7 +254,7 @@ const doDeleteData = async (id, index) => {
                           clip-rule="evenodd"
                         />
                       </svg>
-                    </button>
+                    </button> -->
                   </div>
                 </span>
 

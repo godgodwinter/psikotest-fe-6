@@ -11,11 +11,6 @@ storeAdminBar.setPagesActive("ujian");
         >Ujian
       </span>
     </div>
-    <div class="md:py-0 py-4">
-      <BreadCrumb>
-        <template v-slot:content> Ujian <BreadCrumbSpace /> Index </template>
-      </BreadCrumb>
-    </div>
   </div>
   <div class="py-2 lg:py-4 px-4 flex justify-start flex-col">
     <div class="tabs tabs-boxed">
