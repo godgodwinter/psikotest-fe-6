@@ -28,7 +28,7 @@ const dataAsli = ref([]);
 const getDataId = async (id) => {
   try {
     const response = await Api.get(
-      `admin/menuujian/menubanksoal/kategori/${id}`
+      `admin/menuujian/menubanksoal/kategori/${id}/aktif`
     );
     let res = response.data;
     console.log(res);
