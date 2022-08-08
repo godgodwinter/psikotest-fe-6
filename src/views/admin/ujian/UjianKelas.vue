@@ -22,6 +22,8 @@ storeAdminBar.setPagesActive("sekolah");
 const router = useRouter();
 const route = useRoute();
 
+const ujian_proses_id = route.params.ujian_proses_id;
+
 const dataAsli = ref([]);
 const data = ref([]);
 
@@ -35,23 +37,23 @@ const columns = [
     thClass: "text-center",
   },
   {
-    label: "Nama",
-    field: "nama",
-    type: "String",
-  },
-  {
-    label: "Tanggal",
-    field: "tgl",
+    label: "Nama Kelas",
+    field: "kelas_nama",
     type: "String",
   },
   {
     label: "Jumlah Siswa",
-    field: "jml_siswa",
+    field: "siswa_jml",
     type: "String",
   },
   {
-    label: "Jumlah Kelas",
-    field: "jml_kelas",
+    label: "Nama PaketSoal",
+    field: "paketsoal_nama",
+    type: "String",
+  },
+  {
+    label: "Jumlah Kategori",
+    field: "kategori_jml",
     type: "String",
   },
   {
@@ -63,7 +65,9 @@ const columns = [
 
 const getData = async () => {
   try {
-    const response = await Api.get(`admin/menuujian/proses`);
+    const response = await Api.get(
+      `admin/menuujian/proseskelas/${ujian_proses_id}/kelas`
+    );
     dataAsli.value = response.data;
     data.value = response.data;
 
@@ -73,6 +77,18 @@ const getData = async () => {
   }
 };
 getData();
+const dataProses = ref([]);
+const getDataProses = async () => {
+  try {
+    const response = await Api.get(`admin/menuujian/proses/${ujian_proses_id}`);
+    dataProses.value = response.data;
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+getDataProses();
 const doEditData = async (id, index) => {
   router.push({
     name: "AdminSekolahEdit",
@@ -81,6 +97,7 @@ const doEditData = async (id, index) => {
 };
 </script>
 <template>
+  <h1 class="text-lg font-bold">DETAIL : {{ dataProses.nama }}</h1>
   <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
     <div class="w-full lg:w-full">
       <div class="bg-white shadow rounded-lg px-4 py-4">
@@ -106,8 +123,8 @@ const doEditData = async (id, index) => {
                 >
                   <router-link
                     :to="{
-                      name: 'admin.ujian.kelas',
-                      params: { ujian_proses_id: props.row.id },
+                      name: 'AdminSekolahDetailDashboard',
+                      params: { id: props.row.id },
                     }"
                   >
                     <button
@@ -137,11 +154,13 @@ const doEditData = async (id, index) => {
                   {{ moment(props.row.tgl).format("DD MMMM YYYY") }}
                 </div>
               </span>
-              <span v-else-if="props.column.field == 'jml_siswa'">
-                <div class="text-center">{{ props.row.jml_siswa }} Siswa</div>
+              <span v-else-if="props.column.field == 'siswa_jml'">
+                <div class="text-center">{{ props.row.siswa_jml }} Siswa</div>
               </span>
-              <span v-else-if="props.column.field == 'jml_kelas'">
-                <div class="text-center">{{ props.row.jml_kelas }} Kelas</div>
+              <span v-else-if="props.column.field == 'kategori_jml'">
+                <div class="text-center">
+                  {{ props.row.kategori_jml }} Kategori
+                </div>
               </span>
 
               <span v-else>
