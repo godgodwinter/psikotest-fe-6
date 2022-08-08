@@ -14,14 +14,19 @@ const BanksoalRoutes = [
             component: () => import("@/views/admin/ujian/UjianIndex.vue"),
           },
           {
+            path: `${prefix}/create`,
+            name: "admin.ujian.create",
+            component: () => import("@/views/admin/ujian/UjianCreate.vue"),
+          },
+          {
             path: `${prefix}/index/:ujian_proses_id`,
             name: "admin.ujian.kelas",
             component: () => import("@/views/admin/ujian/UjianKelas.vue"),
           },
           {
-            path: `${prefix}/create`,
-            name: "admin.ujian.create",
-            component: () => import("@/views/admin/ujian/UjianCreate.vue"),
+            path: `${prefix}/index/:ujian_proses_id/create`,
+            name: "admin.ujian.kelas.create",
+            component: () => import("@/views/admin/ujian/UjianKelasCreate.vue"),
           },
           {
             path: `${prefix}/paketsoal`,
