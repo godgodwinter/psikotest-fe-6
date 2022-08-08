@@ -1,6 +1,7 @@
 <script setup>
 import Api from "@/axios/axios";
 import { ref, watch, computed } from "vue";
+import Toast from "@/components/lib/Toast";
 import BreadCrumb from "@/components/atoms/BreadCrumb.vue";
 import BreadCrumbSpace from "@/components/atoms/BreadCrumbSpace.vue";
 import ButtonEdit from "@/components/atoms/ButtonEdit.vue";
@@ -18,7 +19,7 @@ storeGuruBk.$subscribe((mutation, state) => {
 });
 
 const storeAdminBar = useStoreAdminBar();
-storeAdminBar.setPagesActive("sekolah");
+storeAdminBar.setPagesActive("ujian");
 const router = useRouter();
 const route = useRoute();
 
@@ -78,6 +79,22 @@ const doEditData = async (id, index) => {
     name: "AdminSekolahEdit",
     params: { id: id },
   });
+};
+
+const doDeleteData = async (id, index) => {
+  if (confirm("Apakah anda yakin menghapus data ini?")) {
+    try {
+      const response = await Api.delete(`admin/menuujian/proses/${id}`);
+      // let data = dataAsli.value.filter((item) => item.id !== id);
+      // storeUjian.setDataPaketsoal(data);
+      // getDataId(kategori_id);
+      Toast.success("Info", "Data berhasil dihapus!");
+      getData();
+      return true;
+    } catch (error) {
+      console.error(error);
+    }
+  }
 };
 </script>
 <template>
@@ -175,6 +192,23 @@ const doEditData = async (id, index) => {
                         />
                       </svg></button
                   ></router-link>
+                  <button
+                    class="btn btn-sm btn-danger"
+                    @click="doDeleteData(props.row.id, props.index)"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="h-5 w-5"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </button>
                 </div>
               </span>
 
