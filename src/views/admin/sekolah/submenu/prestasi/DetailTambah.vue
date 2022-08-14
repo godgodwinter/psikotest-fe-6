@@ -27,7 +27,9 @@ const id = route.params.id;
 const id2 = route.params.id2;
 const id3 = route.params.id3;
 const dataAsli = ref([]);
-const dataDetail = ref([]);
+const dataDetail = ref({
+  tanggal: moment().format("YYYY-MM-DD"),
+});
 const data = ref([]);
 
 const getData = async () => {

@@ -27,7 +27,9 @@ const id = route.params.id;
 const id2 = route.params.id2;
 const id3 = route.params.id3;
 const dataAsli = ref([]);
-const dataDetail = ref([]);
+const dataDetail = ref({
+  tanggal: moment().format("YYYY-MM-DD"),
+});
 const data = ref([]);
 
 const getData = async () => {
@@ -116,7 +118,7 @@ const doStoreData = async (d) => {
       <span
         class="text-2xl sm:text-3xl leading-none font-bold text-base-content shadow-sm"
       >
-        {{ dataSiswa.nama }} 
+        {{ dataSiswa.nama }}
       </span>
     </div>
     <div class="md:py-0 py-4 space-x-2 space-y-2">
