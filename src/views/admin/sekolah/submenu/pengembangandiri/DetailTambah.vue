@@ -89,6 +89,7 @@ const doStoreData = async (d) => {
     citacita: dataDetail.value.citacita,
     kemampuankhusus: dataDetail.value.kemampuankhusus,
     keterangan: dataDetail.value.keterangan,
+    bidangstudi: dataDetail.value.bidangstudi,
   };
   try {
     const response = await Api.post(
@@ -186,6 +187,25 @@ const doStoreData = async (d) => {
                         />
                         <div class="text-xs text-red-600 mt-1">
                           {{ errors.idedanimajinasi }}
+                        </div>
+                      </div>
+                      <div>
+                        <label
+                          for="name"
+                          class="text-sm font-medium text-gray-900 block mb-2"
+                          >Bidang Studi</label
+                        >
+                        <Field
+                          v-model="dataDetail.bidangstudi"
+                          :rules="validateData"
+                          type="text"
+                          name="bidangstudi"
+                          ref="bidangstudi"
+                          class="input input-bordered md:w-full max-w-2xl"
+                          required
+                        />
+                        <div class="text-xs text-red-600 mt-1">
+                          {{ errors.bidangstudi }}
                         </div>
                       </div>
                       <div>

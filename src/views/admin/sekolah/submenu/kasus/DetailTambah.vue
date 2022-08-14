@@ -80,6 +80,7 @@ const onSubmit = () => {
 const doStoreData = async (d) => {
   let dataStore = {
     kasus: dataDetail.value.kasus,
+    bidangstudi: dataDetail.value.bidangstudi,
     tanggal: dataDetail.value.tanggal,
     pengambilandata: dataDetail.value.pengambilandata,
     sumberkasus: dataDetail.value.sumberkasus,
@@ -89,6 +90,7 @@ const doStoreData = async (d) => {
     keberhasilanpenanganankasus: dataDetail.value.keberhasilanpenanganankasus,
     keterangan: dataDetail.value.keterangan,
   };
+  console.log(dataDetail.value);
   try {
     const response = await Api.post(
       `owner/datasekolah/${id}/siswa/${id2}/catatankasussiswa`,
@@ -114,7 +116,7 @@ const doStoreData = async (d) => {
       <span
         class="text-2xl sm:text-3xl leading-none font-bold text-base-content shadow-sm"
       >
-        {{ dataSiswa.nama }}
+        {{ dataSiswa.nama }} 
       </span>
     </div>
     <div class="md:py-0 py-4 space-x-2 space-y-2">
@@ -185,6 +187,25 @@ const doStoreData = async (d) => {
                         />
                         <div class="text-xs text-red-600 mt-1">
                           {{ errors.kasus }}
+                        </div>
+                      </div>
+                      <div>
+                        <label
+                          for="name"
+                          class="text-sm font-medium text-gray-900 block mb-2"
+                          >Bidang Studi</label
+                        >
+                        <Field
+                          v-model="dataDetail.bidangstudi"
+                          :rules="validateData"
+                          type="text"
+                          name="bidangstudi"
+                          ref="bidangstudi"
+                          class="input input-bordered md:w-full max-w-2xl"
+                          required
+                        />
+                        <div class="text-xs text-red-600 mt-1">
+                          {{ errors.bidangstudi }}
                         </div>
                       </div>
                       <div>
