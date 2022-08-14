@@ -227,7 +227,7 @@ const AdminSekolahRoutes = [
             name: "AdminSekolahDetailPrestasi",
           },
           {
-            path: "/pages/admin/sekolahdetail/:id/prestasi/detail/:id",
+            path: "/pages/admin/sekolahdetail/:id/prestasi/detail/:id2",
             component: () =>
               import("@/views/admin/sekolah/submenu/prestasi/Detail.vue"),
             name: "AdminSekolahDetailPrestasiDetail",
