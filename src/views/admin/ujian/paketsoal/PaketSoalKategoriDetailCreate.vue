@@ -190,7 +190,7 @@ const doAddAll = () => {
                     </svg>
                   </button>
 
-                  <button
+                  <!-- <button
                     @click="doAddAll()"
                     class="btn btn-sm btn-primary tooltip"
                     data-tip="Tambah Semua"
@@ -207,7 +207,7 @@ const doAddAll = () => {
                         clip-rule="evenodd"
                       />
                     </svg>
-                  </button>
+                  </button> -->
                 </div>
               </template>
               <!-- <template #table-actions-bottom>
