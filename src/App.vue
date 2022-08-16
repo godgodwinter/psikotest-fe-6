@@ -5,11 +5,11 @@ import { RouterLink, RouterView } from "vue-router";
 // dark
 // valentine
 // emerald
-//winter
+//winter-a
 </script>
 
 <template>
   <div id="app" data-theme="winter" class="min-h-screen">
     <RouterView />
   </div>
-</template>
+</template> 

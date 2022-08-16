@@ -17,42 +17,8 @@ const router = useRouter();
 const route = useRoute();
 
 const id = route.params.id;
-const kelas_id = route.params.kelas_id;
 const dataAsli = ref([]);
 const data = ref([]);
-
-const dataKelas = ref([]);
-
-// get Kelas
-const getDataKelas = async () => {
-  try {
-    const response = await Api.get(`owner/datasekolah/${id}/kelas`);
-    // console.log(response);
-    dataKelas.value = response.data;
-    dataKelas.value.forEach((item) => {
-      pilihKelas.value.push({
-        label: item.nama,
-        id: item.id,
-      });
-    });
-    return response;
-  } catch (error) {
-    Toast.danger("Warning", "Data Gagal dimuat");
-    console.error(error);
-  }
-};
-getDataKelas();
-
-const inputCariKelas = ref();
-
-let pilihKelas = ref([
-  {
-    label: "Belum masuk Kelas",
-    id: "Belum masuk Kelas",
-  },
-]);
-
-const doPilihKelas = () => {};
 
 const columns = ref([
   {
@@ -78,10 +44,10 @@ const columns = ref([
     type: "number",
   },
 ]);
-const getData = async (kelas_id) => {
+const getData = async () => {
   try {
     const response = await Api.get(
-      `admin/datasekolah/datasiswa/withsertifikat/kelas/${kelas_id}`
+      `owner/datasekolah/${id}}/datasiswa/withsertifikat`
     );
     dataAsli.value = response.data;
 
@@ -110,7 +76,148 @@ const getData = async (kelas_id) => {
     console.error(error);
   }
 };
-// getData();
+getData();
+
+const dataKelas = ref([]);
+
+const inputCariKelas = ref({
+  label: "Semua Kelas",
+  id: "Semua Kelas",
+});
+
+let pilihKelas = ref([
+  {
+    label: "Semua Kelas",
+    id: "Semua Kelas",
+  },
+  {
+    label: "Belum masuk Kelas",
+    id: "Belum masuk Kelas",
+  },
+]);
+// get Kelas
+const getDataKelas = async () => {
+  try {
+    const response = await Api.get(`owner/datasekolah/${id}/kelas`);
+    // console.log(response);
+    dataKelas.value = response.data;
+    dataKelas.value.forEach((item) => {
+      pilihKelas.value.push({
+        label: item.nama,
+        id: item.id,
+      });
+    });
+    return response;
+  } catch (error) {
+    Toast.danger("Warning", "Data Gagal dimuat");
+    console.error(error);
+  }
+};
+getDataKelas();
+
+const doPilihKelas = () => {
+  data.value = [];
+  if (inputCariKelas.value.id === "Semua Kelas") {
+    // data.value = dataAsli.value.map((item, index) => {
+    //   return {
+    //     ...item,
+    //     nama: item.nama,
+    //     kelas: `${item.kelas ? item.kelas.nama : ""}`,
+    //   };
+    // });
+
+    dataAsli.value.forEach((item, index) => {
+      let tempDataList = {};
+      if (item.sertifikat_data) {
+        ListTampilkan.value.forEach((listItem) => {
+          tempDataList[listItem.id] = item.sertifikat_data[listItem.id];
+        });
+      }
+      // console.log(tempDataList);
+      data.value.push({
+        ...item,
+        nama: item.nama,
+        id: item.id,
+        kelas: `${item.kelas ? item.kelas.nama : ""}`,
+      });
+
+      ListTampilkan.value.forEach((listItem) => {
+        data.value[index][listItem.id] = tempDataList[listItem.id];
+      });
+    });
+  } else if (inputCariKelas.value.id === "Belum masuk Kelas") {
+    let dataFiltered = dataAsli.value.filter((item) => {
+      return item.kelas === null;
+    });
+
+    if (dataFiltered.length > 0) {
+      dataFiltered.forEach((item, index) => {
+        let tempDataList = {};
+        if (item.sertifikat_data) {
+          ListTampilkan.value.forEach((listItem) => {
+            tempDataList[listItem.id] = item.sertifikat_data[listItem.id];
+          });
+        }
+        // console.log(tempDataList);
+        data.value.push({
+          ...item,
+          nama: item.nama,
+          id: item.id,
+          kelas: `${item.kelas ? item.kelas.nama : ""}`,
+        });
+
+        ListTampilkan.value.forEach((listItem) => {
+          data.value[index][listItem.id] = tempDataList[listItem.id];
+        });
+      });
+    } else {
+      data.value = [];
+    }
+    // data.value = dataFiltered.map((item, index) => {
+    //   return {
+    //     ...item,
+    //     nama: item.nama,
+    //     kelas: "Belum Masuk Kelas",
+    //   };
+    // });
+  } else {
+    let dataFiltered = dataAsli.value.filter((item) => {
+      return item.kelas_id == inputCariKelas.value.id;
+    });
+    // data.value = dataFiltered.map((item, index) => {
+    //   return {
+    //     ...item,
+    //     nama: item.nama,
+    //     kelas: `${item.kelas ? item.kelas.nama : ""}`,
+    //   };
+    // });
+
+    if (dataFiltered.length > 0) {
+      data.value = [];
+      dataFiltered.forEach((item, index) => {
+        let tempDataList = {};
+        if (item.sertifikat_data) {
+          ListTampilkan.value.forEach((listItem) => {
+            tempDataList[listItem.id] = item.sertifikat_data[listItem.id];
+          });
+        }
+        // console.log(tempDataList);
+        data.value.push({
+          ...item,
+          nama: item.nama,
+          id: item.id,
+          kelas: `${item.kelas ? item.kelas.nama : ""}`,
+        });
+
+        ListTampilkan.value.forEach((listItem) => {
+          data.value[index][listItem.id] = tempDataList[listItem.id];
+        });
+      });
+    } else {
+      data.value = [];
+    }
+  }
+};
 
 // seleksi yang ditampilkan
 const ListTampilkan = ref([
@@ -665,7 +772,7 @@ watch(ListTampilkan.value, (newValue, oldValue) => {
     <div>
       <span
         class="text-2xl sm:text-3xl leading-none font-bold text-base-content shadow-sm"
-        >Hasil Psikologi : {{ kelas_id }}</span
+        >Hasil Psikologi</span
       >
     </div>
     <div class="md:py-0 py-4 space-x-2 space-y-2"></div>

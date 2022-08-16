@@ -145,7 +145,7 @@ const AdminSekolahRoutes = [
             name: "AdminSekolahDetailHasilpsikologiTerapis",
           },
           {
-            path: "/pages/admin/sekolahdetail/:id/nilaipsikolgisiswa",
+            path: "/pages/admin/sekolahdetail/:id/nilaipsikolgisiswa/:kelas_id?",
             component: () =>
               import(
                 "@/views/admin/sekolah/submenu/nilaipsikolgisiswa/Index.vue"
