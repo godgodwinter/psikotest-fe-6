@@ -17,24 +17,33 @@ const router = useRouter();
 const route = useRoute();
 
 const id = route.params.id;
-const kelas_id = route.params.kelas_id;
+const kelas_id = ref(route.params.kelas_id ? route.params.kelas_id : 0);
 const dataAsli = ref([]);
 const data = ref([]);
 
 const dataKelas = ref([]);
 
+// console.log(kelas_id.value);
 // get Kelas
 const getDataKelas = async () => {
   try {
     const response = await Api.get(`owner/datasekolah/${id}/kelas`);
     // console.log(response);
     dataKelas.value = response.data;
-    dataKelas.value.forEach((item) => {
-      pilihKelas.value.push({
-        label: item.nama,
-        id: item.id,
+    if (dataKelas.value.length > 0) {
+      // console.log(dataKelas.value[0].id);
+      if (kelas_id.value == 0) {
+        kelas_id.value = dataKelas.value[0].id;
+      }
+      dataKelas.value.forEach((item) => {
+        pilihKelas.value.push({
+          label: item.nama,
+          id: item.id,
+        });
       });
-    });
+      // console.log(kelas_id.value);
+      getData(kelas_id.value);
+    }
     return response;
   } catch (error) {
     Toast.danger("Warning", "Data Gagal dimuat");
@@ -42,26 +51,36 @@ const getDataKelas = async () => {
   }
 };
 getDataKelas();
-
+// console.log(kelas_id.value);
 const inputCariKelas = ref();
 
 let pilihKelas = ref([
-  {
-    label: "Belum masuk Kelas",
-    id: "Belum masuk Kelas",
-  },
+  // {
+  //   label: "Belum masuk Kelas",
+  //   id: "Belum masuk Kelas",
+  // },
 ]);
 
-const doPilihKelas = () => {};
+const doPilihKelas = () => {
+  // console.log(inputCariKelas.value.id);
+  router.push({
+    name: "AdminSekolahDetailNilaipsikolgiSiswa",
+    params: {
+      id: id,
+      kelas_id: inputCariKelas.value.id,
+    },
+  });
+  getData(inputCariKelas.value.id);
+};
 
 const columns = ref([
-  {
-    label: "No",
-    field: "no",
-    width: "50px",
-    tdClass: "text-center",
-    thClass: "text-center",
-  },
+  // {
+  //   label: "No",
+  //   field: "no",
+  //   width: "50px",
+  //   tdClass: "text-center",
+  //   thClass: "text-center",
+  // },
   {
     label: "Nama Siswa",
     field: "nama",
@@ -80,6 +99,8 @@ const columns = ref([
 ]);
 const getData = async (kelas_id) => {
   try {
+    dataAsli.value = [];
+    data.value = [];
     const response = await Api.get(
       `admin/datasekolah/datasiswa/withsertifikat/kelas/${kelas_id}`
     );
@@ -665,8 +686,8 @@ watch(ListTampilkan.value, (newValue, oldValue) => {
     <div>
       <span
         class="text-2xl sm:text-3xl leading-none font-bold text-base-content shadow-sm"
-        >Hasil Psikologi : {{ kelas_id }}</span
-      >
+        >Hasil Psikologi :
+      </span>
     </div>
     <div class="md:py-0 py-4 space-x-2 space-y-2"></div>
   </div>
@@ -757,6 +778,7 @@ watch(ListTampilkan.value, (newValue, oldValue) => {
           <vue-good-table
             :columns="columns"
             :rows="data"
+            :line-numbers="true"
             :search-options="{
               enabled: true,
             }"

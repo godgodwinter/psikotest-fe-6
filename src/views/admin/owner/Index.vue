@@ -25,13 +25,13 @@ const dataAsli = ref([]);
 const data = ref([]);
 
 const columns = [
-  {
-    label: "No",
-    field: "no",
-    width: "50px",
-    tdClass: "text-center",
-    thClass: "text-center",
-  },
+  // {
+  //   label: "No",
+  //   field: "no",
+  //   width: "50px",
+  //   tdClass: "text-center",
+  //   thClass: "text-center",
+  // },
   {
     label: "Actions",
     field: "actions",
