@@ -101,6 +101,14 @@ const getData = async (kelas_id) => {
   try {
     dataAsli.value = [];
     data.value = [];
+    linkExport.value =
+      BASE_URL +
+      "api/admin/proses/export/datasiswa/" +
+      id +
+      "/kelas/" +
+      kelas_id +
+      "/get?listdata=" +
+      listData.value;
     const response = await Api.get(
       `admin/datasekolah/datasiswa/withsertifikat/kelas/${kelas_id}`
     );
@@ -680,6 +688,16 @@ watch(ListTampilkan.value, (newValue, oldValue) => {
     }
   });
 });
+
+const linkExport = ref(
+  BASE_URL +
+    "api/admin/proses/export/datasiswa/" +
+    id +
+    "/kelas/" +
+    kelas_id.value +
+    "/get?listdata=" +
+    listData.value
+);
 </script>
 <template>
   <div class="pt-4 px-10 md:flex justify-between">
@@ -704,16 +722,7 @@ watch(ListTampilkan.value, (newValue, oldValue) => {
           Cari
         </button>
       </div>
-      <a
-        :href="
-          BASE_URL +
-          'api/admin/proses/export/datasiswa/' +
-          id +
-          '/get?listdata=' +
-          listData
-        "
-        target="_blank"
-      >
+      <a :href="linkExport" target="_blank">
         <button
           class="btn hover:shadow-lg btn-success shadow text-white hover:text-gray-100 gap-2"
         >
