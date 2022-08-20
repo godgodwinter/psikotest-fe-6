@@ -86,15 +86,14 @@ const doDeleteData = async (id, index) => {
 <template>
   <div class="pt-4 px-10 md:flex justify-between">
     <div>
-      <span
-        class="text-2xl sm:text-3xl leading-none font-bold text-base-content shadow-sm"
-        >Administrator
+      <span class="text-2xl sm:text-3xl leading-none font-bold text-base-content shadow-sm">Administrator
       </span>
     </div>
     <div class="md:py-0 py-4">
       <BreadCrumb>
         <template v-slot:content>
-          Administrator <BreadCrumbSpace /> Index
+          Administrator
+          <BreadCrumbSpace /> Index
         </template>
       </BreadCrumb>
     </div>
@@ -104,26 +103,15 @@ const doDeleteData = async (id, index) => {
     <div class="md:flex justify-between px-10">
       <div class="space-x-1 space-y-1 pt-1 md:pt-0">
         <router-link :to="{ name: 'AdminOwnerTambah' }">
-          <button
-            class="btn btn-info hover:shadow-lg shadow text-white hover:text-gray-100 gap-2"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-              />
+          <button class="btn btn-info hover:shadow-lg shadow text-white hover:text-gray-100 gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+              stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
             </svg>
             Tambah
-          </button></router-link
-        >
+          </button>
+        </router-link>
       </div>
       <div class="space-x-1 space-y-1 pt-1 md:pt-0">
         <!-- <button
@@ -172,53 +160,28 @@ const doDeleteData = async (id, index) => {
     <div class="w-full lg:w-full">
       <div class="bg-white shadow rounded-lg px-4 py-4">
         <div v-if="data">
-          <vue-good-table
-            :columns="columns"
-            :rows="data"
-            :search-options="{
-              enabled: true,
-            }"
-            :pagination-options="{
-              enabled: true,
-              perPageDropdown: [10, 20, 50],
-            }"
-            styleClass="vgt-table striped bordered condensed"
-            class="py-0"
-          >
+          <vue-good-table :columns="columns" :rows="data" :search-options="{
+            enabled: true,
+          }" :pagination-options="{
+  enabled: true,
+  perPageDropdown: [10, 20, 50],
+}" styleClass="vgt-table striped bordered condensed" class="py-0">
             <template #table-row="props">
               <span v-if="props.column.field == 'actions'">
-                <div
-                  class="text-sm font-medium text-center flex justify-center space-x-1"
-                >
+                <div class="text-sm font-medium text-center flex justify-center space-x-1">
                   <ButtonEdit @click="doEditData(props.row.id, props.index)" />
-                  <ButtonDelete
-                    @click="doDeleteData(props.row.id, props.index)"
-                  />
-                  <router-link
-                    :to="{
-                      name: 'AdminYayasanDetail',
-                      params: { id: props.row.id },
-                    }"
-                  >
-                    <button
-                      class="btn btn-sm btn-primary tooltip"
-                      data-tip="Detail"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-5 w-5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        stroke-width="2"
-                      >
-                        <path
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
-                          d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"
-                        />
-                      </svg></button
-                  ></router-link>
+                  <ButtonDelete @click="doDeleteData(props.row.id, props.index)" />
+                  <router-link :to="{
+                    name: 'AdminYayasanDetail',
+                    params: { id: props.row.id },
+                  }">
+                    <button class="btn btn-sm btn-primary tooltip" data-tip="Detail">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg></button>
+                  </router-link>
                 </div>
               </span>
 
