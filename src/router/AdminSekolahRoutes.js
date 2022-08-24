@@ -99,7 +99,7 @@ const AdminSekolahRoutes = [
             name: "AdminSekolahDetailHasilpsikologi",
           },
           {
-            path: "/pages/admin/sekolahdetail/:id/hasilpsikologi",
+            path: "/pages/admin/sekolahdetail/:id/hasilpsikologi/:kelas_id?",
             component: () =>
               import("@/views/admin/sekolah/submenu/hasilpsikologi/Index.vue"),
             name: "AdminHasilPsikologi",
