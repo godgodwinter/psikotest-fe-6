@@ -147,10 +147,8 @@ getDataPaket(siswa.value.paket_id);
 
     <div class="pt-4 px-10 md:flex justify-between">
       <div>
-        <span
-          class="text-2xl sm:text-2xl leading-none font-bold text-gray-700 shadow-sm"
-          >ASPEK PSIKOLOGIS YANG DIUNGKAP</span
-        >
+        <span class="text-2xl sm:text-2xl leading-none font-bold text-gray-700 shadow-sm">ASPEK PSIKOLOGIS YANG
+          DIUNGKAP</span>
       </div>
       <div class="md:py-0 py-4 space-x-2 space-y-2"></div>
     </div>
@@ -208,9 +206,7 @@ getDataPaket(siswa.value.paket_id);
       <div class="w-full lg:w-3/6">
         <div class="bg-base-100 shadow rounded-lg px-4 py-4">
           <div class="overflow-x-auto">
-            <table
-              class="table table-compact table-zebra w-full shadow shadow-sm"
-            >
+            <table class="table table-compact table-zebra w-full shadow shadow-sm">
               <tbody>
                 <tr>
                   <th class="whitespace-nowrap w-1/100">IV.</th>
@@ -431,47 +427,36 @@ getDataPaket(siswa.value.paket_id);
 
     <div class="pt-4 px-10 md:flex justify-between">
       <div>
-        <span
-          class="text-2xl sm:text-xl leading-none font-bold text-gray-600 shadow-sm"
-          >V. KESIMPULAN DAN SARAN 22</span
-        >
+        <span class="text-2xl sm:text-xl leading-none font-bold text-gray-600 shadow-sm">V. KESIMPULAN DAN SARAN
+          22</span>
       </div>
       <div class="md:py-0 py-4 space-x-2 space-y-2"></div>
     </div>
 
     <div class="pt-4 px-10 md:flex justify-between">
       <div>
-        <div
-          class="text-lg sm:text-lg leading-1 font-md text-gray-600 shadow-sm space-y-2"
-        >
+        <div class="text-lg sm:text-lg leading-1 font-md text-gray-600 shadow-sm space-y-2">
           <p class="indent-8">
             Potensi kecerdasan subyek yang dapat digunakan saat ini
-            <b> {{ siswa.iq }}</b
-            >,(IQ=<b>{{ siswa.iq }}</b
-            >, CFIT = <b>{{ siswa.sertifikat.iq_persen }}%)</b> artinya dengan
+            <b> {{ siswa.iq }}</b>,(IQ=<b>{{ siswa.iq }}</b>, CFIT = <b>{{ siswa.sertifikat.iq_persen }}%)</b> artinya
+            dengan
             tingkat kemampuan menggunakan kecerdasan majemuk tergolong
-            <b>{{ siswa.iqh }}</b
-            >.
+            <b>{{ siswa.iqh }}</b>.
           </p>
           <p class="indent-8" v-if="temp.length > 7">
             Dalam belajar subyek disarankan menggunakan
             <b>{{ temp[0].nama }},{{ temp[1].nama }}, {{ temp[2].nama }} </b>,
             sedangkan yang perlu dilatih dan dibiasakan yaitu
-            <b> {{ temp[6].nama }} dan {{ temp[7].nama }}</b
-            >.
+            <b> {{ temp[6].nama }} dan {{ temp[7].nama }}</b>.
           </p>
 
           <p class="indent-8" v-if="temp.length > 7">
             Kecerdasan Emosi nya
-            <b
-              >{{ siswa.eq_persen_keterangan }},({{
+            <b>{{ siswa.eq_persen_keterangan }},({{
                 siswa.sertifikat.eq_persen
-              }}%)</b
-            >. Kecerdasan Sosialnya
-            <b
-              >{{ siswa.scq_persen_keterangan }} (ScQ=
-              {{ siswa.sertifikat.scq_persen }}%)</b
-            >. Karakter kepribadian subyek yang terkuat dan mempengaruhi
+            }}%)</b>. Kecerdasan Sosialnya
+            <b>{{ siswa.scq_persen_keterangan }} (ScQ=
+              {{ siswa.sertifikat.scq_persen }}%)</b>. Karakter kepribadian subyek yang terkuat dan mempengaruhi
             aktivitas sehari-hari yaitu
             <b>
               {{ aspekKepribadianRank[0].nama }},
@@ -497,33 +482,25 @@ getDataPaket(siswa.value.paket_id);
               oleh emosi positif - kematangan kemampuan sosialnya.
             </p>
             <!-- jika kelas 9  -->
-            <p
-              class="indent-8"
-              v-if="kelas == 'IX' || kelas == 'ix' || kelas == '9'"
-            >
+            <p class="indent-8" v-if="kelas == 'IX' || kelas == 'ix' || kelas == '9'">
               Kelanjutan studi disarankan masuk Sekolah
               <b> {{ siswa.sertifikat.saran_fakultas_1 }} </b> dengan Jurusan
-              <b> {{ siswa.sertifikat.saran_fakultas_1_prodi }}</b
-              >, Sekolah <b> {{ siswa.sertifikat.saran_fakultas_2 }}</b> dengan
-              Jurusan <b> {{ siswa.sertifikat.saran_fakultas_2_prodi }}</b
-              >.
+              <b> {{ siswa.sertifikat.saran_fakultas_1_prodi }}</b>, Sekolah <b> {{ siswa.sertifikat.saran_fakultas_2
+              }}</b> dengan
+              Jurusan <b> {{ siswa.sertifikat.saran_fakultas_2_prodi }}</b>.
             </p>
             <!-- jika  kelas 12 -->
-            <p
-              class="indent-8"
-              v-else-if="
-                kelas == 'XI' ||
-                kelas == 'xi' ||
-                kelas == '11' ||
-                kelas == '12' ||
-                kelas == 'XII' ||
-                kelas == 'xii'
-              "
-            >
+            <p class="indent-8" v-else-if="
+              kelas == 'XI' ||
+              kelas == 'xi' ||
+              kelas == '11' ||
+              kelas == '12' ||
+              kelas == 'XII' ||
+              kelas == 'xii'
+            ">
               Kelanjutan studi disarankan masuk Fakultas
               <b> {{ siswa.sertifikat.saran_fakultas_1 }} </b> dengan Prodi
-              <b> {{ siswa.sertifikat.saran_fakultas_1_prodi }}</b
-              >, Fakultas
+              <b> {{ siswa.sertifikat.saran_fakultas_1_prodi }}</b>, Fakultas
               <b> {{ siswa.sertifikat.saran_fakultas_2 }} </b> dengan Prodi
               <b> {{ siswa.sertifikat.saran_fakultas_2_prodi }}</b>
             </p>

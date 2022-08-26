@@ -148,10 +148,8 @@ getDataPaket(siswa.value.paket_id);
 
     <div class="pt-4 px-10 md:flex justify-between">
       <div>
-        <span
-          class="text-2xl sm:text-2xl leading-none font-bold text-gray-700 shadow-sm"
-          >ASPEK PSIKOLOGIS YANG DIUNGKAP</span
-        >
+        <span class="text-2xl sm:text-2xl leading-none font-bold text-gray-700 shadow-sm">ASPEK PSIKOLOGIS YANG
+          DIUNGKAP</span>
       </div>
       <div class="md:py-0 py-4 space-x-2 space-y-2"></div>
     </div>
@@ -207,11 +205,10 @@ getDataPaket(siswa.value.paket_id);
 
     <div class="pt-4 px-10 md:flex justify-between">
       <div>
-        <span
-          class="text-xl sm:text-xl leading-none font-bold text-gray-700 shadow-sm"
-          >IV. IQ (KM) 8 Kecerdasan {{ siswa.sertifikat.iq_persen }} %
-          Keterangan : {{ siswa.sertifikat.iqh }}</span
-        >
+        <span class="text-xl sm:text-xl leading-none font-bold text-gray-700 shadow-sm">IV. IQ (KM) 8 Kecerdasan {{
+            siswa.sertifikat.iq_persen
+        }} %
+          Keterangan : {{ siswa.sertifikat.iqh }}</span>
       </div>
       <div class="md:py-0 py-4 space-x-2 space-y-2"></div>
     </div>
@@ -219,106 +216,62 @@ getDataPaket(siswa.value.paket_id);
       <div class="w-full lg:w-full">
         <div class="bg-base-100 shadow rounded-lg px-4 py-4">
           <div class="overflow-x-auto w-full md:w-10/12 2xl:w-full">
-            <table
-              class="table table-compact w-full border-collapse border border-gray-400"
-            >
+            <table class="table table-compact w-full border-collapse border border-gray-400">
               <tbody>
                 <!-- row 1 -->
                 <tr>
-                  <td
-                    class="whitespace-nowrap w-1/100 border-collapse border border-gray-400 text-center"
-                  >
+                  <td class="whitespace-nowrap w-1/100 border-collapse border border-gray-400 text-center">
                     IV.
                   </td>
-                  <td
-                    class="whitespace-nowrap w-1/100 border-collapse border border-gray-400"
-                  >
+                  <td class="whitespace-nowrap w-1/100 border-collapse border border-gray-400">
                     IQ (KM) 8 Kecerdasan
                   </td>
-                  <td
-                    class="whitespace-pre-wrap w-1/100 border-collapse border border-gray-400"
-                  >
+                  <td class="whitespace-pre-wrap w-1/100 border-collapse border border-gray-400">
                     Rank Nilai
                   </td>
-                  <td
-                    class="whitespace-pre-wrap w-1/100 border-collapse border border-gray-400"
-                  >
+                  <td class="whitespace-pre-wrap w-1/100 border-collapse border border-gray-400">
                     Sangat Kurang Sekali
                   </td>
-                  <td
-                    class="whitespace-pre-wrap w-1/100 border-collapse border border-gray-400"
-                  >
+                  <td class="whitespace-pre-wrap w-1/100 border-collapse border border-gray-400">
                     Kurang Sekali
                   </td>
-                  <td
-                    class="whitespace-pre-wrap w-1/100 border-collapse border border-gray-400"
-                  >
+                  <td class="whitespace-pre-wrap w-1/100 border-collapse border border-gray-400">
                     Kurang
                   </td>
-                  <td
-                    class="whitespace-pre-wrap w-1/100 border-collapse border border-gray-400"
-                  >
+                  <td class="whitespace-pre-wrap w-1/100 border-collapse border border-gray-400">
                     Hampir Cukup
                   </td>
-                  <td
-                    class="whitespace-pre-wrap w-1/100 border-collapse border border-gray-400"
-                  >
+                  <td class="whitespace-pre-wrap w-1/100 border-collapse border border-gray-400">
                     Cukup
                   </td>
-                  <td
-                    class="whitespace-pre-wrap w-1/100 border-collapse border border-gray-400"
-                  >
+                  <td class="whitespace-pre-wrap w-1/100 border-collapse border border-gray-400">
                     Cukup Baik
                   </td>
-                  <td
-                    class="whitespace-pre-wrap w-1/100 border-collapse border border-gray-400"
-                  >
+                  <td class="whitespace-pre-wrap w-1/100 border-collapse border border-gray-400">
                     Baik
                   </td>
-                  <td
-                    class="whitespace-pre-wrap w-1/100 border-collapse border border-gray-400"
-                  >
+                  <td class="whitespace-pre-wrap w-1/100 border-collapse border border-gray-400">
                     Baik Sekali
                   </td>
-                  <td
-                    class="whitespace-pre-wrap w-1/100 border-collapse border border-gray-400"
-                  >
+                  <td class="whitespace-pre-wrap w-1/100 border-collapse border border-gray-400">
                     Sangat Baik Sekali
                   </td>
                 </tr>
                 <tr v-for="(item, index) in temp">
-                  <td
-                    class="whitespace-nowrap w-1/100 border-collapse border border-gray-400"
-                  ></td>
-                  <td
-                    class="whitespace-nowrap w-1/100 border-collapse border border-gray-400"
-                  >
+                  <td class="whitespace-nowrap w-1/100 border-collapse border border-gray-400"></td>
+                  <td class="whitespace-nowrap w-1/100 border-collapse border border-gray-400">
                     {{ item.nama }}
                   </td>
-                  <td
-                    class="whitespace-nowrap w-1/100 border-collapse border border-gray-400 text-center"
-                  >
+                  <td class="whitespace-nowrap w-1/100 border-collapse border border-gray-400 text-center">
                     {{ index + 1 }}
                   </td>
-                  <td
-                    class="whitespace-nowrap w-1/100 border-collapse border border-gray-400"
-                    v-for="kList in kecerdasanList"
-                  >
-                    <span
-                      class="flex justify-center"
-                      v-if="kList.code == item.ket || kList.altCode == item.ket"
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-5 w-5"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path
-                          fill-rule="evenodd"
+                  <td class="whitespace-nowrap w-1/100 border-collapse border border-gray-400"
+                    v-for="kList in kecerdasanList">
+                    <span class="flex justify-center" v-if="kList.code == item.ket || kList.altCode == item.ket">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd"
                           d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                          clip-rule="evenodd"
-                        />
+                          clip-rule="evenodd" />
                       </svg>
                     </span>
                   </td>
@@ -327,121 +280,67 @@ getDataPaket(siswa.value.paket_id);
                 </tr>
 
                 <tr>
-                  <td
-                    class="whitespace-nowrap w-1/100 border-collapse border border-gray-400 text-center"
-                  >
+                  <td class="whitespace-nowrap w-1/100 border-collapse border border-gray-400 text-center">
                     V.
                   </td>
-                  <td
-                    class="whitespace-nowrap w-1/100 border-collapse border border-gray-400"
-                  >
+                  <td class="whitespace-nowrap w-1/100 border-collapse border border-gray-400">
                     Pengetahuan Umum
                   </td>
-                  <td
-                    class="whitespace-nowrap w-1/100 border-collapse border border-gray-400"
-                  ></td>
-                  <td
-                    class="whitespace-nowrap w-1/100 border-collapse border border-gray-400"
-                    v-for="item in kecerdasanList"
-                  >
-                    <span
-                      class="flex justify-center"
-                      v-if="
-                        item.code == siswa.sertifikat.km_p1_keterangan ||
-                        item.altCode == siswa.sertifikat.km_p1_keterangan
-                      "
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-5 w-5"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path
-                          fill-rule="evenodd"
+                  <td class="whitespace-nowrap w-1/100 border-collapse border border-gray-400"></td>
+                  <td class="whitespace-nowrap w-1/100 border-collapse border border-gray-400"
+                    v-for="item in kecerdasanList">
+                    <span class="flex justify-center" v-if="
+                      item.code == siswa.sertifikat.km_p1_keterangan ||
+                      item.altCode == siswa.sertifikat.km_p1_keterangan
+                    ">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd"
                           d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                          clip-rule="evenodd"
-                        />
+                          clip-rule="evenodd" />
                       </svg>
                     </span>
                   </td>
                 </tr>
                 <tr>
-                  <td
-                    class="whitespace-nowrap w-1/100 border-collapse border border-gray-400 text-center"
-                  >
+                  <td class="whitespace-nowrap w-1/100 border-collapse border border-gray-400 text-center">
                     VI.
                   </td>
-                  <td
-                    class="whitespace-nowrap w-1/100 border-collapse border border-gray-400"
-                  >
+                  <td class="whitespace-nowrap w-1/100 border-collapse border border-gray-400">
                     Kreativitas
                   </td>
-                  <td
-                    class="whitespace-nowrap w-1/100 border-collapse border border-gray-400"
-                  ></td>
-                  <td
-                    class="whitespace-nowrap w-1/100 border-collapse border border-gray-400"
-                    v-for="item in kecerdasanList"
-                  >
-                    <span
-                      class="flex justify-center"
-                      v-if="
-                        item.code == siswa.sertifikat.km_kr_keterangan ||
-                        item.altCode == siswa.sertifikat.km_kr_keterangan
-                      "
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-5 w-5"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path
-                          fill-rule="evenodd"
+                  <td class="whitespace-nowrap w-1/100 border-collapse border border-gray-400"></td>
+                  <td class="whitespace-nowrap w-1/100 border-collapse border border-gray-400"
+                    v-for="item in kecerdasanList">
+                    <span class="flex justify-center" v-if="
+                      item.code == siswa.sertifikat.km_kr_keterangan ||
+                      item.altCode == siswa.sertifikat.km_kr_keterangan
+                    ">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd"
                           d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                          clip-rule="evenodd"
-                        />
+                          clip-rule="evenodd" />
                       </svg>
                     </span>
                   </td>
                 </tr>
                 <tr>
-                  <td
-                    class="whitespace-nowrap w-1/100 border-collapse border border-gray-400 text-center"
-                  >
+                  <td class="whitespace-nowrap w-1/100 border-collapse border border-gray-400 text-center">
                     VII.
                   </td>
-                  <td
-                    class="whitespace-nowrap w-1/100 border-collapse border border-gray-400"
-                  >
+                  <td class="whitespace-nowrap w-1/100 border-collapse border border-gray-400">
                     Kemampuan Mengingat
                   </td>
-                  <td
-                    class="whitespace-nowrap w-1/100 border-collapse border border-gray-400"
-                  ></td>
-                  <td
-                    class="whitespace-nowrap w-1/100 border-collapse border border-gray-400"
-                    v-for="item in kecerdasanList"
-                  >
-                    <span
-                      class="flex justify-center"
-                      v-if="
-                        item.code == siswa.sertifikat.km_p9_keterangan ||
-                        item.altCode == siswa.sertifikat.km_p9_keterangan
-                      "
-                    >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-5 w-5"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path
-                          fill-rule="evenodd"
+                  <td class="whitespace-nowrap w-1/100 border-collapse border border-gray-400"></td>
+                  <td class="whitespace-nowrap w-1/100 border-collapse border border-gray-400"
+                    v-for="item in kecerdasanList">
+                    <span class="flex justify-center" v-if="
+                      item.code == siswa.sertifikat.km_p9_keterangan ||
+                      item.altCode == siswa.sertifikat.km_p9_keterangan
+                    ">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd"
                           d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                          clip-rule="evenodd"
-                        />
+                          clip-rule="evenodd" />
                       </svg>
                     </span>
                   </td>
@@ -459,9 +358,7 @@ getDataPaket(siswa.value.paket_id);
       <div class="w-full lg:w-3/6">
         <div class="bg-base-100 shadow rounded-lg px-4 py-4">
           <div class="overflow-x-auto">
-            <table
-              class="table table-compact table-zebra w-full shadow shadow-sm"
-            >
+            <table class="table table-compact table-zebra w-full shadow shadow-sm">
               <tbody>
                 <tr>
                   <th class="whitespace-nowrap w-1/100">VIII.</th>
@@ -681,9 +578,7 @@ getDataPaket(siswa.value.paket_id);
 
     <div class="pt-4 px-10 md:flex justify-between">
       <div>
-        <span
-          class="text-2xl sm:text-xl leading-none font-bold text-gray-600 shadow-sm"
-          >XI. KESIMPULAN DAN SARAN
+        <span class="text-2xl sm:text-xl leading-none font-bold text-gray-600 shadow-sm">XI. KESIMPULAN DAN SARAN
         </span>
       </div>
       <div class="md:py-0 py-4 space-x-2 space-y-2"></div>
@@ -691,37 +586,28 @@ getDataPaket(siswa.value.paket_id);
 
     <div class="pt-4 px-10 md:flex justify-between">
       <div>
-        <div
-          class="text-lg sm:text-lg leading-1 font-md text-gray-600 shadow-sm space-y-2"
-        >
+        <div class="text-lg sm:text-lg leading-1 font-md text-gray-600 shadow-sm space-y-2">
           <p class="indent-8">
             Potensi kecerdasan subyek yang dapat digunakan saat ini
-            <b> {{ siswa.iq }}</b
-            >,(IQ=<b>{{ siswa.iq }}</b
-            >, IST = <b>{{ siswa.sertifikat.iq_persen }}%)</b> artinya dengan
+            <b> {{ siswa.iq }}</b>,(IQ=<b>{{ siswa.iq }}</b>, IST = <b>{{ siswa.sertifikat.iq_persen }}%)</b> artinya
+            dengan
             tingkat kemampuan menggunakan kecerdasan majemuk tergolong
-            <b>{{ siswa.iqh }}</b
-            >.
+            <b>{{ siswa.iqh }}</b>.
           </p>
           <p class="indent-8" v-if="temp.length > 7">
             Dalam belajar subyek disarankan menggunakan
             <b>{{ temp[0].nama }},{{ temp[1].nama }}, {{ temp[2].nama }} </b>,
             sedangkan yang perlu dilatih dan dibiasakan yaitu
-            <b> {{ temp[6].nama }} dan {{ temp[7].nama }}</b
-            >.
+            <b> {{ temp[6].nama }} dan {{ temp[7].nama }}</b>.
           </p>
 
           <p class="indent-8" v-if="temp.length > 7">
             Kecerdasan Emosi nya
-            <b
-              >{{ siswa.eq_persen_keterangan }},({{
+            <b>{{ siswa.eq_persen_keterangan }},({{
                 siswa.sertifikat.eq_persen
-              }}%)</b
-            >. Kecerdasan Sosialnya
-            <b
-              >{{ siswa.scq_persen_keterangan }} (ScQ=
-              {{ siswa.sertifikat.scq_persen }}%)</b
-            >. Karakter kepribadian subyek yang terkuat dan mempengaruhi
+            }}%)</b>. Kecerdasan Sosialnya
+            <b>{{ siswa.scq_persen_keterangan }} (ScQ=
+              {{ siswa.sertifikat.scq_persen }}%)</b>. Karakter kepribadian subyek yang terkuat dan mempengaruhi
             aktivitas sehari-hari yaitu
             <b>
               {{ aspekKepribadianRank[0].nama }},
@@ -744,35 +630,31 @@ getDataPaket(siswa.value.paket_id);
               antara potensi kecerdasan koqnitif - usaha / semangat didukung
               oleh emosi positif - kematangan kemampuan sosialnya.
             </p>
+
+            <!-- {{ kelas[(0, 1)] }} -->
+            <!-- {{ kelas.substring(0, 1) }} -->
             <!-- jika kelas 9  -->
-            <p
-              class="indent-8"
-              v-if="kelas == 'IX' || kelas == 'ix' || kelas == '9'"
-            >
+            <p class="indent-8"
+              v-if="kelas.substring(0, 2) == 'IX' || kelas.substring(0, 2) == 'ix' || kelas.substring(0, 1) == '9'">
               Kelanjutan studi disarankan masuk Sekolah
               <b> {{ siswa.sertifikat.saran_fakultas_1 }} </b> dengan Jurusan
-              <b> {{ siswa.sertifikat.saran_fakultas_1_prodi }}</b
-              >, Sekolah <b> {{ siswa.sertifikat.saran_fakultas_2 }}</b> dengan
-              Jurusan <b> {{ siswa.sertifikat.saran_fakultas_2_prodi }}</b
-              >.
+              <b> {{ siswa.sertifikat.saran_fakultas_1_prodi }}</b>, Sekolah <b> {{ siswa.sertifikat.saran_fakultas_2
+              }}</b> dengan
+              Jurusan <b> {{ siswa.sertifikat.saran_fakultas_2_prodi }}</b>.
             </p>
             <!-- jika  kelas 12 -->
 
-            <p
-              class="indent-8"
-              v-else-if="
-                kelas == 'XI' ||
-                kelas == 'xi' ||
-                kelas == '11' ||
-                kelas == '12' ||
-                kelas == 'XII' ||
-                kelas == 'xii'
-              "
-            >
+            <p class="indent-8" v-else-if="
+              kelas.substring(0, 2) == 'XI' ||
+              kelas.substring(0, 2) == 'xi' ||
+              kelas.substring(0, 2) == '11' ||
+              kelas.substring(0, 2) == '12' ||
+              kelas.substring(0, 2) == 'XII' ||
+              kelas.substring(0, 2) == 'xii'
+            ">
               Kelanjutan studi disarankan masuk Fakultas
               <b> {{ siswa.sertifikat.saran_fakultas_1 }} </b> dengan Prodi
-              <b> {{ siswa.sertifikat.saran_fakultas_1_prodi }}</b
-              >, Fakultas
+              <b> {{ siswa.sertifikat.saran_fakultas_1_prodi }}</b>, Fakultas
               <b> {{ siswa.sertifikat.saran_fakultas_2 }} </b> dengan Prodi
               <b> {{ siswa.sertifikat.saran_fakultas_2_prodi }}</b>
             </p>
