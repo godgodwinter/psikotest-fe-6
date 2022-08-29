@@ -161,17 +161,19 @@ const doDeleteData = async (id, index) => {
             <template #table-row="props">
               <span v-if="props.column.field == 'actions'">
                 <div class="text-sm font-medium text-center flex justify-center space-x-1">
-                  <router-link :to="{
-                    name: 'admin.ujian.kelas.detail',
-                    params: { ujian_proses_id, proses_kelas_id: props.row.id, },
-                  }">
-                    <button class="btn btn-sm btn-primary tooltip" data-tip="Detail">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
-                      </svg>
-                    </button>
-                  </router-link>
+                  <!-- <router-link
+                    :to="{
+                      name: 'AdminSekolahDetailDashboard',
+                      params: { id: props.row.id },
+                    }"
+                  > -->
+                  <button class="btn btn-sm btn-primary tooltip" data-tip="Detail">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                  <!-- </router-link> -->
                   <button class="btn btn-sm btn-danger" @click="doDeleteData(props.row.id, props.index)">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                       <path fill-rule="evenodd"
