@@ -24,6 +24,7 @@ const route = useRoute();
 
 const ujian_proses_id = route.params.ujian_proses_id;
 const proses_kelas_id = route.params.proses_kelas_id;
+// const siswa_id = route.params.siswa_id;
 
 const dataAsli = ref([]);
 const data = ref([]);
@@ -38,8 +39,8 @@ const columns = [
     thClass: "text-center",
   },
   {
-    label: "Nama Kelas",
-    field: "kelas_nama",
+    label: "Nama Siswa",
+    field: "nama",
     type: "String",
   },
   {
@@ -48,13 +49,13 @@ const columns = [
     type: "String",
   },
   {
-    label: "Nama PaketSoal",
-    field: "paketsoal_nama",
+    label: "Proses",
+    field: "proses",
     type: "String",
   },
   {
-    label: "Jumlah Kategori",
-    field: "kategori_jml",
+    label: "Selesai",
+    field: "selesai",
     type: "String",
   },
   {
@@ -67,7 +68,7 @@ const columns = [
 const getData = async () => {
   try {
     const response = await Api.get(
-      `admin/menuujian/proseskelas/${ujian_proses_id}/kelas`
+      `admin/menuujian/proseskelas/${ujian_proses_id}/kelas/${proses_kelas_id}`
     );
     dataAsli.value = response.data;
     data.value = response.data;
@@ -117,6 +118,7 @@ const doDeleteData = async (id, index) => {
 <template>
   <h1 class="text-lg font-bold">SEKOLAH : {{ dataProses.nama }}</h1>
   <h1 class="text-lg font-bold">KELAS : {{ proses_kelas_id }}</h1>
+  <!-- <h1 class="text-lg font-bold">Berisi SISWA sedang ujian DALAM KELAS INI</h1> -->
   <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
     <div class="w-full lg:w-full">
       <div class="bg-white shadow rounded-lg px-4 py-4">
@@ -136,7 +138,7 @@ const doDeleteData = async (id, index) => {
                       clip-rule="evenodd" />
                   </svg>
                 </button>
-                <router-link :to="{
+                <!-- <router-link :to="{
                   name: 'admin.ujian.kelas.create',
                   params: {
                     ujian_proses_id,
@@ -144,61 +146,35 @@ const doDeleteData = async (id, index) => {
                 }">
                   <button class="btn btn-sm btn-primary tooltip" data-tip="Tambah SOAL">
                     TAMBAH KELAS
-                    <!-- <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-5 w-5"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
-                          clip-rule="evenodd"
-                        />
-                      </svg> -->
+
                   </button>
-                </router-link>
+                </router-link> -->
               </div>
             </template>
             <template #table-row="props">
               <span v-if="props.column.field == 'actions'">
                 <div class="text-sm font-medium text-center flex justify-center space-x-1">
-                  <!-- <router-link
-                    :to="{
-                      name: 'AdminSekolahDetailDashboard',
-                      params: { id: props.row.id },
-                    }"
-                  > -->
-                  <button class="btn btn-sm btn-primary tooltip" data-tip="Detail">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                      stroke="currentColor" stroke-width="2">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
-                    </svg>
-                  </button>
-                  <!-- </router-link> -->
-                  <button class="btn btn-sm btn-danger" @click="doDeleteData(props.row.id, props.index)">
+                  <router-link :to="{
+                    name: 'admin.ujian.kelas.detail.siswa',
+                    params: { ujian_proses_id, proses_kelas_id, siswa_id: props.row.id },
+                  }">
+                    <button class="btn btn-sm btn-primary tooltip" data-tip="Detail">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M13 5l7 7-7 7M5 5l7 7-7 7" />
+                      </svg>
+                    </button>
+                  </router-link>
+                  <!-- <button class="btn btn-sm btn-danger" @click="doDeleteData(props.row.id, props.index)">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                       <path fill-rule="evenodd"
                         d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
                         clip-rule="evenodd" />
                     </svg>
-                  </button>
+                  </button> -->
                 </div>
               </span>
 
-              <span v-else-if="props.column.field == 'tgl'">
-                <div class="text-center">
-                  {{ moment(props.row.tgl).format("DD MMMM YYYY") }}
-                </div>
-              </span>
-              <span v-else-if="props.column.field == 'siswa_jml'">
-                <div class="text-center">{{ props.row.siswa_jml }} Siswa</div>
-              </span>
-              <span v-else-if="props.column.field == 'kategori_jml'">
-                <div class="text-center">
-                  {{ props.row.kategori_jml }} Kategori
-                </div>
-              </span>
 
               <span v-else>
                 {{ props.formattedRow[props.column.field] }}

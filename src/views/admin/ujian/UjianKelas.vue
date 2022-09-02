@@ -115,6 +115,7 @@ const doDeleteData = async (id, index) => {
 </script>
 <template>
   <h1 class="text-lg font-bold">DETAIL : {{ dataProses.nama }}</h1>
+  <!-- <h1 class="text-lg font-bold">Berisi siswa dalam kelas</h1> -->
   <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
     <div class="w-full lg:w-full">
       <div class="bg-white shadow rounded-lg px-4 py-4">
@@ -134,7 +135,7 @@ const doDeleteData = async (id, index) => {
                       clip-rule="evenodd" />
                   </svg>
                 </button>
-                <router-link :to="{
+                <!-- <router-link :to="{
                   name: 'admin.ujian.kelas.create',
                   params: {
                     ujian_proses_id,
@@ -142,20 +143,8 @@ const doDeleteData = async (id, index) => {
                 }">
                   <button class="btn btn-sm btn-primary tooltip" data-tip="Tambah SOAL">
                     TAMBAH KELAS
-                    <!-- <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-5 w-5"
-                        viewBox="0 0 20 20"
-                        fill="currentColor"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
-                          clip-rule="evenodd"
-                        />
-                      </svg> -->
                   </button>
-                </router-link>
+                </router-link> -->
               </div>
             </template>
             <template #table-row="props">
@@ -172,13 +161,13 @@ const doDeleteData = async (id, index) => {
                       </svg>
                     </button>
                   </router-link>
-                  <button class="btn btn-sm btn-danger" @click="doDeleteData(props.row.id, props.index)">
+                  <!-- <button class="btn btn-sm btn-danger" @click="doDeleteData(props.row.id, props.index)">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                       <path fill-rule="evenodd"
                         d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
                         clip-rule="evenodd" />
                     </svg>
-                  </button>
+                  </button> -->
                 </div>
               </span>
 
