@@ -33,11 +33,11 @@ const BanksoalRoutes = [
             name: "admin.ujian.kelas.detail.siswa",
             component: () => import("@/views/admin/ujian/UjianKelasDetailSiswa.vue"),
           },
-          {
-            path: `${prefix}/index/:ujian_proses_id/kelas/:proses_kelas_id/siswa/:siswa_id/kategori/:kategori_id`,
-            name: "admin.ujian.kelas.detail.siswa.kategori",
-            component: () => import("@/views/admin/ujian/UjianKelasDetailSiswaKategori.vue"),
-          },
+          // {
+          //   path: `${prefix}/index/:ujian_proses_id/kelas/:proses_kelas_id/siswa/:siswa_id/kategori/:kategori_id`,
+          //   name: "admin.ujian.kelas.detail.siswa.kategori",
+          //   component: () => import("@/views/admin/ujian/UjianKelasDetailSiswaKategori.vue"),
+          // },
           {
             path: `${prefix}/index/:ujian_proses_id/create`,
             name: "admin.ujian.kelas.create",
