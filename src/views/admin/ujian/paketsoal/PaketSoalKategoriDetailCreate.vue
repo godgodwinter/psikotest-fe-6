@@ -24,6 +24,9 @@ const storeBanksoal = useStoreBanksoal();
 
 const data = ref([]);
 const dataAsli = ref([]);
+
+const dataKategori = computed(() => storeUjian.dataPaketsoalKategoriDetail);
+ApiPaketsoalKategori.getDataId(paketsoal_id, kategori_id);
 // if (dataAsli.value.length < 1) {
 const getDataId = async (id) => {
   try {
@@ -106,21 +109,19 @@ const doAddAll = () => {
 </script>
 <template>
   <TabLinkPaketSoal />
-  <RouterLink
-    :to="{
-      name: 'admin.ujian.paketsoal.kategori.detail',
-      params: { paketsoal_id: paketsoal_id, kategori_id },
-    }"
-  >
+  <RouterLink :to="{
+    name: 'admin.ujian.paketsoal.kategori.detail',
+    params: { paketsoal_id: paketsoal_id, kategori_id },
+  }">
     <button class="btn btn-sm btn-secondary">Kembali</button>
   </RouterLink>
 
-  <div class="font-bold" v-if="dataAsli">
-    <h1>TAMBAH</h1>
-    <h1>Nama Paket : {{ dataAsli.paket_nama }}</h1>
-    <h1>Peserta : {{ dataAsli.paket_prefix }}</h1>
-    <h1>Kategori : {{ dataAsli.nama }}</h1>
-    <h1>Waktu : {{ dataAsli.waktu }} Menit</h1>
+  <div class="font-bold" v-if="dataKategori">
+    <!-- <h1>TAMBAH</h1> -->
+    <h1>Nama Paket : {{ dataKategori.paket_nama }}</h1>
+    <h1>Peserta : {{ dataKategori.paket_prefix }}</h1>
+    <h1>Kategori : {{ dataKategori.nama }}</h1>
+    <h1>Waktu : {{ dataKategori.waktu }} Menit</h1>
   </div>
 
   <div class="py-2 lg:py-4 px-4">
@@ -128,65 +129,30 @@ const doAddAll = () => {
       <div class="w-full lg:w-full">
         <div class="bg-white shadow rounded-lg px-4 py-4">
           <div v-if="data">
-            <vue-good-table
-              ref="myTable"
-              theme="polar-bear"
-              :line-numbers="true"
-              compactMode
-              :columns="columns"
-              :rows="data"
-              @on-selected-rows-change="selectionChanged"
-              :select-options="{ enabled: true }"
+            <vue-good-table ref="myTable" theme="polar-bear" :line-numbers="true" compactMode :columns="columns"
+              :rows="data" @on-selected-rows-change="selectionChanged" :select-options="{ enabled: true }"
               :search-options="{
                 enabled: true,
-              }"
-              :pagination-options="{
+              }" :pagination-options="{
                 enabled: true,
                 perPageDropdown: [10, 20, 50],
-              }"
-              styleClass="vgt-table striped bordered condensed"
-              class="py-0"
-            >
+              }" styleClass="vgt-table striped bordered condensed" class="py-0">
               <template #selected-row-actions>
-                <button
-                  @click="doAdd()"
-                  class="btn btn-sm btn-success tooltip"
-                  data-tip="Tambah Terpilih"
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-6 w-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    stroke-width="2"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"
-                    />
+                <button @click="doAdd()" class="btn btn-sm btn-success tooltip" data-tip="Tambah Terpilih">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                   </svg>
                 </button>
               </template>
               <template #table-actions>
                 <div class="space-x-1 space-y-1 gap-1">
-                  <button
-                    class="btn btn-sm btn-secondary tooltip"
-                    data-tip="Refresh Data"
-                    @click="doRefreshData()"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="h-5 w-5"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fill-rule="evenodd"
+                  <button class="btn btn-sm btn-secondary tooltip" data-tip="Refresh Data" @click="doRefreshData()">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd"
                         d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"
-                        clip-rule="evenodd"
-                      />
+                        clip-rule="evenodd" />
                     </svg>
                   </button>
 
@@ -215,9 +181,7 @@ const doAddAll = () => {
             </template> -->
               <template #table-row="props">
                 <span v-if="props.column.field == 'actions'">
-                  <div
-                    class="text-sm font-medium text-center flex justify-center space-x-1"
-                  >
+                  <div class="text-sm font-medium text-center flex justify-center space-x-1">
                     <!-- <button
                       class="btn btn-sm btn-warning"
                       @click="doEditData(props.row.id, props.index)"
@@ -258,8 +222,7 @@ const doAddAll = () => {
                   </div>
                 </span>
 
-                <span v-else-if="props.column.field == 'pertanyaan'"
-                  ><span v-html="props.row.pertanyaan"></span>
+                <span v-else-if="props.column.field == 'pertanyaan'"><span v-html="props.row.pertanyaan"></span>
                 </span>
                 <span v-else>
                   {{ props.formattedRow[props.column.field] }}

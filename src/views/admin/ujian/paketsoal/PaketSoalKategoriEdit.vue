@@ -15,6 +15,30 @@ import ApiPaketsoalKategori from "@/services/api/apiPaketsoalKategori";
 const router = useRouter();
 const route = useRoute();
 const paketsoal_id = route.params.paketsoal_id;
+const kategori_id = route.params.kategori_id;
+const dataDetail = ref([]);
+const getDataDetail = async () => {
+  try {
+    const response = await Api.get(`admin/menuujian/menupaketsoal/${paketsoal_id}/kategori/${kategori_id}`);
+    dataDetail.value = response.data;
+    dataForm.value.ujian_kategori_id = dataDetail.value.ujian_kategori_id;
+    dataForm.value.nama = dataDetail.value.nama;
+    dataForm.value.instruksiStatus = dataDetail.value.instruksi_status == 'Aktif' ? true : false;
+    dataForm.value.lembar_prasoalStatus = dataDetail.value.lembar_prasoal_status == 'Aktif' ? true : false;
+    dataForm.value.instruksi_pengerjaanStatus = dataDetail.value.instruksi_pengerjaan_status == 'Aktif' ? true : false;
+    dataForm.value.instruksi = dataDetail.value.instruksi;
+    dataForm.value.lembar_prasoal = dataDetail.value.lembar_prasoal;
+    dataForm.value.instruksi_pengerjaan = dataDetail.value.instruksi_pengerjaan;
+    dataForm.value.waktu = dataDetail.value.waktu;
+    dataForm.value.randomSoal = dataDetail.value.random_soal == 'Aktif' ? true : false;
+    dataForm.value.randomPilihanJawaban = dataDetail.value.random_pilihanjawaban == 'Aktif' ? true : false;
+    // console.log(dataDetail.value);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+getDataDetail();
 
 const dataForm = ref({
   ujian_kategori_id: "",
@@ -68,8 +92,9 @@ const onSubmit = async (values) => {
     ? "Aktif"
     : "Nonaktif";
   // console.log(values);
-  const resSubmit = await ApiPaketsoalKategori.doStoreData(
+  const resSubmit = await ApiPaketsoalKategori.doUpdate(
     paketsoal_id,
+    kategori_id,
     values
   );
   if (resSubmit) {
@@ -97,11 +122,11 @@ const onSubmit = async (values) => {
     <h1>Pilih Soal []</h1>
   </div> -->
 
-  <Form v-slot="{ errors }" @submit="onSubmit">
+  <Form v-slot="{ errors }" @submit="onSubmit" v-if="dataDetail">
     <div class="py-2 lg:py-4 px-4">
       <div class="space-y-4">
         <div class="flex flex-col">
-          <label> Kategori : </label>
+          <label> Edit Kategori : </label>
           <div>
             <v-select class="py-2 px-3 w-72 mx-auto md:mx-0" :options="pilihKategori"
               v-model="dataForm.ujian_kategori_id" v-bind:class="{ disabled: false }"></v-select>
@@ -131,7 +156,6 @@ const onSubmit = async (values) => {
             </div>
           </div>
         </div>
-
         <div class="flex flex-col">
           <div class="max-w-xs py-2">
             <div class="form-control">

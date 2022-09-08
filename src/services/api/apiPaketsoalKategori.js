@@ -29,6 +29,8 @@ const doStoreData = async (id, data) => {
     instruksi: data.instruksi,
     instruksi_status: data.instruksi_status,
     lembar_prasoal: data.lembar_prasoal,
+    random_soal: data.random_soal,
+    random_pilihanjawaban: data.random_pilihanjawaban,
     lembar_prasoal_status: data.lembar_prasoal_status,
     instruksi_pengerjaan: data.instruksi_pengerjaan,
     instruksi_pengerjaan_status: data.instruksi_pengerjaan_status,
@@ -52,34 +54,45 @@ const doStoreData = async (id, data) => {
   }
 };
 
-const doUpdate = async (id, data) => {
+const doUpdate = async (paketsoal_id, kategori_id, data) => {
   let dataForm = {
+    ujian_kategori_id: data.ujian_kategori_id,
     nama: data.nama,
-    jenis: data.jenis,
+    waktu: data.waktu,
+    instruksi: data.instruksi,
+    instruksi_status: data.instruksi_status,
+    lembar_prasoal: data.lembar_prasoal,
+    random_soal: data.random_soal,
+    random_pilihanjawaban: data.random_pilihanjawaban,
+    lembar_prasoal_status: data.lembar_prasoal_status,
+    instruksi_pengerjaan: data.instruksi_pengerjaan,
+    instruksi_pengerjaan_status: data.instruksi_pengerjaan_status,
   };
   try {
-    if (dataAsli.value.length < 1) {
-      await getData();
-    }
+    const response = await Api.put(
+      `admin/menuujian/menupaketsoal/${paketsoal_id}/kategori/${kategori_id}`,
+      dataForm
+    );
     // eslint-disable-next-line no-unused-vars
-    const response = await Api.put(`admin/menuujian/paketsoal/${id}`, dataForm);
-    // update data
-    let dataUpdate = dataAsli.value.filter((item) => item.id == id);
-    dataUpdate[0].nama = data.nama;
-    dataUpdate[0].jenis = data.jenis;
-    storeUjian.setDataPaketsoal(dataAsli.value);
+    // const response = await Api.put(`admin/menuujian/paketsoal/${id}`, dataForm);
+    // // update data
+    // let dataUpdate = dataAsli.value.filter((item) => item.id == id);
+    // dataUpdate[0].nama = data.nama;
+    // dataUpdate[0].jenis = data.jenis;
+    // storeUjian.setDataPaketsoal(dataAsli.value);
+    getData(paketsoal_id);
     return true;
   } catch (error) {
     console.error(error);
   }
 };
 
-const deleteData = async (id, paketsoal_id) => {
+const deleteData = async (paketsoal_id, kategori_id) => {
   try {
     // console.log(paketsoal_id, id);
     // eslint-disable-next-line no-unused-vars
     const response = await Api.delete(
-      `admin/menuujian/menupaketsoal/kategori/${id}`
+      `admin/menuujian/menupaketsoal/${paketsoal_id}/kategori/${kategori_id}`
     );
     // let data = dataAsli.value.filter((item) => item.id !== id);
     // storeUjian.setDataPaketsoal(data);
@@ -91,13 +104,13 @@ const deleteData = async (id, paketsoal_id) => {
 };
 
 // with soal
-const getDataId = async (id) => {
+const getDataId = async (paketsoal_id, kategori_id) => {
   try {
     // if (dataAsli.value.length < 1) {
     //   await getData();
     // }
     const response = await Api.get(
-      `admin/menuujian/menupaketsoal/kategori/${id}`
+      `admin/menuujian/menupaketsoal/${paketsoal_id}/kategori/${kategori_id}`
     );
     let res = response.data;
     storeUjian.setDataPaketsoalKategoriDetail(res);

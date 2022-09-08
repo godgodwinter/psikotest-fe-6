@@ -70,6 +70,14 @@ const BanksoalRoutes = [
               ),
           },
           {
+            path: `${prefix}/paketsoal/:paketsoal_id?/kategori/edit/:kategori_id`,
+            name: "admin.ujian.paketsoal.kategori.edit",
+            component: () =>
+              import(
+                "@/views/admin/ujian/paketsoal/PaketSoalKategoriEdit.vue"
+              ),
+          },
+          {
             path: `${prefix}/paketsoal/:paketsoal_id?/kategori/detail/:kategori_id`,
             name: "admin.ujian.paketsoal.kategori.detail",
             component: () =>
