@@ -123,9 +123,9 @@ const doDeleteData = async (id, index) => {
           <vue-good-table :line-numbers="true" :columns="columns" :rows="data" :search-options="{
             enabled: true,
           }" :pagination-options="{
-  enabled: true,
-  perPageDropdown: [10, 20, 50],
-}" styleClass="vgt-table striped bordered condensed" class="py-0">
+            enabled: true,
+            perPageDropdown: [10, 20, 50],
+          }" styleClass="vgt-table striped bordered condensed" class="py-0">
             <template #table-actions>
               <div class="space-x-1 space-y-1 gap-1">
                 <button class="btn btn-sm btn-secondary tooltip" data-tip="Refresh Data" @click="getData()">
@@ -135,7 +135,7 @@ const doDeleteData = async (id, index) => {
                       clip-rule="evenodd" />
                   </svg>
                 </button>
-                <!-- <router-link :to="{
+                <router-link :to="{
                   name: 'admin.ujian.kelas.create',
                   params: {
                     ujian_proses_id,
@@ -144,7 +144,7 @@ const doDeleteData = async (id, index) => {
                   <button class="btn btn-sm btn-primary tooltip" data-tip="Tambah SOAL">
                     TAMBAH KELAS
                   </button>
-                </router-link> -->
+                </router-link>
               </div>
             </template>
             <template #table-row="props">
