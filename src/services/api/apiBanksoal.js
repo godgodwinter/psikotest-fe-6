@@ -65,8 +65,17 @@ const getDataId = async (id) => {
 
 const doUpdate = async (id, data) => {
   let dataForm = {
-    nama: data.nama,
-    jenis: data.jenis,
+    ujian_kategori_id: data.ujian_kategori_id,
+    tipe: data.tipe,
+    status: data.status,
+    nomer_urut: data.nomer_urut,
+    desc: data.desc,
+    kode: data.kode,
+    // skor: data.skor,
+    tingkatkesulitan: data.tingkatkesulitan,
+    pertanyaan: data.pertanyaan,
+    // pilihanJawaban: data.pilihanJawaban,
+    pilihanJawaban: JSON.stringify(data.pilihanJawaban),
   };
   try {
     if (dataAsli.value.length < 1) {
@@ -75,10 +84,12 @@ const doUpdate = async (id, data) => {
     // eslint-disable-next-line no-unused-vars
     const response = await Api.put(`admin/menuujian/banksoal/${id}`, dataForm);
     // update data
-    let dataUpdate = dataAsli.value.filter((item) => item.id == id);
-    dataUpdate[0].nama = data.nama;
-    dataUpdate[0].jenis = data.jenis;
-    storeBanksoal.setData(dataAsli.value);
+    // let dataUpdate = dataAsli.value.filter((item) => item.id == id);
+    // dataUpdate[0].nama = data.nama;
+    // dataUpdate[0].jenis = data.jenis;
+    // storeBanksoal.setData(dataAsli.value);
+    // console.log(response);
+    getData();
     return true;
   } catch (error) {
     console.error(error);

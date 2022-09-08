@@ -20,6 +20,12 @@ const BanksoalRoutes = [
               import("@/views/admin/banksoal/BanksoalCreate.vue"),
           },
           {
+            path: `${prefix}/banksoal/edit/:id`,
+            name: "admin.banksoal.edit",
+            component: () =>
+              import("@/views/admin/banksoal/BanksoalEdit.vue"),
+          },
+          {
             path: `${prefix}/banksoal/kategori/layout`,
             component: () =>
               import("@/views/admin/banksoal/BanksoalKategoriLayout.vue"),

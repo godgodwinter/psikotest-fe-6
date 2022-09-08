@@ -7,6 +7,8 @@ import ApiKategori from "@/services/api/apiKategori";
 import ApiBanksoal from "@/services/api/apiBanksoal";
 import Toast from "@/components/lib/Toast";
 import Api from "@/axios/axios";
+import { useRouter } from "vue-router";
+const router = useRouter();
 const storeKategori = useStoreKategori();
 const storeBanksoal = useStoreBanksoal();
 storeBanksoal.setPagesActive("soal");
@@ -82,7 +84,7 @@ const columns = [
 
 const doEditData = async (id, index) => {
   router.push({
-    name: "admin.banksoal.kategori.edit",
+    name: "admin.banksoal.edit",
     params: { id: id },
   });
 };
