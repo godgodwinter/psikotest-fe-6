@@ -55,7 +55,7 @@ const columns = [
   },
   {
     label: "Sisa Waktu",
-    field: "sisa_waktu",
+    field: "sisa_waktu_dalam_menit",
     type: "String",
   },
   {
