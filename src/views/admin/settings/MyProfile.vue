@@ -39,7 +39,7 @@ const validateData = (value) => {
 };
 
 // vue pinia watch
-storeGuruBk.$subscribe((mutation, state) => {});
+storeGuruBk.$subscribe((mutation, state) => { });
 
 const onSubmit = () => {
   const res = doStoreData();
@@ -200,14 +200,13 @@ getDataPhoto();
 <template>
   <div class="pt-4 px-10 md:flex justify-between">
     <div>
-      <span
-        class="text-2xl sm:text-3xl leading-none font-bold text-base-content shadow-sm"
-        >Profile</span
-      >
+      <span class="text-2xl sm:text-3xl leading-none font-bold text-base-content shadow-sm">Profile</span>
     </div>
     <div class="md:py-0 py-4">
       <BreadCrumb>
-        <template v-slot:content> Profile <BreadCrumbSpace /> Index </template>
+        <template v-slot:content> Profile
+          <BreadCrumbSpace /> Index
+        </template>
       </BreadCrumb>
     </div>
   </div>
@@ -226,20 +225,9 @@ getDataPhoto();
                   <div class="rounded-lg p-0 sm:p-6 xl:p-0">
                     <div class="grid md:grid-cols-2 gap-2">
                       <div>
-                        <label
-                          for="name"
-                          class="text-sm font-medium text-base-content block mb-2"
-                          >Nama</label
-                        >
-                        <Field
-                          v-model="dataDetail.nama"
-                          :rules="validateData"
-                          type="text"
-                          name="nama"
-                          ref="nama"
-                          class="input input-bordered md:w-full max-w-2xl"
-                          required
-                        />
+                        <label for="name" class="text-sm font-medium text-base-content block mb-2">Nama</label>
+                        <Field v-model="dataDetail.nama" :rules="validateData" type="text" name="nama" ref="nama"
+                          class="input input-bordered md:w-full max-w-2xl" required />
                         <div class="text-xs text-red-600 mt-1">
                           {{ errors.nama }}
                         </div>
@@ -273,41 +261,20 @@ getDataPhoto();
                   <div class="rounded-lg p-0 sm:p-6 xl:p-0">
                     <div class="grid md:grid-cols-2 gap-2">
                       <div>
-                        <label
-                          for="password"
-                          class="text-sm font-medium text-base-content block mb-2"
-                          >Password</label
-                        >
-                        <Field
-                          v-model="dataForm2.password"
-                          :rules="validateDataForm2"
-                          type="password"
-                          name="password"
-                          ref="password"
-                          class="input input-bordered md:w-full max-w-2xl"
-                          @keyup="periksaPassword()"
-                          required
-                        />
+                        <label for="password" class="text-sm font-medium text-base-content block mb-2">Password</label>
+                        <Field v-model="dataForm2.password" :rules="validateDataForm2" type="password" name="password"
+                          ref="password" class="input input-bordered md:w-full max-w-2xl" @keyup="periksaPassword()"
+                          required />
                         <div class="text-xs text-red-600 mt-1">
                           {{ errors.password }}
                         </div>
                       </div>
                       <div>
-                        <label
-                          for="password2"
-                          class="text-sm font-medium text-base-content block mb-2"
-                          >Konfirmasi Password</label
-                        >
-                        <Field
-                          v-model="dataForm2.password_confirmation"
-                          :rules="validateDataForm2"
-                          type="password"
-                          name="password_confirmation"
-                          ref="password_confirmation"
-                          @keyup="periksaPassword()"
-                          class="input input-bordered md:w-full max-w-2xl"
-                          required
-                        />
+                        <label for="password2" class="text-sm font-medium text-base-content block mb-2">Konfirmasi
+                          Password</label>
+                        <Field v-model="dataForm2.password_confirmation" :rules="validateDataForm2" type="password"
+                          name="password_confirmation" ref="password_confirmation" @keyup="periksaPassword()"
+                          class="input input-bordered md:w-full max-w-2xl" required />
                         <div class="text-xs text-red-600 mt-1">
                           {{ errors.password_confirmation }}
                         </div>
@@ -315,9 +282,7 @@ getDataPhoto();
                     </div>
 
                     <div class="w-full flex justify-end mt-4 px-20 gap-4">
-                      <div
-                        class="collapse collapse-arrow shadow-sm border border-spacing-1"
-                      >
+                      <div class="collapse collapse-arrow shadow-sm border border-spacing-1">
                         <input type="checkbox" />
                         <div class="collapse-title text-md font-bold">
                           Catatan :
@@ -326,17 +291,10 @@ getDataPhoto();
                           <p># Minimal 3 Karakter</p>
                         </div>
                       </div>
-                      <button
-                        class="btn btn-lg btn-primary"
-                        v-if="isPasswordSama"
-                      >
+                      <button class="btn btn-lg btn-primary" v-if="isPasswordSama">
                         Simpan
                       </button>
-                      <span
-                        class="btn btn-lg btn-dark"
-                        v-else
-                        @click="doAlertPasswordTidakSama()"
-                      >
+                      <span class="btn btn-lg btn-dark" v-else @click="doAlertPasswordTidakSama()">
                         Simpan
                       </span>
                     </div>
@@ -354,15 +312,10 @@ getDataPhoto();
     <h3 class="font-bold">UPDATE PHOTO</h3>
   </div>
   <div class="w-full flex justify-center flex-wrap">
-    <div
-      class="xl:flex felx-wrap gap-10 xl:w-full px-4 justify-center space-y-4"
-    >
+    <div class="xl:flex felx-wrap gap-10 xl:w-full px-4 justify-center space-y-4">
       <div class="card xl:w-2/5 bg-base-100 shadow-xl">
         <div class="w-full flex justify-center">
-          <label
-            class="avatar hover:scale-110 transition-all duration-500"
-            for="my-modal-1"
-          >
+          <label class="avatar hover:scale-110 transition-all duration-500" for="my-modal-1">
             <div class="w-52 mask mask-squircle">
               <img v-if="photoLogoSekolah" :src="photoLogoSekolah" />
               <img v-else src="@/assets/img/logo/github-copilot.svg" />
@@ -389,13 +342,8 @@ getDataPhoto();
         </div>
         <div class="px-10 pt-2">
           <p class="text-sm font-bold">Pilih Logo :</p>
-          <input
-            type="file"
-            name="photoLogoSekolah"
-            @change="onChangePhotoLogoSekolah($event)"
-            class="input md:w-full max-w-2xl"
-            required
-          />
+          <input type="file" name="photoLogoSekolah" @change="onChangePhotoLogoSekolah($event)"
+            class="input md:w-full max-w-2xl" required />
         </div>
         <div class="flex justify-end px-10 pb-4">
           <button class="btn btn-lg btn-primary" @click="doUploadLogoSekolah()">

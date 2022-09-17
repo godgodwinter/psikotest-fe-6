@@ -65,6 +65,8 @@ const dataPilihanJawaban = ref([
 
 const onSubmit = async (values) => {
   let doSubmit = 1;
+  values.imgPertanyaan = embedImgPertanyaan.value ? embedImgPertanyaan.value : null;
+  console.log(values.imgPertanyaan);
   values.ujian_kategori_id = dataForm.value.ujian_kategori_id.id;
   values.pertanyaan = dataForm.value.pertanyaan;
   values.desc = dataForm.value.desc;
@@ -98,6 +100,7 @@ const onSubmit = async (values) => {
   // console.log(dataPilihanJawaban.value[0].jawaban);
   // console.log(dataForm.value.ujian_kategori_id);
   // console.log(values);
+  // ----------------------------------------------------------------
   if (doSubmit > 0) {
     const resSubmit = await ApiBanksoal.doStoreData(values);
     if (resSubmit) {
@@ -105,6 +108,7 @@ const onSubmit = async (values) => {
       router.push({ name: "admin.banksoal" });
     }
   }
+  // ----------------------------------------------------------------
 };
 
 const doTambahPilihanJawaban = () => {
@@ -146,6 +150,15 @@ const getDataKategori = async () => {
   }
 };
 getDataKategori();
+
+let embedImgPertanyaan = ref(null);
+function handleImgPertanyaan(e) {
+  embedImgPertanyaan.value = URL.createObjectURL(e.target.files[0]);
+  console.log(embedImgPertanyaan.value);
+}
+const doClearImgPertanyaan = () => {
+  embedImgPertanyaan.value = null;
+}
 </script>
 <template>
   <Form v-slot="{ errors }" @submit="onSubmit">
@@ -154,12 +167,8 @@ getDataKategori();
         <div class="flex flex-col">
           <label> Kategori : </label>
           <div>
-            <v-select
-              class="py-2 px-3 w-72 mx-auto md:mx-0"
-              :options="pilihKategori"
-              v-model="dataForm.ujian_kategori_id"
-              v-bind:class="{ disabled: false }"
-            ></v-select>
+            <v-select class="py-2 px-3 w-72 mx-auto md:mx-0" :options="pilihKategori"
+              v-model="dataForm.ujian_kategori_id" v-bind:class="{ disabled: false }"></v-select>
 
             <div class="text-xs text-red-600 mt-1">
               {{ errors.select }}
@@ -167,20 +176,12 @@ getDataKategori();
           </div>
         </div>
         <div class="flex flex-col">
-          <label
-            >Tipe :
-            <code class="text-red-500 text-sm font-semibold"
-              >Pilihan Ganda
-            </code></label
-          >
+          <label>Tipe :
+            <code class="text-red-500 text-sm font-semibold">Pilihan Ganda
+            </code></label>
           <div>
-            <Field
-              :rules="fnValidasi.validateSelect"
-              v-model="dataForm.tipe"
-              name="tipe"
-              class="select select-bordered w-11/12"
-              as="select"
-            >
+            <Field :rules="fnValidasi.validateSelect" v-model="dataForm.tipe" name="tipe"
+              class="select select-bordered w-11/12" as="select">
               <option selected>Pilihan Ganda</option>
             </Field>
 
@@ -192,13 +193,8 @@ getDataKategori();
         <div class="flex flex-col">
           <label>Status : </label>
           <div>
-            <Field
-              :rules="fnValidasi.validateSelect"
-              v-model="dataForm.status"
-              name="status"
-              class="select select-bordered w-11/12"
-              as="select"
-            >
+            <Field :rules="fnValidasi.validateSelect" v-model="dataForm.status" name="status"
+              class="select select-bordered w-11/12" as="select">
               <option selected value="Aktif">Aktif</option>
               <option value="Nonaktif">NonAktif</option>
               <!-- <option value="Draft">Draft</option> -->
@@ -234,13 +230,8 @@ getDataKategori();
         <div class="flex flex-col">
           <label>Nomer Urut : </label>
           <div>
-            <Field
-              :rules="fnValidasi.validateDataNumber"
-              v-model="dataForm.nomer_urut"
-              name="nomer_urut"
-              type="number"
-              class="input input-bordered w-11/12"
-            />
+            <Field :rules="fnValidasi.validateDataNumber" v-model="dataForm.nomer_urut" name="nomer_urut" type="number"
+              class="input input-bordered w-11/12" />
             <div class="text-xs text-red-600 mt-1">
               {{ errors.nomer_urut }}
             </div>
@@ -249,13 +240,8 @@ getDataKategori();
         <div class="flex flex-col">
           <label>Kode : </label>
           <div>
-            <Field
-              :rules="fnValidasi.validateData"
-              v-model="dataForm.kode"
-              name="kode"
-              type="text"
-              class="input input-bordered w-11/12"
-            />
+            <Field :rules="fnValidasi.validateData" v-model="dataForm.kode" name="kode" type="text"
+              class="input input-bordered w-11/12" />
             <div class="text-xs text-red-600 mt-1">
               {{ errors.kode }}
             </div>
@@ -264,12 +250,7 @@ getDataKategori();
         <div class="flex flex-col">
           <label>Deskribsi : </label>
           <div>
-            <input
-              v-model="dataForm.desc"
-              name="desc"
-              type="text"
-              class="input input-bordered w-11/12"
-            />
+            <input v-model="dataForm.desc" name="desc" type="text" class="input input-bordered w-11/12" />
             <div class="text-xs text-red-600 mt-1">
               {{ errors.desc }}
             </div>
@@ -279,13 +260,8 @@ getDataKategori();
           <label>Tingkat Kesulitan : </label>
 
           <div>
-            <Field
-              :rules="fnValidasi.validateSelect"
-              v-model="dataForm.tingkatkesulitan"
-              name="tingkatkesulitan"
-              class="select select-bordered w-11/12"
-              as="select"
-            >
+            <Field :rules="fnValidasi.validateSelect" v-model="dataForm.tingkatkesulitan" name="tingkatkesulitan"
+              class="select select-bordered w-11/12" as="select">
               <option value="Mudah" selected>Mudah</option>
               <option value="Sedang">Sedang</option>
               <option value="Sulit">Sulit</option>
@@ -299,29 +275,16 @@ getDataKategori();
 
         <div class="py-10 w-full bg-base-100 shadow-sm">
           <div class="tabs">
-            <a
-              class="tab tab-bordered"
-              @click="pagesActive = 'tulis'"
-              :class="{ 'tab-active': pagesActive == 'tulis' }"
-              >Tulis</a
-            >
-            <a
-              class="tab tab-bordered"
-              @click="pagesActive = 'preview'"
-              :class="{ 'tab-active': pagesActive == 'preview' }"
-              >Preview</a
-            >
+            <a class="tab tab-bordered" @click="pagesActive = 'tulis'"
+              :class="{ 'tab-active': pagesActive == 'tulis' }">Tulis</a>
+            <a class="tab tab-bordered" @click="pagesActive = 'preview'"
+              :class="{ 'tab-active': pagesActive == 'preview' }">Preview</a>
           </div>
         </div>
         <div v-if="pagesActive == 'tulis'">
           <label>Pertanyaan :</label>
-          <QuillEditor
-            theme="snow"
-            toolbar="#my-toolbar"
-            v-model:content="dataForm.pertanyaan"
-            contentType="html"
-            class="ql-editor2"
-          >
+          <QuillEditor theme="snow" toolbar="#my-toolbar" v-model:content="dataForm.pertanyaan" contentType="html"
+            class="ql-editor2">
             <template #toolbar>
               <div id="my-toolbar">
                 <ToolBar></ToolBar>
@@ -330,15 +293,36 @@ getDataKategori();
             </template>
           </QuillEditor>
         </div>
+
         <div class="shadow-sm py-4 px-4 space-y-4" v-else>
           <label for="" class="underline">Preview : </label>
-          <div
-            class="w-full border-2 min-h-16 p-10"
-            v-html="dataForm.pertanyaan"
-          ></div>
+          <div class="w-full border-2 min-h-16 p-10" v-html="dataForm.pertanyaan"></div>
         </div>
       </div>
-
+      <div>
+        <div class="grid grid-cols-2">
+          <div class="px-4 py-2 font-semibold">Gambar</div>
+          <div class="px-4 py-2">
+            <input @change="handleImgPertanyaan($event)" type="file" />
+            <!-- <Field v-model="dataForm.imgPertanyaan" name="imgPertanyaan" v-slot="{ handleImgPertanyaan }">
+              <input :rules="fnValidasi.validateData2" type="file" @change="handleImgPertanyaan" />
+            </Field> -->
+            <button class="btn btn-danger" @click="doClearImgPertanyaan">Clear</button>
+            <!-- <div class="text-xs text-red-600 mt-1">
+              {{ errors.imgPertanyaan }}
+            </div> -->
+          </div>
+        </div>
+        <div class="grid grid-cols-1">
+          <div class="px-4 py-2 font-semibold">Preview </div>
+          <div class="avatar">
+            <div class="w-48 rounded">
+              <img :src="embedImgPertanyaan" v-if="embedImgPertanyaan" class="" />
+              <div class="shadow shadow-lg h-48" id="previewpdf" v-else />
+            </div>
+          </div>
+        </div>
+      </div>
       <!-- <div class="py-10 px-4">
         <label for="">Gambar</label>
         <input type="file" class="input w-full" />
@@ -350,16 +334,11 @@ getDataKategori();
         <div class="py-10 px-4 space-y-4">
           <div class="space-y-4 shadow-lg">
             <div class="py-4 px-4">
-              <label for=""
-                >Pilihan Jawaban {{ fnCampur.fnNumberToAlphabet(index + 1) }} :
+              <label for="">Pilihan Jawaban {{ fnCampur.fnNumberToAlphabet(index + 1) }} :
               </label>
 
-              <QuillEditor
-                theme="snow"
-                :toolbar="toolbarOptions"
-                v-model:content="dataPilihanJawaban[index].jawaban"
-                contentType="html"
-              >
+              <QuillEditor theme="snow" :toolbar="toolbarOptions" v-model:content="dataPilihanJawaban[index].jawaban"
+                contentType="html">
               </QuillEditor>
             </div>
             <div class="space-y-4 py-4 px-4">
@@ -383,21 +362,13 @@ getDataKategori();
                 </div>
               </div> -->
               <div class="flex flex-col">
-                <label
-                  >Skor :
-                  <code class="text-red-500 text-sm font-semibold"
-                    >{{ dataPilihanJawaban[index].skor }}
-                  </code></label
-                >
+                <label>Skor :
+                  <code class="text-red-500 text-sm font-semibold">{{ dataPilihanJawaban[index].skor }}
+                  </code></label>
                 <div>
-                  <input
-                    :rules="fnValidasi.validateDataSkor"
-                    v-model="dataPilihanJawaban[index].skor"
-                    :name="dataPilihanJawaban + '[' + index + ']'"
-                    type="number"
-                    max="100"
-                    class="input input-bordered w-11/12"
-                  />
+                  <input :rules="fnValidasi.validateDataSkor" v-model="dataPilihanJawaban[index].skor"
+                    :name="dataPilihanJawaban + '[' + index + ']'" type="number" max="100"
+                    class="input input-bordered w-11/12" />
                   <!-- <div class="text-xs text-red-600 mt-1">
                       {{ errors.dataPilihanJawabanSkor + "[" + index + "]" }}
                     </div> -->
@@ -410,16 +381,10 @@ getDataKategori();
       <!-- Pilihan Jawaban -->
       <div class="px-4">
         <div class="space-x-2">
-          <span
-            class="btn btn-danger btn-sm btn-outline"
-            @click="doHapusPilihanJawaban()"
-          >
+          <span class="btn btn-danger btn-sm btn-outline" @click="doHapusPilihanJawaban()">
             Hapus
           </span>
-          <span
-            class="btn btn-primary btn-sm btn-outline"
-            @click="doTambahPilihanJawaban()"
-          >
+          <span class="btn btn-primary btn-sm btn-outline" @click="doTambahPilihanJawaban()">
             Tambah
           </span>
         </div>
@@ -429,14 +394,15 @@ getDataKategori();
         <!-- <button class="btn btn-warning">Draft</button> -->
         <button class="btn btn-primary">Simpan</button>
       </div>
-    </div></Form
-  >
+    </div>
+  </Form>
 </template>
 
 <style>
 .ql-editor {
   min-height: 50px;
 }
+
 .ql-editor2 {
   min-height: 200px;
 }

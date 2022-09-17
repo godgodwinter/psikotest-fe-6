@@ -34,8 +34,19 @@ const doStoreData = async (data) => {
   };
   // console.log(dataForm);
   try {
+    // console.log(data.imgPertanyaan);
     const response = await Api.post(`admin/menuujian/banksoal`, dataForm);
     console.log(response);
+    // get Id--kodes_soal then submit img Pertanyaan
+    let formData = new FormData();
+    formData.append("file", data.imgPertanyaan);
+    formData.append("kode_soal", response.kode_soal);
+    const resUpload = await Api.post(`admin/menuujian/banksoal/upload/pertanyaan`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    // console.log(data.imgPertanyaan);
     // data.id = response.id;
     // dataAsli.value.push(data);
 
