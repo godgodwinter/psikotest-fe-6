@@ -73,6 +73,38 @@ const getDataId = async () => {
       // }
     });
 
+    dataAsli.value.deteksi.apiprobk_deteksi_list.forEach(itemDeteksi => {
+      // console.log(item.nama, itemDeteksi.deteksi_nama);
+      if (itemDeteksi.deteksi_nama == "TOTAL EQ") {
+        total_eq.value.deteksi_nama = itemDeteksi.deteksi_nama;
+        total_eq.value.deteksi_keterangan = itemDeteksi.deteksi_keterangan;
+        total_eq.value.deteksi_score = itemDeteksi.deteksi_score;
+        total_eq.value.deteksi_rank = itemDeteksi.deteksi_rank;
+        // console.log(item.nama, itemDeteksi.nama);
+      }
+      if (itemDeteksi.deteksi_nama == "TOTAL SCQ") {
+        total_scq.value.deteksi_nama = itemDeteksi.deteksi_nama;
+        total_scq.value.deteksi_keterangan = itemDeteksi.deteksi_keterangan;
+        total_scq.value.deteksi_score = itemDeteksi.deteksi_score;
+        total_scq.value.deteksi_rank = itemDeteksi.deteksi_rank;
+        // console.log(item.nama, itemDeteksi.nama);
+      }
+      if (itemDeteksi.deteksi_nama == "TOTAL SQ") {
+        total_sq.value.deteksi_nama = itemDeteksi.deteksi_nama;
+        total_sq.value.deteksi_keterangan = itemDeteksi.deteksi_keterangan;
+        total_sq.value.deteksi_score = itemDeteksi.deteksi_score;
+        total_sq.value.deteksi_rank = itemDeteksi.deteksi_rank;
+        // console.log(item.nama, itemDeteksi.nama);
+      }
+      if (itemDeteksi.deteksi_nama == "TOTAL") {
+        total.value.deteksi_nama = itemDeteksi.deteksi_nama;
+        total.value.deteksi_keterangan = itemDeteksi.deteksi_keterangan;
+        total.value.deteksi_score = itemDeteksi.deteksi_score;
+        total.value.deteksi_rank = itemDeteksi.deteksi_rank;
+        // console.log(item.nama, itemDeteksi.nama);
+      }
+    });
+
     if (response.status == "failed") {
       Toast.danger("Warning", "Anda tidak memiliki Akses siswa ini!");
       return response.data;
@@ -155,7 +187,7 @@ const dataEq = ref([
   { id: 13, nama: "DAYA PRIBADI", deteksi_nama: null, deteksi_rank: null, deteksi_score: null, deteksi_keterangan: null },
 ]);
 //! "TOTAL EQ"
-const total_eq = ref(null);
+const total_eq = ref({ id: 1, nama: "TOTAL EQ", deteksi_nama: null, deteksi_rank: null, deteksi_score: null, deteksi_keterangan: null });
 const dataScq = ref([
   { id: 1, nama: "MEMAHAMI ORANG LAIN", deteksi_nama: null, deteksi_rank: null, deteksi_score: null, deteksi_keterangan: null },
   { id: 2, nama: "KEMAMPUAN SOSIAL", deteksi_nama: null, deteksi_rank: null, deteksi_score: null, deteksi_keterangan: null },
@@ -168,7 +200,7 @@ const dataScq = ref([
   { id: 9, nama: "KESERASIAN DAN KEHARMONISAN", deteksi_nama: null, deteksi_rank: null, deteksi_score: null, deteksi_keterangan: null },
 ]);
 //! "TOTAL SCQ"
-const total_scq = ref(null);
+const total_scq = ref({ id: 1, nama: "TOTAL SCQ", deteksi_nama: null, deteksi_rank: null, deteksi_score: null, deteksi_keterangan: null });
 const dataSq = ref([
   { id: 1, nama: "PERCAYA DIRI DAN YAKIN", deteksi_nama: null, deteksi_rank: null, deteksi_score: null, deteksi_keterangan: null },
   { id: 2, nama: "HARGA DIRI", deteksi_nama: null, deteksi_rank: null, deteksi_score: null, deteksi_keterangan: null },
@@ -186,9 +218,9 @@ const dataSq = ref([
 
 ]);
 //! "TOTAL SQ"
-const total_sq = ref(null);
+const total_sq = ref({ id: 1, nama: "TOTAL SQ", deteksi_nama: null, deteksi_rank: null, deteksi_score: null, deteksi_keterangan: null });
 //! "TOTAL"
-const total = ref(null);
+const total = ref({ id: 1, nama: "TOTAL", deteksi_nama: null, deteksi_rank: null, deteksi_score: null, deteksi_keterangan: null });
 
 </script>
 <template>
@@ -274,7 +306,7 @@ const total = ref(null);
     <div class="pt-4 px-10 md:flex justify-between">
       <div>
         <span class="text-2xl sm:text-2xl leading-none font-bold text-gray-700 shadow-sm">1. EQ (Emotional
-          Quotient)</span>
+          Quotient) : {{ total_eq.deteksi_score }} : {{ total_eq.deteksi_keterangan }} </span>
       </div>
       <div class="md:py-0 py-4 space-x-2 space-y-2"></div>
     </div>
@@ -316,7 +348,7 @@ const total = ref(null);
     <div class="pt-4 px-10 md:flex justify-between">
       <div>
         <span class="text-2xl sm:text-2xl leading-none font-bold text-gray-700 shadow-sm">2. ScQ (Social
-          Quotient)</span>
+          Quotient) : {{ total_scq.deteksi_score }} : {{ total_scq.deteksi_keterangan }} </span>
       </div>
       <div class="md:py-0 py-4 space-x-2 space-y-2"></div>
     </div>
@@ -358,7 +390,7 @@ const total = ref(null);
     <div class="pt-4 px-10 md:flex justify-between">
       <div>
         <span class="text-2xl sm:text-2xl leading-none font-bold text-gray-700 shadow-sm">3. SQ (Spiritual
-          Quotient)</span>
+          Quotient) : {{ total_sq.deteksi_score }} : {{ total_sq.deteksi_keterangan }} </span>
       </div>
       <div class="md:py-0 py-4 space-x-2 space-y-2"></div>
     </div>
@@ -396,6 +428,15 @@ const total = ref(null);
           </div>
         </div>
       </div>
+    </div>
+
+
+    <div class="pt-4 px-10 md:flex justify-between">
+      <div>
+        <span class="text-2xl sm:text-2xl leading-none font-bold text-gray-700 shadow-sm">TOTAL : {{ total.deteksi_score
+        }} : {{ total.deteksi_keterangan }} </span>
+      </div>
+      <div class="md:py-0 py-4 space-x-2 space-y-2"></div>
     </div>
 
   </div>
