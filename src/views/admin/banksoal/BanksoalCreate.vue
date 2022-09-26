@@ -16,24 +16,24 @@ const storeBanksoal = useStoreBanksoal();
 storeAdminBar.setPagesActive("banksoal");
 storeBanksoal.setPagesActive("buatbaru");
 const toolbar = ["bold", "italic", "underline"];
-const toolbarOptions = [
-  ["bold", "italic", "underline", "strike"], // toggled buttons
-  ["blockquote", "code-block"],
+const toolbarOptions = [['link', 'image'],
+["bold", "italic", "underline", "strike"], // toggled buttons
+["blockquote", "code-block"],
 
-  [{ header: 1 }, { header: 2 }], // custom button values
-  [{ list: "ordered" }, { list: "bullet" }],
-  [{ script: "sub" }, { script: "super" }], // superscript/subscript
-  [{ indent: "-1" }, { indent: "+1" }], // outdent/indent
-  [{ direction: "rtl" }], // text direction
+[{ header: 1 }, { header: 2 }], // custom button values
+[{ list: "ordered" }, { list: "bullet" }],
+[{ script: "sub" }, { script: "super" }], // superscript/subscript
+[{ indent: "-1" }, { indent: "+1" }], // outdent/indent
+[{ direction: "rtl" }], // text direction
 
-  [{ size: ["small", false, "large", "huge"] }], // custom dropdown
-  [{ header: [1, 2, 3, 4, 5, 6, false] }],
+[{ size: ["small", false, "large", "huge"] }], // custom dropdown
+[{ header: [1, 2, 3, 4, 5, 6, false] }],
 
-  [{ color: [] }, { background: [] }], // dropdown with defaults from theme
-  [{ font: [] }],
-  [{ align: [] }],
+[{ color: [] }, { background: [] }], // dropdown with defaults from theme
+[{ font: [] }],
+[{ align: [] }],
 
-  ["clean"], // remove formatting button
+["clean"], // remove formatting button
 ];
 
 const editorPertanyaan = ref("<b>tes123</b>");
@@ -283,7 +283,16 @@ const doClearImgPertanyaan = () => {
         </div>
         <div v-if="pagesActive == 'tulis'">
           <label>Pertanyaan :</label>
-          <QuillEditor theme="snow" toolbar="#my-toolbar" v-model:content="dataForm.pertanyaan" contentType="html"
+          <QuillEditor theme="snow" :toolbar="toolbarOptions" v-model:content="dataForm.pertanyaan" contentType="html"
+            class="ql-editor2">
+            <!-- <template #toolbar>
+              <div id="my-toolbar">
+                <ToolBar></ToolBar>
+              </div>
+              <div id="editor"></div>
+            </template> -->
+          </QuillEditor>
+          <!-- <QuillEditor theme="snow" toolbar="#my-toolbar" v-model:content="dataForm.pertanyaan" contentType="html"
             class="ql-editor2">
             <template #toolbar>
               <div id="my-toolbar">
@@ -291,7 +300,11 @@ const doClearImgPertanyaan = () => {
               </div>
               <div id="editor"></div>
             </template>
-          </QuillEditor>
+          </QuillEditor> -->
+
+          <!-- <QuillEditor theme="snow" :toolbar="toolbarOptions" v-model:content="dataPilihanJawaban[index].jawaban"
+                contentType="html">
+              </QuillEditor> -->
         </div>
 
         <div class="shadow-sm py-4 px-4 space-y-4" v-else>

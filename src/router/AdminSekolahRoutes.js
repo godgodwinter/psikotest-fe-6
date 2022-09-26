@@ -113,6 +113,14 @@ const AdminSekolahRoutes = [
             name: "AdminSekolahDetailHasilpsikologiDeteksi",
           },
           {
+            path: "/pages/admin/sekolahdetail/:id/hasilpsikologi/:id2/deteksisq",
+            component: () =>
+              import(
+                "@/views/admin/sekolah/submenu/hasilpsikologi/DeteksiSq.vue"
+              ),
+            name: "AdminSekolahDetailHasilpsikologiDeteksiSq",
+          },
+          {
             path: "/pages/admin/sekolahdetail/:id/hasilpsikologi/:id2/penanganan",
             component: () =>
               import(

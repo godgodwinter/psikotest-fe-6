@@ -32,28 +32,29 @@ const doStoreData = async (data) => {
     // pilihanJawaban: data.pilihanJawaban,
     pilihanJawaban: JSON.stringify(data.pilihanJawaban),
   };
-  // console.log(dataForm);
+  console.log(dataForm.pertanyaan);
   try {
-    // console.log(data.imgPertanyaan);
-    const response = await Api.post(`admin/menuujian/banksoal`, dataForm);
-    console.log(response);
-    // get Id--kodes_soal then submit img Pertanyaan
-    let formData = new FormData();
-    formData.append("file", data.imgPertanyaan);
-    formData.append("kode_soal", response.kode_soal);
-    const resUpload = await Api.post(`admin/menuujian/banksoal/upload/pertanyaan`, formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    });
-    // console.log(data.imgPertanyaan);
-    // data.id = response.id;
-    // dataAsli.value.push(data);
+    // // console.log(data.imgPertanyaan);
+    // const response = await Api.post(`admin/menuujian/banksoal`, dataForm);
+    // console.log(response);
+    // // get Id--kodes_soal then submit img Pertanyaan
+    // let formData = new FormData();
+    // formData.append("file", data.imgPertanyaan);
+    // formData.append("kode_soal", response.kode_soal);
+    // const resUpload = await Api.post(`admin/menuujian/banksoal/upload/pertanyaan`, formData, {
+    //   headers: {
+    //     "Content-Type": "multipart/form-data",
+    //   },
+    // });
+    // // console.log(data.imgPertanyaan);
+    // // data.id = response.id;
+    // // dataAsli.value.push(data);
 
-    // getData()
-    // console.log(dataAsli.value);
+    // // getData()
+    // // console.log(dataAsli.value);
 
-    return true;
+    return false;
+    // return true;
   } catch (error) {
     console.error(error);
   }
