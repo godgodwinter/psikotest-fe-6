@@ -1,4 +1,5 @@
 <script setup>
+import ButtonCetak from "@/components/atoms/ButtonCetak.vue";
 import Api from "@/axios/axios";
 import { ref } from "vue";
 import BreadCrumb from "@/components/atoms/BreadCrumb.vue";
@@ -8,6 +9,14 @@ import { Field, Form } from "vee-validate";
 import { useStoreAdminBar } from "@/stores/adminBar";
 import { useRouter, useRoute } from "vue-router";
 import Toast from "@/components/lib/Toast.js";
+import moment from "moment/min/moment-with-locales";
+import localization from "moment/locale/id";
+moment.updateLocale("id", localization);
+
+const BASE_URL = import.meta.env.VITE_API_URL
+  ? import.meta.env.VITE_API_URL
+  : "http://localhost:8000/";
+
 const storeAdminBar = useStoreAdminBar();
 storeAdminBar.setPagesActive("sekolah");
 storeAdminBar.setsubMenuActive("hasilpsikologi");
@@ -222,6 +231,17 @@ const total_sq = ref({ id: 1, nama: "TOTAL SQ", deteksi_nama: null, deteksi_rank
 //! "TOTAL"
 const total = ref({ id: 1, nama: "TOTAL", deteksi_nama: null, deteksi_rank: null, deteksi_score: null, deteksi_keterangan: null });
 
+const encode = (value) => window.btoa(value);
+
+const doCetak = (id = null, token = moment().format("YYYY-MM-DD")) => {
+  if (id === null) {
+    Toast.danger("Warning", "Data tidak valid!");
+  } else {
+    window.open(
+      `${BASE_URL}api/guest/cetak/deteksisq/${encode(id)}?token=${encode(token)}`
+    );
+  }
+};
 </script>
 <template>
   <div class="pt-4 px-10 md:flex justify-between">
@@ -242,7 +262,9 @@ const total = ref({ id: 1, nama: "TOTAL", deteksi_nama: null, deteksi_rank: null
   <div class="pt-4 px-10 md:flex justify-between">
     <div>
       <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-700 shadow-sm">Deteksi Kecerdasan Emosi, Sosial
-        dan Spiritual <br> (EQ; Sc.Q; SQ)</span>
+        dan Spiritual <br> (EQ; Sc.Q; SQ)
+        <ButtonCetak @click="doCetak(id2)" />
+      </span>
     </div>
     <div class="md:py-0 py-4 space-x-2 space-y-2">
       <span @click="router.go(-1)">
@@ -252,6 +274,16 @@ const total = ref({ id: 1, nama: "TOTAL", deteksi_nama: null, deteksi_rank: null
         </button></span>
     </div>
   </div>
+  <!-- <div class="pt-4 px-10 md:flex justify-between">
+
+    <div class="md:py-0 py-4 space-x-2 space-y-2">
+      <span @click="router.go(-1)">
+        <button class="btn btn-success hover:shadow-lg shadow  gap-2">
+
+          Cetak
+        </button></span>
+    </div>
+  </div> -->
   <div v-if="siswa">
     <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
       <div class="w-full lg:w-full">
@@ -431,13 +463,13 @@ const total = ref({ id: 1, nama: "TOTAL", deteksi_nama: null, deteksi_rank: null
     </div>
 
 
-    <div class="pt-4 px-10 md:flex justify-between">
+    <!-- <div class="pt-4 px-10 md:flex justify-between">
       <div>
         <span class="text-2xl sm:text-2xl leading-none font-bold text-gray-700 shadow-sm">TOTAL : {{ total.deteksi_score
         }} : {{ total.deteksi_keterangan }} </span>
       </div>
       <div class="md:py-0 py-4 space-x-2 space-y-2"></div>
-    </div>
+    </div> -->
 
   </div>
 </template>
