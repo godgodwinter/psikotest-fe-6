@@ -15,7 +15,7 @@ export const useStoreGuruBk = defineStore({
         // untuk pencarian temporary tersimpan
         tempSekolah: [
             {
-                sekolah_id: null, // id 
+                sekolah_id: 2, // id 
                 kelas_id: null
             },
         ],
@@ -25,6 +25,7 @@ export const useStoreGuruBk = defineStore({
         getSekolah: (state) => state.sekolah,
         getPaket: (state) => state.paket,
         getStats: (state) => state.stats,
+        getTempSekolah: (state) => state.tempSekolah,
     },
     actions: {
         setIdentitas(identitas) {
@@ -38,6 +39,9 @@ export const useStoreGuruBk = defineStore({
         },
         setStats(stats) {
             this.stats = stats;
+        },
+        setTempSekolah(tempSekolah) {
+            this.tempSekolah = tempSekolah;
         }
 
     }

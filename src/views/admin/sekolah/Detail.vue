@@ -23,6 +23,21 @@ const route = useRoute();
 
 const id = route.params.id;
 
+// console.log(storeGuruBk.getTempSekolah);
+const fnCariDataTempSekolahWhereSekolahId = (id) => {
+  let tempSekolah = storeGuruBk.getTempSekolah;
+  console.log(id, tempSekolah);
+  return tempSekolah.filter((item) => item.sekolah_id == id);
+}
+
+const getData = fnCariDataTempSekolahWhereSekolahId(id);
+
+console.log(getData);
+if (getData.length > 0) {
+  console.log("AdA", getData)
+} else {
+  console.log("tidak ditemukan");
+}
 // const dataAsli = ref([]);
 // const data = ref([]);
 
@@ -45,17 +60,13 @@ const id = route.params.id;
       <!-- <BreadCrumb>
         <template v-slot:content> Sekolah <BreadCrumbSpace /> Index </template>
       </BreadCrumb> -->
-      <span
-        class="text-2xl sm:text-3xl leading-none font-bold text-base-content shadow-sm"
-      >
+      <span class="text-2xl sm:text-3xl leading-none font-bold text-base-content shadow-sm">
         MENU SEKOLAH
       </span>
     </div>
     <div class="md:py-0 py-4">
       <router-link :to="{ name: 'AdminSekolah' }">
-        <button
-          class="btn btn-secondary hover:shadow-lg shadow text-white hover:text-gray-100 gap-2"
-        >
+        <button class="btn btn-secondary hover:shadow-lg shadow text-white hover:text-gray-100 gap-2">
           <!-- <svg
             xmlns="http://www.w3.org/2000/svg"
             class="h-6 w-6"
@@ -71,8 +82,8 @@ const id = route.params.id;
             />
           </svg> -->
           MENU SEKOLAH
-        </button></router-link
-      >
+        </button>
+      </router-link>
     </div>
   </div>
 
