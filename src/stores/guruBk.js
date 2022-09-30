@@ -1,38 +1,45 @@
-import {defineStore} from 'pinia';
-export const useStoreGuruBk= defineStore({
+import { defineStore } from 'pinia';
+export const useStoreGuruBk = defineStore({
     id: 'storeGuruBk',
-    state: ()=>({
+    state: () => ({
         identitas: [],
         sekolah: {
-            status:'NonAktif',
+            status: 'NonAktif',
         },
         paket: {
-            penanganandeteksi:true,
-            terapiskarakterpositif:false,
+            penanganandeteksi: true,
+            terapiskarakterpositif: false,
 
-    },
+        },
         stats: [],
+        // untuk pencarian temporary tersimpan
+        tempSekolah: [
+            {
+                sekolah_id: null, // id 
+                kelas_id: null
+            },
+        ],
     }),
-    getters:{
-        getIdentitas:(state)=> state.identitas,
-        getSekolah:(state)=> state.sekolah,
-        getPaket:(state)=> state.paket,
-        getStats:(state)=> state.stats,
+    getters: {
+        getIdentitas: (state) => state.identitas,
+        getSekolah: (state) => state.sekolah,
+        getPaket: (state) => state.paket,
+        getStats: (state) => state.stats,
     },
-    actions:{
-        setIdentitas(identitas){
+    actions: {
+        setIdentitas(identitas) {
             this.identitas = identitas;
         },
-        setSekolah(sekolah){
+        setSekolah(sekolah) {
             this.sekolah = sekolah;
         },
-        setPaket(paket){
+        setPaket(paket) {
             this.paket = paket;
         },
-        setStats(stats){
+        setStats(stats) {
             this.stats = stats;
         }
-        
+
     }
 
 });
