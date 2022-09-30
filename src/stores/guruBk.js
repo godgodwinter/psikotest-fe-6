@@ -14,10 +14,10 @@ export const useStoreGuruBk = defineStore({
         stats: [],
         // untuk pencarian temporary tersimpan
         tempSekolah: [
-            {
-                sekolah_id: 2, // id 
-                kelas_id: null
-            },
+            // {
+            //     sekolah_id: 2, // id 
+            //     kelas_id: null
+            // },
         ],
     }),
     getters: {

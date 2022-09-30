@@ -27,7 +27,7 @@ const id = route.params.id;
 const fnCariDataTempSekolahWhereSekolahId = (id) => {
   let tempSekolah = storeGuruBk.getTempSekolah;
   console.log(id, tempSekolah);
-  return tempSekolah.filter((item) => item.sekolah_id == id);
+  return tempSekolah ? tempSekolah.filter((item) => item.sekolah_id == id) : [];
 }
 
 const getData = fnCariDataTempSekolahWhereSekolahId(id);

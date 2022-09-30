@@ -7,8 +7,10 @@ import ButtonEdit from "@/components/atoms/ButtonEdit.vue";
 import { useRouter, useRoute } from "vue-router";
 import { useStoreAdminBar } from "@/stores/adminBar";
 import Toast from "@/components/lib/Toast.js";
+import { useStoreGuruBk } from "@/stores/guruBk";
 const storeAdminBar = useStoreAdminBar();
 storeAdminBar.setsubMenuActive("siswa");
+const storeGuruBk = useStoreGuruBk();
 
 const router = useRouter();
 const route = useRoute();
@@ -66,8 +68,39 @@ const doPilihKelas = () => {
       kelas_id: inputCariKelas.value.id,
     },
   });
+  fnSetToTempSekolah(id, inputCariKelas.value.id);
   getData(inputCariKelas.value.id);
 };
+
+const getTempSekolah = computed(() => storeGuruBk.getTempSekolah);
+
+const fnSetToTempSekolah = (sekolah_id, kelas_id) => {
+  let obj = {
+    id: sekolah_id,
+    kelas_id: kelas_id,
+  }
+  console.log("objek", obj);
+  let temp = getTempSekolah.value;
+  console.log("temp", temp);
+  if (temp.length > 0) {
+    let periksa = temp.filter((x) => x.id == obj.id);
+    console.log("periksa:", periksa)
+    if (periksa.length > 0) {
+      temp.forEach((x, index) => {
+        if (x.id == obj.id) {
+          x.kelas_id = obj.kelas_id
+        }
+      })
+    } else {
+      temp.push(obj);
+    }
+  } else {
+    temp.push(obj);
+  }
+  console.log(temp);
+  // console.log(getTempSekolah);
+  storeGuruBk.setTempSekolah(temp)
+}
 
 
 const getData = async (kelas_id) => {
@@ -279,9 +312,9 @@ const doCopyClipboard = (item) => {
           <vue-good-table :line-numbers="true" :columns="columns" :rows="data" :search-options="{
             enabled: true,
           }" :pagination-options="{
-  enabled: true,
-  perPageDropdown: [10, 20, 50],
-}" styleClass="vgt-table striped bordered condensed" class="py-0">
+            enabled: true,
+            perPageDropdown: [10, 20, 50],
+          }" styleClass="vgt-table striped bordered condensed" class="py-0">
             <template #table-row="props">
               <span v-if="props.column.field == 'actions'">
                 <div class="text-sm font-medium text-center flex justify-center space-x-0">
