@@ -68,18 +68,27 @@ const doPilihKelas = () => {
       kelas_id: inputCariKelas.value.id,
     },
   });
-  fnSetToTempSekolah(id, inputCariKelas.value.id);
+  fnSetToTempSekolah(id, inputCariKelas.value.id, inputCariKelas.value.label);
   getData(inputCariKelas.value.id);
 };
 
 const getTempSekolah = computed(() => storeGuruBk.getTempSekolah);
 
-const fnSetToTempSekolah = (sekolah_id, kelas_id) => {
+const fnCariDataTempSekolahWhereSekolahId = (id) => {
+  let tempSekolah = storeGuruBk.getTempSekolah;
+  console.log(id, tempSekolah);
+  return tempSekolah ? tempSekolah.filter((item) => item.id == id) : [];
+}
+
+const getDataSekolah = fnCariDataTempSekolahWhereSekolahId(id);
+
+const fnSetToTempSekolah = (sekolah_id, kelas_id, nama_kelas) => {
   let obj = {
     id: sekolah_id,
     kelas_id: kelas_id,
+    nama_kelas: nama_kelas,
   }
-  console.log("objek", obj);
+  // console.log("objek", obj);
   let temp = getTempSekolah.value;
   console.log("temp", temp);
   if (temp.length > 0) {
@@ -88,7 +97,8 @@ const fnSetToTempSekolah = (sekolah_id, kelas_id) => {
     if (periksa.length > 0) {
       temp.forEach((x, index) => {
         if (x.id == obj.id) {
-          x.kelas_id = obj.kelas_id
+          x.kelas_id = obj.kelas_id,
+            x.nama_kelas = obj.nama_kelas
         }
       })
     } else {
@@ -97,7 +107,7 @@ const fnSetToTempSekolah = (sekolah_id, kelas_id) => {
   } else {
     temp.push(obj);
   }
-  console.log(temp);
+  // console.log(temp);
   // console.log(getTempSekolah);
   storeGuruBk.setTempSekolah(temp)
 }
@@ -266,7 +276,9 @@ const doCopyClipboard = (item) => {
 <template>
   <div class="pt-4 px-10 md:flex justify-between">
     <div>
-      <span class="text-2xl sm:text-3xl leading-none font-bold text-base-content shadow-sm">Siswa</span>
+      <span class="text-2xl sm:text-3xl leading-none font-bold text-base-content shadow-sm">Siswa kelas {{
+      getDataSekolah?getDataSekolah[0].nama_kelas:null }}
+      </span>
     </div>
     <div class="md:py-0 py-4 space-x-2 space-y-2">
       <!-- <button

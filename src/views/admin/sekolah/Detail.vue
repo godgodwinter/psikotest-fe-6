@@ -23,36 +23,44 @@ const route = useRoute();
 
 const id = route.params.id;
 
+
+// ---------------------
 // console.log(storeGuruBk.getTempSekolah);
+const getTempSekolah = computed(() => storeGuruBk.getTempSekolah);
 const fnCariDataTempSekolahWhereSekolahId = (id) => {
   let tempSekolah = storeGuruBk.getTempSekolah;
   console.log(id, tempSekolah);
-  return tempSekolah ? tempSekolah.filter((item) => item.sekolah_id == id) : [];
+  return tempSekolah ? tempSekolah.filter((item) => item.id == id) : [];
 }
 
-const getData = fnCariDataTempSekolahWhereSekolahId(id);
+const getDataSekolah = fnCariDataTempSekolahWhereSekolahId(id);
 
-console.log(getData);
-if (getData.length > 0) {
-  console.log("AdA", getData)
+// console.log(getDataSekolah);
+if (getDataSekolah.length > 0) {
+  console.log("AdA", getDataSekolah, getDataSekolah[0].kelas_id)
+
 } else {
   console.log("tidak ditemukan");
 }
+
+// ---------------------
+
 // const dataAsli = ref([]);
 // const data = ref([]);
+const data = ref([]);
+const dataAsli = ref([]);
+const getData = async () => {
+  try {
+    const response = await Api.get(`owner/sekolah/${id}`);
+    dataAsli.value = response.data;
+    data.value = response.data;
 
-// const getData = async () => {
-//   try {
-//     const response = await Api.get(`owner/sekolah/${id}`);
-//     dataAsli.value = response.data;
-//     data.value = response.data;
-
-//     return response.data;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
-// getData();
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+getData();
 </script>
 <template>
   <div class="pt-4 px-10 md:flex justify-between">
@@ -61,7 +69,8 @@ if (getData.length > 0) {
         <template v-slot:content> Sekolah <BreadCrumbSpace /> Index </template>
       </BreadCrumb> -->
       <span class="text-2xl sm:text-3xl leading-none font-bold text-base-content shadow-sm">
-        MENU SEKOLAH
+        MENU SEKOLAH {{ data.nama }}
+        <!-- {{ getTempSekolah }} -->
       </span>
     </div>
     <div class="md:py-0 py-4">

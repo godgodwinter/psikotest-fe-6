@@ -16,7 +16,8 @@ export const useStoreGuruBk = defineStore({
         tempSekolah: [
             // {
             //     sekolah_id: 2, // id 
-            //     kelas_id: null
+            //     kelas_id: null,
+            // nama_kelas: null
             // },
         ],
     }),
