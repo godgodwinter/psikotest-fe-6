@@ -7,6 +7,8 @@ import ButtonEdit from "@/components/atoms/ButtonEdit.vue";
 import { useRouter, useRoute } from "vue-router";
 import { useStoreAdminBar } from "@/stores/adminBar";
 import Toast from "@/components/lib/Toast.js";
+import { useStoreGuruBk } from "@/stores/guruBk";
+const storeGuruBk = useStoreGuruBk();
 const storeAdminBar = useStoreAdminBar();
 storeAdminBar.setsubMenuActive("hasilpsikologi");
 
@@ -61,12 +63,52 @@ const doPilihKelas = () => {
         kelas_id: inputCariKelas.value.id,
       },
     });
+    fnSetToTempSekolah(id, inputCariKelas.value.id, inputCariKelas.value.label);
     getData(inputCariKelas.value.id);
   } else {
     Toast.danger("Warning", "Pilih Kelas Terlebih Dahulu");
   }
 };
 
+const getTempSekolah = computed(() => storeGuruBk.getTempSekolah);
+
+const fnCariDataTempSekolahWhereSekolahId = (id) => {
+  let tempSekolah = storeGuruBk.getTempSekolah;
+  console.log(id, tempSekolah);
+  return tempSekolah ? tempSekolah.filter((item) => item.id == id) : [];
+}
+
+const getDataSekolah = fnCariDataTempSekolahWhereSekolahId(id);
+
+const fnSetToTempSekolah = (sekolah_id, kelas_id, nama_kelas) => {
+  let obj = {
+    id: sekolah_id,
+    kelas_id: kelas_id,
+    nama_kelas: nama_kelas,
+  }
+  // console.log("objek", obj);
+  let temp = getTempSekolah.value;
+  console.log("temp", temp);
+  if (temp.length > 0) {
+    let periksa = temp.filter((x) => x.id == obj.id);
+    console.log("periksa:", periksa)
+    if (periksa.length > 0) {
+      temp.forEach((x, index) => {
+        if (x.id == obj.id) {
+          x.kelas_id = obj.kelas_id,
+            x.nama_kelas = obj.nama_kelas
+        }
+      })
+    } else {
+      temp.push(obj);
+    }
+  } else {
+    temp.push(obj);
+  }
+  // console.log(temp);
+  // console.log(getTempSekolah);
+  storeGuruBk.setTempSekolah(temp)
+}
 
 const getData = async (kelas_id) => {
   try {
@@ -124,7 +166,8 @@ const columns = [
 <template>
   <div class="pt-4 px-10 md:flex justify-between">
     <div>
-      <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-700 shadow-sm">Hasil Psikologi</span>
+      <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-700 shadow-sm">Hasil Psikologi kelas {{
+      getDataSekolah.length>0?getDataSekolah[0].nama_kelas:null }}</span>
     </div>
     <div class="md:py-0 py-4 space-x-2 space-y-2"></div>
   </div>

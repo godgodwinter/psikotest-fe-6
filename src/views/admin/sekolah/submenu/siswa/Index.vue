@@ -277,7 +277,7 @@ const doCopyClipboard = (item) => {
   <div class="pt-4 px-10 md:flex justify-between">
     <div>
       <span class="text-2xl sm:text-3xl leading-none font-bold text-base-content shadow-sm">Siswa kelas {{
-      getDataSekolah?getDataSekolah[0].nama_kelas:null }}
+      getDataSekolah.length>0?getDataSekolah[0].nama_kelas:null }}
       </span>
     </div>
     <div class="md:py-0 py-4 space-x-2 space-y-2">
