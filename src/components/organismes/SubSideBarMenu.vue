@@ -16,7 +16,7 @@ storeGuruBk.$subscribe((mutation, state) => {
   // console.log(sekolah.value.id);
 
   let getDataSekolahSub = fnCariDataTempSekolahWhereSekolahId(id);
-  kelas_id.value = getDataSekolahSub ? getDataSekolahSub[0].kelas_id : null;
+  kelas_id.value = getDataSekolahSub.length > 0 ? getDataSekolahSub[0].kelas_id : null;
 });
 const router = useRouter();
 const route = useRoute();
