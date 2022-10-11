@@ -65,8 +65,8 @@ const dataPilihanJawaban = ref([
 
 const onSubmit = async (values) => {
   let doSubmit = 1;
-  values.imgPertanyaan = embedImgPertanyaan.value ? embedImgPertanyaan.value : null;
-  console.log(values.imgPertanyaan);
+  values.fileAudio = fileAudio.value ? fileAudio.value : null;
+  // console.log(values.fileAudio, fileAudio.value);
   values.ujian_kategori_id = dataForm.value.ujian_kategori_id.id;
   values.pertanyaan = dataForm.value.pertanyaan;
   values.desc = dataForm.value.desc;
@@ -152,9 +152,21 @@ const getDataKategori = async () => {
 getDataKategori();
 
 let embedImgPertanyaan = ref(null);
+const fileAudio = ref(null);
 function handleImgPertanyaan(e) {
-  embedImgPertanyaan.value = URL.createObjectURL(e.target.files[0]);
-  console.log(embedImgPertanyaan.value);
+  let type = e.target.files[0].type;
+  fileAudio.value = e.target.files[0];
+  // console.log('====================================');
+  // console.log(fileAudio.value);
+  // console.log('====================================');
+  if (type == "audio/wav" || type == "audio/mp3" || type == "audio/ogg") {
+    console.log("File " + type);
+
+    embedImgPertanyaan.value = URL.createObjectURL(e.target.files[0]);
+    console.log(embedImgPertanyaan.value, e.target.files[0].type);
+  } else {
+    Toast.danger("File harus audio (.mp3/.wav)");
+  }
 }
 const doClearImgPertanyaan = () => {
   embedImgPertanyaan.value = null;
@@ -314,33 +326,23 @@ const doClearImgPertanyaan = () => {
       </div>
       <div>
         <div class="grid grid-cols-2">
-          <div class="px-4 py-2 font-semibold">Gambar</div>
+          <div class="px-4 py-2 font-semibold">Audio <code
+              class="text-red-500 text-xs"> *) kosongkan jika tidak diperlukan</code></div>
           <div class="px-4 py-2">
             <input @change="handleImgPertanyaan($event)" type="file" />
-            <!-- <Field v-model="dataForm.imgPertanyaan" name="imgPertanyaan" v-slot="{ handleImgPertanyaan }">
-              <input :rules="fnValidasi.validateData2" type="file" @change="handleImgPertanyaan" />
-            </Field> -->
             <button class="btn btn-danger" @click="doClearImgPertanyaan">Clear</button>
-            <!-- <div class="text-xs text-red-600 mt-1">
-              {{ errors.imgPertanyaan }}
-            </div> -->
           </div>
         </div>
         <div class="grid grid-cols-1">
-          <div class="px-4 py-2 font-semibold">Preview </div>
-          <div class="avatar">
+          <!-- <div class="px-4 py-2 font-semibold">Preview </div> -->
+          <!-- <div class="avatar">
             <div class="w-48 rounded">
               <img :src="embedImgPertanyaan" v-if="embedImgPertanyaan" class="" />
               <div class="shadow shadow-lg h-48" id="previewpdf" v-else />
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
-      <!-- <div class="py-10 px-4">
-        <label for="">Gambar</label>
-        <input type="file" class="input w-full" />
-      </div> -->
-
       <!-- Pilihan Jawaban -->
 
       <div v-for="(item, index) in dataPilihanJawaban" :key="index">

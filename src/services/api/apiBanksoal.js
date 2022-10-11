@@ -31,21 +31,27 @@ const doStoreData = async (data) => {
     pertanyaan: data.pertanyaan,
     // pilihanJawaban: data.pilihanJawaban,
     pilihanJawaban: JSON.stringify(data.pilihanJawaban),
+    // fileAudio: data.fileAudio,
   };
-  console.log(dataForm.pertanyaan);
+  // console.log(dataForm.pertanyaan);
+  // console.log(dataForm.fileAudio);
   try {
     // // console.log(data.imgPertanyaan);
-    // const response = await Api.post(`admin/menuujian/banksoal`, dataForm);
+    const response = await Api.post(`admin/menuujian/banksoal`, dataForm);
     // console.log(response);
-    // // get Id--kodes_soal then submit img Pertanyaan
-    // let formData = new FormData();
-    // formData.append("file", data.imgPertanyaan);
-    // formData.append("kode_soal", response.kode_soal);
-    // const resUpload = await Api.post(`admin/menuujian/banksoal/upload/pertanyaan`, formData, {
-    //   headers: {
-    //     "Content-Type": "multipart/form-data",
-    //   },
-    // });
+    // get Id--kodes_soal then submit img Pertanyaan
+    if (data.fileAudio) {
+      let formData = new FormData();
+      formData.append("file", data.fileAudio);
+      formData.append("kode_soal", response.kode_soal);
+      // console.log(formData, data.fileAudio);
+      const resUpload = await Api.post(`admin/menuujian/banksoal/upload/pertanyaan`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      console.log(resUpload);
+    }
     // // console.log(data.imgPertanyaan);
     // // data.id = response.id;
     // // dataAsli.value.push(data);
@@ -68,7 +74,7 @@ const getDataId = async (id) => {
     const response = await Api.get(`admin/menuujian/banksoal/${id}`);
     let res = response.data;
     // let res = dataAsli.value.filter((item) => item.id == id);
-    console.log(res.id, dataAsli.value, id);
+    // console.log(res.id, dataAsli.value, id);
     return res;
   } catch (error) {
     console.error(error);
