@@ -19,10 +19,12 @@ storeBanksoal.setPagesActive("buatbaru");
 
 const id = route.params.id;
 const dataDetail = ref(null);
+const dataFileAudio = ref(null);
 const getDataDetail = async () => {
   try {
     const response = await Api.get(`admin/menuujian/banksoal/${id}`);
     dataDetail.value = response.data;
+    dataFileAudio.value = dataDetail.value.audio ? dataDetail.value.audio : null;
     dataForm.value.pertanyaan = dataDetail.value.pertanyaan;
     dataForm.value.tipe = dataDetail.value.tipe;
     dataForm.value.status = dataDetail.value.status;
@@ -33,6 +35,7 @@ const getDataDetail = async () => {
     dataForm.value.nomer_urut = dataDetail.value.nomer_urut;
     dataForm.value.desc = dataDetail.value.desc;
     dataPilihanJawaban.value = dataDetail.value.dataPilihanJawaban;
+    // console.log(id, dataDetail.value.audio);
     // console.log(dataDetail.value);
     return response.data;
   } catch (error) {
@@ -306,6 +309,16 @@ getDataKategori();
               <div id="editor"></div>
             </template>
           </QuillEditor>
+
+          <!-- music player -->
+          <!-- 1.getData -> apakah ada file mp3/wav -->
+          <!-- 1. Periksa extensi apakah mp3/wav jika ada maka sesuaikan -->
+          <audio controls v-if="dataFileAudio" class="mt-6">
+            <!-- <source src="horse.ogg" type="audio/ogg"> -->
+            <source :src="dataFileAudio" type="audio/mpeg">
+            <!-- Your browser does not support the audio element. -->
+          </audio>
+          <!-- music player -->
         </div>
         <div class="shadow-sm py-4 px-4 space-y-4" v-else>
           <label for="" class="underline">Preview : </label>

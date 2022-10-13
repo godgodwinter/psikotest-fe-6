@@ -50,7 +50,7 @@ const doStoreData = async (data) => {
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log(resUpload);
+      // console.log(resUpload);
     }
     // // console.log(data.imgPertanyaan);
     // // data.id = response.id;
@@ -59,8 +59,8 @@ const doStoreData = async (data) => {
     // // getData()
     // // console.log(dataAsli.value);
 
-    return false;
-    // return true;
+    // return false;
+    return true;
   } catch (error) {
     console.error(error);
   }
