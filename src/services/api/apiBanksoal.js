@@ -95,6 +95,9 @@ const doUpdate = async (id, data) => {
     // pilihanJawaban: data.pilihanJawaban,
     pilihanJawaban: JSON.stringify(data.pilihanJawaban),
   };
+  // console.log('====================================');
+  // console.log(dataForm.pilihanJawaban);
+  // console.log('====================================');
   try {
     if (dataAsli.value.length < 1) {
       await getData();
@@ -107,7 +110,7 @@ const doUpdate = async (id, data) => {
     // dataUpdate[0].jenis = data.jenis;
     // storeBanksoal.setData(dataAsli.value);
     // console.log(response);
-    // console.log(response);
+    console.log(response);
     // get Id--kodes_soal then submit img Pertanyaan
     if (data.fileAudio) {
       let formData = new FormData();
