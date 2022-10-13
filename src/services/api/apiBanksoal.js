@@ -122,7 +122,7 @@ const doUpdate = async (id, data) => {
       console.log(resUpload);
     }
     // getData();
-    return false;
+    return true;
   } catch (error) {
     console.error(error);
   }
