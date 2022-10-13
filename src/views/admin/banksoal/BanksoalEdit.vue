@@ -45,24 +45,25 @@ const getDataDetail = async () => {
 getDataDetail();
 
 const toolbar = ["bold", "italic", "underline"];
-const toolbarOptions = [
-  ["bold", "italic", "underline", "strike"], // toggled buttons
-  ["blockquote", "code-block"],
+// const toolbarOptions = [['link', 'image'],
+const toolbarOptions = [['image'],
+["bold", "italic", "underline", "strike"], // toggled buttons
+["blockquote", "code-block"],
 
-  [{ header: 1 }, { header: 2 }], // custom button values
-  [{ list: "ordered" }, { list: "bullet" }],
-  [{ script: "sub" }, { script: "super" }], // superscript/subscript
-  [{ indent: "-1" }, { indent: "+1" }], // outdent/indent
-  [{ direction: "rtl" }], // text direction
+[{ header: 1 }, { header: 2 }], // custom button values
+[{ list: "ordered" }, { list: "bullet" }],
+[{ script: "sub" }, { script: "super" }], // superscript/subscript
+[{ indent: "-1" }, { indent: "+1" }], // outdent/indent
+[{ direction: "rtl" }], // text direction
 
-  [{ size: ["small", false, "large", "huge"] }], // custom dropdown
-  [{ header: [1, 2, 3, 4, 5, 6, false] }],
+[{ size: ["small", false, "large", "huge"] }], // custom dropdown
+[{ header: [1, 2, 3, 4, 5, 6, false] }],
 
-  [{ color: [] }, { background: [] }], // dropdown with defaults from theme
-  [{ font: [] }],
-  [{ align: [] }],
+[{ color: [] }, { background: [] }], // dropdown with defaults from theme
+[{ font: [] }],
+[{ align: [] }],
 
-  ["clean"], // remove formatting button
+["clean"], // remove formatting button
 ];
 
 const editorPertanyaan = ref("<b>tes123</b>");
@@ -95,6 +96,7 @@ const dataPilihanJawaban = ref([
 const onSubmit = async (values) => {
   console.log(values);
   let doSubmit = 1;
+  values.fileAudio = fileAudio.value ? fileAudio.value : null;
   values.ujian_kategori_id = dataForm.value.ujian_kategori_id.id;
   values.pertanyaan = dataForm.value.pertanyaan;
   values.desc = dataForm.value.desc;
@@ -176,6 +178,27 @@ const getDataKategori = async () => {
   }
 };
 getDataKategori();
+
+let embedImgPertanyaan = ref(null);
+const fileAudio = ref(null);
+function handleImgPertanyaan(e) {
+  let type = e.target.files[0].type;
+  fileAudio.value = e.target.files[0];
+  // console.log('====================================');
+  // console.log(fileAudio.value);
+  // console.log('====================================');
+  if (type == "audio/wav" || type == "audio/mpeg" || type == "audio/ogg") {
+    console.log("File " + type);
+
+    embedImgPertanyaan.value = URL.createObjectURL(e.target.files[0]);
+    console.log(embedImgPertanyaan.value, e.target.files[0].type);
+  } else {
+    Toast.danger("File harus audio (.mp3/.wav)");
+  }
+}
+const doClearImgPertanyaan = () => {
+  embedImgPertanyaan.value = null;
+}
 </script>
 <template>
   <Form v-slot="{ errors }" @submit="onSubmit" v-if="dataDetail">
@@ -298,9 +321,19 @@ getDataKategori();
               :class="{ 'tab-active': pagesActive == 'preview' }">Preview</a>
           </div>
         </div>
+
         <div v-if="pagesActive == 'tulis'">
           <label>Pertanyaan :</label>
-          <QuillEditor theme="snow" toolbar="#my-toolbar" v-model:content="dataForm.pertanyaan" contentType="html"
+          <QuillEditor theme="snow" :toolbar="toolbarOptions" v-model:content="dataForm.pertanyaan" contentType="html"
+            class="ql-editor2">
+            <!-- <template #toolbar>
+              <div id="my-toolbar">
+                <ToolBar></ToolBar>
+              </div>
+              <div id="editor"></div>
+            </template> -->
+          </QuillEditor>
+          <!-- <QuillEditor theme="snow" toolbar="#my-toolbar" v-model:content="dataForm.pertanyaan" contentType="html"
             class="ql-editor2">
             <template #toolbar>
               <div id="my-toolbar">
@@ -308,7 +341,11 @@ getDataKategori();
               </div>
               <div id="editor"></div>
             </template>
-          </QuillEditor>
+          </QuillEditor> -->
+
+          <!-- <QuillEditor theme="snow" :toolbar="toolbarOptions" v-model:content="dataPilihanJawaban[index].jawaban"
+                contentType="html">
+              </QuillEditor> -->
 
           <!-- music player -->
           <!-- 1.getData -> apakah ada file mp3/wav -->
@@ -323,6 +360,25 @@ getDataKategori();
         <div class="shadow-sm py-4 px-4 space-y-4" v-else>
           <label for="" class="underline">Preview : </label>
           <div class="w-full border-2 min-h-16 p-10" v-html="dataForm.pertanyaan"></div>
+        </div>
+      </div>
+      <div>
+        <div class="grid grid-cols-2">
+          <div class="px-4 py-2 font-semibold">Audio <code
+              class="text-red-500 text-xs"> *) kosongkan jika tidak diperlukan</code></div>
+          <div class="px-4 py-2">
+            <input @change="handleImgPertanyaan($event)" type="file" />
+            <button class="btn btn-danger" @click="doClearImgPertanyaan">Clear</button>
+          </div>
+        </div>
+        <div class="grid grid-cols-1">
+          <!-- <div class="px-4 py-2 font-semibold">Preview </div> -->
+          <!-- <div class="avatar">
+            <div class="w-48 rounded">
+              <img :src="embedImgPertanyaan" v-if="embedImgPertanyaan" class="" />
+              <div class="shadow shadow-lg h-48" id="previewpdf" v-else />
+            </div>
+          </div> -->
         </div>
       </div>
 

@@ -107,8 +107,22 @@ const doUpdate = async (id, data) => {
     // dataUpdate[0].jenis = data.jenis;
     // storeBanksoal.setData(dataAsli.value);
     // console.log(response);
-    getData();
-    return true;
+    // console.log(response);
+    // get Id--kodes_soal then submit img Pertanyaan
+    if (data.fileAudio) {
+      let formData = new FormData();
+      formData.append("file", data.fileAudio);
+      formData.append("kode_soal", response.kode_soal);
+      console.log(formData, data.fileAudio);
+      const resUpload = await Api.post(`admin/menuujian/banksoal/upload/pertanyaan`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      console.log(resUpload);
+    }
+    // getData();
+    return false;
   } catch (error) {
     console.error(error);
   }

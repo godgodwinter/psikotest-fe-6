@@ -160,7 +160,7 @@ function handleImgPertanyaan(e) {
   // console.log('====================================');
   // console.log(fileAudio.value);
   // console.log('====================================');
-  if (type == "audio/wav" || type == "audio/mp3" || type == "audio/ogg") {
+  if (type == "audio/wav" || type == "audio/mpeg" || type == "audio/ogg") {
     console.log("File " + type);
 
     embedImgPertanyaan.value = URL.createObjectURL(e.target.files[0]);
