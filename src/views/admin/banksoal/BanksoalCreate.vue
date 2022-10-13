@@ -16,7 +16,8 @@ const storeBanksoal = useStoreBanksoal();
 storeAdminBar.setPagesActive("banksoal");
 storeBanksoal.setPagesActive("buatbaru");
 const toolbar = ["bold", "italic", "underline"];
-const toolbarOptions = [['link', 'image'],
+// const toolbarOptions = [['link', 'image'],
+const toolbarOptions = [['image'],
 ["bold", "italic", "underline", "strike"], // toggled buttons
 ["blockquote", "code-block"],
 
