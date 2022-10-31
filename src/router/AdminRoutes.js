@@ -170,6 +170,23 @@ const AdminRoutes = [
         component: () => import("@/views/admin/owner/Edit.vue"),
         name: "AdminOwnerEdit",
       },
+
+
+      {
+        path: "/pages/rekappenilaian",
+        component: () => import("@/views/admin/rekappenilaian/Index.vue"),
+        name: "admin.rekappenilaian",
+      },
+      {
+        path: "/pages/rekappenilaian/tambah",
+        component: () => import("@/views/admin/rekappenilaian/Tambah.vue"),
+        name: "admin.rekappenilaian.tambah",
+      },
+      {
+        path: "/pages/rekappenilaian/:id/edit",
+        component: () => import("@/views/admin/rekappenilaian/Edit.vue"),
+        name: "admin.rekappenilaian.edit",
+      },
     ],
   },
 ];
