@@ -255,7 +255,7 @@ const pagesActiveClass = ref(
               </router-link>
             </li>
 
-            <li class="lg:w-full py-0" :class="[pagesActive == 'ujian' ? pagesActiveClass : '']">
+            <li class="lg:w-full py-0">
               <h3 class="text-base-content font-bold rounded-lg flex items-center p-2 group hover:link">DEVELOPMENT
               </h3>
             </li>
