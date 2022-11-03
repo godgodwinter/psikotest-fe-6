@@ -19,7 +19,7 @@ storeGuruBk.$subscribe((mutation, state) => {
 });
 
 const storeAdminBar = useStoreAdminBar();
-storeAdminBar.setPagesActive("rekappenilaian");
+storeAdminBar.setPagesActive("aspek");
 const router = useRouter();
 const route = useRoute();
 
@@ -29,34 +29,8 @@ const dataAsli = ref([]);
 const dataDetail = ref([]);
 const data = ref([]);
 
-const getDataDetail = async () => {
-  try {
-    const response = await Api.get(`admin/ujian_rekap_penilaian/${id}`);
-    dataDetail.value = response.data;
-    return response.data;
-  } catch (error) {
-    console.error(error);
-  }
-};
-getDataDetail();
-
-const dataPaket = ref([]);
-const getPaket = async () => {
-  try {
-    const response = await Api.get(`owner/paket`);
-    // console.log(response);
-    // dataDetail.value = response.data;
-    dataPaket.value = response.data;
-
-    return response;
-  } catch (error) {
-    Toast.danger("Warning", "Data Gagal dimuat");
-    console.error(error);
-  }
-};
-
-getPaket();
-
+dataDetail.value.status = "Aktif";
+dataDetail.value.tipe = "Sendiri";
 // validasi
 const validateData = (value) => {
   if (!value) {
@@ -69,7 +43,6 @@ const validateData = (value) => {
 };
 const onSubmit = () => {
   const res = doStoreData();
-  // Toast.babeng("Info", "Fitur belum tersedia!");
 };
 const doStoreData = async (d) => {
   let dataStore = {
@@ -79,10 +52,10 @@ const doStoreData = async (d) => {
     urutan: dataDetail.value.urutan,
   };
   try {
-    const response = await Api.put(`admin/ujian_rekap_penilaian/${id}`, dataStore);
+    const response = await Api.post(`admin/ujian_banksoal_aspek`, dataStore);
     Toast.success("Success", "Data Berhasil ditambahkan!");
     // resetForm();
-    router.push({ name: "admin.rekappenilaian" });
+    router.push({ name: "admin.aspek" });
 
     return response.data;
   } catch (error) {
@@ -96,13 +69,13 @@ const doStoreData = async (d) => {
   <div class="pt-4 px-10 md:flex justify-between">
     <div>
       <span class="text-2xl sm:text-3xl leading-none font-bold text-base-content shadow-sm">
-        {{ dataDetail.nama }}
+        Aspek
       </span>
     </div>
     <div class="md:py-0 py-4">
       <BreadCrumb>
         <template v-slot:content>
-          Rekap Penilaian
+          Aspek
           <BreadCrumbSpace /> Edit
         </template>
       </BreadCrumb>
@@ -124,6 +97,7 @@ const doStoreData = async (d) => {
         </button></span>
     </div>
   </div>
+  {{ errors }}
 
   <div class="px-4 py-4">
     <div class="w-full">

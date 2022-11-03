@@ -21,6 +21,7 @@ const getData = async () => {
 const doStoreData = async (data) => {
   let dataForm = {
     nama: data.nama,
+    ujian_banksoal_aspek_id: data.ujian_banksoal_aspek_id,
     prefix: "banksoal",
   };
   try {
@@ -55,6 +56,7 @@ const getDataId = async (id) => {
 const doUpdate = async (id, data) => {
   let dataForm = {
     nama: data.nama,
+    ujian_banksoal_aspek_id: data.ujian_banksoal_aspek_id,
     prefix: "banksoal",
   };
   try {

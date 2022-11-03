@@ -173,19 +173,19 @@ const AdminRoutes = [
 
 
       {
-        path: "/pages/rekappenilaian",
-        component: () => import("@/views/admin/rekappenilaian/Index.vue"),
-        name: "admin.rekappenilaian",
+        path: "/pages/aspek",
+        component: () => import("@/views/admin/aspek/Index.vue"),
+        name: "admin.aspek",
       },
       {
-        path: "/pages/rekappenilaian/tambah",
-        component: () => import("@/views/admin/rekappenilaian/Tambah.vue"),
-        name: "admin.rekappenilaian.tambah",
+        path: "/pages/aspek/tambah",
+        component: () => import("@/views/admin/aspek/Tambah.vue"),
+        name: "admin.aspek.tambah",
       },
       {
-        path: "/pages/rekappenilaian/:id/edit",
-        component: () => import("@/views/admin/rekappenilaian/Edit.vue"),
-        name: "admin.rekappenilaian.edit",
+        path: "/pages/aspek/:id/edit",
+        component: () => import("@/views/admin/aspek/Edit.vue"),
+        name: "admin.aspek.edit",
       },
     ],
   },

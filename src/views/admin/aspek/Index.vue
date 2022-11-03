@@ -18,7 +18,7 @@ storeGuruBk.$subscribe((mutation, state) => {
 });
 
 const storeAdminBar = useStoreAdminBar();
-storeAdminBar.setPagesActive("rekappenilaian");
+storeAdminBar.setPagesActive("aspek");
 const router = useRouter();
 const route = useRoute();
 
@@ -58,7 +58,7 @@ const columns = [
 
 const getData = async () => {
   try {
-    const response = await Api.get(`admin/ujian_rekap_penilaian`);
+    const response = await Api.get(`admin/ujian_banksoal_aspek`);
     dataAsli.value = response.data;
     data.value = response.data;
 
@@ -70,14 +70,14 @@ const getData = async () => {
 getData();
 const doEditData = async (id, index) => {
   router.push({
-    name: "admin.rekappenilaian.edit",
+    name: "admin.aspek.edit",
     params: { id: id },
   });
 };
 const doDeleteData = async (id, index) => {
   if (confirm("Apakah anda yakin menghapus data ini?")) {
     try {
-      const response = await Api.delete(`admin/ujian_rekap_penilaian/${id}`);
+      const response = await Api.delete(`admin/ujian_banksoal_aspek/${id}`);
       data.value.splice(index, 1);
       Toast.success("Success", "Data Berhasil dihapus!");
       return response.data;
@@ -90,12 +90,12 @@ const doDeleteData = async (id, index) => {
 <template>
   <div class="pt-4 px-10 md:flex justify-between">
     <div>
-      <span class="text-2xl sm:text-3xl leading-none font-bold text-base-content shadow-sm">Rekap Penilaian
+      <span class="text-2xl sm:text-3xl leading-none font-bold text-base-content shadow-sm">Aspek
       </span>
     </div>
     <div class="md:py-0 py-4">
       <BreadCrumb>
-        <template v-slot:content> Rekap Penilaian
+        <template v-slot:content> Aspek
           <BreadCrumbSpace /> Index
         </template>
       </BreadCrumb>
@@ -105,7 +105,7 @@ const doDeleteData = async (id, index) => {
   <div class="md:pt-6">
     <div class="md:flex justify-between px-10">
       <div class="space-x-1 space-y-1 pt-1 md:pt-0">
-        <router-link :to="{ name: 'admin.rekappenilaian.tambah' }">
+        <router-link :to="{ name: 'admin.aspek.tambah' }">
           <button class="btn btn-info hover:shadow-lg shadow text-white hover:text-gray-100 gap-2">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
               stroke="currentColor">

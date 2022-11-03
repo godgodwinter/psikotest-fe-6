@@ -32,7 +32,7 @@ const pagesActive = computed(() => storeBankSoal.getPagesActive);
         <a class="tab tab-bordered" :class="{ 'tab-active': pagesActive == 'buatbaru' }">Buat Baru</a>
       </RouterLink>
       <RouterLink :to="{ name: 'admin.banksoal.kategori' }" class="tab tab-bordered">
-        <a class="tab tab-bordered" :class="{ 'tab-active': pagesActive == 'kategori' }">Kategori</a>
+        <a class="tab tab-bordered" :class="{ 'tab-active': pagesActive == 'kategori' }">Sub Aspek / Kategori </a>
       </RouterLink>
     </div>
   </div>

@@ -8,10 +8,13 @@ storeKategori.setPagesActive("create");
 import fnValidasi from "@/components/lib/babengValidasi";
 import { useRouter, useRoute } from "vue-router";
 import Toast from "@/components/lib/Toast";
+import Api from "@/axios/axios.js";
 const router = useRouter();
 const route = useRoute();
 const dataForm = ref({});
 const onSubmit = async (values) => {
+  // console.log(values);
+  values.ujian_banksoal_aspek_id = inputPilihAspek.value.id ? inputPilihAspek.value.id : null;
   // console.log(values);
   const resSubmit = await ApiKategori.doStoreData(values);
   if (resSubmit) {
@@ -19,6 +22,36 @@ const onSubmit = async (values) => {
     router.push({ name: "admin.banksoal.kategori" });
   }
 };
+const dataAspek = ref(null);
+const inputPilihAspek = ref();
+
+let pilihAspek = ref([
+  // {
+  //   label: "Belum masuk Kelas",
+  //   id: "Belum masuk Kelas",
+  // },
+]);
+const getDataAspek = async () => {
+  try {
+    const response = await Api.get(`admin/ujian_banksoal_aspek_tanpa_all`);
+    // console.log(response);
+    dataAspek.value = response.data;
+    dataAspek.value.forEach(element => {
+      // console.log(element);
+      let temp = {
+        label: element.nama,
+        id: element.id,
+      }
+      pilihAspek.value.push(temp);
+    })
+    // console.log(pilihKepalaJurusan.value);
+    return true;
+  } catch (error) {
+    Toast.danger("Warning", "Data Gagal dimuat");
+    console.error(error);
+  }
+};
+getDataAspek();
 </script>
 <template>
   <div class="px-4 py-4" v-if="dataForm">
@@ -32,19 +65,30 @@ const onSubmit = async (values) => {
                   <div class="rounded-lg">
                     <div class="grid md:grid-cols-2 gap-2">
                       <div>
-                        <label
-                          for="kategori"
-                          class="text-sm font-medium block mb-2"
-                          >Nama Kategori
+                        <label for="kategori" class="text-sm font-medium block mb-2">Nama Kategori
                         </label>
 
-                        <Field
-                          :rules="fnValidasi.validateData2"
-                          v-model="dataForm.nama"
-                          name="nama"
-                          type="text"
-                          class="input input-bordered w-11/12"
-                        />
+                        <Field :rules="fnValidasi.validateData2" v-model="dataForm.nama" name="nama" type="text"
+                          class="input input-bordered w-11/12" />
+
+                        <div class="text-xs text-red-600 mt-1">
+                          {{ errors.nama }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-2">
+                      <div>
+                        <label for="kategori" class="text-sm font-medium block mb-2">Aspek
+                        </label>
+
+                        <!-- <Field :rules="fnValidasi.validateData2" v-model="dataForm.nama" name="nama" type="text"
+                          class="input input-bordered w-11/12" /> -->
+
+                        <v-select class="py-2 px-3 w-11/12 mx-auto md:mx-0" :options="pilihAspek"
+                          v-model="inputPilihAspek" v-bind:class="{ disabled: false }"></v-select>
+                        <div class="text-xs text-red-600 mt-1">
+                          {{ errors.pilihAspek }}
+                        </div>
 
                         <div class="text-xs text-red-600 mt-1">
                           {{ errors.nama }}

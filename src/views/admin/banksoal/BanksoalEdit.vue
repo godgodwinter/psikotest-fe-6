@@ -20,6 +20,7 @@ storeBanksoal.setPagesActive("buatbaru");
 const id = route.params.id;
 const dataDetail = ref(null);
 const dataFileAudio = ref(null);
+const ujian_kategori_id = ref(null);
 const getDataDetail = async () => {
   try {
     const response = await Api.get(`admin/menuujian/banksoal/${id}`);
@@ -29,12 +30,14 @@ const getDataDetail = async () => {
     dataForm.value.tipe = dataDetail.value.tipe;
     dataForm.value.status = dataDetail.value.status;
     dataForm.value.ujian_kategori_id = dataDetail.value.ujian_kategori_id;
+    ujian_kategori_id.value = dataDetail.value.ujian_kategori_id;
     dataForm.value.tingkatkesulitan = dataDetail.value.tingkatkesulitan;
     // dataForm.value.persentase = dataDetail.value.persentase;
     dataForm.value.kode = dataDetail.value.kode;
     dataForm.value.nomer_urut = dataDetail.value.nomer_urut;
     dataForm.value.desc = dataDetail.value.desc;
     dataPilihanJawaban.value = dataDetail.value.dataPilihanJawaban;
+
     // console.log(id, dataDetail.value.audio);
     // console.log(dataDetail.value);
     return response.data;
@@ -165,12 +168,18 @@ const getDataKategori = async () => {
         label: item.nama,
         id: item.id,
       });
+      if (ujian_kategori_id.value == item.id) {
+        // console.log('====================================');
+        // console.log('sama', item);
+        // console.log('====================================');
+        dataForm.value.ujian_kategori_id = {
+          id: item.id,
+          label: item.nama,
+        };
+      }
     });
 
-    dataForm.value.ujian_kategori_id = {
-      id: pilihKategori.value[0].id,
-      label: pilihKategori.value[0].label,
-    };
+    // console.log(dataForm.value.ujian_kategori_id);
     return response;
   } catch (error) {
     Toast.danger("Warning", "Data Gagal dimuat");
