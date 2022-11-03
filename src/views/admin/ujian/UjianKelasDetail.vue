@@ -138,6 +138,24 @@ const doExportPerKelas = async (id = null, token = moment().format("YYYY-MM-DD")
     // }
   }
 };
+const doExportPerKelasPerSoal = async (id = null, token = moment().format("YYYY-MM-DD")) => {
+  if (confirm("Apakah anda yakin mengExport data ini?")) {
+    // window.location.href = `admin/menuujian/cetak/${proses_kelas_id}`;
+    // console.log(id, token);
+    window.open(
+      `${BASE_URL}api/admin/menuujian/cetak_persoal/${encode(id)}?token=${encode(token)}`
+    );
+    // try {
+    //   const response = await Api.get(
+    //     `admin / menuujian / cetak / ${ proses_kelas_id }`
+    //   );
+
+    //   return true;
+    // } catch (error) {
+    //   console.error(error);
+    // }
+  }
+};
 </script>
 <template>
   <h1 class="text-lg font-bold">SEKOLAH : {{ dataProses.nama }}</h1>
@@ -150,9 +168,9 @@ const doExportPerKelas = async (id = null, token = moment().format("YYYY-MM-DD")
           <vue-good-table :line-numbers="true" :columns="columns" :rows="data" :search-options="{
             enabled: true,
           }" :pagination-options="{
-            enabled: true,
-            perPageDropdown: [10, 20, 50],
-          }" styleClass="vgt-table striped bordered condensed" class="py-0">
+  enabled: true,
+  perPageDropdown: [10, 20, 50],
+}" styleClass="vgt-table striped bordered condensed" class="py-0">
             <template #table-actions>
               <div class="space-x-1 space-y-1 gap-1">
                 <button class="btn btn-sm btn-secondary tooltip" data-tip="Refresh Data" @click="getData()">
@@ -176,6 +194,14 @@ const doExportPerKelas = async (id = null, token = moment().format("YYYY-MM-DD")
 
                 <button class="btn btn-sm btn-warning tooltip" data-tip="Export Data KELAS"
                   @click="doExportPerKelas(proses_kelas_id)">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                  </svg>
+                </button>
+                <button class="btn btn-sm btn-primary tooltip" data-tip="Export Data LENGKAP"
+                  @click="doExportPerKelasPerSoal(proses_kelas_id)">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round"
