@@ -171,7 +171,6 @@ const AdminRoutes = [
         name: "AdminOwnerEdit",
       },
 
-
       {
         path: "/pages/aspek",
         component: () => import("@/views/admin/aspek/Index.vue"),
