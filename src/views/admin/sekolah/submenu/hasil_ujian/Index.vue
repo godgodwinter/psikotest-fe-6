@@ -119,7 +119,7 @@ const getData = async (kelas_id) => {
     dataAsli.value = [];
     data.value = [];
     const response = await Api.get(
-      `admin/datasekolah/datasiswa/withsertifikat/kelas/${kelas_id}`
+      `admin/menuujian/hasil_ujian_perkelas/${kelas_id}`
     );
     dataAsli.value = response.data;
     data.value = dataAsli.value;
@@ -146,7 +146,7 @@ const columns = ref([
   },
   {
     label: "Hasil",
-    field: "hasil",
+    field: "ujian_siswa",
     type: "String",
   },
 ]);
@@ -187,8 +187,25 @@ const columns = ref([
   perPageDropdown: [10, 20, 50],
 }" styleClass="vgt-table striped bordered condensed" class="py-0">
             <template #table-row="props">
-              <span v-if="props.column.field == 'hasil'">
-
+              <span v-if="props.column.field == 'ujian_siswa'">
+                <router-link :to="{
+                  name: 'AdminSekolahDetail.hasil_ujian.persiswa',
+                  params: { id, kelas_id, siswa_id: props.row.id },
+                }" v-if="props.row.ujian_siswa">
+                  <button data-tip="DATA UJIAN" class="tooltip btn btn-success btn-sm text-base-content">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                      stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                    </svg>
+                  </button>
+                </router-link>
+                <button v-else class="btn btn-danger tooltip btn-sm" data-tip="Belum Ada Data"> <svg
+                    xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                  </svg></button>
 
               </span>
 
