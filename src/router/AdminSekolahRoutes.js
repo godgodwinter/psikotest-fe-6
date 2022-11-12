@@ -173,6 +173,12 @@ const AdminSekolahRoutes = [
             name: "AdminSekolahDetailPenjurusan",
           },
           {
+            path: "/pages/admin/sekolahdetail/:id/hasil_ujian/:kelas_id?",
+            component: () =>
+              import("@/views/admin/sekolah/submenu/hasil_ujian/Index.vue"),
+            name: "AdminSekolahDetail.hasil_ujian",
+          },
+          {
             path: "/pages/admin/sekolahdetail/:id/kasus",
             component: () =>
               import("@/views/admin/sekolah/submenu/kasus/Index.vue"),

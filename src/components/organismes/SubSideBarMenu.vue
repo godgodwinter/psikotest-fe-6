@@ -164,7 +164,7 @@ if (getDataSekolah.length > 0) {
             </router-link>
           </li>
           <li class="bg-base-100 lg:w-full py-0" :class="[subMenuActive == 'siswa' ? pagesActiveClass : '']">
-            <router-link :to="{ name: 'AdminSekolahDetailSiswa', params: { id,kelas_id } }"
+            <router-link :to="{ name: 'AdminSekolahDetailSiswa', params: { id, kelas_id } }"
               class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
@@ -239,7 +239,7 @@ if (getDataSekolah.length > 0) {
             ]">
               <router-link :to="{
                 name: 'AdminHasilPsikologi',
-                params: { id,kelas_id },
+                params: { id, kelas_id },
               }" class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor" stroke-width="2">
@@ -254,7 +254,7 @@ if (getDataSekolah.length > 0) {
             ]">
               <router-link :to="{
                 name: 'AdminSekolahDetailNilaipsikolgiSiswa',
-                params: { id,kelas_id },
+                params: { id, kelas_id },
               }" class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor" stroke-width="2">
@@ -265,7 +265,7 @@ if (getDataSekolah.length > 0) {
               </router-link>
             </li>
             <li class="bg-base-100 lg:w-full py-0" :class="[subMenuActive == 'minatbakat' ? pagesActiveClass : '']">
-              <router-link :to="{ name: 'AdminSekolahDetailMinatbakat', params: { id,kelas_id } }"
+              <router-link :to="{ name: 'AdminSekolahDetailMinatbakat', params: { id, kelas_id } }"
                 class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd"
@@ -276,7 +276,7 @@ if (getDataSekolah.length > 0) {
               </router-link>
             </li>
             <li class="bg-base-100 lg:w-full py-0" :class="[subMenuActive == 'penjurusan' ? pagesActiveClass : '']">
-              <router-link :to="{ name: 'AdminSekolahDetailPenjurusan', params: { id,kelas_id } }"
+              <router-link :to="{ name: 'AdminSekolahDetailPenjurusan', params: { id, kelas_id } }"
                 class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd"
@@ -284,6 +284,18 @@ if (getDataSekolah.length > 0) {
                     clip-rule="evenodd" />
                 </svg>
                 <span class="ml-3">Analisa Penjurusan </span>
+              </router-link>
+            </li>
+            <li class="bg-base-100 lg:w-full py-0" :class="[subMenuActive == 'hasil_ujian' ? pagesActiveClass : '']">
+              <router-link :to="{ name: 'AdminSekolahDetail.hasil_ujian', params: { id, kelas_id } }"
+                class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                  stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M6.429 9.75L2.25 12l4.179 2.25m0-4.5l5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0l4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0l-5.571 3-5.571-3" />
+                </svg>
+
+                <span class="ml-3">Hasil Ujian </span>
               </router-link>
             </li>
             <li class="bg-base-100 lg:w-full py-0" :class="[subMenuActive == 'kasus' ? pagesActiveClass : '']">
