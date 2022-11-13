@@ -28,6 +28,10 @@ const kelas_id = ref(route.params.kelas_id ? route.params.kelas_id : 0);
 const siswa_id = route.params.siswa_id;
 const dataAsli = ref([]);
 const dataSiswa = ref([]);
+const dataJurusan = ref([]);
+const dataMinatbidangstudi = ref([]);
+const dataKesimpulan = ref([]);
+const dataTidakDisukai = ref([]);
 const data = ref([]);
 const dataKelas = ref([]);
 
@@ -47,7 +51,7 @@ const getDataSiswa = async () => {
     try {
         data.value = [];
         const response = await Api.get(
-            `owner/datasekolah/${id}/siswa/${siswa_id}}`
+            `owner/hasilpsikologi/detail/${siswa_id}}`
         );
         dataSiswa.value = response.data;
         return response.data;
@@ -65,7 +69,11 @@ const getDataUjian = async () => {
         );
         dataAsli.value = response.data;
         data.value = dataAsli.value;
-        console.log(data.value);
+        dataJurusan.value = response.jurusan;
+        dataMinatbidangstudi.value = response.minatbidangstudi;
+        dataKesimpulan.value = response.kesimpulan;
+        dataTidakDisukai.value = response.tidakdisukai;
+        // console.log(data.value);
         return response.data;
     } catch (error) {
         console.error(error);
@@ -75,7 +83,7 @@ getDataUjian();
 
 const sort = (items) => {
     return items.sort((a, b) => {
-        return a.nilaiku < b.nilaiku ? 1 : -1;
+        return a.nilaiAkhir < b.nilaiAkhir ? 1 : -1;
     });
 }
 </script>
@@ -129,7 +137,14 @@ const sort = (items) => {
     </div>
 
     <div class="md:py-2 px-4 lg:flex flex-wrap gap-4" v-for="item, index in data" :key="item.id">
-        {{ index + 1 }}. {{ item.nama }}
+
+        <p class="font-bold "> {{ index + 1 }}. {{ item.nama }} : {{ item.nilaiAkhir_avg }} - {{
+                item.nilaiAkhir_avg_ket
+        }}
+            ({{
+                    item.nilaiAkhir_avg_ket_singkatan
+            }})</p>
+        <!-- - Disarankan : {{ item.disarankan }} -->
         <div class="w-full lg:w-full">
             <div class="bg-white shadow rounded-lg px-4 py-4">
                 <div class="overflow-x-auto">
@@ -138,12 +153,15 @@ const sort = (items) => {
                             <!-- row 1 -->
                             <tr v-for="mapel, i in sort(item.detail) " :key="mapel.id">
                                 <td class="whitespace-nowrap w-1/12">{{ i + 1 }}</td>
-                                <td class="whitespace-nowrap w-1/12">
+                                <td class="whitespace-nowrap w-3/12">
                                     {{ mapel.ujian_paketsoal_kategori?.kategori?.nama }}
                                     <!-- {{ mapel }} -->
                                 </td>
                                 <td class="whitespace-nowrap w-1/12">:</td>
-                                <td class="whitespace-nowrap w-1/12">{{ mapel.nilaiku }}</td>
+                                <td class="whitespace-nowrap w-3/12">{{ mapel.nilaiAkhir }} - {{ mapel.nilaiAkhir_ket }}
+                                    ({{
+                                            mapel.nilaiAkhir_ket_singkatan
+                                    }})</td>
                             </tr>
 
                         </tbody>
@@ -157,4 +175,100 @@ const sort = (items) => {
             {{ item.nama }}
         </li>
     </ul> -->
+
+    <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
+        <h2 class="font-bold uppercase">Jurusan </h2>
+        <div class="w-full lg:w-full">
+            <div class="bg-white shadow rounded-lg px-4 py-4">
+                <div class="overflow-x-auto">
+                    <table class="table table-compact">
+                        <tbody>
+                            <!-- row 1 -->
+                            <tr v-for="item, index in dataJurusan" :key="item.id">
+                                <td class="whitespace-nowrap w-1/12">{{ index + 1 }}</td>
+                                <td class="whitespace-nowrap w-3/12">
+                                    {{ item.nama }}
+                                </td>
+                                <td class="whitespace-nowrap w-1/12">:</td>
+                                <td class="whitespace-nowrap w-3/12">
+                                    {{ item.aspek_nama }} : {{ item.aspek_nilaiAkhir_avg }}
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
+        <h2 class="font-bold uppercase">Minat Bidang Studi Terkuat </h2>
+        <div class="w-full lg:w-full">
+            <div class="bg-white shadow rounded-lg px-4 py-4">
+                <div class="overflow-x-auto">
+                    <table class="table table-compact">
+                        <tbody>
+                            <!-- row 1 -->
+                            <tr v-for="item, i in dataMinatbidangstudi" :key="item.nilaiAkhir">
+                                <td class="whitespace-nowrap w-1/12">{{ i + 1 }}</td>
+                                <td class="whitespace-nowrap w-3/12 text-left"> {{ item.kategori_nama }}</td>
+                                <td class="whitespace-nowrap w-1/12">:</td>
+                                <td class="whitespace-nowrap w-3/12">
+                                    {{ item.nilaiAkhir }}
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
+        <h2 class="font-bold uppercase">Kesimpulan dan Saran</h2>
+
+        <div v-if="dataJurusan.length > 0">
+            <p class="indent-8">
+                Potensi kemampuan Akademik Subyek saat ini terkuat dibidang studi yang terkait dengan <span
+                    class="font-bold">{{
+                            dataJurusan[0].aspek_nama
+                    }}</span>,
+                maka dalam mengambil jurusan cenderung disarankan bidang <span class="font-bold">{{
+                        dataJurusan[0].aspek_nama
+                }}</span>,
+                dan dipertimbangkan untuk mengambil jurusan dibidang <span class="font-bold">{{
+                        dataJurusan[1].aspek_nama
+                }}</span>,
+                serta tidak disarankan untuk mengambil jurusan dibidang <span class="font-bold">{{
+                        dataJurusan[2].aspek_nama
+                }}</span>
+            </p>
+            <p class="indent-8 py-4">
+                Sedangkan minat Subyek terkuat utk mempelajari dibidang studi mata pelajaran lain yaitu <span
+                    class="font-bold">{{
+                            dataMinatbidangstudi[0].kategori_nama
+                    }}</span>,
+                yang didukung bidang studi mata pelajaran <span class="font-bold">{{
+                        dataMinatbidangstudi[1].kategori_nama
+                }}</span>, Selain itu juga Subyek harus belajar <span class="font-bold">{{
+        dataMinatbidangstudi[2].kategori_nama
+}}</span>
+            </p>
+            <p>
+                membiasakan menyukai mata pelajaran bidang studi yang nilainya kurang dan tidak disukai terutama :
+            <div class="space-x-2"> <span class="font-bold mx-2" v-for="item, index in dataTidakDisukai" :key="item.id">
+                    {{ index + 1
+                    }}. {{
+        item.kategori_nama
+}}</span>
+
+
+            </div>
+            </p>
+        </div>
+    </div>
 </template>
