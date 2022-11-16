@@ -87,6 +87,7 @@ const deleteData = async (id) => {
     // let data = dataAsli.value.filter((item) => item.id !== id);
     // storeUjian.setDataPaketsoal(data);
     if (response.status) {
+      // Toast.warning("Gagal", "Masih dalam pengembangan");
       Toast.success("Info", "Data berhasil dihapus!");
     } else {
       Toast.warning("Gagal", response.message);
