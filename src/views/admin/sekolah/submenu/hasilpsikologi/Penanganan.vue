@@ -167,49 +167,35 @@ const doCetak = (id = null, token = moment().format("YYYY-MM-DD")) => {
 <template>
   <div class="pt-4 px-10 md:flex justify-between">
     <div>
-      <span
-        class="text-2xl sm:text-3xl leading-none font-bold text-base-content shadow-sm"
-      >
+      <span class="text-2xl sm:text-3xl leading-none font-bold text-base-content shadow-sm">
         <!-- {{ dataAsli.nama }} -->
       </span>
     </div>
     <div class="md:py-0 py-4">
       <BreadCrumb>
-        <template v-slot:content> Siswa <BreadCrumbSpace /> Edit </template>
+        <template v-slot:content> Siswa
+          <BreadCrumbSpace /> Edit
+        </template>
       </BreadCrumb>
     </div>
   </div>
 
   <div class="pt-4 px-10 md:flex justify-between">
     <div>
-      <span
-        class="text-2xl sm:text-3xl leading-none font-bold text-gray-700 shadow-sm px-2"
-        >Penanganan Deteksi Masalah</span
-      >
+      <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-700 shadow-sm px-2">Penanganan Deteksi
+        Masalah</span>
       <ButtonCetak @click="doCetak(id2)" />
     </div>
     <div class="md:py-0 py-4 space-x-2 space-y-2">
       <router-link :to="{ name: 'AdminHasilPsikologi' }">
-        <button
-          class="btn hover:shadow-lg shadow text-white hover:text-gray-100 gap-2"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-6 w-6"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
-            />
+        <button class="btn hover:shadow-lg shadow text-white hover:text-gray-100 gap-2">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
           </svg>
           Kembali
-        </button></router-link
-      >
+        </button>
+      </router-link>
     </div>
   </div>
 

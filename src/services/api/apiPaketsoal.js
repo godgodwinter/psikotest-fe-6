@@ -1,6 +1,7 @@
 import Api from "@/axios/axios";
 import { useStoreUjian } from "@/stores/data/ujian";
 import { computed } from "vue";
+import Toast from "@/components/lib/Toast";
 const storeUjian = useStoreUjian();
 
 const dataAsli = computed(() => storeUjian.getData);
@@ -85,6 +86,11 @@ const deleteData = async (id) => {
     const response = await Api.delete(`admin/menuujian/paketsoal/${id}`);
     // let data = dataAsli.value.filter((item) => item.id !== id);
     // storeUjian.setDataPaketsoal(data);
+    if (response.status) {
+      Toast.success("Info", "Data berhasil dihapus!");
+    } else {
+      Toast.warning("Gagal", response.message);
+    }
     getData();
     return true;
   } catch (error) {
