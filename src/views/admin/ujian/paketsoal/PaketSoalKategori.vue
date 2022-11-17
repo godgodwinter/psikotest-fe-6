@@ -86,13 +86,35 @@ const doDeleteData = async (id, index) => {
     }
   }
 };
+
+const onKembali = () => {
+  router.push({ name: "admin.ujian.paketsoal" });
+}
+
+const dataPaket = ref([]);
+const getDataPaket = async (kelas_id) => {
+  try {
+    const response = await Api.get(
+      `admin/menuujian/paketsoal/${paketsoal_id}`
+    );
+    dataPaket.value = response.data;
+
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+getDataPaket()
 </script>
 <template>
   <TabLinkPaketSoal />
-  <div class="font-bold">
-    <h1>Paket Soal > Kategori</h1>
-    <h1>Nama Paket : -</h1>
-    <h1>Peserta : -</h1>
+  <div class="font-bold" v-if="dataPaket">
+    <!-- <h1>Paket Soal > Kategori</h1> -->
+    <h1>Nama Paket : {{ dataPaket.nama }}</h1>
+    <!-- <h1>Peserta : -</h1> -->
+  </div>
+  <div>
+    <button class="btn btn-sm" @click="onKembali()">Kembali</button>
   </div>
   <div class="py-2 lg:py-4 px-4">
     <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">

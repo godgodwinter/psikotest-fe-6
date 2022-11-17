@@ -82,6 +82,12 @@ const doDeleteData = async (id, index) => {
     <h1>Nama Kategori : {{ dataAsli.nama }}</h1>
     <h1>Kategori Banksoal : {{ dataAsli.kategori_nama }}</h1>
     <h1>Waktu : {{ dataAsli.waktu }} Menit</h1>
+    <RouterLink :to="{
+      name: 'admin.ujian.paketsoal.kategori',
+      params: { paketsoal_id: paketsoal_id },
+    }">
+      <button class="btn btn-sm btn-secondary">Kembali</button>
+    </RouterLink>
   </div>
   <div class="py-2 lg:py-4 px-4">
     <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
@@ -92,9 +98,9 @@ const doDeleteData = async (id, index) => {
               :search-options="{
                 enabled: true,
               }" :pagination-options="{
-                enabled: true,
-                perPageDropdown: [10, 20, 50],
-              }" styleClass="vgt-table striped bordered condensed" class="py-0">
+  enabled: true,
+  perPageDropdown: [10, 20, 50],
+}" styleClass="vgt-table striped bordered condensed" class="py-0">
               <template #table-actions>
                 <div class="space-x-1 space-y-1 gap-1">
                   <!-- <button
