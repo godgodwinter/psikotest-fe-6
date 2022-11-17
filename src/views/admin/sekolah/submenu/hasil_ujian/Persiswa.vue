@@ -163,7 +163,7 @@ const sort = (items) => {
                                         <!-- {{ mapel }} -->
                                     </td>
                                     <td class="whitespace-nowrap w-1/12">:</td>
-                                    <td class="whitespace-nowrap w-3/12">{{ mapel.nilaiAkhir }} - {{
+                                    <td class="whitespace-nowrap w-3/12">{{ mapel.nilaiAkhir.toFixed(1) }} - {{
                                             mapel.nilaiAkhir_ket
                                     }}
                                         ({{
@@ -223,7 +223,7 @@ const sort = (items) => {
                                     <td class="whitespace-nowrap w-3/12 text-left"> {{ item.kategori_nama }}</td>
                                     <td class="whitespace-nowrap w-1/12">:</td>
                                     <td class="whitespace-nowrap w-3/12">
-                                        {{ item.nilaiAkhir }}
+                                        {{ item.nilaiAkhir.toFixed(1) }}
                                     </td>
 
                                 </tr>
