@@ -5,6 +5,7 @@ const VITE_API_URLFE_SEKOLAH = import.meta.env.VITE_API_URLFE_SEKOLAH;
 const VITE_API_URLFE_SISWA = import.meta.env.VITE_API_URLFE_SISWA;
 const VITE_API_URLFE_YAYASAN = import.meta.env.VITE_API_URLFE_YAYASAN;
 const VITE_API_URLFE_ORTU = import.meta.env.VITE_API_URLFE_ORTU;
+const VITE_API_URLFE_UJIAN = import.meta.env.VITE_API_URLFE_UJIAN;
 const VITE_API_URLFE_OWNER = import.meta.env.VITE_API_URLFE_OWNER;
 const VITE_API_URLFE = import.meta.env.VITE_API_URLFE;
 import { ref } from "vue";
@@ -157,8 +158,6 @@ getData();
                   class="text-base-content font-normal text-sm hover:link">Yayasan</a>
                 <a :href="VITE_API_URLFE_SISWA" target="_blank"
                   class="text-base-content font-normal text-sm hover:link">Siswa</a>
-                <a :href="VITE_API_URLFE_ORTU" target="_blank"
-                  class="text-base-content font-normal text-sm hover:link">Wali Murid</a>
                 <a :href="VITE_API_URLFE_ORTU" target="_blank"
                   class="text-base-content font-normal text-sm hover:link">Wali Murid</a>
                 <a :href="VITE_API_URLFE_UJIAN" target="_blank"
