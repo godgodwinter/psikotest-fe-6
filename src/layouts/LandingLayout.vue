@@ -96,13 +96,33 @@ getData();
   <div v-if="isSidebarActive" id="aside"
     class="z-10 top-0 block z-998 font-serif h-full fixed flex-row bg-base-200 text-base-content w-4/5 md:hidden shadow-xl border-r-2 border-base-100">
     <div class="px-2 ml-5 pt-0 pb-5 overflow-y-auto h-full">
-      <router-link :to="{ name: 'LandingIndex' }">
+      <!-- <router-link :to="{ name: 'LandingIndex' }">
         <h1 class="text-xs text-base-content font-bold py-2 pt-6">Home</h1>
-      </router-link>
+      </router-link> -->
 
-      <router-link :to="{ name: 'LandingLogin' }">
-        <h1 class="text-xs text-base-content font-bold py-2 pt-6">Login</h1>
-      </router-link>
+      <!-- <router-link :to="{ name: 'LandingLogin' }"> -->
+      <!-- <h1 class="text-xs text-base-content font-bold py-2 pt-6">Login</h1> -->
+      <!-- </router-link> -->
+
+      <a :href="VITE_API_URLFE_SEKOLAH" target="_blank" class="text-base-content font-normal text-sm hover:link">
+        <h1 class="text-xs text-base-content font-bold py-2 pt-6">Home</h1>
+      </a>
+      <a :href="VITE_API_URLFE_SEKOLAH + 'login'" target="_blank"
+        class="text-base-content font-normal text-sm hover:link">
+        <h1 class="text-xs text-base-content font-bold py-2 pt-6">Sekolah</h1>
+      </a>
+      <a :href="VITE_API_URLFE_YAYASAN" target="_blank" class="text-base-content font-normal text-sm hover:link">
+        <h1 class="text-xs text-base-content font-bold py-2 pt-6">Yayasan</h1>
+      </a>
+      <a :href="VITE_API_URLFE_SISWA" target="_blank" class="text-base-content font-normal text-sm hover:link">
+        <h1 class="text-xs text-base-content font-bold py-2 pt-6">Siswa</h1>
+      </a>
+      <a :href="VITE_API_URLFE_ORTU" target="_blank" class="text-base-content font-normal text-sm hover:link">
+        <h1 class="text-xs text-base-content font-bold py-2 pt-6">Wali Murid</h1>
+      </a>
+      <a :href="VITE_API_URLFE_UJIAN" target="_blank" class="text-base-content font-normal text-sm hover:link">
+        <h1 class="text-xs text-base-content font-bold py-2 pt-6">Ujian Bidang Studi</h1>
+      </a>
 
       <!-- <h1 class="text-xs text-gray-400 font-bold py-2">Installation</h1> -->
     </div>
@@ -146,12 +166,6 @@ getData();
               <div class="flex justify-end gap-10 pt-2">
                 <a :href="VITE_API_URLFE_SEKOLAH" target="_blank"
                   class="text-base-content font-normal text-sm hover:link">Home</a>
-
-                <!-- <a
-                  href="#paket"
-                  class=" text-base-content font-normal text-sm   hover:link"
-                  >Paket</a
-                > -->
                 <a :href="VITE_API_URLFE_SEKOLAH + 'login'" target="_blank"
                   class="text-base-content font-normal text-sm hover:link">Sekolah</a>
                 <a :href="VITE_API_URLFE_YAYASAN" target="_blank"
