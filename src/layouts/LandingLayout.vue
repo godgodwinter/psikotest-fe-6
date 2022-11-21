@@ -92,11 +92,8 @@ getData();
 </script>
 <template>
   <!-- aside sidebar -->
-  <div
-    v-if="isSidebarActive"
-    id="aside"
-    class="z-10 top-0 block z-998 font-serif h-full fixed flex-row bg-base-200 text-base-content w-4/5 md:hidden shadow-xl border-r-2 border-base-100"
-  >
+  <div v-if="isSidebarActive" id="aside"
+    class="z-10 top-0 block z-998 font-serif h-full fixed flex-row bg-base-200 text-base-content w-4/5 md:hidden shadow-xl border-r-2 border-base-100">
     <div class="px-2 ml-5 pt-0 pb-5 overflow-y-auto h-full">
       <router-link :to="{ name: 'LandingIndex' }">
         <h1 class="text-xs text-base-content font-bold py-2 pt-6">Home</h1>
@@ -114,23 +111,12 @@ getData();
   <!-- scrolltotop -->
 
   <div class="fixed bottom-4 right-4 xl:right-20 z-999">
-    <a
-      class="transform duration-500 ease-in-out animate-bounce bg-gradient-to-br from-sky-500 to-vue-500 px-1 py-1 md:px-4 md:py-3 font-mono font-semibold rounded-lg shadow hover:shadow-xl flex justify-between items-center gap-4"
-      @click="scrollBehavior('top')"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="text-white h-6 w-6"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M9 11l3-3m0 0l3 3m-3-3v8m0-13a9 9 0 110 18 9 9 0 010-18z"
-        />
+    <a class="transform duration-500 ease-in-out animate-bounce bg-gradient-to-br from-sky-500 to-vue-500 px-1 py-1 md:px-4 md:py-3 font-mono font-semibold rounded-lg shadow hover:shadow-xl flex justify-between items-center gap-4"
+      @click="scrollBehavior('top')">
+      <svg xmlns="http://www.w3.org/2000/svg" class="text-white h-6 w-6" fill="none" viewBox="0 0 24 24"
+        stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M9 11l3-3m0 0l3 3m-3-3v8m0-13a9 9 0 110 18 9 9 0 010-18z" />
       </svg>
     </a>
   </div>
@@ -139,79 +125,44 @@ getData();
   <!-- <LandingHeader class="sticky z-10" /> -->
   <div class="static" v-if="!isSidebarActive">
     <div
-      class="fixed z-50 w-full font-serif font-semibold text-sm bg-base-content text-base-100 flex justify-center py-2 px-4 text-center"
-    >
-      <VueWriter
-        v-if="arr.length > 0"
-        :array="arr"
-        :eraseSpeed="50"
-        :typeSpeed="40"
-        :delay="2000"
-        :intervals="500"
-      />
+      class="fixed z-50 w-full font-serif font-semibold text-sm bg-base-content text-base-100 flex justify-center py-2 px-4 text-center">
+      <VueWriter v-if="arr.length > 0" :array="arr" :eraseSpeed="50" :typeSpeed="40" :delay="2000" :intervals="500" />
     </div>
   </div>
 
-  <div
-    class="border-b-2 top-10 relative bg-base-200 text-base-content border-base-100"
-  >
+  <div class="border-b-2 top-10 relative bg-base-200 text-base-content border-base-100">
     <div class="container max-w-4xl mx-auto font-serif">
       <div class="w-full">
         <div class="flex justify-between px-3 pt-2 pb-4">
-          <router-link
-            :to="{ name: 'LandingIndex' }"
-            class="flex px-2 py-0 w-2/5"
-          >
-            <img
-              src="../assets/img/logo/google-developers.svg"
-              alt="icon"
-              class="w-10 hover:shadow-lg"
-            />
-            <h3
-              class="pt-2 lg:pt-0 ml-4 mt-1 text-md font-bold text-base-content hover:link"
-            >
+          <router-link :to="{ name: 'LandingIndex' }" class="flex px-2 py-0 w-2/5">
+            <img src="../assets/img/logo/google-developers.svg" alt="icon" class="w-10 hover:shadow-lg" />
+            <h3 class="pt-2 lg:pt-0 ml-4 mt-1 text-md font-bold text-base-content hover:link">
               YPMT PSIKOTEST
-            </h3></router-link
-          >
+            </h3>
+          </router-link>
           <div class="md:w-3/5">
             <div class="hidden md:block">
               <div class="flex justify-end gap-10 pt-2">
-                <a
-                  :href="VITE_API_URLFE_SEKOLAH"
-                  target="_blank"
-                  class="text-base-content font-normal text-sm hover:link"
-                  >Home</a
-                >
+                <a :href="VITE_API_URLFE_SEKOLAH" target="_blank"
+                  class="text-base-content font-normal text-sm hover:link">Home</a>
 
                 <!-- <a
                   href="#paket"
                   class=" text-base-content font-normal text-sm   hover:link"
                   >Paket</a
                 > -->
-                <a
-                  :href="VITE_API_URLFE_SEKOLAH + 'login'"
-                  target="_blank"
-                  class="text-base-content font-normal text-sm hover:link"
-                  >Sekolah</a
-                >
-                <a
-                  :href="VITE_API_URLFE_YAYASAN"
-                  target="_blank"
-                  class="text-base-content font-normal text-sm hover:link"
-                  >Yayasan</a
-                >
-                <a
-                  :href="VITE_API_URLFE_SISWA"
-                  target="_blank"
-                  class="text-base-content font-normal text-sm hover:link"
-                  >Siswa</a
-                >
-                <a
-                  :href="VITE_API_URLFE_ORTU"
-                  target="_blank"
-                  class="text-base-content font-normal text-sm hover:link"
-                  >Wali Murid</a
-                >
+                <a :href="VITE_API_URLFE_SEKOLAH + 'login'" target="_blank"
+                  class="text-base-content font-normal text-sm hover:link">Sekolah</a>
+                <a :href="VITE_API_URLFE_YAYASAN" target="_blank"
+                  class="text-base-content font-normal text-sm hover:link">Yayasan</a>
+                <a :href="VITE_API_URLFE_SISWA" target="_blank"
+                  class="text-base-content font-normal text-sm hover:link">Siswa</a>
+                <a :href="VITE_API_URLFE_ORTU" target="_blank"
+                  class="text-base-content font-normal text-sm hover:link">Wali Murid</a>
+                <a :href="VITE_API_URLFE_ORTU" target="_blank"
+                  class="text-base-content font-normal text-sm hover:link">Wali Murid</a>
+                <a :href="VITE_API_URLFE_UJIAN" target="_blank"
+                  class="text-base-content font-normal text-sm hover:link">Ujian Bidang Studi</a>
 
                 <!-- <a href="https://github.com/godgodwinter" target="blank" class=" text-base-content font-semibold text-sm hover:text-vue-600 hover:link">Github </a> -->
               </div>
@@ -223,29 +174,16 @@ getData();
                 <input type="checkbox" @click="sidebarToggle" />
 
                 <!-- hamburger icon -->
-                <svg
-                  class="swap-off fill-current"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="32"
-                  height="32"
-                  viewBox="0 0 512 512"
-                >
-                  <path
-                    d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z"
-                  />
+                <svg class="swap-off fill-current" xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                  viewBox="0 0 512 512">
+                  <path d="M64,384H448V341.33H64Zm0-106.67H448V234.67H64ZM64,128v42.67H448V128Z" />
                 </svg>
 
                 <!-- close icon -->
-                <svg
-                  class="swap-on fill-current"
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="32"
-                  height="32"
-                  viewBox="0 0 512 512"
-                >
+                <svg class="swap-on fill-current" xmlns="http://www.w3.org/2000/svg" width="32" height="32"
+                  viewBox="0 0 512 512">
                   <polygon
-                    points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49"
-                  />
+                    points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49" />
                 </svg>
               </label>
             </span>
