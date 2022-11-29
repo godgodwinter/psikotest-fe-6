@@ -136,6 +136,39 @@ const sort = (items) => {
             </div>
         </div>
 
+        <div class="md:py-2 px-4 lg:flex flex-wrap gap-4" v-for="item, index in data" :key="item.id">
+
+            <p class="font-bold "> {{ index + 1 }}. {{ item.nama }} : {{ item.nilaiAkhir_avg }} - {{
+                    item.nilaiAkhir_avg_ket
+            }}
+                ({{
+                        item.nilaiAkhir_avg_ket_singkatan
+                }})</p>
+            <div class="w-full lg:w-full">
+                <div class="bg-white shadow rounded-lg px-4 py-4">
+                    <div class="overflow-x-auto">
+                        <table class="table table-compact">
+                            <tbody>
+                                <tr v-for="mapel, i in item.detail " :key="mapel.id">
+                                    <td class="whitespace-nowrap w-1/12">{{ i + 1 }}</td>
+                                    <td class="whitespace-nowrap w-3/12">
+                                        {{ mapel.ujian_paketsoal_kategori?.kategori?.nama }}
+                                    </td>
+                                    <td class="whitespace-nowrap w-1/12">:</td>
+                                    <td class="whitespace-nowrap w-3/12">{{ mapel.nilaiAkhir.toFixed(1) }} - {{
+                                            mapel.nilaiAkhir_ket
+                                    }}
+                                        ({{
+                                                mapel.nilaiAkhir_ket_singkatan
+                                        }})</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!-- <div class="md:py-2 px-4 lg:flex flex-wrap gap-4" v-for="item, index in data" :key="item.id">
 
             <p class="font-bold "> {{ index + 1 }}. {{ item.nama }} : {{ item.nilaiAkhir_avg }} - {{
