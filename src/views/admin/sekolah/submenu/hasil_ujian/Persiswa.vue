@@ -95,7 +95,7 @@ const sort = (items) => {
 <template>
 
     <button class="btn btn-sm btn-info" @click="doBackToKelas()">Kembali</button>
-    <!-- <div v-if="dataAsli">
+    <div v-if="dataAsli">
         <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
             <div class="w-full lg:w-full">
                 <div class="bg-white shadow rounded-lg px-4 py-4">
@@ -136,13 +136,13 @@ const sort = (items) => {
             </div>
         </div>
 
-        <div class="md:py-2 px-4 lg:flex flex-wrap gap-4" v-for="item, index in data" :key="item.id">
+        <!-- <div class="md:py-2 px-4 lg:flex flex-wrap gap-4" v-for="item, index in data" :key="item.id">
 
             <p class="font-bold "> {{ index + 1 }}. {{ item.nama }} : {{ item.nilaiAkhir_avg }} - {{
-            item.nilaiAkhir_avg_ket
+                    item.nilaiAkhir_avg_ket
             }}
                 ({{
-                item.nilaiAkhir_avg_ket_singkatan
+                        item.nilaiAkhir_avg_ket_singkatan
                 }})</p>
             <div class="w-full lg:w-full">
                 <div class="bg-white shadow rounded-lg px-4 py-4">
@@ -156,10 +156,10 @@ const sort = (items) => {
                                     </td>
                                     <td class="whitespace-nowrap w-1/12">:</td>
                                     <td class="whitespace-nowrap w-3/12">{{ mapel.nilaiAkhir.toFixed(1) }} - {{
-                                    mapel.nilaiAkhir_ket
+                                            mapel.nilaiAkhir_ket
                                     }}
                                         ({{
-                                        mapel.nilaiAkhir_ket_singkatan
+                                                mapel.nilaiAkhir_ket_singkatan
                                         }})</td>
                                 </tr>
 
@@ -168,9 +168,9 @@ const sort = (items) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
-        <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
+        <!-- <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
             <h2 class="font-bold uppercase">Jurusan </h2>
             <div class="w-full lg:w-full">
                 <div class="bg-white shadow rounded-lg px-4 py-4">
@@ -194,9 +194,9 @@ const sort = (items) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
-        <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
+        <!-- <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
             <h2 class="font-bold uppercase">Minat Bidang Studi Terkuat </h2>
             <div class="w-full lg:w-full">
                 <div class="bg-white shadow rounded-lg px-4 py-4">
@@ -218,9 +218,9 @@ const sort = (items) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
-        <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
+        <!-- <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
             <h2 class="font-bold uppercase">Kesimpulan dan Saran</h2>
 
             <div v-if="dataJurusan.length > 0">
@@ -263,7 +263,7 @@ const sort = (items) => {
                 </div>
                 </p>
             </div>
-        </div>
+        </div> -->
     </div>
     <div v-else class="py-4">
         <div class="alert alert-warning shadow-lg">
@@ -276,5 +276,5 @@ const sort = (items) => {
                 <span>{{ dataMessage }}</span>
             </div>
         </div>
-    </div> -->
+    </div>
 </template>
