@@ -136,7 +136,7 @@ const sort = (items) => {
             </div>
         </div>
 
-        <!-- <div class="md:py-2 px-4 lg:flex flex-wrap gap-4" v-for="item, index in data" :key="item.id">
+        <div class="md:py-2 px-4 lg:flex flex-wrap gap-4" v-for="item, index in data" :key="item.id">
 
             <p class="font-bold "> {{ index + 1 }}. {{ item.nama }} : {{ item.nilaiAkhir_avg }} - {{
                     item.nilaiAkhir_avg_ket
@@ -168,7 +168,7 @@ const sort = (items) => {
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
 
         <!-- <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
             <h2 class="font-bold uppercase">Jurusan </h2>
