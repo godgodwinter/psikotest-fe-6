@@ -95,14 +95,13 @@ const sort = (items) => {
 <template>
 
     <button class="btn btn-sm btn-info" @click="doBackToKelas()">Kembali</button>
-    <div v-if="dataAsli">
+    <!-- <div v-if="dataAsli">
         <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
             <div class="w-full lg:w-full">
                 <div class="bg-white shadow rounded-lg px-4 py-4">
                     <div class="overflow-x-auto">
                         <table class="table table-compact">
                             <tbody>
-                                <!-- row 1 -->
                                 <tr>
                                     <td class="whitespace-nowrap w-1/12">No Induk</td>
                                     <td class="whitespace-nowrap w-1/12">:</td>
@@ -110,25 +109,21 @@ const sort = (items) => {
                                         {{ dataSiswa.nomeridentitas }}
                                     </td>
                                 </tr>
-                                <!-- row 2 -->
                                 <tr>
                                     <td>Nama</td>
                                     <td>:</td>
                                     <td>{{ dataSiswa.nama }}</td>
                                 </tr>
-                                <!-- row 3 -->
                                 <tr>
                                     <td>Umur</td>
                                     <td>:</td>
                                     <td>{{ dataSiswa.umur }}</td>
                                 </tr>
-                                <!-- row 3 -->
                                 <tr>
                                     <td>Jenis Kelamin</td>
                                     <td>:</td>
                                     <td>{{ dataSiswa.jk }}</td>
                                 </tr>
-                                <!-- row 3 -->
                                 <tr>
                                     <td>Sekolah</td>
                                     <td>:</td>
@@ -144,30 +139,27 @@ const sort = (items) => {
         <div class="md:py-2 px-4 lg:flex flex-wrap gap-4" v-for="item, index in data" :key="item.id">
 
             <p class="font-bold "> {{ index + 1 }}. {{ item.nama }} : {{ item.nilaiAkhir_avg }} - {{
-                    item.nilaiAkhir_avg_ket
+            item.nilaiAkhir_avg_ket
             }}
                 ({{
-                        item.nilaiAkhir_avg_ket_singkatan
+                item.nilaiAkhir_avg_ket_singkatan
                 }})</p>
-            <!-- - Disarankan : {{ item.disarankan }} -->
             <div class="w-full lg:w-full">
                 <div class="bg-white shadow rounded-lg px-4 py-4">
                     <div class="overflow-x-auto">
                         <table class="table table-compact">
                             <tbody>
-                                <!-- row 1 -->
                                 <tr v-for="mapel, i in sort(item.detail) " :key="mapel.id">
                                     <td class="whitespace-nowrap w-1/12">{{ i + 1 }}</td>
                                     <td class="whitespace-nowrap w-3/12">
                                         {{ mapel.ujian_paketsoal_kategori?.kategori?.nama }}
-                                        <!-- {{ mapel }} -->
                                     </td>
                                     <td class="whitespace-nowrap w-1/12">:</td>
                                     <td class="whitespace-nowrap w-3/12">{{ mapel.nilaiAkhir.toFixed(1) }} - {{
-                                            mapel.nilaiAkhir_ket
+                                    mapel.nilaiAkhir_ket
                                     }}
                                         ({{
-                                                mapel.nilaiAkhir_ket_singkatan
+                                        mapel.nilaiAkhir_ket_singkatan
                                         }})</td>
                                 </tr>
 
@@ -177,11 +169,6 @@ const sort = (items) => {
                 </div>
             </div>
         </div>
-        <!-- <ul>
-        <li v-for="item in data" :key="item.id">
-            {{ item.nama }}
-        </li>
-    </ul> -->
 
         <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
             <h2 class="font-bold uppercase">Jurusan </h2>
@@ -190,7 +177,6 @@ const sort = (items) => {
                     <div class="overflow-x-auto">
                         <table class="table table-compact">
                             <tbody>
-                                <!-- row 1 -->
                                 <tr v-for="item, index in dataJurusan" :key="item.id">
                                     <td class="whitespace-nowrap w-1/12">{{ index + 1 }}</td>
                                     <td class="whitespace-nowrap w-3/12">
@@ -217,7 +203,6 @@ const sort = (items) => {
                     <div class="overflow-x-auto">
                         <table class="table table-compact">
                             <tbody>
-                                <!-- row 1 -->
                                 <tr v-for="item, i in dataMinatbidangstudi" :key="item.nilaiAkhir">
                                     <td class="whitespace-nowrap w-1/12">{{ i + 1 }}</td>
                                     <td class="whitespace-nowrap w-3/12 text-left"> {{ item.kategori_nama }}</td>
@@ -242,28 +227,28 @@ const sort = (items) => {
                 <p class="indent-8">
                     Potensi kemampuan Akademik Subyek saat ini terkuat dibidang studi yang terkait dengan <span
                         class="font-bold">{{
-                                dataJurusan[0].aspek_nama
+                        dataJurusan[0].aspek_nama
                         }}</span>,
                     maka dalam mengambil jurusan cenderung disarankan bidang <span class="font-bold">{{
-                            dataJurusan[0].aspek_nama
+                    dataJurusan[0].aspek_nama
                     }}</span>,
                     dan dipertimbangkan untuk mengambil jurusan dibidang <span class="font-bold">{{
-                            dataJurusan[1].aspek_nama
+                    dataJurusan[1].aspek_nama
                     }}</span>,
                     serta tidak disarankan untuk mengambil jurusan dibidang <span class="font-bold">{{
-                            dataJurusan[2].aspek_nama
+                    dataJurusan[2].aspek_nama
                     }}</span>
                 </p>
                 <p class="indent-8 py-4">
                     Sedangkan minat Subyek terkuat utk mempelajari dibidang studi mata pelajaran lain yaitu <span
                         class="font-bold">{{
-                                dataMinatbidangstudi[0].kategori_nama
+                        dataMinatbidangstudi[0].kategori_nama
                         }}</span>,
                     yang didukung bidang studi mata pelajaran <span class="font-bold">{{
-                            dataMinatbidangstudi[1].kategori_nama
+                    dataMinatbidangstudi[1].kategori_nama
                     }}</span>, Selain itu juga Subyek harus belajar <span class="font-bold">{{
-        dataMinatbidangstudi[2].kategori_nama
-}}</span>
+                        dataMinatbidangstudi[2].kategori_nama
+                        }}</span>
                 </p>
                 <p>
                     membiasakan menyukai mata pelajaran bidang studi yang nilainya kurang dan tidak disukai terutama :
@@ -271,8 +256,8 @@ const sort = (items) => {
                         :key="item.id">
                         {{ index + 1
                         }}. {{
-        item.kategori_nama
-}}</span>
+                        item.kategori_nama
+                        }}</span>
 
 
                 </div>
@@ -291,8 +276,5 @@ const sort = (items) => {
                 <span>{{ dataMessage }}</span>
             </div>
         </div>
-
-
-
-    </div>
+    </div> -->
 </template>
