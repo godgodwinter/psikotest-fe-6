@@ -136,7 +136,7 @@ const sort = (items) => {
             </div>
         </div>
 
-        <div class="md:py-2 px-4 lg:flex flex-wrap gap-4" v-for="item, index in data" :key="item.id">
+        <!-- <div class="md:py-2 px-4 lg:flex flex-wrap gap-4" v-for="item, index in data" :key="item.id">
 
             <p class="font-bold "> {{ index + 1 }}. {{ item.nama }} : {{ item.nilaiAkhir_avg }} - {{
                     item.nilaiAkhir_avg_ket
@@ -168,9 +168,9 @@ const sort = (items) => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
-        <!-- <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
+        <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
             <h2 class="font-bold uppercase">Jurusan </h2>
             <div class="w-full lg:w-full">
                 <div class="bg-white shadow rounded-lg px-4 py-4">
@@ -194,9 +194,9 @@ const sort = (items) => {
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
 
-        <!-- <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
+        <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
             <h2 class="font-bold uppercase">Minat Bidang Studi Terkuat </h2>
             <div class="w-full lg:w-full">
                 <div class="bg-white shadow rounded-lg px-4 py-4">
@@ -218,37 +218,37 @@ const sort = (items) => {
                     </div>
                 </div>
             </div>
-        </div> -->
+        </div>
 
-        <!-- <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
+        <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
             <h2 class="font-bold uppercase">Kesimpulan dan Saran</h2>
 
             <div v-if="dataJurusan.length > 0">
                 <p class="indent-8">
                     Potensi kemampuan Akademik Subyek saat ini terkuat dibidang studi yang terkait dengan <span
                         class="font-bold">{{
-                        dataJurusan[0].aspek_nama
+                                dataJurusan[0].aspek_nama
                         }}</span>,
                     maka dalam mengambil jurusan cenderung disarankan bidang <span class="font-bold">{{
-                    dataJurusan[0].aspek_nama
+                            dataJurusan[0].aspek_nama
                     }}</span>,
                     dan dipertimbangkan untuk mengambil jurusan dibidang <span class="font-bold">{{
-                    dataJurusan[1].aspek_nama
+                            dataJurusan[1].aspek_nama
                     }}</span>,
                     serta tidak disarankan untuk mengambil jurusan dibidang <span class="font-bold">{{
-                    dataJurusan[2].aspek_nama
+                            dataJurusan[2].aspek_nama
                     }}</span>
                 </p>
                 <p class="indent-8 py-4">
                     Sedangkan minat Subyek terkuat utk mempelajari dibidang studi mata pelajaran lain yaitu <span
                         class="font-bold">{{
-                        dataMinatbidangstudi[0].kategori_nama
+                                dataMinatbidangstudi[0].kategori_nama
                         }}</span>,
                     yang didukung bidang studi mata pelajaran <span class="font-bold">{{
-                    dataMinatbidangstudi[1].kategori_nama
+                            dataMinatbidangstudi[1].kategori_nama
                     }}</span>, Selain itu juga Subyek harus belajar <span class="font-bold">{{
-                        dataMinatbidangstudi[2].kategori_nama
-                        }}</span>
+        dataMinatbidangstudi[2].kategori_nama
+}}</span>
                 </p>
                 <p>
                     membiasakan menyukai mata pelajaran bidang studi yang nilainya kurang dan tidak disukai terutama :
@@ -256,14 +256,14 @@ const sort = (items) => {
                         :key="item.id">
                         {{ index + 1
                         }}. {{
-                        item.kategori_nama
-                        }}</span>
+        item.kategori_nama
+}}</span>
 
 
                 </div>
                 </p>
             </div>
-        </div> -->
+        </div>
     </div>
     <div v-else class="py-4">
         <div class="alert alert-warning shadow-lg">
