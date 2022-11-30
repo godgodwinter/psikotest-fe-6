@@ -302,12 +302,8 @@ const doCetak = (id = null, token = moment().format("YYYY-MM-DD")) => {
                         }}</span>,
                     yang didukung bidang studi mata pelajaran <span class="font-bold">{{
                             dataMinatbidangstudi[1].kategori_nama
-                    }}</span>, Selain itu juga Subyek harus belajar <span class="font-bold">{{
-        dataMinatbidangstudi[2].kategori_nama
-}}</span>
-                </p>
-                <p>
-                    membiasakan menyukai mata pelajaran bidang studi yang nilainya kurang dan tidak disukai terutama :
+                    }}</span>, Selain itu juga Subyek harus belajar membiasakan menyukai mata pelajaran bidang studi yang nilainya kurang dan tidak disukai terutama :
+      
                 <div class="space-x-2"> <span class="font-bold mx-2" v-for="item, index in dataTidakDisukai"
                         :key="item.id">
                         {{ index + 1
