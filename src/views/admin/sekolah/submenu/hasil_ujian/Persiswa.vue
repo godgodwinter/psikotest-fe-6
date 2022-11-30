@@ -107,7 +107,7 @@ const doCetak = (id = null, token = moment().format("YYYY-MM-DD")) => {
 
     <div class="pt-4 px-10 md:flex justify-between">
         <div v-if="dataAsli">
-            <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-700 shadow-sm">Hasil Ujian Linta Bidang
+            <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-700 shadow-sm">Hasil Ujian Lintas Bidang
                 Studi
                 <ButtonCetak @click="doCetak(siswa_id)" />
             </span>
