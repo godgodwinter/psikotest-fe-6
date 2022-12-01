@@ -11,6 +11,11 @@ import { useRouter, useRoute } from "vue-router";
 import { useStoreAdminBar } from "@/stores/adminBar";
 import Toast from "@/components/lib/Toast.js";
 import { useStoreGuruBk } from "@/stores/guruBk";
+import ButtonCetak from "@/components/atoms/ButtonCetak.vue";
+import moment from "moment/min/moment-with-locales";
+import localization from "moment/locale/id";
+moment.updateLocale("id", localization);
+
 const storeGuruBk = useStoreGuruBk();
 const storeAdminBar = useStoreAdminBar();
 storeAdminBar.setsubMenuActive("hasil_ujian");
@@ -20,8 +25,8 @@ const route = useRoute();
 
 const id = route.params.id;
 const kelas_id = ref(route.params.kelas_id ? route.params.kelas_id : 0);
-const dataAsli = ref([]);
-const data = ref([]);
+const dataAsli = ref(null);
+const data = ref(null);
 const dataKelas = ref([]);
 
 // get Kelas
@@ -151,14 +156,38 @@ const columns = ref([
   },
 ]);
 
+
+const encode = (value) => window.btoa(value);
+
+const doCetak = (kelas_id = null, token = moment().format("YYYY-MM-DD")) => {
+  if (id === null) {
+    Toast.danger("Warning", "Data tidak valid!");
+  } else {
+    window.open(
+      `${BASE_URL}api/guest/cetak/hasilujian/lintasbidangstudi_perkelas/${encode(kelas_id)}?token=${encode(token)}`
+    );
+  }
+};
 </script>
 <template>
   <div class="pt-4 px-10 md:flex justify-between">
     <div>
-      <span class="text-2xl sm:text-3xl leading-none font-bold text-base-content shadow-sm">
-        Hasil Ujian kelas {{
-            getDataSekolah.length > 0 ? getDataSekolah[0].nama_kelas : null
-        }}</span>
+      <div class="pt-4 px-10 md:flex justify-between">
+        <div> <span class="text-2xl sm:text-3xl leading-none font-bold text-base-content shadow-sm">
+            Hasil Ujian kelas {{
+                getDataSekolah.length > 0 ? getDataSekolah[0].nama_kelas : null
+            }}</span>
+          <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-700 shadow-sm px-4" v-if="dataAsli">
+            <ButtonCetak @click="doCetak(kelas_id)" />
+          </span>
+        </div>
+        <!-- <div class="md:py-0 py-4 space-x-2 space-y-2">
+      <button class="btn hover:shadow-lg shadow text-white hover:text-gray-100 gap-2"
+        @click="doBackToKelas()">Kembali</button>
+
+    </div> -->
+      </div>
+
     </div>
     <div class="md:py-0 py-4 space-x-2 space-y-2"></div>
   </div>
@@ -176,7 +205,9 @@ const columns = ref([
     </div>
   </div>
 
-  <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
+
+
+  <div class="md:py-2 px-4 lg:flex flex-wrap gap-4" v-if="dataAsli">
     <div class="w-full lg:w-10/12 2xl:w-full">
       <div class="bg-base-200 shadow rounded-lg px-4 py-4">
         <div v-if="data">
