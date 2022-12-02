@@ -68,6 +68,7 @@ let pilihKelas = ref([
 
 const doPilihKelas = () => {
   // console.log(inputCariKelas.value.id);
+  kelas_id.value = inputCariKelas.value.id;
   router.push({
     name: "AdminSekolahDetail.hasil_ujian",
     params: {
@@ -164,7 +165,7 @@ const columns = ref([
 
 const encode = (value) => window.btoa(value);
 
-const doCetak = (kelas_id = null, token = moment().format("YYYY-MM-DD")) => {
+const doCetak = (kelas_id = kelas_id.value, token = moment().format("YYYY-MM-DD")) => {
   if (id === null) {
     Toast.danger("Warning", "Data tidak valid!");
   } else {
@@ -184,6 +185,7 @@ const doCetak = (kelas_id = null, token = moment().format("YYYY-MM-DD")) => {
             }}</span>
           <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-700 shadow-sm px-4" v-if="dataAsli">
             <ButtonCetak @click="doCetak(kelas_id)" />
+            <!-- {{ kelas_id }} -->
           </span>
         </div>
         <!-- <div class="md:py-0 py-4 space-x-2 space-y-2">
