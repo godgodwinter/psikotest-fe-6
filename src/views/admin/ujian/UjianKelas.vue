@@ -112,6 +112,21 @@ const doDeleteData = async (id, index) => {
     }
   }
 };
+
+const doGeneratePerkelas = async (kelas_id = kelas_id.value) => {
+  if (confirm("Apakah anda yakin generate data ini?")) {
+    try {
+      const response = await Api.get(
+        `admin/hasil_ujian_lintas/kelas/${kelas_id}`
+      );
+      Toast.success("Info", "Proses Generate berhasil!")
+      return response.data;
+    } catch (error) {
+      Toast.danger("Warning", "Proses Generate gagal!")
+      console.error(error);
+    }
+  };
+};
 </script>
 <template>
   <h1 class="text-lg font-bold">DETAIL : {{ dataProses.nama }}</h1>
@@ -123,9 +138,9 @@ const doDeleteData = async (id, index) => {
           <vue-good-table :line-numbers="true" :columns="columns" :rows="data" :search-options="{
             enabled: true,
           }" :pagination-options="{
-            enabled: true,
-            perPageDropdown: [10, 20, 50],
-          }" styleClass="vgt-table striped bordered condensed" class="py-0">
+  enabled: true,
+  perPageDropdown: [10, 20, 50],
+}" styleClass="vgt-table striped bordered condensed" class="py-0">
             <template #table-actions>
               <div class="space-x-1 space-y-1 gap-1">
                 <button class="btn btn-sm btn-secondary tooltip" data-tip="Refresh Data" @click="getData()">
@@ -161,6 +176,15 @@ const doDeleteData = async (id, index) => {
                       </svg>
                     </button>
                   </router-link>
+                  <button @click="doGeneratePerkelas(kelas_id)" class="btn btn-danger btn-sm tooltip"
+                    data-tip="generate">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                      stroke="currentColor" class="w-6 h-6">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 9.75v6.75m0 0l-3-3m3 3l3-3m-8.25 6a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
+                    </svg>
+
+                  </button>
                   <!-- <button class="btn btn-sm btn-danger" @click="doDeleteData(props.row.id, props.index)">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                       <path fill-rule="evenodd"

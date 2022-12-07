@@ -9,6 +9,8 @@ import { useRouter, useRoute } from "vue-router";
 import { useStoreAdminBar } from "@/stores/adminBar";
 import moment from "moment/min/moment-with-locales";
 import localization from "moment/locale/id";
+import { Field, Form } from "vee-validate";
+import fnValidasi from "@/components/lib/babengValidasi";
 moment.updateLocale("id", localization);
 
 import { useStoreGuruBk } from "@/stores/guruBk";
@@ -28,6 +30,8 @@ const siswa_id = route.params.siswa_id;
 
 const dataAsli = ref([]);
 const data = ref([]);
+const siswa = ref([]);
+const kelas = ref([]);
 
 const columns = [
   {
@@ -46,22 +50,32 @@ const columns = [
   {
     label: "Jumlah Soal",
     field: "jumlah_soal",
-    type: "String",
+    type: "number",
   },
   {
     label: "Skor",
     field: "skor",
-    type: "String",
+    type: "number",
+  },
+  {
+    label: "Nilai Akhir",
+    field: "nilaiAkhir",
+    type: "number",
+  },
+  {
+    label: "Nilai Revisi",
+    field: "nilaiAkhir_revisi",
+    type: "number",
   },
   {
     label: "Sisa Waktu",
     field: "sisa_waktu_dalam_menit",
-    type: "String",
+    type: "number",
   },
   {
     label: "Status",
     field: "status",
-    type: "String",
+    type: "number",
   },
 ];
 
@@ -72,6 +86,8 @@ const getData = async () => {
     );
     dataAsli.value = response.data;
     data.value = response.data;
+    siswa.value = response.siswa;
+    kelas.value = response.kelas;
 
     return response.data;
   } catch (error) {
@@ -142,10 +158,85 @@ const doResetAll = async (kelas_siswa_id) => {
   }
 }
 
+const doGeneratePerSiswa = async (siswa_id = siswa.value.id) => {
+  if (confirm("Apakah anda yakin generate data ini?")) {
+    try {
+      const response = await Api.get(
+        `admin/hasil_ujian_lintas/siswa/${siswa_id}`
+      );
+      Toast.success("Info", "Proses Generate berhasil!")
+      getData();
+      getDataProses();
+      return response.data;
+    } catch (error) {
+      Toast.danger("Warning", "Proses Generate gagal!")
+      console.error(error);
+    }
+  };
+};
+
+const dataForm = ref([]);
+const form = ref(false);
+
+
+const onSubmit = async (values) => {
+  let dataStore = {
+    nilaiAkhir_revisi: dataForm.value.nilaiAkhir_revisi,
+  };
+  // console.log(dataForm);
+  try {
+    const response = await Api.put(`admin/menuujian/proseskelas_revisi_nilai/siswa/${siswa.value.id}/ujian_paketsoal_kategori/${form.value}`, dataStore);
+    console.log(response);
+    // data.id = response.id;
+    Toast.success("Info", "Data berhasil revisi!");
+    // router.push({ name: "admin-pengumuman-index" });
+    getData();
+    getDataProses();
+    form.value = false;
+
+    return true;
+  } catch (error) {
+    console.error(error);
+  }
+};
 </script>
 <template>
   <h1 class="text-lg font-bold">SEKOLAH : {{ dataProses.nama }}</h1>
-  <h1 class="text-lg font-bold">KELAS : {{ proses_kelas_id }}</h1>
+  <div v-if="siswa">
+    <h1 class="text-lg font-bold">KELAS : {{ kelas.nama }}</h1>
+    <h1 class="text-lg font-bold">Siswa : {{ siswa.nama }}</h1>
+    <button @click="doGeneratePerSiswa(siswa.id)" class="btn btn-danger btn-sm tooltip" data-tip="generate">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+        class="w-6 h-6">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M12 9.75v6.75m0 0l-3-3m3 3l3-3m-8.25 6a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
+      </svg>
+    </button>
+  </div>
+  <div v-if="form" class="w-full px-10 lg:w-1/2">
+    <!-- Form Revisi Nilai -->
+    <Form v-slot="{ errors }" @submit="onSubmit">
+      <div class="py-2 lg:py-4 px-4">
+        <div class="space-y-4">
+          <div class="flex flex-col">
+            <label>Nilai Baru :</label>
+            <div>
+              <Field :rules="fnValidasi.validateDataNumber" v-model="dataForm.nilaiAkhir_revisi"
+                name="nilaiAkhir_revisi" type="text" max="100" min="0" class="input input-bordered w-11/12" />
+              <div class="text-xs text-red-600 mt-1">
+                {{ errors.nilaiAkhir_revisi }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="w-full flex justify-end py-10 px-10 gap-4">
+        <!-- <button class="btn btn-warning">Draft</button> -->
+        <span class="btn btn-secondary" @click="(form = false)">Batal</span>
+        <button class="btn btn-primary">Simpan</button>
+      </div>
+    </Form>
+  </div>
   <!-- <h1 class="text-lg font-bold">Berisi Kategori per SiSWA </h1> -->
   <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
     <div class="w-full lg:w-full">
@@ -219,6 +310,15 @@ const doResetAll = async (kelas_siswa_id) => {
                       <path stroke-linecap="round" stroke-linejoin="round"
                         d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182m0-4.991v4.99" />
                     </svg>
+                  </button>
+                  <button class="btn btn-sm btn-danger tooltip" data-tip="Ubah Nilai"
+                    @click="(form = props.row.ujian_paketsoal_kategori_id)">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                      stroke="currentColor" class="w-6 h-6">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                    </svg>
+
                   </button>
                 </div>
               </span>
