@@ -175,13 +175,25 @@ const AdminSekolahRoutes = [
           {
             path: "/pages/admin/sekolahdetail/:id/hasil_ujian/:kelas_id?",
             component: () =>
-              import("@/views/admin/sekolah/submenu/hasil_ujian/Index.vue"),
+              import("@/views/admin/sekolah/submenu/hasil_ujian/IndexV2.vue"),
             name: "AdminSekolahDetail.hasil_ujian",
           },
           {
             path: "/pages/admin/sekolahdetail/:id/hasil_ujian/:kelas_id?/persiswa/:siswa_id",
             component: () =>
-              import("@/views/admin/sekolah/submenu/hasil_ujian/Persiswa.vue"),
+              import("@/views/admin/sekolah/submenu/hasil_ujian/PersiswaV2.vue"),
+            name: "AdminSekolahDetail.hasil_ujianv2.persiswa",
+          },
+          {
+            path: "/pages/admin/sekolahdetail/:id/hasil_ujianv2/:kelas_id?",
+            component: () =>
+              import("@/views/admin/sekolah/submenu/hasil_ujian/IndexV2.vue"),
+            name: "AdminSekolahDetail.hasil_ujianv2",
+          },
+          {
+            path: "/pages/admin/sekolahdetail/:id/hasil_ujianv2/:kelas_id?/persiswa/:siswa_id",
+            component: () =>
+              import("@/views/admin/sekolah/submenu/hasil_ujian/PersiswaV2.vue"),
             name: "AdminSekolahDetail.hasil_ujian.persiswa",
           },
           {

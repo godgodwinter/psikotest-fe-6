@@ -163,15 +163,15 @@ const doDeleteData = async (id, index) => {
           <vue-good-table :columns="columns" :rows="data" :search-options="{
             enabled: true,
           }" :pagination-options="{
-  enabled: true,
-  perPageDropdown: [10, 20, 50],
-}" styleClass="vgt-table striped bordered condensed" class="py-0">
+            enabled: true,
+            perPageDropdown: [10, 20, 50],
+          }" styleClass="vgt-table striped bordered condensed" class="py-0">
             <template #table-row="props">
               <span v-if="props.column.field == 'actions'">
                 <div class="text-sm font-medium text-center flex justify-center space-x-1">
                   <ButtonEdit @click="doEditData(props.row.id, props.index)" />
                   <ButtonDelete @click="doDeleteData(props.row.id, props.index)" />
-                  <router-link :to="{
+                  <!-- <router-link :to="{
                     name: 'AdminYayasanDetail',
                     params: { id: props.row.id },
                   }">
@@ -181,7 +181,7 @@ const doDeleteData = async (id, index) => {
                         <path stroke-linecap="round" stroke-linejoin="round"
                           d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
                       </svg></button>
-                  </router-link>
+                  </router-link> -->
                 </div>
               </span>
 
