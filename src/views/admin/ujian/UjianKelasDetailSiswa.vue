@@ -178,6 +178,11 @@ const doGeneratePerSiswa = async (siswa_id = siswa.value.id) => {
 const dataForm = ref([]);
 const form = ref(false);
 
+const doEditForm = (id) => {
+  form.value = id;
+  dataForm.value.nilaiAkhir_revisi = 0;
+
+}
 
 const onSubmit = async (values) => {
   let dataStore = {
@@ -312,7 +317,7 @@ const onSubmit = async (values) => {
                     </svg>
                   </button>
                   <button class="btn btn-sm btn-danger tooltip" data-tip="Ubah Nilai"
-                    @click="(form = props.row.ujian_paketsoal_kategori_id)">
+                    @click="doEditForm(props.row.ujian_paketsoal_kategori_id)">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                       stroke="currentColor" class="w-6 h-6">
                       <path stroke-linecap="round" stroke-linejoin="round"

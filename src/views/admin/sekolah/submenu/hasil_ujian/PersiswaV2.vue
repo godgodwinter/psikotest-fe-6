@@ -174,7 +174,7 @@ const doCetak = (id = null, token = moment().format("YYYY-MM-DD")) => {
                         <table class="table table-compact">
                             <tbody>
                                 <tr v-for="mapel, i in item.detail " :key="mapel.id">
-                                    <td class="whitespace-nowrap w-1/12">{{ i + 1 }}</td>
+                                    <td class="whitespace-nowrap w-1/12">{{ parseInt(i) + 1 }}</td>
                                     <td class="whitespace-nowrap w-3/12">
                                         {{ mapel.ujian_paketsoal_kategori_nama }}
                                     </td>
