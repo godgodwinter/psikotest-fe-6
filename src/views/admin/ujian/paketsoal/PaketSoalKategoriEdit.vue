@@ -92,6 +92,9 @@ const onSubmit = async (values) => {
     ? "Aktif"
     : "Nonaktif";
   // console.log(values);
+  values.instruksi = dataForm.value.instruksi;
+  values.lembar_prasoal = dataForm.value.lembar_prasoal;
+  values.instruksi_pengerjaan = dataForm.value.instruksi_pengerjaan;
   const resSubmit = await ApiPaketsoalKategori.doUpdate(
     paketsoal_id,
     kategori_id,
@@ -187,8 +190,11 @@ const onSubmit = async (values) => {
             </div>
           </div>
           <div>
-            <Field v-if="dataForm.instruksiStatus" :rules="fnValidasi.validateData" v-model="dataForm.instruksi"
-              name="instruksi" type="text" placeholder="Instruksi" class="input input-bordered w-11/12" />
+            <!-- <Field v-if="dataForm.instruksiStatus" :rules="fnValidasi.validateData" v-model="dataForm.instruksi"
+              name="instruksi" type="text" placeholder="Instruksi" class="input input-bordered w-11/12" /> -->
+            <textarea v-if="dataForm.instruksiStatus" v-model="dataForm.instruksi" :rules="fnValidasi.validateData"
+              name="instruksi" ref="instruksi" class="textarea textarea-bordered md:w-full  w-11/12" placeholder="">
+            </textarea>
             <div class="text-xs text-red-600 mt-1">
               {{ errors.instruksi }}
             </div>
@@ -205,9 +211,13 @@ const onSubmit = async (values) => {
             </div>
           </div>
           <div>
-            <Field v-if="dataForm.lembar_prasoalStatus" :rules="fnValidasi.validateData"
+            <!-- <Field v-if="dataForm.lembar_prasoalStatus" :rules="fnValidasi.validateData"
               v-model="dataForm.lembar_prasoal" name="lembar_prasoal" type="text"
-              class="input input-bordered w-11/12" />
+              class="input input-bordered w-11/12" /> -->
+            <textarea v-if="dataForm.lembar_prasoalStatus" v-model="dataForm.lembar_prasoal"
+              :rules="fnValidasi.validateData" name="lembar_prasoal" ref="lembar_prasoal"
+              class="textarea textarea-bordered md:w-full  w-11/12" placeholder="">
+            </textarea>
             <div class="text-xs text-red-600 mt-1">
               {{ errors.lembar_prasoal }}
             </div>
@@ -224,9 +234,13 @@ const onSubmit = async (values) => {
             </div>
           </div>
           <div>
-            <Field v-if="dataForm.instruksi_pengerjaanStatus" :rules="fnValidasi.validateData"
+            <!-- <Field v-if="dataForm.instruksi_pengerjaanStatus" :rules="fnValidasi.validateData"
               v-model="dataForm.instruksi_pengerjaan" name="instruksi_pengerjaan" type="text"
-              class="input input-bordered w-11/12" />
+              class="input input-bordered w-11/12" /> -->
+            <textarea v-if="dataForm.instruksi_pengerjaanStatus" v-model="dataForm.instruksi_pengerjaan"
+              :rules="fnValidasi.validateData" name="instruksi_pengerjaan" ref="instruksi_pengerjaan"
+              class="textarea textarea-bordered md:w-full  w-11/12" placeholder="">
+            </textarea>
             <div class="text-xs text-red-600 mt-1">
               {{ errors.instruksi_pengerjaan }}
             </div>
