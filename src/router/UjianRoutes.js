@@ -19,6 +19,11 @@ const BanksoalRoutes = [
             component: () => import("@/views/admin/ujian/UjianCreate.vue"),
           },
           {
+            path: `${prefix}/edit/:id`,
+            name: "admin.ujian.edit",
+            component: () => import("@/views/admin/ujian/UjianEdit.vue"),
+          },
+          {
             path: `${prefix}/index/:ujian_proses_id`,
             name: "admin.ujian.kelas",
             component: () => import("@/views/admin/ujian/UjianKelas.vue"),

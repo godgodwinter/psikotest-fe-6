@@ -5,12 +5,14 @@ import ApiPaketsoal from "@/services/api/apiPaketsoal";
 import { Form, Field } from "vee-validate";
 import fnValidasi from "@/components/lib/babengValidasi";
 import Toast from "@/components/lib/Toast";
-import { useRouter } from "vue-router";
+import { useRouter, useRoute } from "vue-router";
 import moment from "moment/min/moment-with-locales";
 import localization from "moment/locale/id";
 moment.updateLocale("id", localization);
 
 const router = useRouter();
+const route = useRoute();
+const id = route.params.id;
 const dataForm = ref({
   prefix: "Sekolah",
   tgl: moment().format("YYYY-MM-DD"),
@@ -41,17 +43,29 @@ const getdataSekolah = async () => {
   }
 };
 getdataSekolah();
+const getDataDetail = async () => {
+  try {
+    const response = await Api.get(`admin/menuujian/proses/${id}`);
+
+    dataForm.value.tgl = response.data.tgl;
+    return response;
+  } catch (error) {
+    Toast.danger("Warning", "Data Gagal dimuat");
+    console.error(error);
+  }
+};
+getDataDetail();
 
 const onSubmit = async (values) => {
   // console.log(values);
   let dataFormSend = {
-    sekolah_id: dataForm.value.sekolah_id.id,
+    // sekolah_id: dataForm.value.sekolah_id.id,
     tgl: dataForm.value.tgl,
-    prefix: dataForm.value.prefix,
+    // prefix: dataForm.value.prefix,
   };
   // console.log(dataForm);
   try {
-    const response = await Api.post(`admin/menuujian/proses`, dataFormSend);
+    const response = await Api.put(`admin/menuujian/proses/${id}`, dataFormSend);
     console.log(response);
     // data.id = response.id;
     Toast.success("Info", "Data berhasil ditambahkan!");
@@ -67,21 +81,20 @@ const onSubmit = async (values) => {
   <Form v-slot="{ errors }" @submit="onSubmit">
     <div class="py-2 lg:py-4 px-4">
       <div class="space-y-4">
-        <div class="flex flex-col">
+        <!-- <div class="flex flex-col">
           <label> Peserta : </label>
           <div>
             <Field :rules="fnValidasi.validateSelect" v-model="dataForm.prefix" name="prefix"
               class="select select-bordered w-11/12" as="select">
               <option value="Sekolah" selected>Sekolah</option>
-              <!-- <option value="Umum">Umum</option> -->
             </Field>
 
             <div class="text-xs text-red-600 mt-1">
               {{ errors.prefix }}
             </div>
           </div>
-        </div>
-        <div class="flex flex-col">
+        </div> -->
+        <!-- <div class="flex flex-col">
           <label> Sekolah : </label>
           <div>
             <v-select class="py-2 px-3 w-72 mx-auto md:mx-0" :options="pilihSekolah" v-model="dataForm.sekolah_id"
@@ -91,7 +104,7 @@ const onSubmit = async (values) => {
               {{ errors.sekolah_id }}
             </div>
           </div>
-        </div>
+        </div> -->
         <div class="flex flex-col">
           <label>Batas Tanggal Pengerjaan : </label>
           <div>
