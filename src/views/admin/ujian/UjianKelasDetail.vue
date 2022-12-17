@@ -46,7 +46,7 @@ const columns = [
   },
   {
     label: "Jumlah Kategori Soal",
-    field: "siswa_jml",
+    field: "kategori_jml",
     type: "String",
   },
   {

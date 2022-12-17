@@ -96,6 +96,8 @@ const dataPilihanJawaban = ref([
   },
 ]);
 
+
+const updateRelasi = ref("Tidak");
 const onSubmit = async (values) => {
   console.log(values);
   let doSubmit = 1;
@@ -134,10 +136,10 @@ const onSubmit = async (values) => {
   // console.log(dataForm.value.ujian_kategori_id);
   // console.log(values);
   if (doSubmit > 0) {
-    const resSubmit = await ApiBanksoal.doUpdate(id, values);
+    const resSubmit = await ApiBanksoal.doUpdate(id, values, updateRelasi.value);
     if (resSubmit) {
       Toast.success("Info", "Data berhasil diUpdate!");
-      router.push({ name: "admin.banksoal" });
+      // router.push({ name: "admin.banksoal" });
     }
   }
 };
@@ -441,6 +443,21 @@ const doClearImgPertanyaan = () => {
                       {{ errors.dataPilihanJawabanSkor + "[" + index + "]" }}
                     </div> -->
                 </div>
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-col">
+            <label>Update Semua dalam Paket yang terhubung : </label>
+
+            <div>
+              <Field :rules="fnValidasi.validateSelect" v-model="updateRelasi" name="updateRelasi"
+                class="select select-bordered w-11/12" as="select">
+                <option value="Ya" selected>Ya</option>
+                <option value="Tidak">Tidak</option>
+              </Field>
+
+              <div class="text-xs text-red-600 mt-1">
+                {{ errors.updateRelasi }}
               </div>
             </div>
           </div>

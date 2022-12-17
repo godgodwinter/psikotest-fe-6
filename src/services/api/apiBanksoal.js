@@ -81,8 +81,10 @@ const getDataId = async (id) => {
   }
 };
 
-const doUpdate = async (id, data) => {
+const doUpdate = async (id, data,updateRelasi) => {
+  console.log(updateRelasi);
   let dataForm = {
+    updateRelasi:updateRelasi,
     ujian_kategori_id: data.ujian_kategori_id,
     tipe: data.tipe,
     status: data.status,
