@@ -45,11 +45,11 @@ const columns = [
     field: "tgl",
     type: "String",
   },
-  {
-    label: "Jumlah Siswa",
-    field: "jml_siswa",
-    type: "String",
-  },
+  // {
+  //   label: "Jumlah Siswa",
+  //   field: "jml_siswa",
+  //   type: "String",
+  // },
   {
     label: "Jumlah Kelas",
     field: "jml_kelas",
