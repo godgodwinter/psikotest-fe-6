@@ -177,10 +177,12 @@ const doGeneratePerSiswa = async (siswa_id = siswa.value.id) => {
 
 const dataForm = ref([]);
 const form = ref(false);
+const nama = ref(null);
 
-const doEditForm = (id) => {
+const doEditForm = (id, n, nilai) => {
   form.value = id;
-  dataForm.value.nilaiAkhir_revisi = 0;
+  nama.value = n;
+  dataForm.value.nilaiAkhir_revisi = nilai ? nilai : 0;
 
 }
 
@@ -198,6 +200,7 @@ const onSubmit = async (values) => {
     getData();
     getDataProses();
     form.value = false;
+    nama.value = null;
 
     return true;
   } catch (error) {
@@ -224,7 +227,7 @@ const onSubmit = async (values) => {
       <div class="py-2 lg:py-4 px-4">
         <div class="space-y-4">
           <div class="flex flex-col">
-            <label>Nilai Baru :</label>
+            <label>Nilai Baru <span class="font-bold">{{ nama }}</span> :</label>
             <div>
               <Field :rules="fnValidasi.validateDataNumber" v-model="dataForm.nilaiAkhir_revisi"
                 name="nilaiAkhir_revisi" type="text" max="100" min="0" class="input input-bordered w-11/12" />
@@ -317,7 +320,7 @@ const onSubmit = async (values) => {
                     </svg>
                   </button>
                   <button class="btn btn-sm btn-danger tooltip" data-tip="Ubah Nilai"
-                    @click="doEditForm(props.row.ujian_paketsoal_kategori_id)">
+                    @click="doEditForm(props.row.ujian_paketsoal_kategori_id, props.row.nama, props.row.nilaiAkhir_revisi)">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                       stroke="currentColor" class="w-6 h-6">
                       <path stroke-linecap="round" stroke-linejoin="round"
