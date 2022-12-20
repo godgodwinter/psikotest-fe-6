@@ -13,7 +13,7 @@ const sekolah = computed(() => storeGuruBk.getSekolah);
 storeGuruBk.$subscribe((mutation, state) => {
   // console.log(sekolah.value.id);
 });
-
+const superadmin = computed(() => storeGuruBk.getSuperadminMode);
 const storeAdminBar = useStoreAdminBar();
 storeAdminBar.setPagesActive("sekolah");
 const router = useRouter();
@@ -135,15 +135,15 @@ const doEditData = async (id, index) => {
           <vue-good-table :columns="columns" :rows="data" :search-options="{
             enabled: true,
           }" :pagination-options="{
-            enabled: true,
-            perPageDropdown: [10, 20, 50],
-          }" styleClass="vgt-table striped bordered condensed" class="py-0">
+  enabled: true,
+  perPageDropdown: [10, 20, 50],
+}" styleClass="vgt-table striped bordered condensed" class="py-0">
             <template #table-actions>
               <div class="space-x-1 space-y-1 gap-1">
                 <router-link :to="{
                   name: 'admin.sekolah.tambah',
                 }">
-                  <button class="btn btn-sm btn-primary tooltip" data-tip="Tambah SEKOLAH">
+                  <button class="btn btn-sm btn-primary tooltip" data-tip="Tambah SEKOLAH" v-if="superadmin">
 
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                       <path fill-rule="evenodd"
