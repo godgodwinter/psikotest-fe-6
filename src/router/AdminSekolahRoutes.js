@@ -79,6 +79,12 @@ const AdminSekolahRoutes = [
             name: "AdminSekolahDetailKelasEdit",
           },
           {
+            path: "/pages/admin/sekolahdetail/:id/kelas/:id2/pindahsekolah",
+            component: () =>
+              import("@/views/admin/sekolah/submenu/kelas/PindahSekolah.vue"),
+            name: "admin.sekolah.kelas.pindahsekolah",
+          },
+          {
             path: "/pages/admin/sekolahdetail/:id/walikelas",
             component: () =>
               import("@/views/admin/sekolah/submenu/walikelas/Index.vue"),

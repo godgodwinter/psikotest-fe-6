@@ -140,7 +140,7 @@ const columns = [
   //   thClass: "text-center",
   // },
   {
-    label: "Actions",
+    label: "#",
     field: "actions",
     sortable: false,
     width: "50px",
@@ -295,7 +295,7 @@ const doCopyClipboard = (item) => {
       >
         Generate Akun Baru
       </button> -->
-      <router-link :to="{ name: 'AdminSekolahDetailSiswaGenerate', params: { id: id } }">
+      <router-link :to="{ name: 'AdminSekolahDetailSiswaGenerate', params: { id: id } }" v-if="superadmin">
         <button class="btn btn-sm btn-info text-base-content">
           Generate Akun
         </button>
@@ -359,10 +359,11 @@ const doCopyClipboard = (item) => {
                     params: { id, id2: props.row.id },
                   }">
                     <button class="btn btn-sm btn-warning tooltip" data-tip="Edit">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                          d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
+                        <path fill-rule="evenodd"
+                          d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z"
+                          clip-rule="evenodd" />
                       </svg></button>
                   </router-link>
                   <router-link :to="{
@@ -370,11 +371,14 @@ const doCopyClipboard = (item) => {
                     params: { id, id2: props.row.id },
                   }">
                     <button class="btn btn-sm btn-primary tooltip" data-tip="Pindah Kelas">
-                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
-                        stroke="currentColor" stroke-width="2">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-6 h-6">
                         <path stroke-linecap="round" stroke-linejoin="round"
-                          d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg></button>
+                          d="M8.25 9.75h4.875a2.625 2.625 0 010 5.25H12M8.25 9.75L10.5 7.5M8.25 9.75L10.5 12m9-7.243V21.75l-3.75-1.5-3.75 1.5-3.75-1.5-3.75 1.5V4.757c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0c1.1.128 1.907 1.077 1.907 2.185z" />
+                      </svg>
+
+
+                    </button>
                   </router-link>
                 </div>
               </span>
