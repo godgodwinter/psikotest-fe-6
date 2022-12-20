@@ -9,6 +9,11 @@ const AdminSekolahRoutes = [
         name: "AdminSekolah",
       },
       {
+        path: "/pages/sekolah/tambah",
+        component: () => import("@/views/admin/sekolah/Tambah.vue"),
+        name: "admin.sekolah.tambah",
+      },
+      {
         path: "/pages/sekolah/:id",
         component: () => import("@/views/admin/sekolah/Edit.vue"),
         name: "AdminSekolahEdit",
