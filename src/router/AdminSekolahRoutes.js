@@ -10,7 +10,7 @@ const AdminSekolahRoutes = [
       },
       {
         path: "/pages/sekolah/tambah",
-        component: () => import("@/views/admin/sekolah/Tambah.vue"),
+        component: () => import("@/views/admin/sekolah/Tambah2.vue"),
         name: "admin.sekolah.tambah",
       },
       {
