@@ -29,19 +29,19 @@ const dataAsli = ref([]);
 const dataDetail = ref([]);
 const data = ref([]);
 
-// const getDataDetail = async () => {
-//   try {
-//     const response = await Api.get(`owner/datasekolah/${id}/bk/${id2}`);
-//     dataDetail.value = {
-//       nama: response.data.nama,
-//       nomerinduk: response.data.nomerinduk,
-//     };
-//     return response.data;
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };
-// getDataDetail();
+const getDataDetail = async () => {
+  try {
+    const response = await Api.get(`owner/datasekolah/${id}/siswa/${id2}`);
+    dataDetail.value = {
+      nama: response.data.nama,
+      nomerinduk: response.data.nomerinduk,
+    };
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+getDataDetail();
 
 // validasi
 const validateData = (value) => {
@@ -78,8 +78,8 @@ const doStoreData = async (d) => {
     telp: dataDetail.value.telp,
   };
   try {
-    const response = await Api.post(
-      `owner/datasekolah/${id}/siswa`,
+    const response = await Api.put(
+      `owner/datasekolah/${id}/siswa/${id2}`,
       dataStore
     );
     Toast.success("Success", "Data Berhasil ditambahkan!");

@@ -279,6 +279,45 @@ const doCopyClipboard = (item) => {
 //     data.value = dataFiltered;
 //   }
 // };
+
+const file = ref(null);
+let formData = new FormData();
+const doStoreDataImport = async (d) => {
+  // console.log(data);
+  try {
+    // const response = await Api.post("testing/apiprobk/upload", formData);
+    const response = await Api.post(`admin/proses/import/siswa_perkelas`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+    // console.log(response.data);
+    // Toast.success("Success", "Data Berhasil ditambahkan!");
+    getData(inputCariKelas.value.id);
+    return response.data;
+  } catch (error) {
+    // Toast.danger("Warning", "Data gagal ditambahkan!");
+    console.error(error);
+  }
+};
+const doSubmitFile = async () => {
+  formData.append("file", file.value.files[0]);
+  doStoreDataImport();
+};
+
+
+const doDeleteData = async (id2, index) => {
+  if (confirm("Apakah anda yakin menghapus data ini?")) {
+    try {
+      const response = await Api.delete(`owner/datasekolah/${id}/siswa/${id2}/forceDestroy`);
+      data.value.splice(index, 1);
+      Toast.success("Success", "Data Berhasil dihapus!");
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+};
 </script>
 <template>
   <div class="pt-4 px-10 md:flex justify-between">
@@ -334,7 +373,7 @@ const doCopyClipboard = (item) => {
           }" :pagination-options="{
   enabled: true,
   perPageDropdown: [10, 20, 50],
-}" styleClass="vgt-table striped bordered condensed" class="py-0">
+}" styleClass="vgt-table striped bordered condensed" class="py-0 space-x-2">
             <template #table-actions>
               <div class="space-x-1 space-y-1 gap-1">
                 <router-link :to="{
@@ -349,11 +388,32 @@ const doCopyClipboard = (item) => {
                     </svg>
                   </button>
                 </router-link>
+
+                <!-- <button class="btn btn-sm btn-success tooltip" data-tip="Import Siswa " v-if="superadmin">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+                        clip-rule="evenodd" />
+                    </svg>
+                  </button> -->
+                <label for="modalImport"
+                  class="btn btn-sm modal-button btn-info hover:shadow-lg shadow text-white hover:text-gray-100"
+                  data-tip="Import Siswa " v-if="superadmin">
+
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+                      clip-rule="evenodd" />
+                  </svg>
+                </label>
               </div>
             </template>
             <template #table-row="props">
               <span v-if="props.column.field == 'actions'">
                 <div class="text-sm font-medium text-center flex justify-center space-x-2" v-if="superadmin">
+
+                  <ButtonDelete @click="doDeleteData(props.row.id, props.index)" v-if="superadmin" />
                   <router-link :to="{
                     name: 'admin.sekolah.siswa.edit',
                     params: { id, id2: props.row.id },
@@ -460,6 +520,25 @@ const doCopyClipboard = (item) => {
             </template>
           </vue-good-table>
         </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Put this part before </body> tag -->
+  <input type="checkbox" id="modalImport" class="modal-toggle" />
+  <div class="modal">
+    <div class="modal-box w-11/12 max-w-5xl">
+      <label for="modalImport" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
+      <h3 class="font-bold text-lg">Import data menggunakan .xlx / .xlxs !</h3>
+      <div class="py-4">
+        <input type="file" ref="file" />
+        <button class="btn btn-info text-gray-100" @click="doSubmitFile()">
+          Upload
+        </button>
+      </div>
+      <div class="modal-action">
+        <!-- <label for="modalImport" class="btn">Done!</label> -->
       </div>
     </div>
   </div>
