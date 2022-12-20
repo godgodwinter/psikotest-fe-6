@@ -4,9 +4,11 @@ import { ref, watch, computed } from "vue";
 import BreadCrumb from "@/components/atoms/BreadCrumb.vue";
 import BreadCrumbSpace from "@/components/atoms/BreadCrumbSpace.vue";
 import ButtonEdit from "@/components/atoms/ButtonEdit.vue";
+import ButtonDelete from "@/components/atoms/ButtonDel.vue";
 import { useRouter, useRoute } from "vue-router";
 import { useStoreAdminBar } from "@/stores/adminBar";
 import { useStoreGuruBk } from "@/stores/guruBk";
+import Toast from "@/components/lib/Toast";
 const BASE_URL = import.meta.env.VITE_API_URL;
 const storeGuruBk = useStoreGuruBk();
 const sekolah = computed(() => storeGuruBk.getSekolah);
@@ -83,6 +85,19 @@ const doEditData = async (id, index) => {
     params: { id: id },
   });
 };
+
+const forceDestroy = async (id, index) => {
+  if (confirm("Apakah anda yakin menghapus PERMANENT data ini? data tidak bisa dikembalikan")) {
+    try {
+      const response = await Api.delete(`owner/sekolah/${id}/forceDestroy`);
+      data.value.splice(index, 1);
+      Toast.success("Success", "Data Berhasil dihapus!");
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+};
 </script>
 <template>
   <div class="pt-4 px-10 md:flex justify-between">
@@ -158,6 +173,7 @@ const doEditData = async (id, index) => {
               <span v-if="props.column.field == 'actions'">
                 <div class="text-sm font-medium text-center flex justify-center space-x-1">
                   <ButtonEdit @click="doEditData(props.row.id, props.index)" />
+                  <ButtonDelete @click="forceDestroy(props.row.id, props.index)" v-if="superadmin" />
                   <router-link :to="{
                     name: 'AdminSekolahDetailDashboard',
                     params: { id: props.row.id },

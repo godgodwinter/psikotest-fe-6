@@ -6,8 +6,11 @@ import BreadCrumbSpace from "@/components/atoms/BreadCrumbSpace.vue";
 import ButtonEdit from "@/components/atoms/ButtonEdit.vue";
 import { useRouter, useRoute } from "vue-router";
 import { useStoreAdminBar } from "@/stores/adminBar";
+import { useStoreGuruBk } from "@/stores/guruBk";
+const storeGuruBk = useStoreGuruBk();
 const storeAdminBar = useStoreAdminBar();
 storeAdminBar.setsubMenuActive("kelas");
+const superadmin = computed(() => storeGuruBk.getSuperadminMode);
 
 const router = useRouter();
 const route = useRoute();
@@ -82,25 +85,31 @@ const doDeleteData = async (id2, index) => {
     <div class="w-full lg:w-full">
       <div class="bg-white shadow rounded-lg px-4 py-4">
         <div v-if="data">
-          <vue-good-table
-            :columns="columns"
-            :rows="data"
-            :line-numbers="true"
-            :search-options="{
-              enabled: true,
-            }"
-            :pagination-options="{
-              enabled: true,
-              perPageDropdown: [10, 20, 50],
-            }"
-            styleClass="vgt-table striped bordered condensed"
-            class="py-0"
-          >
+          <vue-good-table :columns="columns" :rows="data" :line-numbers="true" :search-options="{
+            enabled: true,
+          }" :pagination-options="{
+  enabled: true,
+  perPageDropdown: [10, 20, 50],
+}" styleClass="vgt-table striped bordered condensed" class="py-0">
+            <template #table-actions>
+              <div class="space-x-1 space-y-1 gap-1">
+                <router-link :to="{
+                  name: 'admin.sekolah.kelas.tambah',
+                }">
+                  <button class="btn btn-sm btn-primary tooltip" data-tip="Tambah Kelas" v-if="superadmin">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+                        clip-rule="evenodd" />
+                    </svg>
+                  </button>
+                </router-link>
+              </div>
+            </template>
             <template #table-row="props">
               <span v-if="props.column.field == 'actions'">
-                <div
-                  class="text-sm font-medium text-center flex justify-center space-x-0"
-                >
+                <div class="text-sm font-medium text-center flex justify-center space-x-0">
                   <ButtonEdit @click="doEditData(props.row.id, props.index)" />
                   <!-- <router-link
                     :to="{

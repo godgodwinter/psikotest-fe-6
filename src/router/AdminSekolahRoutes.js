@@ -37,6 +37,24 @@ const AdminSekolahRoutes = [
             name: "AdminSekolahDetailSiswa",
           },
           {
+            path: "/pages/admin/sekolahdetail/:id/datasiswa/tambah",
+            component: () =>
+              import("@/views/admin/sekolah/submenu/siswa/Tambah.vue"),
+            name: "admin.sekolah.siswa.tambah",
+          },
+          {
+            path: "/pages/admin/sekolahdetail/:id/datasiswa/edit/:id2",
+            component: () =>
+              import("@/views/admin/sekolah/submenu/siswa/Edit.vue"),
+            name: "admin.sekolah.siswa.edit",
+          },
+          {
+            path: "/pages/admin/sekolahdetail/:id/datasiswa/pindahkelas/:id2",
+            component: () =>
+              import("@/views/admin/sekolah/submenu/siswa/PindahKelas.vue"),
+            name: "admin.sekolah.siswa.pindahkelas",
+          },
+          {
             path: "/pages/admin/sekolahdetail/:id/generate",
             component: () =>
               import("@/views/admin/sekolah/submenu/siswa/Generate.vue"),
@@ -47,6 +65,12 @@ const AdminSekolahRoutes = [
             component: () =>
               import("@/views/admin/sekolah/submenu/kelas/Index.vue"),
             name: "AdminSekolahDetailKelas",
+          },
+          {
+            path: "/pages/admin/sekolahdetail/:id/kelas/tambah",
+            component: () =>
+              import("@/views/admin/sekolah/submenu/kelas/Tambah.vue"),
+            name: "admin.sekolah.kelas.tambah",
           },
           {
             path: "/pages/admin/sekolahdetail/:id/kelas/:id2/edit",
@@ -61,6 +85,12 @@ const AdminSekolahRoutes = [
             name: "AdminSekolahDetailWalikelas",
           },
           {
+            path: "/pages/admin/sekolahdetail/:id/walikelas/tambah",
+            component: () =>
+              import("@/views/admin/sekolah/submenu/walikelas/Tambah.vue"),
+            name: "admin.sekolah.walikelas.tambah",
+          },
+          {
             path: "/pages/admin/sekolahdetail/:id/walikelas/:id2/edit",
             component: () =>
               import("@/views/admin/sekolah/submenu/walikelas/Edit.vue"),
@@ -71,6 +101,12 @@ const AdminSekolahRoutes = [
             component: () =>
               import("@/views/admin/sekolah/submenu/bk/Index.vue"),
             name: "AdminSekolahDetailBk",
+          },
+          {
+            path: "/pages/admin/sekolahdetail/:id/bk/tambah",
+            component: () =>
+              import("@/views/admin/sekolah/submenu/bk/Tambah.vue"),
+            name: "admin.sekolah.bk.tambah",
           },
           {
             path: "/pages/admin/sekolahdetail/:id/bk/:id2/edit",

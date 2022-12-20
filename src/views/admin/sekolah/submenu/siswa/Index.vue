@@ -7,10 +7,12 @@ import ButtonEdit from "@/components/atoms/ButtonEdit.vue";
 import { useRouter, useRoute } from "vue-router";
 import { useStoreAdminBar } from "@/stores/adminBar";
 import Toast from "@/components/lib/Toast.js";
+import ButtonDelete from "@/components/atoms/ButtonDel.vue";
 import { useStoreGuruBk } from "@/stores/guruBk";
+const storeGuruBk = useStoreGuruBk();
+const superadmin = computed(() => storeGuruBk.getSuperadminMode);
 const storeAdminBar = useStoreAdminBar();
 storeAdminBar.setsubMenuActive("siswa");
-const storeGuruBk = useStoreGuruBk();
 
 const router = useRouter();
 const route = useRoute();
@@ -137,14 +139,14 @@ const columns = [
   //   tdClass: "text-center",
   //   thClass: "text-center",
   // },
-  // {
-  //   label: "Actions",
-  //   field: "actions",
-  //   sortable: false,
-  //   width: "50px",
-  //   tdClass: "text-center",
-  //   thClass: "text-center",
-  // },
+  {
+    label: "Actions",
+    field: "actions",
+    sortable: false,
+    width: "50px",
+    tdClass: "text-center",
+    thClass: "text-center",
+  },
   {
     label: "Nama Siswa",
     field: "nama",
@@ -173,6 +175,11 @@ const columns = [
   {
     label: "Password Default Ortu",
     field: "ortu_passworddefault",
+    type: "String",
+  },
+  {
+    label: "Tipe",
+    field: "prefix",
     type: "String",
   },
 ];
@@ -277,7 +284,8 @@ const doCopyClipboard = (item) => {
   <div class="pt-4 px-10 md:flex justify-between">
     <div>
       <span class="text-2xl sm:text-3xl leading-none font-bold text-base-content shadow-sm">Siswa kelas {{
-      getDataSekolah.length>0?getDataSekolah[0].nama_kelas:null }}
+          getDataSekolah.length > 0 ? getDataSekolah[0].nama_kelas : null
+      }}
       </span>
     </div>
     <div class="md:py-0 py-4 space-x-2 space-y-2">
@@ -324,17 +332,44 @@ const doCopyClipboard = (item) => {
           <vue-good-table :line-numbers="true" :columns="columns" :rows="data" :search-options="{
             enabled: true,
           }" :pagination-options="{
-            enabled: true,
-            perPageDropdown: [10, 20, 50],
-          }" styleClass="vgt-table striped bordered condensed" class="py-0">
+  enabled: true,
+  perPageDropdown: [10, 20, 50],
+}" styleClass="vgt-table striped bordered condensed" class="py-0">
+            <template #table-actions>
+              <div class="space-x-1 space-y-1 gap-1">
+                <router-link :to="{
+                  name: 'admin.sekolah.siswa.tambah',
+                }">
+                  <button class="btn btn-sm btn-primary tooltip" data-tip="Tambah Siswa" v-if="superadmin">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                      <path fill-rule="evenodd"
+                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+                        clip-rule="evenodd" />
+                    </svg>
+                  </button>
+                </router-link>
+              </div>
+            </template>
             <template #table-row="props">
               <span v-if="props.column.field == 'actions'">
-                <div class="text-sm font-medium text-center flex justify-center space-x-0">
+                <div class="text-sm font-medium text-center flex justify-center space-x-2" v-if="superadmin">
                   <router-link :to="{
-                    name: 'AdminYayasanDetail',
-                    params: { id: props.row.id },
+                    name: 'admin.sekolah.siswa.edit',
+                    params: { id, id2: props.row.id },
                   }">
-                    <button class="btn btn-sm btn-primary tooltip" data-tip="Detail">
+                    <button class="btn btn-sm btn-warning tooltip" data-tip="Edit">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg></button>
+                  </router-link>
+                  <router-link :to="{
+                    name: 'admin.sekolah.siswa.pindahkelas',
+                    params: { id, id2: props.row.id },
+                  }">
+                    <button class="btn btn-sm btn-primary tooltip" data-tip="Pindah Kelas">
                       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round"
@@ -403,6 +438,15 @@ const doCopyClipboard = (item) => {
                         d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
                     </svg>
                   </span>
+                </div>
+              </span>
+              <span v-else-if="props.column.field == 'prefix'">
+                <div class="flex justify-center gap-2">
+                  <div v-if="props.row.prefix">
+                    USER
+                  </div>
+                  <div v-else>API</div>
+
                 </div>
               </span>
 
