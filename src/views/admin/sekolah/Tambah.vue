@@ -1,5 +1,4 @@
 <script setup>
-const BASE_URL = import.meta.env.VITE_API_URL;
 import Api from "@/axios/axios";
 import { ref, watch, computed } from "vue";
 import BreadCrumb from "@/components/atoms/BreadCrumb.vue";
@@ -9,13 +8,16 @@ import { useRouter, useRoute } from "vue-router";
 import { useStoreAdminBar } from "@/stores/adminBar";
 import { Field, Form } from "vee-validate";
 import Toast from "@/components/lib/Toast";
-
 import { useStoreGuruBk } from "@/stores/guruBk";
+const BASE_URL = import.meta.env.VITE_API_URL;
 const storeGuruBk = useStoreGuruBk();
 const sekolah = computed(() => storeGuruBk.getSekolah);
-storeGuruBk.$subscribe((mutation, state) => {
-  // console.log(sekolah.value.id);
-});
+// const settings = computed(() => storeGuruBk.getSettings);
+// const superadmin = ref(false);
+// storeGuruBk.$subscribe((mutation, state) => {
+//   superadmin.value = settings.value?.superadmin;
+// });
+// superadmin.value = settings.value?.superadmin;
 
 const storeAdminBar = useStoreAdminBar();
 storeAdminBar.setPagesActive("sekolah");
@@ -29,21 +31,21 @@ const dataDetail = ref([]);
 const data = ref([]);
 
 const dataDetailTemp = ref({});
-const getDataDetail = async () => {
-  try {
-    const response = await Api.get(`owner/sekolah/${id}`);
-    dataDetail.value = response.data;
-    dataDetailTemp.value = {
-      kecamatan: dataDetail.value.kecamatan,
-      kabupaten: dataDetail.value.kabupaten,
-      provinsi: dataDetail.value.provinsi,
-    };
-    return response.data;
-  } catch (error) {
-    console.error(error);
-  }
-};
-getDataDetail();
+// const getDataDetail = async () => {
+//   try {
+//     const response = await Api.get(`owner/sekolah/${id}`);
+//     dataDetail.value = response.data;
+//     dataDetailTemp.value = {
+//       kecamatan: dataDetail.value.kecamatan,
+//       kabupaten: dataDetail.value.kabupaten,
+//       provinsi: dataDetail.value.provinsi,
+//     };
+//     return response.data;
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
+// getDataDetail();
 
 const dataPaket = ref([]);
 const getPaket = async () => {
@@ -89,7 +91,7 @@ const doStoreData = async (d) => {
     paket_id: dataDetail.value.paket_id,
   };
   try {
-    const response = await Api.put(`owner/sekolah/${id}`, dataStore);
+    const response = await Api.post(`owner/sekolah`, dataStore);
     Toast.success("Success", "Data Berhasil ditambahkan!");
     // resetForm();
     router.push({ name: "AdminSekolah" });
@@ -230,6 +232,7 @@ getProvinsi();
     <div>
       <span class="text-2xl sm:text-3xl leading-none font-bold text-base-content shadow-sm">
         {{ dataDetail.nama }}
+        <!-- {{ superadmin }} -->
       </span>
     </div>
     <div class="md:py-0 py-4">

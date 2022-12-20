@@ -1,5 +1,4 @@
 <script setup>
-const BASE_URL = import.meta.env.VITE_API_URL;
 import Api from "@/axios/axios";
 import { ref, watch, computed } from "vue";
 import BreadCrumb from "@/components/atoms/BreadCrumb.vue";
@@ -7,8 +6,8 @@ import BreadCrumbSpace from "@/components/atoms/BreadCrumbSpace.vue";
 import ButtonEdit from "@/components/atoms/ButtonEdit.vue";
 import { useRouter, useRoute } from "vue-router";
 import { useStoreAdminBar } from "@/stores/adminBar";
-
 import { useStoreGuruBk } from "@/stores/guruBk";
+const BASE_URL = import.meta.env.VITE_API_URL;
 const storeGuruBk = useStoreGuruBk();
 const sekolah = computed(() => storeGuruBk.getSekolah);
 storeGuruBk.$subscribe((mutation, state) => {
@@ -136,9 +135,9 @@ const doEditData = async (id, index) => {
           <vue-good-table :columns="columns" :rows="data" :search-options="{
             enabled: true,
           }" :pagination-options="{
-  enabled: true,
-  perPageDropdown: [10, 20, 50],
-}" styleClass="vgt-table striped bordered condensed" class="py-0">
+            enabled: true,
+            perPageDropdown: [10, 20, 50],
+          }" styleClass="vgt-table striped bordered condensed" class="py-0">
             <template #table-actions>
               <div class="space-x-1 space-y-1 gap-1">
                 <router-link :to="{

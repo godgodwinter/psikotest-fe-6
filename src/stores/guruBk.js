@@ -2,6 +2,9 @@ import { defineStore } from 'pinia';
 export const useStoreGuruBk = defineStore({
     id: 'storeGuruBk',
     state: () => ({
+        settings: {
+            superadmin: localStorage.getItem('superadmin_001') ? JSON.parse(localStorage.getItem('superadmin_001')) :false,
+        },
         identitas: [],
         sekolah: {
             status: 'NonAktif',
@@ -22,6 +25,8 @@ export const useStoreGuruBk = defineStore({
         ],
     }),
     getters: {
+        getSettings: (state) => state.settings,
+        getSuperadminMode: (state) => state.settings.superadmin,
         getIdentitas: (state) => state.identitas,
         getSekolah: (state) => state.sekolah,
         getPaket: (state) => state.paket,
@@ -29,6 +34,12 @@ export const useStoreGuruBk = defineStore({
         getTempSekolah: (state) => state.tempSekolah,
     },
     actions: {
+        setSettings(settings) {
+            this.settings = settings;
+        },
+        setSuperadminMode(superadminMode) {
+            this.settings.superadmin = superadminMode;
+        },
         setIdentitas(identitas) {
             this.identitas = identitas;
         },

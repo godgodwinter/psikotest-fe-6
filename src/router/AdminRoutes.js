@@ -1,4 +1,5 @@
 import AdminSekolahRoutes from "./AdminSekolahRoutes";
+import superadminRoutes from "./superadminRoutes";
 // const prefix = "/pages";
 const AdminRoutes = [
   {
@@ -191,5 +192,5 @@ const AdminRoutes = [
 ];
 
 // push
-AdminRoutes.push(...AdminSekolahRoutes);
+AdminRoutes.push(...AdminSekolahRoutes,...superadminRoutes);
 export default AdminRoutes;
