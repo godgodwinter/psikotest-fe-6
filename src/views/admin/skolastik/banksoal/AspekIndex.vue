@@ -29,13 +29,18 @@ const columns = [
         type: "String",
     },
     {
-        label: "Waktu",
-        field: "waktu",
+        label: "Jumlah Soal",
+        field: "soal_jml",
         type: "String",
     },
     {
         label: "Jumlah Sub Aspek",
         field: "sub_aspek_jml",
+        type: "String",
+    },
+    {
+        label: "Waktu",
+        field: "waktu",
         type: "String",
     },
     {

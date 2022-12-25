@@ -39,14 +39,19 @@ const SkolastikBanksoalRoutes = [
             component: () => import("@/views/admin/skolastik/banksoal/AspekSubEdit.vue"),
           },
           {
+            path: `${prefix}/skolastik/banksoal/soal/index/:aspek_id`,
+            name: "admin.skolastik.banksoal.soal.index",
+            component: () => import("@/views/admin/skolastik/banksoal/SoalIndex.vue"),
+          },
+          {
             path: `${prefix}/skolastik/banksoal/soal/create/:aspek_id?`,
             name: "admin.skolastik.banksoal.soal.create",
             component: () => import("@/views/admin/skolastik/banksoal/SoalCreate.vue"),
           },
           {
-            path: `${prefix}/skolastik/banksoal/soal/index/:aspek_id`,
-            name: "admin.skolastik.banksoal.soal.index",
-            component: () => import("@/views/admin/skolastik/banksoal/SoalIndex.vue"),
+            path: `${prefix}/skolastik/banksoal/soal/edit/:aspek_id?/soal/:soal_id`,
+            name: "admin.skolastik.banksoal.soal.edit",
+            component: () => import("@/views/admin/skolastik/banksoal/SoalEdit.vue"),
           },
         ],
       },

@@ -31,9 +31,9 @@ const validateData2 = (value) => {
 };
 
 const validateDataNumber = (value) => {
-  if (!value) {
-    return "This field is required";
-  }
+  // if (!value) {
+  //   return "This field is required";
+  // }
 
   if (isNaN(value)) {
     return "This field must be a number";

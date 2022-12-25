@@ -117,7 +117,7 @@ const doRefreshData = async () => {
                                     name: 'admin.skolastik.banksoal.aspek_sub.create',
                                     // params: { jenis: jenis },
                                 }">
-                                    <button class="btn btn-sm btn-primary tooltip" data-tip="Tambah Aspek">
+                                    <button class="btn btn-sm btn-primary tooltip" data-tip="Tambah Sub Aspek">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
                                             fill="currentColor">
                                             <path fill-rule="evenodd"

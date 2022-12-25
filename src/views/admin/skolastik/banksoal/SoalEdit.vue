@@ -10,11 +10,10 @@ import fnCampur from "@/components/lib/FungsiCampur";
 const router = useRouter();
 const route = useRoute();
 
-let pilihAspek = ref([]);
-const dataAspek = ref([]);
+const aspek_id = route.params.aspek_id;
+const soal_id = route.params.soal_id;
 
-let pilihAspekDetail = ref([]);
-const dataAspekDetail = ref([]);
+const dataDetail = ref(null)
 
 const dataForm = ref({
     pertanyaan: "",
@@ -30,6 +29,21 @@ const dataForm = ref({
 
     pilihanJawaban: [],
 });
+
+const tempAspek = ref({
+    label: 0,
+    id: 0,
+})
+const tempAspekDetail = ref({
+    label: 0,
+    id: 0,
+})
+let pilihAspek = ref([]);
+const dataAspek = ref([]);
+
+let pilihAspekDetail = ref([]);
+const dataAspekDetail = ref([]);
+
 const getDataAspek = async () => {
     try {
         const response = await Api.get(`admin/ujian/skolastik/aspek`);
@@ -53,7 +67,30 @@ const getDataAspek = async () => {
         console.error(error);
     }
 };
-getDataAspek();
+const getDataAspekNotReplace = async () => {
+    try {
+        const response = await Api.get(`admin/ujian/skolastik/aspek`);
+        // console.log(response);
+        dataAspek.value = response.data;
+        dataAspek.value.forEach((item) => {
+            pilihAspek.value.push({
+                label: item.nama,
+                id: item.id,
+            });
+        });
+
+        // dataForm.value.skolastik_banksoal_aspek_id = {
+        //     id: pilihAspek.value[0].id,
+        //     label: pilihAspek.value[0].label,
+        // };
+        getDataAspekDetailNotReplace(pilihAspek.value[0].id);
+        return response;
+    } catch (error) {
+        Toast.danger("Warning", "Data Gagal dimuat");
+        console.error(error);
+    }
+};
+// getDataAspek();
 
 const getDataAspekDetail = async (aspek_id) => {
     try {
@@ -78,6 +115,57 @@ const getDataAspekDetail = async (aspek_id) => {
         console.error(error);
     }
 };
+const getDataAspekDetailNotReplace = async (aspek_id) => {
+    try {
+        const response = await Api.get(`admin/ujian/skolastik/aspek/${aspek_id}/detail`);
+        // console.log(response);
+        pilihAspekDetail.value = [];
+        dataAspekDetail.value = response.data;
+        dataAspekDetail.value.forEach((item) => {
+            pilihAspekDetail.value.push({
+                label: item.nama,
+                id: item.id,
+            });
+        });
+
+        // dataForm.value.skolastik_banksoal_aspek_detail_id = {
+        //     id: pilihAspekDetail.value[0].id,
+        //     label: pilihAspekDetail.value[0].label,
+        // };
+        return response;
+    } catch (error) {
+        Toast.danger("Warning", "Data Gagal dimuat");
+        console.error(error);
+    }
+};
+
+const getDataDetail = async () => {
+    try {
+        getDataAspekNotReplace();
+        const response = await Api.get(`admin/ujian/skolastik/aspek/${aspek_id}/soal/${soal_id}`);
+        dataDetail.value = response.data;
+        console.log(dataDetail.value);
+        dataForm.value.pertanyaan = dataDetail.value.pertanyaan;
+        dataForm.value.kode = dataDetail.value.kode;
+        dataForm.value.nomer_urut = dataDetail.value.nomer_urut ? dataDetail.value.nomer_urut : 0;
+        tempAspek.value = {
+            id: dataDetail.value.skolastik_banksoal_aspek_id,
+            label: dataDetail.value.aspek_nama,
+        };
+        dataForm.value.skolastik_banksoal_aspek_id = tempAspek.value;
+        tempAspekDetail.value = {
+            id: dataDetail.value.skolastik_banksoal_aspek_detail_id,
+            label: dataDetail.value.aspek_detail_nama,
+        }
+        dataForm.value.skolastik_banksoal_aspek_detail_id = tempAspekDetail.value;
+
+        dataPilihanJawaban.value = dataDetail.value.pilihanjawaban;
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+};
+getDataDetail();
 
 
 const onSubmit = async (values) => {
@@ -125,17 +213,17 @@ const onSubmit = async (values) => {
             skolastik_banksoal_aspek_id: values.skolastik_banksoal_aspek_id,
             skolastik_banksoal_aspek_detail_id: values.skolastik_banksoal_aspek_detail_id,
             pertanyaan: values.pertanyaan,
-            pilihanJawaban: values.pilihanJawaban,
             kode: values.kode,
+            pilihanJawaban: values.pilihanJawaban,
             nomer_urut: values.nomer_urut,
         }
-        // console.log(inputForm);
-        const response = await Api.post(
-            `admin/ujian/skolastik/aspek/${values.skolastik_banksoal_aspek_id}/soal`,
+        console.log(inputForm);
+        const response = await Api.put(
+            `admin/ujian/skolastik/aspek/${values.skolastik_banksoal_aspek_id}/soal/${soal_id}`,
             inputForm
         );
         // console.log(response);
-        Toast.success("Info", "Data berhasil ditambahkan!");
+        Toast.success("Info", "Data berhasil diupdate!");
         router.push({
             name: "admin.skolastik.banksoal.soal.index",
             params: { aspek_id: values.skolastik_banksoal_aspek_id },
@@ -185,6 +273,7 @@ const dataPilihanJawaban = ref([
 const doTambahPilihanJawaban = () => {
     dataPilihanJawaban.value.push({
         // id: dataPilihanJawaban.value.length+1,
+        id: getRandomArbitrary(999999, 9999999),
         jawaban: null,
         // status: "Salah",
         skor: 0,
@@ -194,6 +283,9 @@ const doTambahPilihanJawaban = () => {
 const doHapusPilihanJawaban = () => {
     dataPilihanJawaban.value.pop();
 };
+function getRandomArbitrary(min, max) {
+    return Math.random() * (max - min) + min;
+}
 
 let embedImgPertanyaan = ref(null);
 const fileAudio = ref(null);
@@ -222,7 +314,7 @@ const doClearImgPertanyaan = () => {
     </article>
     <div>
 
-        <Form v-slot="{ errors }" @submit="onSubmit">
+        <Form v-slot="{ errors }" @submit="onSubmit" v-if="dataDetail">
             <div class="py-2 lg:py-4 px-4">
                 <div class="flex flex-col">
                     <label> Aspek : </label>
@@ -261,7 +353,6 @@ const doClearImgPertanyaan = () => {
                         </div>
                     </div>
                 </div>
-
                 <div class="flex flex-col">
                     <label>Kode : </label>
                     <div>
