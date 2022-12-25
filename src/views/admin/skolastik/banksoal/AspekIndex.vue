@@ -34,6 +34,11 @@ const columns = [
         type: "String",
     },
     {
+        label: "Jumlah Sub Aspek",
+        field: "sub_aspek_jml",
+        type: "String",
+    },
+    {
         label: "Random Soal",
         field: "random_soal",
         type: "String",

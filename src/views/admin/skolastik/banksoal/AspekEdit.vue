@@ -103,7 +103,7 @@ const onSubmit = async (values) => {
 </script>
 <template>
     <article class="prose lg:prose-sm">
-        <h2>Buat Aspek Baru</h2>
+        <h2>Edit Aspek</h2>
     </article>
     <div>
 
