@@ -28,6 +28,21 @@ const columns = [
         type: "String",
     },
     {
+        label: "Waktu",
+        field: "waktu",
+        type: "String",
+    },
+    {
+        label: "Random Soal",
+        field: "random_soal",
+        type: "String",
+    },
+    {
+        label: "Random Pilihan Jawaban",
+        field: "random_pilihanjawaban",
+        type: "String",
+    },
+    {
         label: "Status",
         field: "status",
         type: "String",
@@ -49,10 +64,10 @@ const getData = async () => {
 getData();
 
 const doEditData = async (id, index) => {
-    // router.push({
-    //     name: "AdminKlasifikasiEdit",
-    //     params: { id: id },
-    // });
+    router.push({
+        name: "admin.skolastik.banksoal.aspek.edit",
+        params: { aspek_id: id },
+    });
 };
 const doDeleteData = async (id, index) => {
     if (confirm("Apakah anda yakin menghapus data ini?")) {
@@ -66,6 +81,10 @@ const doDeleteData = async (id, index) => {
         // }
     }
 };
+
+const doRefreshData = async () => {
+    getData();
+}
 </script>
 <template>
     <div class="pt-4 px-10 md:flex justify-between">
@@ -96,6 +115,33 @@ const doDeleteData = async (id, index) => {
     enabled: true,
     perPageDropdown: [10, 20, 50],
 }" styleClass="vgt-table striped bordered condensed" class="py-0">
+
+                        <template #table-actions>
+                            <div class="space-x-1 space-y-1 gap-1">
+                                <button class="btn btn-sm btn-secondary tooltip m-1" data-tip="Refresh Data"
+                                    @click="doRefreshData()">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
+                                        fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                </button>
+                                <router-link :to="{
+                                    name: 'admin.skolastik.banksoal.aspek.create',
+                                    // params: { jenis: jenis },
+                                }">
+                                    <button class="btn btn-sm btn-primary tooltip" data-tip="Tambah Aspek">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
+                                            fill="currentColor">
+                                            <path fill-rule="evenodd"
+                                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    </button>
+                                </router-link>
+                            </div>
+                        </template>
                         <template #table-row="props">
                             <span v-if="props.column.field == 'actions'">
                                 <div class="text-sm font-medium text-center flex justify-center space-x-1">

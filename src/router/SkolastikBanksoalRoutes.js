@@ -14,6 +14,16 @@ const SkolastikBanksoalRoutes = [
             component: () => import("@/views/admin/skolastik/banksoal/AspekIndex.vue"),
           },
           {
+            path: `${prefix}/skolastik/banksoal/aspek/create`,
+            name: "admin.skolastik.banksoal.aspek.create",
+            component: () => import("@/views/admin/skolastik/banksoal/AspekCreate.vue"),
+          },
+          {
+            path: `${prefix}/skolastik/banksoal/aspek/edit/:aspek_id`,
+            name: "admin.skolastik.banksoal.aspek.edit",
+            component: () => import("@/views/admin/skolastik/banksoal/AspekEdit.vue"),
+          },
+          {
             path: `${prefix}/skolastik/banksoal/aspek_sub`,
             name: "admin.skolastik.banksoal.aspek_sub",
             component: () => import("@/views/admin/skolastik/banksoal/AspekSubIndex.vue"),

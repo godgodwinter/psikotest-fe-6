@@ -10,6 +10,8 @@ import fnCampur from "@/components/lib/FungsiCampur";
 const router = useRouter();
 const route = useRoute();
 
+const aspek_id = route.params.aspek_id;
+
 const dataForm = ref({
     nama: "",
     urutan: null,
@@ -20,6 +22,30 @@ const dataForm = ref({
     random_soal: false,
     random_pilihanjawaban: false,
 });
+const dataDetail = ref({})
+
+const getDataDetail = async () => {
+    try {
+        const response = await Api.get(`admin/ujian/skolastik/aspek/${aspek_id}`);
+        dataDetail.value = response.data;
+        dataForm.value.nama = dataDetail.value.nama;
+        dataForm.value.urutan = dataDetail.value.urutan;
+        dataForm.value.waktu = dataDetail.value.waktu;
+        dataForm.value.instruksiStatus = dataDetail.value.instruksi_status == 'Aktif' ? true : false;
+        dataForm.value.lembar_prasoalStatus = dataDetail.value.lembar_prasoal_status == 'Aktif' ? true : false;
+        dataForm.value.instruksi_pengerjaanStatus = dataDetail.value.instruksi_pengerjaan_status == 'Aktif' ? true : false;
+        dataForm.value.instruksi = dataDetail.value.instruksi;
+        dataForm.value.lembar_prasoal = dataDetail.value.lembar_prasoal;
+        dataForm.value.instruksi_pengerjaan = dataDetail.value.instruksi_pengerjaan;
+        dataForm.value.randomSoal = dataDetail.value.random_soal == 'Aktif' ? true : false;
+        dataForm.value.randomPilihanJawaban = dataDetail.value.random_pilihanjawaban == 'Aktif' ? true : false;
+        // console.log(dataDetail.value);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+};
+getDataDetail();
 
 const onSubmit = async (values) => {
     values.nama = dataForm.value.nama;
@@ -58,8 +84,8 @@ const onSubmit = async (values) => {
     };
     // console.log(id, dataForm);
     try {
-        const response = await Api.post(
-            `admin/ujian/skolastik/aspek`,
+        const response = await Api.put(
+            `admin/ujian/skolastik/aspek/${aspek_id}`,
             dataForm.value
         );
         console.log(response);

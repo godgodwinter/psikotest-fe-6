@@ -11,7 +11,11 @@ import BreadCrumbSpace from "@/components/atoms/BreadCrumbSpace.vue";
         <div class="md:py-0 py-4">
             <BreadCrumb>
                 <template v-slot:content>
-                    Soal Index
+                    <li>
+                        <router-link :to="{ name: 'admin.skolastik.banksoal.aspek' }">Aspek</router-link>
+                    </li>
+                    <li>
+                        Soal Index</li>
                     <BreadCrumbSpace /> Index
                 </template>
             </BreadCrumb>
