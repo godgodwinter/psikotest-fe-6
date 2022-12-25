@@ -42,7 +42,7 @@ const onSubmit = async (values) => {
     values.instruksi = dataForm.value.instruksi;
     values.lembar_prasoal = dataForm.value.lembar_prasoal;
     values.instruksi_pengerjaan = dataForm.value.instruksi_pengerjaan;
-    console.log(values);
+    // console.log(values);
 
     dataForm.value = {
         nama: values.nama,
@@ -62,7 +62,7 @@ const onSubmit = async (values) => {
             `admin/ujian/skolastik/aspek`,
             dataForm.value
         );
-        console.log(response);
+        // console.log(response);
         Toast.success("Info", "Data berhasil ditambahkan!");
         router.push({
             name: "admin.skolastik.banksoal.aspek",

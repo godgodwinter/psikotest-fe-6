@@ -6,6 +6,7 @@ import { useRouter, useRoute } from "vue-router";
 import Api from "@/axios/axios";
 import ButtonEdit from "@/components/atoms/ButtonEdit.vue";
 import ButtonDelete from "@/components/atoms/ButtonDel.vue";
+import Toast from "@/components/lib/Toast";
 
 const router = useRouter();
 const route = useRoute();
@@ -71,14 +72,14 @@ const doEditData = async (id, index) => {
 };
 const doDeleteData = async (id, index) => {
     if (confirm("Apakah anda yakin menghapus data ini?")) {
-        // try {
-        //     const response = await Api.delete(`owner/klasifikasi/${id}`);
-        //     data.value.splice(index, 1);
-        //     Toast.success("Success", "Data Berhasil dihapus!");
-        //     return response.data;
-        // } catch (error) {
-        //     console.error(error);
-        // }
+        try {
+            const response = await Api.delete(`admin/ujian/skolastik/aspek/${id}`);
+            data.value.splice(index, 1);
+            Toast.success("Success", "Data Berhasil dihapus!");
+            return response.data;
+        } catch (error) {
+            console.error(error);
+        }
     }
 };
 
