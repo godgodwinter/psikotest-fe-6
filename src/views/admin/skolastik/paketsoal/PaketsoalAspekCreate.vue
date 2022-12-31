@@ -102,7 +102,7 @@ const onSubmit = async (values) => {
         Toast.success("Info", "Data berhasil ditambahkan!");
         router.push({
             name: "admin.skolastik.paketsoal.aspek",
-            // params: { paketsoal_id },
+            params: { paketsoal_id },
         });
 
         formDetail.value = null;

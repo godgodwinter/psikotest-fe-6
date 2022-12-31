@@ -38,6 +38,16 @@ const SkolastikPaketsoal = [
             name: "admin.skolastik.paketsoal.aspek.edit",
             component: () => import("@/views/admin/skolastik/paketsoal/PaketsoalAspekEdit.vue"),
           },
+          {
+            path: `${prefix}/skolastik/paketsoal/aspek/:paketsoal_id/soal/:aspek_id`,
+            name: "admin.skolastik.paketsoal.aspek.soal",
+            component: () => import("@/views/admin/skolastik/paketsoal/PaketsoalAspekSoal.vue"),
+          },
+          {
+            path: `${prefix}/skolastik/paketsoal/aspek/:paketsoal_id/soal/:aspek_id/add/:banksoal_aspek_id`,
+            name: "admin.skolastik.paketsoal.aspek.soal.add",
+            component: () => import("@/views/admin/skolastik/paketsoal/PaketsoalAspekSoalAdd.vue"),
+          },
         ],
       },
     ],
