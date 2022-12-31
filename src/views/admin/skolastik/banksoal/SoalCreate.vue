@@ -265,7 +265,7 @@ const doClearImgPertanyaan = () => {
                 <div class="flex flex-col">
                     <label>Kode : </label>
                     <div>
-                        <Field :rules="fnValidasi.validateData" v-model="dataForm.kode" name="kode" type="text"
+                        <Field v-model="dataForm.kode" name="kode" type="text"
                             class="py-2 px-3 w-full lg:w-1/2 mx-auto md:mx-0 input input-bordered" />
                         <div class="text-xs text-red-600 mt-1">
                             {{ errors.kode }}

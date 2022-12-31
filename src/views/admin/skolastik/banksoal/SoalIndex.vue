@@ -35,6 +35,16 @@ const columns = [
         type: "String",
     },
     {
+        label: "Aspek",
+        field: "aspek_nama",
+        type: "String",
+    },
+    {
+        label: "Sub",
+        field: "aspek_detail_nama",
+        type: "String",
+    },
+    {
         label: "Status",
         field: "status",
         type: "String",
@@ -106,8 +116,8 @@ const doRefreshData = async () => {
             <div class="bg-white shadow rounded-lg px-4 py-4">
                 <div v-if="data">
                     <vue-good-table ref="myTable" :line-numbers="true" :columns="columns" :rows="data" :search-options="{
-                        enabled: true,
-                    }" :pagination-options="{
+    enabled: true,
+}" :pagination-options="{
     enabled: true,
     perPageDropdown: [10, 20, 50],
 }" styleClass="vgt-table striped bordered condensed" class="py-0">
@@ -124,9 +134,9 @@ const doRefreshData = async () => {
                                     </svg>
                                 </button>
                                 <router-link :to="{
-                                    name: 'admin.skolastik.banksoal.soal.create',
-                                    // params: { jenis: jenis },
-                                }">
+    name: 'admin.skolastik.banksoal.soal.create',
+    // params: { jenis: jenis },
+}">
                                     <button class="btn btn-sm btn-primary tooltip" data-tip="Tambah Soal">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
                                             fill="currentColor">
