@@ -4,7 +4,7 @@ import AdminRoutes from "./AdminRoutes";
 import BanksoalRoutes from "./BanksoalRoutes";
 import UjianRoutes from "./UjianRoutes";
 import SkolastikBanksoalRoutes from "./SkolastikBanksoalRoutes";
-import SkolastikUjian from "./SkolastikUjian";
+import SkolastikPaketsoal from "./SkolastikPaketsoal";
 
 const routes = [];
 
@@ -13,7 +13,7 @@ routes.push(
   ...AdminRoutes,
   ...BanksoalRoutes,
   ...SkolastikBanksoalRoutes,
-  ...SkolastikUjian,
+  ...SkolastikPaketsoal,
   ...UjianRoutes
 );
 

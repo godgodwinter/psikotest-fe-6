@@ -209,8 +209,8 @@ const pagesActiveClass = ref(
               </router-link>
             </li>
             <li class="lg:w-full py-0" :class="[
-              pagesActive == 'kecerdasanmajemuk' ? pagesActiveClass : '',
-            ]">
+  pagesActive == 'kecerdasanmajemuk' ? pagesActiveClass : '',
+]">
               <router-link :to="{ name: 'AdminKecerdasanMajemuk' }"
                 class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -265,8 +265,8 @@ const pagesActiveClass = ref(
                 <span class="ml-3">Bank Soal Skolastik</span>
               </router-link>
             </li>
-            <li class="lg:w-full py-0" :class="[pagesActive == 'skolastik_banksoal' ? pagesActiveClass : '']">
-              <router-link :to="{ name: 'admin.skolastik.banksoal.aspek' }"
+            <li class="lg:w-full py-0" :class="[pagesActive == 'skolastik-paketsoal' ? pagesActiveClass : '']">
+              <router-link :to="{ name: 'admin.skolastik.paketsoal' }"
                 class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd"

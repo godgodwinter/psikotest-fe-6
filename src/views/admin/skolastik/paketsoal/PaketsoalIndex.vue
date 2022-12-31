@@ -10,11 +10,9 @@ import Toast from "@/components/lib/Toast";
 
 const router = useRouter();
 const route = useRoute();
-const aspek_id = route.params.aspek_id;
 
 const dataAsli = ref([]);
 const data = ref([]);
-const aspek = ref([]);
 
 const columns = [
     {
@@ -26,23 +24,18 @@ const columns = [
         thClass: "text-center",
     },
     {
-        label: "Pertanyaan",
-        field: "pertanyaan",
+        label: "Nama",
+        field: "nama",
         type: "String",
     },
     {
-        label: "Jumlah Pilihan",
-        field: "pilihanjawaban_jml",
+        label: "Jumlah Aspek",
+        field: "aspek_jml",
         type: "String",
     },
     {
-        label: "Aspek",
-        field: "aspek_nama",
-        type: "String",
-    },
-    {
-        label: "Sub",
-        field: "aspek_detail_nama",
+        label: "Jumlah Soal",
+        field: "soal_jml",
         type: "String",
     },
     {
@@ -55,10 +48,9 @@ const columns = [
 
 const getData = async () => {
     try {
-        const response = await Api.get(`admin/ujian/skolastik/aspek/${aspek_id}/soal`);
+        const response = await Api.get(`admin/ujian/skolastik/paketsoal`);
         dataAsli.value = response.data;
         data.value = response.data;
-        aspek.value = response.aspek;
 
         return response.data;
     } catch (error) {
@@ -69,14 +61,14 @@ getData();
 
 const doEditData = async (id, index) => {
     router.push({
-        name: "admin.skolastik.banksoal.soal.edit",
-        params: { aspek_id, soal_id: id },
+        name: "admin.skolastik.paketsoal.edit",
+        params: { paketsoal_id: id },
     });
 };
 const doDeleteData = async (id, index) => {
     if (confirm("Apakah anda yakin menghapus data ini?")) {
         try {
-            const response = await Api.delete(`admin/ujian/skolastik/aspek/${aspek_id}/soal/${id}`);
+            const response = await Api.delete(`admin/ujian/skolastik/paketsoal/${id}`);
             data.value.splice(index, 1);
             Toast.success("Success", "Data Berhasil dihapus!");
             return response.data;
@@ -93,20 +85,14 @@ const doRefreshData = async () => {
 <template>
     <div class="pt-4 px-10 md:flex justify-between">
         <div>
-            <span class="text-2xl sm:text-3xl leading-none font-bold text-base-content shadow-sm">Bank Soal : {{
-        aspek.nama
-}}
+            <span class="text-2xl sm:text-3xl leading-none font-bold text-base-content shadow-sm">PAKETSOAL
             </span>
         </div>
         <div class="md:py-0 py-4">
             <BreadCrumb>
                 <template v-slot:content>
                     <li>
-                        <router-link :to="{ name: 'admin.skolastik.banksoal.aspek' }">Aspek</router-link>
-                    </li>
-                    <li>
-                        <router-link :to="{ name: 'admin.skolastik.banksoal.soal.index', params: { aspek_id } }">Bank
-                            Soal</router-link>
+                        <router-link :to="{ name: 'admin.skolastik.paketsoal' }">Paketsoal</router-link>
                     </li>
                     <BreadCrumbSpace /> Index
                 </template>
@@ -138,10 +124,10 @@ const doRefreshData = async () => {
                                     </svg>
                                 </button>
                                 <router-link :to="{
-    name: 'admin.skolastik.banksoal.soal.create',
+    name: 'admin.skolastik.paketsoal.create',
     // params: { jenis: jenis },
 }">
-                                    <button class="btn btn-sm btn-primary tooltip" data-tip="Tambah Soal">
+                                    <button class="btn btn-sm btn-primary tooltip" data-tip="Tambah PAKET SOAL">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
                                             fill="currentColor">
                                             <path fill-rule="evenodd"
@@ -158,22 +144,19 @@ const doRefreshData = async () => {
                                     <ButtonEdit @click="doEditData(props.row.id, props.index)" />
                                     <ButtonDelete @click="doDeleteData(props.row.id, props.index)" />
 
-                                    <!-- <router-link :to="{
-                                        name: 'admin.skolastik.banksoal.soal.index',
-                                        params: { aspek_id: props.row.id },
-                                    }">
+                                    <router-link :to="{
+    name: 'admin.skolastik.paketsoal.edit',
+    params: { paketsoal_id: props.row.id },
+}">
                                         <button class="btn btn-sm btn-primary tooltip" data-tip="Detail Soal">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
                                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                     d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                            </svg></button></router-link> -->
+                                            </svg></button></router-link>
                                 </div>
                             </span>
 
-                            <span v-else-if="props.column.field == 'pertanyaan'"><span
-                                    v-html="props.row.pertanyaan"></span>
-                            </span>
 
 
                             <span v-else>
