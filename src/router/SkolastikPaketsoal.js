@@ -23,6 +23,21 @@ const SkolastikPaketsoal = [
             name: "admin.skolastik.paketsoal.edit",
             component: () => import("@/views/admin/skolastik/paketsoal/PaketsoalEdit.vue"),
           },
+          {
+            path: `${prefix}/skolastik/paketsoal/aspek/:paketsoal_id`,
+            name: "admin.skolastik.paketsoal.aspek",
+            component: () => import("@/views/admin/skolastik/paketsoal/PaketsoalAspek.vue"),
+          },
+          {
+            path: `${prefix}/skolastik/paketsoal/aspek/:paketsoal_id/create`,
+            name: "admin.skolastik.paketsoal.aspek.create",
+            component: () => import("@/views/admin/skolastik/paketsoal/PaketsoalAspekCreate.vue"),
+          },
+          {
+            path: `${prefix}/skolastik/paketsoal/aspek/:paketsoal_id/edit/:aspek_id`,
+            name: "admin.skolastik.paketsoal.aspek.edit",
+            component: () => import("@/views/admin/skolastik/paketsoal/PaketsoalAspekEdit.vue"),
+          },
         ],
       },
     ],

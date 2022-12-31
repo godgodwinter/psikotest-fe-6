@@ -7,12 +7,34 @@ import Api from "@/axios/axios";
 import ButtonEdit from "@/components/atoms/ButtonEdit.vue";
 import ButtonDelete from "@/components/atoms/ButtonDel.vue";
 import Toast from "@/components/lib/Toast";
+import fnValidasi from "@/components/lib/babengValidasi";
+import fnCampur from "@/components/lib/FungsiCampur";
+import { Form, Field } from "vee-validate";
 
 const router = useRouter();
 const route = useRoute();
+const paketsoal_id = route.params.paketsoal_id;
 
 const dataAsli = ref([]);
 const data = ref([]);
+
+const dataForm = ref({
+    nama: "",
+});
+
+const dataDetail = ref({})
+const getDataDetail = async () => {
+    try {
+        const response = await Api.get(`admin/ujian/skolastik/paketsoal/${paketsoal_id}`);
+        dataDetail.value = response.data;
+        dataForm.value.nama = dataDetail.value.nama;
+        return response.data;
+    } catch (error) {
+        console.error(error);
+    }
+};
+getDataDetail();
+
 
 const columns = [
     {
@@ -24,18 +46,28 @@ const columns = [
         thClass: "text-center",
     },
     {
-        label: "Nama",
+        label: "Nama Aspek",
         field: "nama",
-        type: "String",
-    },
-    {
-        label: "Jumlah Aspek",
-        field: "aspek_jml",
         type: "String",
     },
     {
         label: "Jumlah Soal",
         field: "soal_jml",
+        type: "String",
+    },
+    {
+        label: "Waktu",
+        field: "waktu",
+        type: "String",
+    },
+    {
+        label: "Random Soal",
+        field: "random_soal",
+        type: "String",
+    },
+    {
+        label: "Random Pilihan Jawaban",
+        field: "random_pilihanjawaban",
         type: "String",
     },
     {
@@ -48,7 +80,7 @@ const columns = [
 
 const getData = async () => {
     try {
-        const response = await Api.get(`admin/ujian/skolastik/paketsoal`);
+        const response = await Api.get(`admin/ujian/skolastik/paketsoal/${paketsoal_id}/getAspek`);
         dataAsli.value = response.data;
         data.value = response.data;
 
@@ -61,14 +93,14 @@ getData();
 
 const doEditData = async (id, index) => {
     router.push({
-        name: "admin.skolastik.paketsoal.edit",
-        params: { paketsoal_id: id },
+        name: "admin.skolastik.paketsoal.aspek.edit",
+        params: { paketsoal_id: paketsoal_id, aspek_id: id },
     });
 };
 const doDeleteData = async (id, index) => {
     if (confirm("Apakah anda yakin menghapus data ini?")) {
         try {
-            const response = await Api.delete(`admin/ujian/skolastik/paketsoal/${id}`);
+            const response = await Api.delete(`admin/ujian/skolastik/paketsoal/null/aspek/${id}`);
             data.value.splice(index, 1);
             Toast.success("Success", "Data Berhasil dihapus!");
             return response.data;
@@ -85,7 +117,9 @@ const doRefreshData = async () => {
 <template>
     <div class="pt-4 px-10 md:flex justify-between">
         <div>
-            <span class="text-2xl sm:text-3xl leading-none font-bold text-base-content shadow-sm">PAKETSOAL
+            <span class="text-2xl sm:text-3xl leading-none font-bold text-base-content shadow-sm">PAKETSOAL {{
+        dataDetail.nama
+}}
             </span>
         </div>
         <div class="md:py-0 py-4">
@@ -124,7 +158,7 @@ const doRefreshData = async () => {
                                     </svg>
                                 </button>
                                 <router-link :to="{
-    name: 'admin.skolastik.paketsoal.create',
+    name: 'admin.skolastik.paketsoal.aspek.create',
     // params: { jenis: jenis },
 }">
                                     <button class="btn btn-sm btn-primary tooltip" data-tip="Tambah PAKET SOAL">
@@ -141,7 +175,7 @@ const doRefreshData = async () => {
                         <template #table-row="props">
                             <span v-if="props.column.field == 'actions'">
                                 <div class="text-sm font-medium text-center flex justify-center space-x-1">
-                                    <ButtonEdit @click="doEditData(props.row.id, props.index)" />
+                                    <!-- <ButtonEdit @click="doEditData(props.row.id, props.index)" /> -->
                                     <ButtonDelete @click="doDeleteData(props.row.id, props.index)" />
 
                                     <router-link :to="{
@@ -168,4 +202,5 @@ const doRefreshData = async () => {
             </div>
         </div>
     </div>
+
 </template>
