@@ -283,7 +283,7 @@ const doDeleteProsesKelas = async (id, index) => {
             tgl: tglBatasPengerjaan.value,
         }
         try {
-            const response = await Api.delete(`admin/ujian/skolastik/proses/kelas/${id}`, dataFormSend);
+            const response = await Api.delete(`admin/ujian/skolastik/proses/kelas/${kelas_id.value}`, dataFormSend);
             Toast.babeng("Berhasil", 'Data berhasil digenerate!');
             getData(kelas_id.value);
             return true;
@@ -371,10 +371,14 @@ const doDeleteProsesSiswa = async (id, index) => {
                             </div>
                             <div class="divider"></div>
 
-                            <div class="w-full flex justify-end"><button class="btn btn-sm btn-info p-2"
-                                    @click="doGenerateKelas()">
+                            <div class="w-full flex justify-end space-x-2">
+                                <button class="btn btn-sm btn-error p-2" @click="doDeleteProsesKelas()">
+                                    Delete
+                                </button>
+                                <button class="btn btn-sm btn-info p-2" @click="doGenerateKelas()">
                                     Generate Skolastik Per Kelas
-                                </button></div>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </label>
