@@ -90,7 +90,7 @@ const getTempSekolah = computed(() => storeGuruBk.getTempSekolah);
 
 const fnCariDataTempSekolahWhereSekolahId = (id) => {
   let tempSekolah = storeGuruBk.getTempSekolah;
-  console.log(id, tempSekolah);
+  // console.log(id, tempSekolah);
   return tempSekolah ? tempSekolah.filter((item) => item.id == id) : [];
 }
 
@@ -99,11 +99,11 @@ const getDataSekolah = fnCariDataTempSekolahWhereSekolahId(id);
 // console.log(getData);
 const kelas_id = ref(null);
 if (getDataSekolah.length > 0) {
-  console.log("AdA", getDataSekolah, getDataSekolah[0].kelas_id)
+  // console.log("AdA", getDataSekolah, getDataSekolah[0].kelas_id)
   kelas_id.value = getDataSekolah ? getDataSekolah[0].kelas_id : null;
 
 } else {
-  console.log("tidak ditemukan");
+  // console.log("tidak ditemukan");
 }
 </script>
 <template>
@@ -372,10 +372,10 @@ if (getDataSekolah.length > 0) {
       <div class="px-6">
         <ul class="space-y-2 pb-2 lg:flex flex-wrap px-2 gap-0 justify-between">
           <li class="bg-base-100 lg:w-full py-2" :class="[
-  subMenuActive == 'hasilpsikologi' ? pagesActiveClass : '',
+  subMenuActive == 'skolastik-proses' ? pagesActiveClass : '',
 ]">
             <router-link :to="{
-  name: 'AdminHasilPsikologi',
+  name: 'admin.skolastik.submenu.proses',
   params: { id, kelas_id },
 }" class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"

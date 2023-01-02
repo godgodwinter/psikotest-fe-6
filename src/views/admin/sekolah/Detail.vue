@@ -29,7 +29,7 @@ const id = route.params.id;
 const getTempSekolah = computed(() => storeGuruBk.getTempSekolah);
 const fnCariDataTempSekolahWhereSekolahId = (id) => {
   let tempSekolah = storeGuruBk.getTempSekolah;
-  console.log(id, tempSekolah);
+  // console.log(id, tempSekolah);
   return tempSekolah ? tempSekolah.filter((item) => item.id == id) : [];
 }
 
@@ -37,10 +37,10 @@ const getDataSekolah = fnCariDataTempSekolahWhereSekolahId(id);
 
 // console.log(getDataSekolah);
 if (getDataSekolah.length > 0) {
-  console.log("AdA", getDataSekolah, getDataSekolah[0].kelas_id)
+  // console.log("AdA", getDataSekolah, getDataSekolah[0].kelas_id)
 
 } else {
-  console.log("tidak ditemukan");
+  // console.log("tidak ditemukan");
 }
 
 // ---------------------
