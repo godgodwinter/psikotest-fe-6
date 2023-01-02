@@ -92,7 +92,7 @@ const doAdd = async () => {
     const dataId = myTable.value.selectedRows.map((item) => item.id);
     // console.log(dataId);
     dataForm.value = { listId: dataId };
-
+    // console.log(aspek_id);
     const response = await Api.post(
         `admin/ujian/skolastik/paketsoal/null/aspek/${aspek_id}/addsoal`,
         dataForm.value

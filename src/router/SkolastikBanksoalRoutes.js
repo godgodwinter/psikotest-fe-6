@@ -53,20 +53,6 @@ const SkolastikBanksoalRoutes = [
             name: "admin.skolastik.banksoal.soal.edit",
             component: () => import("@/views/admin/skolastik/banksoal/SoalEdit.vue"),
           },
-          {
-            path: "/pages/skolastik/sekolah/:id/detail",
-            component: () => import("@/views/admin/sekolah/Detail.vue"),
-            name: "admin.skolastik.submenu.layout",
-            redirect: "pages/admin/skolastik/submenu/:id/skolastik",
-            children: [
-              {
-                path: "/pages/admin/skolastik/submenu/:id/sekolastik/kelas/:kelas_id?",
-                component: () =>
-                  import("@/views/admin/skolastik/submenu/SkolastikProsesIndex.vue"),
-                  name: "admin.skolastik.submenu.proses",
-              },
-            ]
-          },
         ],
       },
       // {
