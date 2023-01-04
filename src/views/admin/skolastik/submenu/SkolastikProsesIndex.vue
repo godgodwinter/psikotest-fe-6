@@ -376,10 +376,11 @@ const doDeleteProsesSiswa = async (id, index) => {
 
                             <div class="w-full flex justify-end space-x-2">
                                 <button class="btn btn-sm btn-error p-2"
-                                    @click="doDeleteProsesKelas(inputCariKelas.id)">
+                                    @click="doDeleteProsesKelas(inputCariKelas.id ? inputCariKelas.id : kelas_id)">
                                     Delete
                                 </button>
-                                <button class="btn btn-sm btn-info p-2" @click="doGenerateKelas(inputCariKelas.id)">
+                                <button class="btn btn-sm btn-info p-2"
+                                    @click="doGenerateKelas(inputCariKelas.id ? inputCariKelas.id : kelas_id)">
                                     Generate Skolastik Per Kelas
                                 </button>
                             </div>
