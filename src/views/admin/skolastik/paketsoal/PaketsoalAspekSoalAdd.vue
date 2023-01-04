@@ -38,6 +38,11 @@ const columns = [
         field: "pilihanjawaban_jml_benar",
         type: "Number",
     },
+    {
+        label: "Sub Aspek",
+        field: "aspek_detail_nama",
+        type: "Number",
+    },
 ];
 
 
@@ -147,17 +152,17 @@ const doAddAll = () => {
                         <vue-good-table ref="myTable" theme="polar-bear" :line-numbers="true" compactMode
                             :columns="columns" :rows="data" @on-selected-rows-change="selectionChanged"
                             :select-options="{ enabled: true }" :search-options="{
-    enabled: true,
-}" :pagination-options="{
+                                enabled: true,
+                            }" :pagination-options="{
     enabled: true,
     perPageDropdown: [50, 100, 150],
 }" styleClass="vgt-table striped bordered condensed" class="py-0">
                             <template #table-actions>
                                 <div class="space-x-1  gap-1">
                                     <router-link :to="{
-    name: 'admin.skolastik.paketsoal.aspek.soal',
-    params: { paketsoal_id, aspek_id },
-}"> <button class="btn btn-secondary btn-sm tooltip" data-tip="Kembali"><svg xmlns="http://www.w3.org/2000/svg"
+                                        name: 'admin.skolastik.paketsoal.aspek.soal',
+                                        params: { paketsoal_id, aspek_id },
+                                    }"> <button class="btn btn-secondary btn-sm tooltip" data-tip="Kembali"><svg xmlns="http://www.w3.org/2000/svg"
                                                 fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
                                                 class="w-6 h-6">
                                                 <path stroke-linecap="round" stroke-linejoin="round"

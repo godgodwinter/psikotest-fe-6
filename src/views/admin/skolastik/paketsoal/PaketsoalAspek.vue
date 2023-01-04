@@ -118,8 +118,8 @@ const doRefreshData = async () => {
     <div class="pt-4 px-10 md:flex justify-between">
         <div>
             <span class="text-2xl sm:text-3xl leading-none font-bold text-base-content shadow-sm">PAKETSOAL {{
-        dataDetail.nama
-}}
+                dataDetail.nama
+            }}
             </span>
         </div>
         <div class="md:py-0 py-4">
@@ -140,8 +140,8 @@ const doRefreshData = async () => {
             <div class="bg-white shadow rounded-lg px-4 py-4">
                 <div v-if="data">
                     <vue-good-table ref="myTable" :line-numbers="true" :columns="columns" :rows="data" :search-options="{
-    enabled: true,
-}" :pagination-options="{
+                        enabled: true,
+                    }" :pagination-options="{
     enabled: true,
     perPageDropdown: [10, 20, 50],
 }" styleClass="vgt-table striped bordered condensed" class="py-0">
@@ -158,9 +158,9 @@ const doRefreshData = async () => {
                                     </svg>
                                 </button>
                                 <router-link :to="{
-    name: 'admin.skolastik.paketsoal.aspek.create',
-    // params: { jenis: jenis },
-}">
+                                    name: 'admin.skolastik.paketsoal.aspek.create',
+                                    // params: { jenis: jenis },
+                                }">
                                     <button class="btn btn-sm btn-primary tooltip" data-tip="Tambah PAKET SOAL">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
                                             fill="currentColor">
@@ -179,9 +179,9 @@ const doRefreshData = async () => {
                                     <ButtonDelete @click="doDeleteData(props.row.id, props.index)" />
 
                                     <router-link :to="{
-    name: 'admin.skolastik.paketsoal.aspek.soal',
-    params: { paketsoal_id, aspek_id: props.row.id },
-}">
+                                        name: 'admin.skolastik.paketsoal.aspek.soal',
+                                        params: { paketsoal_id, aspek_id: props.row.id },
+                                    }">
                                         <button class="btn btn-sm btn-primary tooltip" data-tip="Detail Soal">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
