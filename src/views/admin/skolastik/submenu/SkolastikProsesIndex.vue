@@ -259,7 +259,10 @@ const dataForm = ref({
     paket_id: null,
     tglBatasPengerjaan: tglBatasPengerjaan.value
 })
-const doGenerateKelas = async (id, index) => {
+const doGenerateKelas = async (kelas) => {
+    // console.log('====================================');
+    // console.log(kelas);
+    // console.log('====================================');
     if (confirm("Apakah anda yakin generate data ini?")) {
         let dataFormSend = {
             paket_id: paketTerpilih.value.id,
@@ -267,25 +270,25 @@ const doGenerateKelas = async (id, index) => {
         }
         try {
             console.log(kelas_id.value);
-            const response = await Api.post(`admin/ujian/skolastik/proses/kelas/${kelas_id.value}`, dataFormSend);
+            const response = await Api.post(`admin/ujian/skolastik/proses/kelas/${kelas}`, dataFormSend);
             Toast.babeng("Berhasil", 'Data berhasil digenerate!');
-            getData(kelas_id.value);
+            getData(kelas);
             return true;
         } catch (error) {
             console.error(error);
         }
     }
 };
-const doDeleteProsesKelas = async (id, index) => {
+const doDeleteProsesKelas = async (kelas) => {
     if (confirm("Apakah anda yakin menghapus data proses ini?")) {
         let dataFormSend = {
             paket_id: paketTerpilih.value.id,
             tgl: tglBatasPengerjaan.value,
         }
         try {
-            const response = await Api.delete(`admin/ujian/skolastik/proses/kelas/${kelas_id.value}`, dataFormSend);
+            const response = await Api.delete(`admin/ujian/skolastik/proses/kelas/${kelas}`, dataFormSend);
             Toast.babeng("Berhasil", 'Data berhasil digenerate!');
-            getData(kelas_id.value);
+            getData(kelas);
             return true;
         } catch (error) {
             console.error(error);
@@ -330,8 +333,8 @@ const doDeleteProsesSiswa = async (id, index) => {
         <div>
             <span class="text-2xl sm:text-3xl leading-none font-bold text-base-content shadow-sm">Ujian Skolastik Siswa
                 kelas {{
-        getDataSekolah.length > 0 ? getDataSekolah[0].nama_kelas : null
-}}
+                    getDataSekolah.length > 0 ? getDataSekolah[0].nama_kelas : null
+                }}
             </span>
         </div>
         <div class="md:py-0 py-4 space-x-2 space-y-2">
@@ -347,8 +350,8 @@ const doDeleteProsesSiswa = async (id, index) => {
         getDataSekolah.length > 0 ? getDataSekolah[0].nama_kelas : null
 }}</h3> -->
                         <h3 class="text-lg font-bold">Paket Aktif : {{ paketTerpilih.label }} , Batas : {{
-        tglBatasPengerjaan
-}}</h3>
+                            tglBatasPengerjaan
+                        }}</h3>
                         <div class="divider"></div>
                         <div>
                             <label>Pilih Paket : </label>
@@ -372,10 +375,11 @@ const doDeleteProsesSiswa = async (id, index) => {
                             <div class="divider"></div>
 
                             <div class="w-full flex justify-end space-x-2">
-                                <button class="btn btn-sm btn-error p-2" @click="doDeleteProsesKelas()">
+                                <button class="btn btn-sm btn-error p-2"
+                                    @click="doDeleteProsesKelas(inputCariKelas.id)">
                                     Delete
                                 </button>
-                                <button class="btn btn-sm btn-info p-2" @click="doGenerateKelas()">
+                                <button class="btn btn-sm btn-info p-2" @click="doGenerateKelas(inputCariKelas.id)">
                                     Generate Skolastik Per Kelas
                                 </button>
                             </div>
@@ -402,8 +406,8 @@ const doDeleteProsesSiswa = async (id, index) => {
             <div class="bg-base-200 shadow rounded-lg px-4 py-4">
                 <div v-if="data">
                     <vue-good-table :line-numbers="true" :columns="columns" :rows="data" :search-options="{
-    enabled: true,
-}" :pagination-options="{
+                        enabled: true,
+                    }" :pagination-options="{
     enabled: true,
     perPageDropdown: [50, 100, 200],
 }" styleClass="vgt-table striped bordered condensed" class="py-0 space-x-2">

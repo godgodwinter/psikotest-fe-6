@@ -293,7 +293,7 @@ const doStoreDataImport = async (d) => {
     });
     // console.log(response.data);
     // Toast.success("Success", "Data Berhasil ditambahkan!");
-    getData(inputCariKelas.value.id);
+    // getData(inputCariKelas.value.id); //eror id
     return response.data;
   } catch (error) {
     // Toast.danger("Warning", "Data gagal ditambahkan!");
