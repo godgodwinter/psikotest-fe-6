@@ -384,6 +384,18 @@ const doDeleteProsesSiswa = async (id, index) => {
                                     Generate Skolastik Per Kelas
                                 </button>
                             </div>
+                            <div class="divider"></div>
+                            <div class="w-full flex justify-end space-x-2">
+                                <button class="btn btn-sm btn-success p-2"
+                                    @click="doGenerateKelas(inputCariKelas ? inputCariKelas.id : kelas_id)">
+                                    Generate Hasil
+                                </button>
+                                <button class="btn btn-sm btn-success p-2"
+                                    @click="doGenerateKelas(inputCariKelas ? inputCariKelas.id : kelas_id)">
+                                    CETAK Hasil
+                                </button>
+                            </div>
+
                         </div>
                     </div>
                 </label>
