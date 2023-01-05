@@ -62,6 +62,12 @@ const SkolastikPaketsoal = [
               import("@/views/admin/skolastik/submenu/SkolastikProsesIndex.vue"),
             name: "admin.skolastik.submenu.proses",
           },
+          {
+            path: "/pages/admin/skolastik/submenu/:id/sekolastik/kelas/:kelas_id/siswa/:siswa_id?",
+            component: () =>
+              import("@/views/admin/skolastik/submenu/SkolastikProsesSiswa.vue"),
+            name: "admin.skolastik.submenu.proses.siswa",
+          },
         ]
       },
     ],
