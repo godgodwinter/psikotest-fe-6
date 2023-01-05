@@ -10,6 +10,9 @@ import Toast from "@/components/lib/Toast.js";
 import ButtonDelete from "@/components/atoms/ButtonDel.vue";
 import { useStoreGuruBk } from "@/stores/guruBk";
 import { useSkolastikStore } from "@/stores/skolastikStore";
+const BASE_URL = import.meta.env.VITE_API_URL
+    ? import.meta.env.VITE_API_URL
+    : "http://localhost:8000/";
 const skolastikStore = useSkolastikStore();
 // timerStore.$subscribe((mutation, state) => {
 //     // console.log(mutation, state);
@@ -376,6 +379,17 @@ const doGenerateSiswaHasil = async (siswa) => {
         }
     }
 };
+
+
+const doCetak = (kelas = null) => {
+    if (kelas === null) {
+        Toast.danger("Warning", "Data tidak valid!");
+    } else {
+        window.open(
+            `${BASE_URL}api/admin/ujian/skolastik/hasil/kelas/${kelas}/cetak`
+        );
+    }
+};
 </script>
 <template>
     <div class="pt-4 px-10 md:flex justify-between">
@@ -439,6 +453,15 @@ const doGenerateSiswaHasil = async (siswa) => {
                                     @click="doGenerateKelasHasil(inputCariKelas ? inputCariKelas.id : kelas_id)">
                                     Generate Hasil
                                 </button>
+
+                                <span class="btn btn-sm btn-primary tooltip" data-tip="CETAK Hasil"
+                                    @click="doCetak(inputCariKelas ? inputCariKelas.id : kelas_id)">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                                    </svg>
+                                </span>
                                 <!-- <button class="btn btn-sm btn-success p-2"
                                     @click="doGenerateKelasCetak(inputCariKelas ? inputCariKelas.id : kelas_id)">
                                     CETAK Hasil
