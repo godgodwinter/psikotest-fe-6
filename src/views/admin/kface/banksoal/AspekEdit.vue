@@ -14,13 +14,8 @@ const aspek_id = route.params.aspek_id;
 
 const dataForm = ref({
     nama: "",
-    urutan: null,
-    waktu: 10,
-    instruksiStatus: false,
-    lembar_prasoalStatus: false,
-    instruksi_pengerjaanStatus: false,
-    random_soal: false,
-    random_pilihanjawaban: false,
+    kode: null,
+    prefix: 'positif',
 });
 
 const dataDetail = ref({})
