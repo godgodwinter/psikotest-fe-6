@@ -68,7 +68,7 @@ const doEditData = async (id, index) => {
 const doDeleteData = async (id, index) => {
     if (confirm("Apakah anda yakin menghapus data ini?")) {
         try {
-            const response = await Api.delete(`admin/ujian/kface/aspek/${id}`);
+            const response = await Api.delete(`admin/ujian/kface/banksoal/aspek/${id}`);
             data.value.splice(index, 1);
             Toast.success("Success", "Data Berhasil dihapus!");
             return response.data;
