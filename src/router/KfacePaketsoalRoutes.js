@@ -11,7 +11,12 @@ const KfacePaketsoal = [
                     {
                         path: `${prefix}/kface/paketsoal/aspek`,
                         name: "admin.kface.paketsoal.aspek",
-                        component: () => import("@/views/admin/kface/banksoal/AspekIndex.vue"),
+                        component: () => import("@/views/admin/kface/paketsoal/AspekIndex.vue"),
+                    },
+                    {
+                        path: `${prefix}/kface/paketsoal/soal`,
+                        name: "admin.kface.paketsoal.soal",
+                        component: () => import("@/views/admin/kface/paketsoal/SoalIndex.vue"),
                     },
                 ],
             },

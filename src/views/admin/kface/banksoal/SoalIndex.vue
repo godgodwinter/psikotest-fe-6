@@ -24,8 +24,8 @@ const columns = [
         thClass: "text-center",
     },
     {
-        label: "Nama",
-        field: "nama",
+        label: "pertanyaan",
+        field: "pertanyaan",
         type: "String",
     },
     {
@@ -34,8 +34,8 @@ const columns = [
         type: "String",
     },
     {
-        label: "PREFIX",
-        field: "prefix",
+        label: "tipe",
+        field: "tipe",
         type: "String",
     },
     // {
@@ -48,7 +48,7 @@ const columns = [
 
 const getData = async () => {
     try {
-        const response = await Api.get(`admin/ujian/kface/banksoal/aspek`);
+        const response = await Api.get(`admin/ujian/kface/banksoal/soal`);
         dataAsli.value = response.data;
         data.value = response.data;
 
@@ -61,8 +61,8 @@ getData();
 
 const doEditData = async (id, index) => {
     router.push({
-        name: "admin.kface.banksoal.aspek.edit",
-        params: { aspek_id: id },
+        name: "admin.kface.banksoal.soal.edit",
+        params: { soal_id: id },
     });
 };
 const doDeleteData = async (id, index) => {
@@ -85,14 +85,14 @@ const doRefreshData = async () => {
 <template>
     <div class="pt-4 px-10 md:flex justify-between">
         <div>
-            <span class="text-2xl sm:text-3xl leading-none font-bold text-base-content shadow-sm">Aspek
+            <span class="text-2xl sm:text-3xl leading-none font-bold text-base-content shadow-sm">SOAL
             </span>
         </div>
         <div class="md:py-0 py-4">
             <BreadCrumb>
                 <template v-slot:content>
                     <li>
-                        <router-link :to="{ name: 'admin.skolastik.banksoal.aspek' }">Aspek</router-link>
+                        <router-link :to="{ name: 'admin.kface.banksoal.soal' }">SOAL</router-link>
                     </li>
                     <BreadCrumbSpace /> Index
                 </template>
@@ -124,7 +124,7 @@ const doRefreshData = async () => {
                                     </svg>
                                 </button>
                                 <router-link :to="{
-                                    name: 'admin.kface.banksoal.aspek.create',
+                                    name: 'admin.kface.banksoal.soal.create',
                                     // params: { jenis: jenis },
                                 }">
                                     <button class="btn btn-sm btn-primary tooltip" data-tip="Tambah Aspek">
