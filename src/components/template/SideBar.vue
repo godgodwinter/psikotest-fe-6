@@ -288,7 +288,7 @@ const pagesActiveClass = ref(
               </router-link>
             </li>
             <li class="lg:w-full py-0" :class="[pagesActive == 'kface-paketsoal' ? pagesActiveClass : '']">
-              <router-link :to="{ name: 'admin.kface.paketsoal.aspek' }"
+              <router-link :to="{ name: 'admin.kface.paketsoal' }"
                 class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd"

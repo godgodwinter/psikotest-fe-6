@@ -9,14 +9,19 @@ const KfacePaketsoal = [
                 redirect: `${prefix}/kface/paketsoal/aspek`,
                 children: [
                     {
-                        path: `${prefix}/kface/paketsoal/aspek`,
-                        name: "admin.kface.paketsoal.aspek",
-                        component: () => import("@/views/admin/kface/paketsoal/AspekIndex.vue"),
+                        path: `${prefix}/kface/paketsoal/index`,
+                        name: "admin.kface.paketsoal",
+                        component: () => import("@/views/admin/kface/paketsoal/PaketIndex.vue"),
                     },
                     {
-                        path: `${prefix}/kface/paketsoal/soal`,
-                        name: "admin.kface.paketsoal.soal",
-                        component: () => import("@/views/admin/kface/paketsoal/SoalIndex.vue"),
+                        path: `${prefix}/kface/paketsoal/create`,
+                        name: "admin.kface.paketsoal.create",
+                        component: () => import("@/views/admin/kface/paketsoal/PaketCreate.vue"),
+                    },
+                    {
+                        path: `${prefix}/kface/paketsoal/edit/:paketsoal_id`,
+                        name: "admin.kface.paketsoal.edit",
+                        component: () => import("@/views/admin/kface/paketsoal/PaketEdit.vue"),
                     },
                 ],
             },

@@ -39,8 +39,10 @@ const pagesActive = computed(() => storeBankSoal.getPagesActive);
                             class="btn btn-md btn-info ">SOAL</button></router-link></li>
             </ul>
         </div> -->
-        <div class="navbar-end">
-            <router-link :to="{ name: 'admin.kface.banksoal.aspek' }"><a class="btn btn-primary">PERGI KE BANK
+        <div class="navbar-end space-x-2">
+            <router-link :to="{ name: 'admin.kface.banksoal.aspek' }"><a class="btn btn-primary"> BANK
+                    SOAL</a></router-link>
+            <router-link :to="{ name: 'admin.kface.paketsoal' }"><a class="btn btn-primary"> PAKET
                     SOAL</a></router-link>
         </div>
     </div>

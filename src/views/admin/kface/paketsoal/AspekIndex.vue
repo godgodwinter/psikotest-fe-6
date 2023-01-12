@@ -1,3 +1,0 @@
-<template>
-    aspek
-</template>
