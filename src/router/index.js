@@ -5,6 +5,8 @@ import BanksoalRoutes from "./BanksoalRoutes";
 import UjianRoutes from "./UjianRoutes";
 import SkolastikBanksoalRoutes from "./SkolastikBanksoalRoutes";
 import SkolastikPaketsoal from "./SkolastikPaketsoal";
+import KfaceBanksoal from "./KfaceBanksoal";
+import KfacePaketsoal from "./KfacePaketsoal";
 
 const routes = [];
 
@@ -14,7 +16,9 @@ routes.push(
   ...BanksoalRoutes,
   ...SkolastikBanksoalRoutes,
   ...SkolastikPaketsoal,
-  ...UjianRoutes
+  ...UjianRoutes,
+  ...KfaceBanksoal,
+  ...KfacePaketsoal,
 );
 
 const router = createRouter({
