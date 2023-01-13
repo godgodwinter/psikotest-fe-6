@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import BreadCrumb from "@/components/atoms/BreadCrumb.vue";
 import BreadCrumbSpace from "@/components/atoms/BreadCrumbSpace.vue";
 import { useRouter, useRoute } from "vue-router";
@@ -10,6 +10,10 @@ import Toast from "@/components/lib/Toast";
 import fnValidasi from "@/components/lib/babengValidasi";
 import fnCampur from "@/components/lib/FungsiCampur";
 import { Form, Field } from "vee-validate";
+
+import { useStoreGuruBk } from "@/stores/guruBk";
+const storeGuruBk = useStoreGuruBk();
+const superadmin = computed(() => storeGuruBk.getSuperadminMode);
 
 const router = useRouter();
 const route = useRoute();
@@ -176,7 +180,7 @@ const doRefreshData = async () => {
                             <span v-if="props.column.field == 'actions'">
                                 <div class="text-sm font-medium text-center flex justify-center space-x-1">
                                     <!-- <ButtonEdit @click="doEditData(props.row.id, props.index)" /> -->
-                                    <ButtonDelete @click="doDeleteData(props.row.id, props.index)" />
+                                    <ButtonDelete @click="doDeleteData(props.row.id, props.index)" v-if="superadmin" />
 
                                     <router-link :to="{
                                         name: 'admin.skolastik.paketsoal.aspek.soal',

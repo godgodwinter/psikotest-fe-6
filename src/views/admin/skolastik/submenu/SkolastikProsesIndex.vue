@@ -435,9 +435,9 @@ const doCetak = (kelas = null) => {
                                         Apply</button>
                                 </div>
                             </div>
-                            <div class="divider"></div>
 
-                            <div class="w-full flex justify-end space-x-2">
+                            <div class="w-full flex justify-end space-x-2" v-if="superadmin">
+                                <div class="divider"></div>
                                 <button class="btn btn-sm btn-error p-2"
                                     @click="doDeleteProsesKelas(inputCariKelas ? inputCariKelas.id : kelas_id)">
                                     Delete

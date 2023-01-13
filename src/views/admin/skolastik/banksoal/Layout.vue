@@ -21,8 +21,11 @@ const pagesActive = computed(() => storeBankSoal.getPagesActive);
           </svg>
         </label>
         <ul tabindex="0" class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-          <li><a>Aspek</a></li>
-          <li><a>Sub Aspek</a></li>
+          <li> <router-link :to="{ name: 'admin.skolastik.banksoal.aspek' }"><button
+                class="btn btn-md btn-info ">Aspek</button></router-link></li>
+          <li> <router-link :to="{ name: 'admin.skolastik.banksoal.aspek_sub' }"><button
+                class="btn btn-md btn-info ">Sub
+                Aspek</button></router-link></li>
         </ul>
       </div>
       <!-- <router-link :to="{ name: 'admin.skolastik.banksoal' }"

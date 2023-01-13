@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import BreadCrumb from "@/components/atoms/BreadCrumb.vue";
 import BreadCrumbSpace from "@/components/atoms/BreadCrumbSpace.vue";
 import { useRouter, useRoute } from "vue-router";
@@ -10,6 +10,10 @@ import Toast from "@/components/lib/Toast";
 import fnValidasi from "@/components/lib/babengValidasi";
 import fnCampur from "@/components/lib/FungsiCampur";
 import { Form, Field } from "vee-validate";
+
+import { useStoreGuruBk } from "@/stores/guruBk";
+const storeGuruBk = useStoreGuruBk();
+const superadmin = computed(() => storeGuruBk.getSuperadminMode);
 
 const router = useRouter();
 const route = useRoute();
@@ -136,7 +140,7 @@ const doDeleteData = async (id, index) => {
                                 <span v-if="props.column.field == 'actions'">
                                     <div class="text-sm font-medium text-center flex justify-center space-x-1">
                                         <button class="btn btn-sm btn-danger"
-                                            @click="doDeleteData(props.row.id, props.index)">
+                                            @click="doDeleteData(props.row.id, props.index)" v-if="superadmin">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
                                                 fill="currentColor">
                                                 <path fill-rule="evenodd"

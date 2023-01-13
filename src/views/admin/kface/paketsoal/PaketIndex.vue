@@ -1,7 +1,7 @@
 <script setup>
 import moment from "moment/min/moment-with-locales";
 import localization from "moment/locale/id";
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import BreadCrumb from "@/components/atoms/BreadCrumb.vue";
 import BreadCrumbSpace from "@/components/atoms/BreadCrumbSpace.vue";
 import { useRouter, useRoute } from "vue-router";
@@ -9,6 +9,11 @@ import Api from "@/axios/axios";
 import ButtonEdit from "@/components/atoms/ButtonEdit.vue";
 import ButtonDelete from "@/components/atoms/ButtonDel.vue";
 import Toast from "@/components/lib/Toast";
+
+import { useStoreGuruBk } from "@/stores/guruBk";
+const storeGuruBk = useStoreGuruBk();
+const superadmin = computed(() => storeGuruBk.getSuperadminMode);
+
 moment.updateLocale("id", localization);
 const router = useRouter();
 const route = useRoute();
@@ -152,7 +157,7 @@ const doRefreshData = async () => {
                             <span v-else-if="props.column.field == 'actions'">
                                 <div class="text-sm font-medium text-center flex justify-center space-x-1">
                                     <ButtonEdit @click="doEditData(props.row.id, props.index)" />
-                                    <ButtonDelete @click="doDeleteData(props.row.id, props.index)" />
+                                    <ButtonDelete @click="doDeleteData(props.row.id, props.index)" v-if="superadmin" />
                                 </div>
                             </span>
                             <span v-else>

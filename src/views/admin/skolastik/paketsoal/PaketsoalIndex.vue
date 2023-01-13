@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import BreadCrumb from "@/components/atoms/BreadCrumb.vue";
 import BreadCrumbSpace from "@/components/atoms/BreadCrumbSpace.vue";
 import { useRouter, useRoute } from "vue-router";
@@ -7,6 +7,10 @@ import Api from "@/axios/axios";
 import ButtonEdit from "@/components/atoms/ButtonEdit.vue";
 import ButtonDelete from "@/components/atoms/ButtonDel.vue";
 import Toast from "@/components/lib/Toast";
+
+import { useStoreGuruBk } from "@/stores/guruBk";
+const storeGuruBk = useStoreGuruBk();
+const superadmin = computed(() => storeGuruBk.getSuperadminMode);
 
 const router = useRouter();
 const route = useRoute();
@@ -106,8 +110,8 @@ const doRefreshData = async () => {
             <div class="bg-white shadow rounded-lg px-4 py-4">
                 <div v-if="data">
                     <vue-good-table ref="myTable" :line-numbers="true" :columns="columns" :rows="data" :search-options="{
-    enabled: true,
-}" :pagination-options="{
+                        enabled: true,
+                    }" :pagination-options="{
     enabled: true,
     perPageDropdown: [10, 20, 50],
 }" styleClass="vgt-table striped bordered condensed" class="py-0">
@@ -124,9 +128,9 @@ const doRefreshData = async () => {
                                     </svg>
                                 </button>
                                 <router-link :to="{
-    name: 'admin.skolastik.paketsoal.create',
-    // params: { jenis: jenis },
-}">
+                                    name: 'admin.skolastik.paketsoal.create',
+                                    // params: { jenis: jenis },
+                                }">
                                     <button class="btn btn-sm btn-primary tooltip" data-tip="Tambah PAKET SOAL">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
                                             fill="currentColor">
@@ -142,12 +146,12 @@ const doRefreshData = async () => {
                             <span v-if="props.column.field == 'actions'">
                                 <div class="text-sm font-medium text-center flex justify-center space-x-1">
                                     <ButtonEdit @click="doEditData(props.row.id, props.index)" />
-                                    <ButtonDelete @click="doDeleteData(props.row.id, props.index)" />
+                                    <ButtonDelete @click="doDeleteData(props.row.id, props.index)" v-if="superadmin" />
 
                                     <router-link :to="{
-    name: 'admin.skolastik.paketsoal.aspek',
-    params: { paketsoal_id: props.row.id },
-}">
+                                        name: 'admin.skolastik.paketsoal.aspek',
+                                        params: { paketsoal_id: props.row.id },
+                                    }">
                                         <button class="btn btn-sm btn-primary tooltip" data-tip="Detail Soal">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                                 stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
