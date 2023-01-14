@@ -140,7 +140,7 @@ const doDeleteData = async (id, index) => {
                                 <span v-if="props.column.field == 'actions'">
                                     <div class="text-sm font-medium text-center flex justify-center space-x-1">
                                         <button class="btn btn-sm btn-danger"
-                                            @click="doDeleteData(props.row.id, props.index)" v-if="superadmin">
+                                            @click="doDeleteData(props.row.id, props.index)">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
                                                 fill="currentColor">
                                                 <path fill-rule="evenodd"
