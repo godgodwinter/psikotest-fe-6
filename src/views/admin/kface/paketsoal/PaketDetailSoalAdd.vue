@@ -22,13 +22,18 @@ const dataForm = ref({});
 
 const columns = [
     {
-        label: "nama",
-        field: "nama",
+        label: "pertanyaan",
+        field: "pertanyaan",
         type: "String",
     },
     {
-        label: "prefix",
-        field: "prefix",
+        label: "file",
+        field: "file",
+        type: "String",
+    },
+    {
+        label: "tipe",
+        field: "tipe",
         type: "String",
     },
 ];
@@ -37,7 +42,7 @@ const columns = [
 
 const getData = async () => {
     try {
-        const response = await Api.get(`admin/ujian/kface/banksoal/aspek`);
+        const response = await Api.get(`admin/ujian/kface/banksoal/soal`);
         dataAsli.value = response.data;
         data.value = response.data;
 
@@ -60,7 +65,7 @@ const doAdd = async () => {
     dataForm.value = { listId: dataId };
     // console.log(aspek_id);
     const response = await Api.post(
-        `admin/ujian/kface/paketsoal/${paketsoal_id}/aspek/add`,
+        `admin/ujian/kface/paketsoal/${paketsoal_id}/soal/add`,
         dataForm.value
     );
     // const response = await ApiPaketsoalKategori.doStoreDataSoal(
@@ -71,7 +76,7 @@ const doAdd = async () => {
     if (response.success == true) {
         Toast.babeng("Data berhasil ditambahkan", "Berhasil");
         router.push({
-            name: "admin.kface.paketsoal.aspek",
+            name: "admin.kface.paketsoal.soal",
             params: { paketsoal_id },
         });
     } else {
@@ -160,6 +165,18 @@ const doAddAll = () => {
 
                                 <span v-else-if="props.column.field == 'pertanyaan'"><span
                                         v-html="props.row.pertanyaan"></span>
+                                </span>
+                                <span v-else-if="props.column.field == 'file'">
+                                    <div class="text-sm font-medium text-center flex justify-center space-x-1">
+                                        <a :href="props.row.file" v-if="props.row.file" target="_blank"><button
+                                                class="btn btn-sm btn-info"><svg xmlns="http://www.w3.org/2000/svg"
+                                                    fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                                    stroke="currentColor" class="w-6 h-6">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+                                                </svg>
+                                            </button></a>
+                                    </div>
                                 </span>
                                 <span v-else>
                                     {{ props.formattedRow[props.column.field] }}

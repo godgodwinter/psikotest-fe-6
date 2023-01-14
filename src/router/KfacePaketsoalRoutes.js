@@ -38,6 +38,11 @@ const KfacePaketsoal = [
                         name: "admin.kface.paketsoal.soal",
                         component: () => import("@/views/admin/kface/paketsoal/PaketDetailSoal.vue"),
                     },
+                    {
+                        path: `${prefix}/kface/paketsoal/detail/:paketsoal_id/soal/add`,
+                        name: "admin.kface.paketsoal.soal.add",
+                        component: () => import("@/views/admin/kface/paketsoal/PaketDetailSoalAdd.vue"),
+                    },
                 ],
             },
             // {

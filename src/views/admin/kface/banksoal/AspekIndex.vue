@@ -97,7 +97,7 @@ const doRefreshData = async () => {
             <BreadCrumb>
                 <template v-slot:content>
                     <li>
-                        <router-link :to="{ name: 'admin.skolastik.banksoal.aspek' }">Aspek</router-link>
+                        <router-link :to="{ name: 'admin.kface.banksoal.aspek' }">Aspek</router-link>
                     </li>
                     <BreadCrumbSpace /> Index
                 </template>

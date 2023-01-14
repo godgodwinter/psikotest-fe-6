@@ -81,7 +81,7 @@ const doEditData = async (id, index) => {
 const doDeleteData = async (id, index) => {
     if (confirm("Apakah anda yakin menghapus data ini?")) {
         try {
-            const response = await Api.delete(`admin/ujian/kface/paketsoal/null/aspek/delete/${id}`);
+            const response = await Api.delete(`admin/ujian/kface/paketsoal/null/soal/delete/${id}`);
             data.value.splice(index, 1);
             Toast.success("Success", "Data Berhasil dihapus!");
             return response.data;
@@ -105,7 +105,7 @@ const doRefreshData = async () => {
             <BreadCrumb>
                 <template v-slot:content>
                     <li>
-                        <router-link :to="{ name: 'admin.skolastik.paketsoal' }">Aspek</router-link>
+                        <router-link :to="{ name: 'admin.kface.paketsoal' }">Aspek</router-link>
                     </li>
                     <BreadCrumbSpace /> Index
                 </template>
@@ -137,10 +137,10 @@ const doRefreshData = async () => {
                                     </svg>
                                 </button>
                                 <router-link :to="{
-                                    name: 'admin.kface.paketsoal.aspek.add',
+                                    name: 'admin.kface.paketsoal.soal.add',
                                     params: { paketsoal_id },
                                 }">
-                                    <button class="btn btn-sm btn-primary tooltip" data-tip="Tambah Aspek">
+                                    <button class="btn btn-sm btn-primary tooltip" data-tip="Tambah SOAL">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
                                             fill="currentColor">
                                             <path fill-rule="evenodd"
@@ -159,6 +159,18 @@ const doRefreshData = async () => {
                                 <div class="text-sm font-medium text-center flex justify-center space-x-1">
                                     <!-- <ButtonEdit @click="doEditData(props.row.id, props.index)" /> -->
                                     <ButtonDelete @click="doDeleteData(props.row.id, props.index)" v-if="superadmin" />
+                                </div>
+                            </span>
+                            <span v-else-if="props.column.field == 'file'">
+                                <div class="text-sm font-medium text-center flex justify-center space-x-1">
+                                    <a :href="props.row.file" v-if="props.row.file" target="_blank"><button
+                                            class="btn btn-sm btn-info"><svg xmlns="http://www.w3.org/2000/svg"
+                                                fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                class="w-6 h-6">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+                                            </svg>
+                                        </button></a>
                                 </div>
                             </span>
                             <span v-else>
