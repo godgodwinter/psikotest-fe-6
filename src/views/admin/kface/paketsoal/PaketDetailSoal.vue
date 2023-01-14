@@ -18,6 +18,7 @@ moment.updateLocale("id", localization);
 const router = useRouter();
 const route = useRoute();
 
+const paketsoal_id = route.params.paketsoal_id;
 const dataAsli = ref([]);
 const data = ref([]);
 
@@ -31,23 +32,23 @@ const columns = [
         thClass: "text-center",
     },
     {
-        label: "Nama",
-        field: "nama",
+        label: "Kode",
+        field: "kode",
         type: "String",
     },
     {
-        label: "Jumlah Aspek",
-        field: "aspek_jml",
+        label: "pertanyaan",
+        field: "pertanyaan",
         type: "String",
     },
     {
-        label: "Jumlah Soal",
-        field: "soal_jml",
+        label: "Asset",
+        field: "file",
         type: "String",
     },
     {
-        label: "Tanggal Pembuatan",
-        field: "tgl",
+        label: "tipe",
+        field: "tipe",
         type: "String",
     },
     // {
@@ -60,7 +61,7 @@ const columns = [
 
 const getData = async () => {
     try {
-        const response = await Api.get(`admin/ujian/kface/paketsoal`);
+        const response = await Api.get(`admin/ujian/kface/paketsoal/${paketsoal_id}/soal`);
         dataAsli.value = response.data;
         data.value = response.data;
 
@@ -80,7 +81,7 @@ const doEditData = async (id, index) => {
 const doDeleteData = async (id, index) => {
     if (confirm("Apakah anda yakin menghapus data ini?")) {
         try {
-            const response = await Api.delete(`admin/ujian/kface/paketsoal/${id}`);
+            const response = await Api.delete(`admin/ujian/kface/paketsoal/null/aspek/delete/${id}`);
             data.value.splice(index, 1);
             Toast.success("Success", "Data Berhasil dihapus!");
             return response.data;
@@ -97,7 +98,7 @@ const doRefreshData = async () => {
 <template>
     <div class="pt-4 px-10 md:flex justify-between">
         <div>
-            <span class="text-2xl sm:text-3xl leading-none font-bold text-base-content shadow-sm">Aspek
+            <span class="text-2xl sm:text-3xl leading-none font-bold text-base-content shadow-sm">SOAL
             </span>
         </div>
         <div class="md:py-0 py-4">
@@ -136,8 +137,8 @@ const doRefreshData = async () => {
                                     </svg>
                                 </button>
                                 <router-link :to="{
-                                    name: 'admin.kface.paketsoal.create',
-                                    // params: { jenis: jenis },
+                                    name: 'admin.kface.paketsoal.aspek.add',
+                                    params: { paketsoal_id },
                                 }">
                                     <button class="btn btn-sm btn-primary tooltip" data-tip="Tambah Aspek">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20"
@@ -156,45 +157,8 @@ const doRefreshData = async () => {
                             </span>
                             <span v-else-if="props.column.field == 'actions'">
                                 <div class="text-sm font-medium text-center flex justify-center space-x-1">
-                                    <ButtonEdit @click="doEditData(props.row.id, props.index)" />
+                                    <!-- <ButtonEdit @click="doEditData(props.row.id, props.index)" /> -->
                                     <ButtonDelete @click="doDeleteData(props.row.id, props.index)" v-if="superadmin" />
-
-                                </div>
-                            </span>
-                            <span v-else-if="props.column.field == 'aspek_jml'">
-                                <div class="text-sm font-medium text-center flex justify-center space-x-2"> {{
-                                    props.row.aspek_jml
-                                }} ASPEK
-                                    <router-link :to="{
-                                        name: 'admin.kface.paketsoal.aspek',
-                                        params: { paketsoal_id: props.row.id },
-                                    }">
-                                        <button class="btn btn-sm btn-primary tooltip" data-tip="Detail ASPEK">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" />
-                                            </svg>
-                                        </button></router-link>
-
-                                </div>
-                            </span>
-                            <span v-else-if="props.column.field == 'soal_jml'">
-                                <div class="text-sm font-medium text-center flex justify-center space-x-2"> {{
-                                    props.row.soal_jml
-                                }} SOAL
-                                    <router-link :to="{
-                                        name: 'admin.kface.paketsoal.soal',
-                                        params: { paketsoal_id: props.row.id },
-                                    }">
-                                        <button class="btn btn-sm btn-primary tooltip" data-tip="Detail Soal">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5" />
-                                            </svg>
-                                        </button></router-link>
-
                                 </div>
                             </span>
                             <span v-else>

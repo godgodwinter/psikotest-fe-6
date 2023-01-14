@@ -23,6 +23,21 @@ const KfacePaketsoal = [
                         name: "admin.kface.paketsoal.edit",
                         component: () => import("@/views/admin/kface/paketsoal/PaketEdit.vue"),
                     },
+                    {
+                        path: `${prefix}/kface/paketsoal/detail/:paketsoal_id/aspek`,
+                        name: "admin.kface.paketsoal.aspek",
+                        component: () => import("@/views/admin/kface/paketsoal/PaketDetailAspek.vue"),
+                    },
+                    {
+                        path: `${prefix}/kface/paketsoal/detail/:paketsoal_id/aspek/add`,
+                        name: "admin.kface.paketsoal.aspek.add",
+                        component: () => import("@/views/admin/kface/paketsoal/PaketDetailAspekAdd.vue"),
+                    },
+                    {
+                        path: `${prefix}/kface/paketsoal/detail/:paketsoal_id/soal`,
+                        name: "admin.kface.paketsoal.soal",
+                        component: () => import("@/views/admin/kface/paketsoal/PaketDetailSoal.vue"),
+                    },
                 ],
             },
             // {
