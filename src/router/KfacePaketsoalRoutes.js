@@ -45,18 +45,26 @@ const KfacePaketsoal = [
                     },
                 ],
             },
-            // {
-            //   path: "/pages/skolastik/aspek/list",
-            //   component: () => import("@/views/admin/skolastik/aspek/Layout.vue"),
-            //   redirect: `${prefix}/skolastik/aspek`,
-            //   children: [
-            //     {
-            //       path: `${prefix}/skolastik/aspek`,
-            //       name: "admin.skolastik.aspek",
-            //       component: () => import("@/views/admin/skolastik/aspek/Index.vue"),
-            //     },
-            //   ],
-            // },
+            {
+                path: "/pages/kface/sekolah/:id/detail",
+                component: () => import("@/views/admin/sekolah/Detail.vue"),
+                name: "admin.kface.submenu.layout",
+                redirect: "pages/admin/kface/submenu/:id/kface",
+                children: [
+                    {
+                        path: "/pages/admin/kface/submenu/:id/kface/kelas/:kelas_id?",
+                        component: () =>
+                            import("@/views/admin/kface/submenu/KfaceProsesIndex.vue"),
+                        name: "admin.kface.submenu.proses",
+                    },
+                    // {
+                    //     path: "/pages/admin/kface/submenu/:id/sekolastik/kelas/:kelas_id/siswa/:siswa_id?",
+                    //     component: () =>
+                    //         import("@/views/admin/kface/submenu/kfaceProsesSiswa.vue"),
+                    //     name: "admin.kface.submenu.proses.siswa",
+                    // },
+                ]
+            },
         ],
     },
 ];

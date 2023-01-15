@@ -235,12 +235,12 @@ if (getDataSekolah.length > 0) {
         <div class="px-6">
           <ul class="space-y-2 pb-2 lg:flex flex-wrap px-2 gap-0 justify-between">
             <li class="bg-base-100 lg:w-full py-2" :class="[
-  subMenuActive == 'hasilpsikologi' ? pagesActiveClass : '',
-]">
+              subMenuActive == 'hasilpsikologi' ? pagesActiveClass : '',
+            ]">
               <router-link :to="{
-  name: 'AdminHasilPsikologi',
-  params: { id, kelas_id },
-}" class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link">
+                name: 'AdminHasilPsikologi',
+                params: { id, kelas_id },
+              }" class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round"
@@ -250,12 +250,12 @@ if (getDataSekolah.length > 0) {
               </router-link>
             </li>
             <li class="bg-base-100 lg:w-full py-0" :class="[
-  subMenuActive == 'nilaipsikolgisiswa' ? pagesActiveClass : '',
-]">
+              subMenuActive == 'nilaipsikolgisiswa' ? pagesActiveClass : '',
+            ]">
               <router-link :to="{
-  name: 'AdminSekolahDetailNilaipsikolgiSiswa',
-  params: { id, kelas_id },
-}" class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link">
+                name: 'AdminSekolahDetailNilaipsikolgiSiswa',
+                params: { id, kelas_id },
+              }" class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor" stroke-width="2">
                   <path stroke-linecap="round" stroke-linejoin="round"
@@ -310,12 +310,12 @@ if (getDataSekolah.length > 0) {
               </router-link>
             </li>
             <li class="bg-base-100 lg:w-full py-0" :class="[
-  subMenuActive == 'pengembangandiri' ? pagesActiveClass : '',
-]">
+              subMenuActive == 'pengembangandiri' ? pagesActiveClass : '',
+            ]">
               <router-link :to="{
-  name: 'AdminSekolahDetailPengembangandiri',
-  params: { id },
-}" class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link">
+                name: 'AdminSekolahDetailPengembangandiri',
+                params: { id },
+              }" class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd"
                     d="M2 5a2 2 0 012-2h8a2 2 0 012 2v10a2 2 0 002 2H4a2 2 0 01-2-2V5zm3 1h6v4H5V6zm6 6H5v2h6v-2z"
@@ -372,17 +372,31 @@ if (getDataSekolah.length > 0) {
       <div class="px-6">
         <ul class="space-y-2 pb-2 lg:flex flex-wrap px-2 gap-0 justify-between">
           <li class="bg-base-100 lg:w-full py-2" :class="[
-  subMenuActive == 'skolastik-proses' ? pagesActiveClass : '',
-]">
+            subMenuActive == 'skolastik-proses' ? pagesActiveClass : '',
+          ]">
             <router-link :to="{
-  name: 'admin.skolastik.submenu.proses',
-  params: { id, kelas_id },
-}" class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link">
+              name: 'admin.skolastik.submenu.proses',
+              params: { id, kelas_id },
+            }" class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
               <span class="ml-3">Skolastik</span>
+            </router-link>
+          </li>
+          <li class="bg-base-100 lg:w-full py-2" :class="[
+            subMenuActive == 'kface-proses' ? pagesActiveClass : '',
+          ]">
+            <router-link :to="{
+              name: 'admin.kface.submenu.proses',
+              params: { id, kelas_id },
+            }" class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+              </svg>
+              <span class="ml-3">KarakterFace</span>
             </router-link>
           </li>
         </ul>

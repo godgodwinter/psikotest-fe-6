@@ -17,20 +17,23 @@ const dataForm = ref({
     nama: "",
     tglPembuatan: moment().format("YYYY-MM-DD h:mm:ss"),
     waktu: 10,
+    randomSoal: false,
 });
 
 const onSubmit = async (values) => {
     values.nama = dataForm.value.nama;
     values.tgl = dataForm.value.tglPembuatan;
     values.waktu = dataForm.value.waktu;
+    values.random_soal = dataForm.value.randomSoal ? "Aktif" : "Nonaktif"
     // console.log(values);
 
     dataForm.value = {
         nama: values.nama,
         tgl: values.tgl,
         waktu: values.waktu,
+        random_soal: values.random_soal,
     };
-    console.log(dataForm.value);
+    // console.log(dataForm.value);
     try {
         const response = await Api.post(
             `admin/ujian/kface/paketsoal`,
@@ -82,6 +85,18 @@ const onSubmit = async (values) => {
                         <label> Tanggal Pembuatan : </label>
                         <div>
                             <Datepicker v-model="dataForm.tglPembuatan"></Datepicker>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col">
+                        <div class="max-w-xs py-2">
+                            <div class="form-control">
+                                <label class="label cursor-pointer">
+                                    <span class="label-text">Random Soal</span>
+                                    <input type="checkbox" class="toggle" v-model="dataForm.randomSoal"
+                                        name="randomSoal" />
+                                </label>
+                            </div>
                         </div>
                     </div>
 

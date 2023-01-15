@@ -50,6 +50,11 @@ const columns = [
         field: "tgl",
         type: "String",
     },
+    {
+        label: "RANDOM SOAL",
+        field: "random_soal",
+        type: "String",
+    },
     // {
     //     label: "Status",
     //     field: "status",
