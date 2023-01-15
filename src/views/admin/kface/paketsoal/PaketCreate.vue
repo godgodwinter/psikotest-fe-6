@@ -18,6 +18,7 @@ const dataForm = ref({
     tglPembuatan: moment().format("YYYY-MM-DD h:mm:ss"),
     waktu: 10,
     randomSoal: false,
+    status: false,
 });
 
 const onSubmit = async (values) => {
@@ -25,6 +26,7 @@ const onSubmit = async (values) => {
     values.tgl = dataForm.value.tglPembuatan;
     values.waktu = dataForm.value.waktu;
     values.random_soal = dataForm.value.randomSoal ? "Aktif" : "Nonaktif"
+    values.status = dataForm.value.status ? "Aktif" : "Nonaktif"
     // console.log(values);
 
     dataForm.value = {
@@ -32,6 +34,7 @@ const onSubmit = async (values) => {
         tgl: values.tgl,
         waktu: values.waktu,
         random_soal: values.random_soal,
+        status: values.status,
     };
     // console.log(dataForm.value);
     try {
@@ -95,6 +98,16 @@ const onSubmit = async (values) => {
                                     <span class="label-text">Random Soal</span>
                                     <input type="checkbox" class="toggle" v-model="dataForm.randomSoal"
                                         name="randomSoal" />
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex flex-col">
+                        <div class="max-w-xs py-2">
+                            <div class="form-control">
+                                <label class="label cursor-pointer">
+                                    <span class="label-text">Jadikan Default</span>
+                                    <input type="checkbox" class="toggle" v-model="dataForm.status" name="status" />
                                 </label>
                             </div>
                         </div>

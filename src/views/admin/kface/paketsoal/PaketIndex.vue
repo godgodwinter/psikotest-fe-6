@@ -55,11 +55,11 @@ const columns = [
         field: "random_soal",
         type: "String",
     },
-    // {
-    //     label: "Status",
-    //     field: "status",
-    //     type: "String",
-    // },
+    {
+        label: "Default",
+        field: "status",
+        type: "String",
+    },
 ];
 
 
