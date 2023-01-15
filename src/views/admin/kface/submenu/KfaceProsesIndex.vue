@@ -10,6 +10,7 @@ import Toast from "@/components/lib/Toast.js";
 import ButtonDelete from "@/components/atoms/ButtonDel.vue";
 import { useStoreGuruBk } from "@/stores/guruBk";
 import { useSkolastikStore } from "@/stores/skolastikStore";
+import fnValidasi from "@/components/lib/babengValidasi";
 const BASE_URL = import.meta.env.VITE_API_URL
     ? import.meta.env.VITE_API_URL
     : "http://localhost:8000/";
@@ -135,7 +136,7 @@ const getData = async (kelas_id) => {
         dataAsli.value = [];
         data.value = [];
         const response = await Api.get(
-            `admin/ujian/skolastik/hasil/kelas/${kelas_id}`
+            `admin/ujian/kface/hasil/kelas/${kelas_id}`
         );
         dataAsli.value = response.data;
 
@@ -181,8 +182,13 @@ const columns = [
         type: "String",
     },
     {
-        label: "Batas Ujian",
-        field: "tgl_ujian",
+        label: "Waktu",
+        field: "proses_waktu",
+        type: "String",
+    },
+    {
+        label: "JK",
+        field: "jk",
         type: "String",
     },
     {
@@ -196,18 +202,18 @@ const doCopyClipboard = (item) => {
     Toast.babeng("Info", `${item} berhasil disalin`);
 };
 
-const doDeleteData = async (id2, index) => {
-    if (confirm("Apakah anda yakin menghapus data ini?")) {
-        try {
-            const response = await Api.delete(`owner/datasekolah/${id}/siswa/${id2}/forceDestroy`);
-            data.value.splice(index, 1);
-            Toast.success("Success", "Data Berhasil dihapus!");
-            return response.data;
-        } catch (error) {
-            console.error(error);
-        }
-    }
-};
+// const doDeleteData = async (id2, index) => {
+//     if (confirm("Apakah anda yakin menghapus data ini?")) {
+//         try {
+//             const response = await Api.delete(`owner/datasekolah/${id}/siswa/${id2}/forceDestroy`);
+//             data.value.splice(index, 1);
+//             Toast.success("Success", "Data Berhasil dihapus!");
+//             return response.data;
+//         } catch (error) {
+//             console.error(error);
+//         }
+//     }
+// };
 
 
 const dataPaket = ref([]);
@@ -231,7 +237,7 @@ const doPilihPaket = () => {
 // get Kelas
 const getDataPaket = async () => {
     try {
-        const response = await Api.get(`admin/ujian/skolastik/paketsoal`);
+        const response = await Api.get(`admin/ujian/kface/paketsoal`);
         // console.log(response);
         dataPaket.value = response.data;
         if (dataPaket.value.length > 0) {
@@ -259,8 +265,9 @@ const inputCariPaket = ref({
 });
 
 const dataForm = ref({
+    waktu: 30,
     paket_id: null,
-    tglBatasPengerjaan: tglBatasPengerjaan.value
+    random_soal: false
 })
 const doGenerateKelas = async (kelas) => {
     // console.log('====================================');
@@ -269,11 +276,12 @@ const doGenerateKelas = async (kelas) => {
     if (confirm("Apakah anda yakin generate data ini?")) {
         let dataFormSend = {
             paket_id: paketTerpilih.value.id,
-            tgl: tglBatasPengerjaan.value,
+            random_soal: dataForm.value.random_soal,
+            waktu: dataForm.value.waktu,
         }
         try {
             console.log(kelas_id.value);
-            const response = await Api.post(`admin/ujian/skolastik/proses/kelas/${kelas}`, dataFormSend);
+            const response = await Api.post(`admin/ujian/kface/proses/kelas/${kelas}`, dataFormSend);
             Toast.babeng("Berhasil", 'Data berhasil digenerate!');
             getData(kelas);
             return true;
@@ -286,10 +294,12 @@ const doDeleteProsesKelas = async (kelas) => {
     if (confirm("Apakah anda yakin menghapus data proses ini?")) {
         let dataFormSend = {
             paket_id: paketTerpilih.value.id,
-            tgl: tglBatasPengerjaan.value,
+            // tgl: tglBatasPengerjaan.value,
+            random_soal: dataForm.value.random_soal ? "Aktif" : "Nonaktif",
+            waktu: dataForm.value.waktu,
         }
         try {
-            const response = await Api.delete(`admin/ujian/skolastik/proses/kelas/${kelas}`, dataFormSend);
+            const response = await Api.delete(`admin/ujian/kface/proses/kelas/${kelas}`, dataFormSend);
             Toast.babeng("Berhasil", 'Data berhasil digenerate!');
             getData(kelas);
             return true;
@@ -302,10 +312,12 @@ const doGenerateSiswa = async (id, index) => {
     if (confirm("Apakah anda yakin generate data ini?")) {
         let dataFormSend = {
             paket_id: paketTerpilih.value.id,
-            tgl: tglBatasPengerjaan.value,
+            // tgl: tglBatasPengerjaan.value,
+            random_soal: dataForm.value.random_soal ? "Aktif" : "Nonaktif",
+            waktu: dataForm.value.waktu,
         }
         try {
-            const response = await Api.post(`admin/ujian/skolastik/proses/siswa/${id}`, dataFormSend);
+            const response = await Api.post(`admin/ujian/kface/proses/siswa/${id}`, dataFormSend);
             Toast.babeng("Berhasil", 'Data berhasil digenerate!');
             getData(kelas_id.value);
             return true;
@@ -321,7 +333,7 @@ const doDeleteProsesSiswa = async (id, index) => {
             tgl: tglBatasPengerjaan.value,
         }
         try {
-            const response = await Api.delete(`admin/ujian/skolastik/proses/siswa/${id}`, dataFormSend);
+            const response = await Api.delete(`admin/ujian/kface/proses/siswa/${id}`, dataFormSend);
             Toast.babeng("Berhasil", 'Data berhasil digenerate!');
             getData(kelas_id.value);
             return true;
@@ -331,65 +343,65 @@ const doDeleteProsesSiswa = async (id, index) => {
     }
 };
 
-const goSiswa = (siswa_id) => {
-    router.push({
-        name: 'admin.skolastik.submenu.proses.siswa',
-        params: {
-            id, kelas_id: kelas_id.value, siswa_id
-        }
-    })
-}
+// const goSiswa = (siswa_id) => {
+//     router.push({
+//         name: 'admin.skolastik.submenu.proses.siswa',
+//         params: {
+//             id, kelas_id: kelas_id.value, siswa_id
+//         }
+//     })
+// }
 
 
-const doGenerateKelasHasil = async (kelas) => {
-    // console.log('====================================');
-    // console.log(kelas);
-    // console.log('====================================');
-    if (confirm("Apakah anda yakin generate hasil ini?")) {
-        let dataFormSend = {
-            // paket_id: paketTerpilih.value.id,
-            // tgl: tglBatasPengerjaan.value,
-        }
-        try {
-            const response = await Api.post(`admin/ujian/skolastik/hasil/kelas/${kelas}/generate`, dataFormSend);
-            Toast.babeng("Berhasil", 'Data berhasil digenerate!');
-            getData(kelas);
-            return true;
-        } catch (error) {
-            console.error(error);
-        }
-    }
-};
-const doGenerateSiswaHasil = async (siswa) => {
-    // console.log('====================================');
-    // console.log(siswa);
-    // console.log('====================================');
-    if (confirm("Apakah anda yakin generate hasil ini?")) {
-        let dataFormSend = {
-            // paket_id: paketTerpilih.value.id,
-            // tgl: tglBatasPengerjaan.value,
-        }
-        try {
-            const response = await Api.post(`admin/ujian/skolastik/hasil/siswa/${siswa}/generate`, dataFormSend);
-            Toast.babeng("Berhasil", 'Data berhasil digenerate!');
-            getData(kelas_id.value);
-            return true;
-        } catch (error) {
-            console.error(error);
-        }
-    }
-};
+// const doGenerateKelasHasil = async (kelas) => {
+//     // console.log('====================================');
+//     // console.log(kelas);
+//     // console.log('====================================');
+//     if (confirm("Apakah anda yakin generate hasil ini?")) {
+//         let dataFormSend = {
+//             // paket_id: paketTerpilih.value.id,
+//             // tgl: tglBatasPengerjaan.value,
+//         }
+//         try {
+//             const response = await Api.post(`admin/ujian/skolastik/hasil/kelas/${kelas}/generate`, dataFormSend);
+//             Toast.babeng("Berhasil", 'Data berhasil digenerate!');
+//             getData(kelas);
+//             return true;
+//         } catch (error) {
+//             console.error(error);
+//         }
+//     }
+// };
+// const doGenerateSiswaHasil = async (siswa) => {
+//     // console.log('====================================');
+//     // console.log(siswa);
+//     // console.log('====================================');
+//     if (confirm("Apakah anda yakin generate hasil ini?")) {
+//         let dataFormSend = {
+//             // paket_id: paketTerpilih.value.id,
+//             // tgl: tglBatasPengerjaan.value,
+//         }
+//         try {
+//             const response = await Api.post(`admin/ujian/skolastik/hasil/siswa/${siswa}/generate`, dataFormSend);
+//             Toast.babeng("Berhasil", 'Data berhasil digenerate!');
+//             getData(kelas_id.value);
+//             return true;
+//         } catch (error) {
+//             console.error(error);
+//         }
+//     }
+// };
 
 
-const doCetak = (kelas = null) => {
-    if (kelas === null) {
-        Toast.danger("Warning", "Data tidak valid!");
-    } else {
-        window.open(
-            `${BASE_URL}api/admin/ujian/skolastik/hasil/kelas/${kelas}/cetak`
-        );
-    }
-};
+// const doCetak = (kelas = null) => {
+//     if (kelas === null) {
+//         Toast.danger("Warning", "Data tidak valid!");
+//     } else {
+//         window.open(
+//             `${BASE_URL}api/admin/ujian/skolastik/hasil/kelas/${kelas}/cetak`
+//         );
+//     }
+// };
 </script>
 <template>
     <div class="pt-4 px-10 md:flex justify-between">
@@ -403,7 +415,7 @@ const doCetak = (kelas = null) => {
         </div>
         <div class="md:py-0 py-4 space-x-2 space-y-2">
             <!-- The button to open modal -->
-            <label for="my-modal-4" class="btn">Pengaturan Skolastik</label>
+            <label for="my-modal-4" class="btn">Pengaturan KARAKTER FACE</label>
 
             <!-- Put this part before </body> tag -->
             <input type="checkbox" id="my-modal-4" class="modal-toggle" />
@@ -424,10 +436,34 @@ const doCetak = (kelas = null) => {
                                     v-model="inputCariPaket" v-bind:class="{ disabled: false }"></v-select>
 
                             </div>
-                            <div class="flex flex-col">
+                            <!-- <div class="flex flex-col">
                                 <label>Batas Tanggal Pengerjaan : </label>
                                 <div>
                                     <Datepicker v-model="dataForm.tglBatasPengerjaan"></Datepicker>
+                                </div>
+                            </div> -->
+
+                            <div class="flex flex-col">
+                                <div class="max-w-xs py-2">
+                                    <div class="form-control">
+                                        <label class="label cursor-pointer">
+                                            <span class="label-text">Random Soal</span>
+                                            <input type="checkbox" class="toggle" v-model="dataForm.random_soal"
+                                                name="randomSoal" />
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex flex-col">
+                                <label>Waktu (menit) : </label>
+                                <div>
+                                    <!-- <Field v-model="dataForm.waktu" name="waktu" type="text"
+                                        class="input input-bordered w-11/12" /> -->
+                                    <input class="input input-bordered input-info w-full max-w-xs" type="number"
+                                        v-model="dataForm.waktu" name="waktu" />
+                                    <!-- <div class="text-xs text-red-600 mt-1">
+                                        {{ errors.waktu }}
+                                    </div> -->
                                 </div>
                             </div>
                             <div class="w-full flex justify-end">
