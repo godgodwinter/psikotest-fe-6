@@ -84,8 +84,8 @@ const doCopyClipboard = (item) => {
   </article>
   <div v-if="dataForm.file">
     <iframe
-      width="100%"
-      height="900"
+      width="455"
+      height="809"
       :src="dataForm.file + '?hl=en_GB&amp;version=3&amp;rel=0'"
       :title="dataForm.pertanyaan"
       frameborder="0"
