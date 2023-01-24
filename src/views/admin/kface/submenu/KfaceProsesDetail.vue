@@ -71,7 +71,7 @@ const getDataUjian = async () => {
         dataAsli.value = [];
         data.value = [];
         const response = await Api.get(
-            `admin/ujian/skolastik/hasil/siswa/${siswa_id}/hasil`
+            `admin/ujian/kface/hasil/datahasil/siswa/${siswa_id}/akhir`
         );
         // console.log(response.data);
         dataAsli.value = response.data;
@@ -270,6 +270,7 @@ const doGenerateSiswaHasilPerProses = async (proses_id) => {
         try {
             const response = await Api.post(`admin/ujian/kface/generate_hasil/proses_id/${proses_id}`, dataFormSend);
             Toast.babeng("Berhasil", 'Data berhasil digenerate!');
+            getDataUjian();
             ProsesGetData();
             HasilGetData();
             return true;
@@ -290,6 +291,7 @@ const doDeleteDataHasil = async (hasil_id) => {
         try {
             const response = await Api.delete(`admin/ujian/kface/generate_hasil/hasil_id/${hasil_id}`, dataFormSend);
             Toast.babeng("Berhasil", 'Data berhasil dihapus!');
+            getDataUjian();
             ProsesGetData();
             HasilGetData();
             return true;
@@ -393,7 +395,7 @@ const doDeleteDataHasil = async (hasil_id) => {
             </span>
         </div>
 
-        <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
+        <div class="md:py-2 px-4 lg:flex flex-wrap gap-4" v-if="data.aspek_positif">
             <div class="w-full lg:w-full">
                 <div class="bg-white shadow rounded-lg px-4 py-4">
                     <div class="overflow-x-auto">
@@ -407,13 +409,24 @@ const doDeleteDataHasil = async (hasil_id) => {
                                     <th class="whitespace-nowrap w-5/12"></th>
                                 </tr>
                                 <!-- row 1 -->
-                                <tr class="hover">
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>3</td>
-                                    <td>4</td>
+                                <tr class="hover" v-for="item, index in data.aspek_positif" :key="item.id">
+                                    <td>{{ index+ 1 }}.</td>
+                                    <td>{{ item.aspek_nama }}</td>
+                                    <td>{{ item.skor_persen }}%</td>
+                                    <td>{{ item.skor_ket }}</td>
                                     <td>
-                                        <progress class="progress progress-info w-full" value="23" max="100"></progress>
+                                        <progress class="progress progress-info w-full" :value="item.skor_persen"
+                                            max="100"></progress>
+                                    </td>
+                                </tr>
+                                <tr class="hover">
+                                    <td></td>
+                                    <td>{{ data.rata_positif.nama }}</td>
+                                    <td>{{ data.rata_positif.skor_persen }}%</td>
+                                    <td>{{ data.rata_positif.skor_ket }}</td>
+                                    <td>
+                                        <progress class="progress progress-info w-full"
+                                            :value="data.rata_positif.skor_persen" max="100"></progress>
                                     </td>
                                 </tr>
                                 <!-- <tr class="hover" v-for="(
@@ -445,7 +458,7 @@ const doDeleteDataHasil = async (hasil_id) => {
         </div>
 
 
-        <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
+        <div class="md:py-2 px-4 lg:flex flex-wrap gap-4" v-if="data.aspek_negatif">
             <div class="w-full lg:w-full">
                 <div class="bg-white shadow rounded-lg px-4 py-4">
                     <div class="overflow-x-auto">
@@ -459,13 +472,24 @@ const doDeleteDataHasil = async (hasil_id) => {
                                     <th class="whitespace-nowrap w-5/12"></th>
                                 </tr>
                                 <!-- row 1 -->
-                                <tr class="hover">
-                                    <td>1</td>
-                                    <td>2</td>
-                                    <td>3</td>
-                                    <td>4</td>
+                                <tr class="hover" v-for="item, index in data.aspek_negatif" :key="item.id">
+                                    <td>{{ index+ 1 }}.</td>
+                                    <td>{{ item.aspek_nama }}</td>
+                                    <td>{{ item.skor_persen }}%</td>
+                                    <td>{{ item.skor_ket }}</td>
                                     <td>
-                                        <progress class="progress progress-info w-full" value="23" max="100"></progress>
+                                        <progress class="progress progress-info w-full" :value="item.skor_persen"
+                                            max="100"></progress>
+                                    </td>
+                                </tr>
+                                <tr class="hover">
+                                    <td></td>
+                                    <td>{{ data.rata_negatif.nama }}</td>
+                                    <td>{{ data.rata_negatif.skor_persen }}%</td>
+                                    <td>{{ data.rata_negatif.skor_ket }}</td>
+                                    <td>
+                                        <progress class="progress progress-info w-full"
+                                            :value="data.rata_negatif.skor_persen" max="100"></progress>
                                     </td>
                                 </tr>
                                 <!-- <tr class="hover" v-for="(
@@ -490,17 +514,13 @@ const doDeleteDataHasil = async (hasil_id) => {
         </div>
 
 
-        <div class="py-4 px-4 ">
+        <div class="py-4 px-4 " v-if="data.rata_positif">
             <article class="prose lg:prose-md prose-stone max-w-none">
                 <h2>
                     KESIMPULAN : KARAKTER POSITIF
                 </h2>
                 <p>Anda saat ini memiliki perkembangan karakter positif rata-rata tergolong :
-                    86 Sangat Tinggi Sekali, (Aktivitas usaha Anda saat ini kecenderungan sangat besar sekali
-                    dipengaruhi
-                    perkembangan karakter positif, yaitu dari suasana hati dan pikiran serta situasi yang sangat
-                    menguntungkan
-                    sebagai penguat dan pendukung keberhasilan).
+                    {{ data.rata_positif.skor_persen }}% -.
                 </p>
                 <p>
                     Bila nilai karakter positif Anda sangat tinggi akan membantu dalam mendukung kesuksesan dan
@@ -519,16 +539,14 @@ const doDeleteDataHasil = async (hasil_id) => {
                 </p>
             </article>
         </div>
-        <div class="py-4 px-4 ">
+        <div class="py-4 px-4 " v-if="data.rata_negatif">
             <article class="prose lg:prose-md prose-stone max-w-none">
                 <h2>
                     KESIMPULAN : KARAKTER NEGATIF
                 </h2>
-                <p>Anda saat ini memiliki ganguan perkembangan karakter negatif rata-rata tergolong ; 55
-                    Rendah,(Aktivitas
-                    usaha Anda saat ini kecenderungan lancar dan tidak terganggu oleh perkembangan karakter negatif
-                    dikarenakan mampu mengendalikan diri dari suasana hati dan pikiran serta keadaan situasi yang kurang
-                    menguntungkan sehingga mampu mencapai keberhasilan).
+                <p>Anda saat ini memiliki ganguan perkembangan karakter negatif rata-rata tergolong ; {{
+                    data.rata_negatif.skor_persen
+                }}% -.
                 </p>
                 <p>Bila nilai karakter negatif Anda sangat tinggi akan mengganggu atau merugikan saat Anda melakukan
                     usaha
