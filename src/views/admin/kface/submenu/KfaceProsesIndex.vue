@@ -343,54 +343,54 @@ const doDeleteProsesSiswa = async (id, index) => {
     }
 };
 
-// const goSiswa = (siswa_id) => {
-//     router.push({
-//         name: 'admin.skolastik.submenu.proses.siswa',
-//         params: {
-//             id, kelas_id: kelas_id.value, siswa_id
-//         }
-//     })
-// }
+const goSiswa = (siswa_id) => {
+    router.push({
+        name: 'admin.kface.submenu.proses.detail',
+        params: {
+            id, kelas_id: kelas_id.value, siswa_id
+        }
+    })
+}
 
 
-// const doGenerateKelasHasil = async (kelas) => {
-//     // console.log('====================================');
-//     // console.log(kelas);
-//     // console.log('====================================');
-//     if (confirm("Apakah anda yakin generate hasil ini?")) {
-//         let dataFormSend = {
-//             // paket_id: paketTerpilih.value.id,
-//             // tgl: tglBatasPengerjaan.value,
-//         }
-//         try {
-//             const response = await Api.post(`admin/ujian/skolastik/hasil/kelas/${kelas}/generate`, dataFormSend);
-//             Toast.babeng("Berhasil", 'Data berhasil digenerate!');
-//             getData(kelas);
-//             return true;
-//         } catch (error) {
-//             console.error(error);
-//         }
-//     }
-// };
-// const doGenerateSiswaHasil = async (siswa) => {
-//     // console.log('====================================');
-//     // console.log(siswa);
-//     // console.log('====================================');
-//     if (confirm("Apakah anda yakin generate hasil ini?")) {
-//         let dataFormSend = {
-//             // paket_id: paketTerpilih.value.id,
-//             // tgl: tglBatasPengerjaan.value,
-//         }
-//         try {
-//             const response = await Api.post(`admin/ujian/skolastik/hasil/siswa/${siswa}/generate`, dataFormSend);
-//             Toast.babeng("Berhasil", 'Data berhasil digenerate!');
-//             getData(kelas_id.value);
-//             return true;
-//         } catch (error) {
-//             console.error(error);
-//         }
-//     }
-// };
+const doGenerateKelasHasil = async (kelas) => {
+    // console.log('====================================');
+    // console.log(kelas);
+    // console.log('====================================');
+    if (confirm("Apakah anda yakin generate hasil ini?")) {
+        let dataFormSend = {
+            // paket_id: paketTerpilih.value.id,
+            // tgl: tglBatasPengerjaan.value,
+        }
+        try {
+            const response = await Api.post(`admin/ujian/kface/generate_hasil/kelas/${kelas}`, dataFormSend);
+            Toast.babeng("Berhasil", 'Data berhasil digenerate!');
+            getData(kelas);
+            return true;
+        } catch (error) {
+            console.error(error);
+        }
+    }
+};
+const doGenerateSiswaHasil = async (siswa) => {
+    // console.log('====================================');
+    // console.log(siswa);
+    // console.log('====================================');
+    if (confirm("Apakah anda yakin generate hasil ini?")) {
+        let dataFormSend = {
+            // paket_id: paketTerpilih.value.id,
+            // tgl: tglBatasPengerjaan.value,
+        }
+        try {
+            const response = await Api.post(`admin/ujian/kface/generate_hasil/siswa/${siswa}`, dataFormSend);
+            Toast.babeng("Berhasil", 'Data berhasil digenerate!');
+            getData(kelas_id.value);
+            return true;
+        } catch (error) {
+            console.error(error);
+        }
+    }
+};
 
 
 // const doCetak = (kelas = null) => {
@@ -481,7 +481,7 @@ const doDeleteProsesSiswa = async (id, index) => {
                                 </button>
                                 <button class="btn btn-sm btn-info p-2"
                                     @click="doGenerateKelas(inputCariKelas ? inputCariKelas.id : kelas_id)">
-                                    Generate Skolastik Per Kelas
+                                    Generate Kface Per Kelas
                                 </button>
                             </div>
                             <div class="divider"></div>
@@ -541,7 +541,7 @@ const doDeleteProsesSiswa = async (id, index) => {
                             <span v-if="props.column.field == 'actions'">
                                 <div class="text-sm font-medium text-center flex justify-start space-x-2"
                                     v-if="superadmin">
-                                    <button class="btn btn-sm btn-warning tooltip" data-tip="Generate Skolastik"
+                                    <button class="btn btn-sm btn-warning tooltip" data-tip="Generate KFACE"
                                         @click="doGenerateSiswa(props.row.id)">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -576,7 +576,7 @@ const doDeleteProsesSiswa = async (id, index) => {
                                                 d="M19.5 12c0-1.232-.046-2.453-.138-3.662a4.006 4.006 0 00-3.7-3.7 48.678 48.678 0 00-7.324 0 4.006 4.006 0 00-3.7 3.7c-.017.22-.032.441-.046.662M19.5 12l3-3m-3 3l-3-3m-12 3c0 1.232.046 2.453.138 3.662a4.006 4.006 0 003.7 3.7 48.656 48.656 0 007.324 0 4.006 4.006 0 003.7-3.7c.017-.22.032-.441.046-.662M4.5 12l3 3m-3-3l-3 3" />
                                         </svg>
                                     </button> -->
-                                    <button class="btn btn-sm btn-error tooltip" data-tip="Generate Skolastik"
+                                    <button class="btn btn-sm btn-error tooltip" data-tip="Generate KFACE"
                                         @click="doDeleteProsesSiswa(props.row.id)" v-if="props.row.paket_nama">
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                                             stroke-width="1.5" stroke="currentColor" class="w-6 h-6">

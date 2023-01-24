@@ -57,6 +57,12 @@ const KfacePaketsoal = [
                             import("@/views/admin/kface/submenu/KfaceProsesIndex.vue"),
                         name: "admin.kface.submenu.proses",
                     },
+                    {
+                        path: "/pages/admin/kface/submenu/:id/kface/kelas/:kelas_id/siswa/:siswa_id",
+                        component: () =>
+                            import("@/views/admin/kface/submenu/KfaceProsesDetail.vue"),
+                        name: "admin.kface.submenu.proses.detail",
+                    },
                     // {
                     //     path: "/pages/admin/kface/submenu/:id/sekolastik/kelas/:kelas_id/siswa/:siswa_id?",
                     //     component: () =>
