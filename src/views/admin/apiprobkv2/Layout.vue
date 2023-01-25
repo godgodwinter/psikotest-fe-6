@@ -12,17 +12,17 @@ const pagesActive = computed(() => storeBankSoal.getPagesActive);
 </script>
 <template>
     <div class="divider">APIPROBK</div>
-    <div class="navbar bg-base-100">
+    <!-- <div class="navbar bg-base-100">
         <div class="navbar-start">
         </div>
-        <!-- <div class="navbar-end space-x-2">
+        <div class="navbar-end space-x-2">
             <router-link :to="{ name: 'admin.kface.banksoal.aspek' }"><a class="btn btn-primary"> BANK
                     SOAL</a></router-link>
             <router-link :to="{ name: 'admin.kface.paketsoal' }"><a class="btn btn-primary"> PAKET
                     SOAL</a></router-link>
-        </div> -->
+        </div>
     </div>
-    <div class="divider"></div>
+    <div class="divider"></div> -->
 
     <div class="py-2 lg:py-4 px-4">
         <router-view />
