@@ -7,6 +7,7 @@ import SkolastikBanksoalRoutes from "./SkolastikBanksoalRoutes";
 import SkolastikPaketsoal from "./SkolastikPaketsoal";
 import KfaceBanksoalRoutes from "./KfaceBanksoalRoutes";
 import KfacePaketsoalRoutes from "./KfacePaketsoalRoutes";
+import ApiprobkRoutes from "./ApiprobkRoutes";
 
 const routes = [];
 
@@ -19,6 +20,7 @@ routes.push(
   ...UjianRoutes,
   ...KfaceBanksoalRoutes,
   ...KfacePaketsoalRoutes,
+  ...ApiprobkRoutes
 );
 
 const router = createRouter({

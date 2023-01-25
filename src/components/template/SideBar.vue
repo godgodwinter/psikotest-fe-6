@@ -315,8 +315,8 @@ const pagesActiveClass = ref(
               <h3 class="text-base-content font-bold rounded-lg flex items-center p-2 group hover:link">DEVELOPMENT
               </h3>
             </li>
-            <li class=" lg:w-full py-0" :class="[pagesActive == 'aspek' ? pagesActiveClass : '']" v-if="superadmin">
-              <router-link :to="{ name: 'admin.aspek' }"
+            <li class=" lg:w-full py-0" :class="[pagesActive == 'apiprobk' ? pagesActiveClass : '']" v-if="superadmin">
+              <router-link :to="{ name: 'admin.apiprobkv2' }"
                 class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                   <path fill-rule="evenodd"
