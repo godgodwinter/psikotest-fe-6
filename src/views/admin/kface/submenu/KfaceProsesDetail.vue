@@ -96,7 +96,7 @@ const doCetak = (id = null, token = moment().format("YYYY-MM-DD")) => {
         Toast.danger("Warning", "Data tidak valid!");
     } else {
         window.open(
-            `${BASE_URL}api/admin/ujian/skolastik/hasil/siswa/${siswa_id}/cetak`
+            `${BASE_URL}api/admin/ujian/kface/hasil/datahasil/siswa/${siswa_id}/akhir/cetak`
         );
     }
 };
@@ -378,7 +378,9 @@ const doDeleteDataHasil = async (hasil_id) => {
                                 <tr>
                                     <td>Tanggal Ujian</td>
                                     <td>:</td>
-                                    <td>-</td>
+                                    <td>{{
+                                    data?.dataHasil?moment(data?.dataHasil.tgl_ujian).format("DD MMMM YYYY "):
+                                    '-' }}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -610,6 +612,9 @@ const doDeleteDataHasil = async (hasil_id) => {
                                 </div>
                             </span>
 
+                            <span v-else-if="props.column.field == 'tgl_mulai'">
+                                {{ moment(props.row.tgl_mulai).format("DD MMMM YYYY HH:mm:ss") }}
+                            </span>
 
                             <span v-else>
                                 {{ props.formattedRow[props.column.field] }}
@@ -657,6 +662,9 @@ const doDeleteDataHasil = async (hasil_id) => {
 
 
                                 </div>
+                            </span>
+                            <span v-else-if="props.column.field == 'tgl_ujian'">
+                                {{ moment(props.row.tgl_ujian).format("DD MMMM YYYY HH:mm:ss") }}
                             </span>
 
 
