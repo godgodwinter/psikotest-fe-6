@@ -522,7 +522,7 @@ const doDeleteDataHasil = async (hasil_id) => {
                     KESIMPULAN : KARAKTER POSITIF
                 </h2>
                 <p>Anda saat ini memiliki perkembangan karakter positif rata-rata tergolong :
-                    {{ data.rata_positif.skor_persen }}% -.
+                    {{ data.rata_positif.skor_persen }}% , {{ data.rata_positif.skor_kesimpulan }}.
                 </p>
                 <p>
                     Bila nilai karakter positif Anda sangat tinggi akan membantu dalam mendukung kesuksesan dan
@@ -548,7 +548,7 @@ const doDeleteDataHasil = async (hasil_id) => {
                 </h2>
                 <p>Anda saat ini memiliki ganguan perkembangan karakter negatif rata-rata tergolong ; {{
                     data.rata_negatif.skor_persen
-                }}% -.
+                }}% , {{ data.rata_negatif.skor_kesimpulan }}.
                 </p>
                 <p>Bila nilai karakter negatif Anda sangat tinggi akan mengganggu atau merugikan saat Anda melakukan
                     usaha

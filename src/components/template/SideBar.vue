@@ -10,13 +10,14 @@ const router = useRouter();
 const storeAdminBar = useStoreAdminBar();
 const isSideBarActive = computed(() => storeAdminBar.getIsSidebarActive);
 const pagesActive = computed(() => storeAdminBar.getPagesActive);
+const storeGuruBk = useStoreGuruBk();
+const superadmin = computed(() => storeGuruBk.getSuperadminMode);
 async function goLogout() {
   localStorage.removeItem("token");
   localStorage.removeItem("isLogin");
   router.go();
 }
 const storeAuth = useStoreAuth();
-const storeGuruBk = useStoreGuruBk();
 const getIsLogin = computed(() => storeAuth.getIsLogin);
 
 const getIdentitas = computed(() => storeGuruBk.getIdentitas);
@@ -313,6 +314,17 @@ const pagesActiveClass = ref(
             <li class="lg:w-full py-0">
               <h3 class="text-base-content font-bold rounded-lg flex items-center p-2 group hover:link">DEVELOPMENT
               </h3>
+            </li>
+            <li class=" lg:w-full py-0" :class="[pagesActive == 'aspek' ? pagesActiveClass : '']" v-if="superadmin">
+              <router-link :to="{ name: 'admin.aspek' }"
+                class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd"
+                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                    clip-rule="evenodd" />
+                </svg>
+                <span class="ml-3">APIPROBK</span>
+              </router-link>
             </li>
             <li class=" lg:w-full py-0" :class="[pagesActive == 'aspek' ? pagesActiveClass : '']">
               <router-link :to="{ name: 'admin.aspek' }"
