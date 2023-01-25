@@ -137,7 +137,8 @@ const fnReset = (tipe = "baru") => {
     completedSteps.value = 0;
     prosesBerhasil.value = 0;
     prosesGagal.value = 0;
-    totalSteps.value = data.value.length;
+    dataExcel.value = [];
+    totalSteps.value = dataExcel.value.length;
     //   if (tipe == "baru") {
     //     totalSteps.value = data.value.length;
     //   } else {
@@ -171,28 +172,72 @@ const columns = [
 ];
 
 const doDelete = (index, username) => {
-    console.log(index, username);
+    if (dataExcel.value[index].status == 'Sudah') {
+        prosesBerhasil.value--;
+        completedSteps.value--;
+    } else if (dataExcel.value[index].status == 'Gagal') {
+        prosesGagal.value--;
+        completedSteps.value--;
+    }
+
+    // console.log(index, username);
     // let a = dataExcel.value,
     //     b = a.filter(e => e.name === "tc_001");
     // b.forEach(f => a.splice(a.findIndex(e => e.name === f.name), 1));
     // console.log(a);
     let result = dataExcel.value.filter(e => e.username != username);
     dataExcel.value = result;
-    console.log(result);
+    totalSteps.value = dataExcel.value.length;
+    // console.log(result);
 }
-
+const kelas_id = ref(null);
+const sekolah_id = ref(null);
 const doImport = async () => {
-    console.log(dataExcel.value);
+    // console.log(dataExcel.value);
     if (dataExcel.value.length < 1) {
         Toast.babeng("Warning", "Data tidak boleh kosong!");
     } else {
         if (confirm("Apakah anda yakin mengimport data ini?")) {
             try {
-                Toast.success("Success", "Data Berhasil dihapus!");
+                // Toast.success("Success", "Data Berhasil dihapus!");
+                for (let index = 0; index < dataExcel.value.length; index++) {
+                    const element = dataExcel.value[index];
+                    console.log(element);
+                    fnApiprobkStore(index, element.username)
+
+                }
             } catch (error) {
                 console.error(error);
             }
         }
+    }
+}
+
+const fnApiprobkStore = async (index, username) => {
+
+    let dataStore = {
+        username,
+        kelas_id: kelas_id.value,
+        sekolah_id: sekolah_id.value,
+    };
+    try {
+        const response = await Api.post(
+            `admin/secret/apiprobk`,
+            dataStore
+        );
+        if (response.success) {
+            dataExcel.value[index].status = 'Sudah';
+            prosesBerhasil.value++
+            completedSteps.value++;
+        } else {
+            dataExcel.value[index].status = 'Gagal';
+            prosesGagal.value++;
+            completedSteps.value++;
+        }
+
+    } catch (error) {
+        // Toast.danger("Warning", "Data gagal ditambahkan!");
+        console.error(error);
     }
 }
 </script>
@@ -216,6 +261,9 @@ const doImport = async () => {
             class="file-input file-input-bordered file-input-info w-full max-w-xs" />
         <button @click="doImport()" class="btn btn-sm btn-primary">
             Import Excel
+        </button>
+        <button @click="fnReset()" class="btn btn-sm btn-secondary">
+            Reset
         </button>
     </div>
     <div class="w-full flex flex-wrap justify-center">
