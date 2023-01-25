@@ -17,8 +17,11 @@ import { useStoreGuruBk } from "@/stores/guruBk";
 
 import "ag-grid-community/styles/ag-grid.css"; // Core grid CSS, always needed
 import "ag-grid-community/styles/ag-theme-alpine.css"; // Optional theme CSS
+import moment from "moment/min/moment-with-locales";
+import localization from "moment/locale/id";
 // import { XLSX } from "xlsx-style"
 
+moment.updateLocale("id", localization);
 const file = ref(null);
 const fileExcel = ref(null);
 const fileExcelLink = ref(null);
@@ -165,17 +168,32 @@ const columns = [
         type: "String",
     },
     {
-        label: "Status",
+        label: "Tanggal Import",
+        field: "tgl_import",
+        type: "String",
+    },
+    {
+        label: "Status Simpan",
         field: "status",
+        type: "String",
+    },
+    {
+        label: "Status Backup",
+        field: "status_backup",
+        type: "String",
+    },
+    {
+        label: "Status Sinkron",
+        field: "status_sinkron",
         type: "String",
     },
 ];
 
 const doDelete = (index, username) => {
-    if (dataExcel.value[index].status == 'Sudah') {
+    if (dataExcel.value[index].status == 'Baru') {
         prosesBerhasil.value--;
         completedSteps.value--;
-    } else if (dataExcel.value[index].status == 'Gagal') {
+    } else if (dataExcel.value[index].status == 'Sudah Ada') {
         prosesGagal.value--;
         completedSteps.value--;
     }
@@ -199,6 +217,7 @@ const doImport = async () => {
     } else {
         if (confirm("Apakah anda yakin mengimport data ini?")) {
             try {
+                completedSteps.value = 0;
                 // Toast.success("Success", "Data Berhasil dihapus!");
                 for (let index = 0; index < dataExcel.value.length; index++) {
                     const element = dataExcel.value[index];
@@ -226,13 +245,19 @@ const fnApiprobkStore = async (index, username) => {
             dataStore
         );
         if (response.success) {
-            dataExcel.value[index].status = 'Sudah';
+            dataExcel.value[index].status = 'Baru';
             prosesBerhasil.value++
             completedSteps.value++;
+            dataExcel.value[index].tgl_import = response.data.tgl_import;
+            // dataExcel.value[index].status_backup = response.data.status_backup;
+            // dataExcel.value[index].tgl_import = response.data.tgl_import;
         } else {
-            dataExcel.value[index].status = 'Gagal';
+            dataExcel.value[index].status = 'Sudah Ada';
             prosesGagal.value++;
             completedSteps.value++;
+            dataExcel.value[index].tgl_import = response.data.tgl_import;
+            // dataExcel.value[index].status_backup = response.data.status_backup;
+            // dataExcel.value[index].tgl_import = response.data.tgl_import;
         }
 
     } catch (error) {
@@ -309,8 +334,12 @@ const fnApiprobkStore = async (index, username) => {
                                 </div>
                             </span>
 
-                            <span v-else-if="props.column.field == 'no'">
-                                <div class="text-center">{{ props.index + 1 }}</div>
+                            <span v-else-if="props.column.field == 'tgl_import'">
+                                <div class="text-center">
+                                    {{
+                                        props.row.tgl_import ? moment(props.row.tgl_import).format("DD MMMM YYYY") : null
+                                    }}
+                                </div>
                             </span>
                             <!-- <span v-else-if="props.column.field == 'status'">
                                 <div class="text-center" v-if="props.row.username != '' && props.row.username != null">
