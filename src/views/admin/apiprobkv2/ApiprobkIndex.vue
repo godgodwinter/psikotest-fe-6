@@ -22,6 +22,35 @@ import localization from "moment/locale/id";
 // import { XLSX } from "xlsx-style"
 
 moment.updateLocale("id", localization);
+const linkDeteksi = ref(null);
+const linkSertifikat = ref(null);
+const fnGetLinkFromBe = async () => {
+    try {
+        const response = await Api.get(`admin/apiprobk/serveraktif`);
+        // console.log(response.data);
+        linkDeteksi.value = response.data.deteksi ? response.data.deteksi.link : null;
+        linkSertifikat.value = response.data.sertifikat ? response.data.sertifikat.link : null;
+        return response;
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+fnGetLinkFromBe();
+
+
+const storeGuruBk = useStoreGuruBk();
+const sekolah = computed(() => storeGuruBk.getSekolah);
+const dataDetail = ref({
+    nama: "",
+    nomeridentitas: "",
+    alamat: "",
+    jk: "",
+    kelas_id: "",
+    sekolah_id: "",
+});
+
+
 const file = ref(null);
 const fileExcel = ref(null);
 const fileExcelLink = ref(null);
@@ -178,13 +207,13 @@ const columns = [
         type: "String",
     },
     {
-        label: "Status Backup",
-        field: "status_backup",
+        label: "DATA SERTIFIKAT",
+        field: "data_sertifikat",
         type: "String",
     },
     {
-        label: "Status Sinkron",
-        field: "status_sinkron",
+        label: "DATA DETEKSI",
+        field: "data_deteksi",
         type: "String",
     },
 ];
@@ -210,35 +239,153 @@ const doDelete = (index, username) => {
 }
 const kelas_id = ref(null);
 const sekolah_id = ref(null);
-const doImport = async () => {
+
+//FETCHING DATA FROM WEB API LAMA
+const getDataFromApiUjianSertifikat = async (
+    username,
+    index = 0,
+    apiprobk_id = 0,
+) => {
+    try {
+        if (linkSertifikat.value) {
+            const response = await axios.post(
+                `${linkSertifikat.value}`,
+                {
+                    username: username,
+                },
+                {
+                    headers: {},
+                }
+            );
+            // console.log(response.data);
+            dataExcel.value[index].data_sertifikat = response.data;
+        } else {
+            Toast.babeng("Warning", "Link Sertifikat tidak ditemukan!");
+        }
+    } catch (error) {
+        console.error(error);
+    }
+};
+
+const getDataFromApiUjianDeteksi = async (
+    username,
+    index = 0,
+    apiprobk_id = 0,
+) => {
+    try {
+        if (linkDeteksi) {
+            const response = await axios.post(
+                `${linkDeteksi.value}`,
+                {
+                    username: username,
+                },
+                {
+                    headers: {},
+                }
+            );
+            // console.log(response);
+            dataExcel.value[index].data_deteksi = response.data;
+        }
+        else {
+            Toast.babeng("Warning", "Link Deteksi tidak ditemukan!")
+        }
+    } catch (error) {
+        // doProsesGetApiGagal(apiprobk_id, index);
+        // data.value[index].sertifikat = "gagal";
+        // Toast.danger("Warning", "Proses gagal");
+        console.error(error);
+    }
+};
+//FETCHING DATA FROM WEB API LAMA-END
+
+//SAVE DATA SERTIFIKAT DAN DETEKSI KE SERVER KITA
+const doStoreDataBackupSertifikat = async (d, index) => {
+    try {
+        const response = await Api.post("admin/apiprobk/api_backup", d);
+        // console.log(response.data);
+        // Toast.success("Success", "Data Berhasil ditambahkan!");
+        data.value[index].deteksi = "sudah";
+        diProses.value++;
+        return response.data;
+    } catch (error) {
+        diProses.value++;
+        data.value[index].deteksi = "gagal";
+        // Toast.danger("Warning", "Data gagal ditambahkan!");
+        console.error(error);
+    }
+};
+//SAVE DATA SERTIFIKAT DAN DETEKSI KE SERVER KITA-END
+
+const doPeriksaDariApiWebUjianLama = async () => {
     // console.log(dataExcel.value);
     if (dataExcel.value.length < 1) {
         Toast.babeng("Warning", "Data tidak boleh kosong!");
     } else {
-        if (confirm("Apakah anda yakin mengimport data ini?")) {
-            try {
-                completedSteps.value = 0;
-                // Toast.success("Success", "Data Berhasil dihapus!");
-                for (let index = 0; index < dataExcel.value.length; index++) {
-                    const element = dataExcel.value[index];
-                    console.log(element);
-                    fnApiprobkStore(index, element.username)
-
-                }
-            } catch (error) {
-                console.error(error);
-            }
+        if (sekolah_id.value) {
+            fn_getData_from_API();
+            // fn_Import_store_ke_db();
+        } else {
+            Toast.babeng("Sekolah Tidak boleh kosong!")
         }
     }
 }
+const doStoreKeWebBaru = async () => {
+    // console.log(dataExcel.value);
+    if (dataExcel.value.length < 1) {
+        Toast.babeng("Warning", "Data tidak boleh kosong!");
+    } else {
+        if (sekolah_id.value) {
+            // fn_getData_from_API();
+            fn_Import_store_ke_db();
+        } else {
+            Toast.babeng("Sekolah Tidak boleh kosong!")
+        }
+    }
+}
+const fn_getData_from_API = async () => {
+    for (let index = 0; index < dataExcel.value.length; index++) {
+        const element = dataExcel.value[index];
+        console.log(element);
+        getDataFromApiUjianSertifikat(element.username, index);
+        getDataFromApiUjianDeteksi(element.username, index);
+        // fnApiprobkStore(index, element.username)
 
-const fnApiprobkStore = async (index, username) => {
+    }
+}
+
+const fn_Import_store_ke_db = async () => {
+    if (confirm("Apakah anda yakin mengimport data ini?")) {
+        try {
+            completedSteps.value = 0;
+            // Toast.success("Success", "Data Berhasil dihapus!");
+            for (let index = 0; index < dataExcel.value.length; index++) {
+                const element = dataExcel.value[index];
+                console.log(element);
+                if (element.data_sertifikat && element.data_deteksi) {
+                    fnApiprobkStore(index, element.username, element.data_sertifikat, element.data_deteksi)
+                } else {
+                    dataExcel.value[index].status = 'Tidak disimpan';
+                    prosesGagal.value++;
+                    completedSteps.value++;
+                    dataExcel.value[index].tgl_import = "-";
+                }
+
+            }
+        } catch (error) {
+            console.error(error);
+        }
+    }
+}
+const fnApiprobkStore = async (index, username, data_sertifikat, data_deteksi) => {
 
     let dataStore = {
         username,
         kelas_id: kelas_id.value,
         sekolah_id: sekolah_id.value,
+        data_sertifikat,
+        data_deteksi
     };
+    console.log(dataStore);
     try {
         const response = await Api.post(
             `admin/secret/apiprobk`,
@@ -265,6 +412,77 @@ const fnApiprobkStore = async (index, username) => {
         console.error(error);
     }
 }
+
+const id = null;
+const idTemp = ref(id);
+
+const dataKelas = ref([]);
+const dataSekolah = ref([]);
+const pilihKelas = ref([]);
+const pilihSekolah = ref([]);
+
+// get Sekolah
+const getDataSekolah = async () => {
+    try {
+        const response = await Api.get(`owner/sekolah`);
+        // console.log(response);
+        dataSekolah.value = response.data;
+        dataSekolah.value.forEach((item) => {
+            pilihSekolah.value.push({
+                label: item.nama,
+                id: item.id,
+            });
+        });
+        return response;
+    } catch (error) {
+        Toast.danger("Warning", "Data Gagal dimuat");
+        console.error(error);
+    }
+};
+getDataSekolah();
+// get Kelas
+const getDataKelas = async (sekolah_id) => {
+    try {
+        pilihKelas.value = [];
+        const response = await Api.get(`owner/datasekolah/${sekolah_id}/kelas`);
+        // console.log(response);
+        dataKelas.value = response.data;
+        dataKelas.value.forEach((item) => {
+            pilihKelas.value.push({
+                label: item.nama,
+                id: item.id,
+            });
+        });
+        return response;
+    } catch (error) {
+        Toast.danger("Warning", "Data Gagal dimuat");
+        console.error(error);
+    }
+};
+// getDataKelas(idTemp.value);
+
+const changedValue = (value) => {
+    dataDetail.value.kelas_id = null;
+    if (dataDetail.value.sekolah_id) {
+        getDataKelas(dataDetail.value.sekolah_id);
+    } else {
+        pilihKelas.value = [];
+    }
+};
+
+const doApply = (sekolah, kelas) => {
+    console.log(sekolah, kelas);
+    Toast.babeng("Info", `sekolah ${sekolah} , kelas ${kelas}`)
+    sekolah_id.value = sekolah;
+    kelas_id.value = kelas
+}
+
+const fnPeriksaDataSertifikat = (index) => {
+    console.log(dataExcel.value[index].data_sertifikat);
+}
+const fnPeriksaDataDeteksi = (index) => {
+    console.log(dataExcel.value[index].data_deteksi);
+}
 </script>
 <template>
     <div class="pt-4 px-10 md:flex justify-between">
@@ -281,11 +499,79 @@ const fnApiprobkStore = async (index, username) => {
         </div>
     </div>
 
+    <div>
+        <div class="pt-0 px-0">
+            <div class="w-full mx-0">
+                <div class="bg-white rounded-lg p-0 sm:p-6 xl:p-0">
+                    <div class="grid md:grid-cols-2 gap-2">
+                        <div>
+                            <label for="name" class="text-sm font-medium text-gray-900 block mb-2">Pilih Sekolah
+                            </label>
+                            <select class="select select-info w-full max-w-xs" v-model="dataDetail.sekolah_id"
+                                @change="changedValue" @selected="changedLabel">
+                                <option selected :value="null">
+                                    NULL
+                                </option>
+                                <!-- <option disabled selected> -->
+                                <!-- {{ data.sekolah.nama }}? -->
+                                <!-- </option> -->
+                                <option v-for="(item, index) in pilihSekolah" :value="item.id">
+                                    {{ item.label }}
+                                </option>
+                            </select>
+                            <!-- <v-select
+                          @change="changedValue"
+                          @selected="changedLabel"
+                          class="py-2 px-3 w-72 mx-auto md:mx-0"
+                          :options="pilihSekolah"
+                          v-model="dataDetail.sekolah_id"
+                          v-bind:class="{ disabled: false }"
+                        ></v-select> -->
+
+                        </div>
+
+                        <div>
+                            <label for="name" class="text-sm font-medium text-gray-900 block mb-2">Pilih Kelas
+                            </label>
+                            <!-- <v-select
+                          class="py-2 px-3 w-72 mx-auto md:mx-0"
+                          :options="pilihKelas"
+                          v-model="dataDetail.kelas_id"
+                          v-bind:class="{ disabled: false }"
+                        ></v-select> -->
+                            <select class="select select-info w-full max-w-xs" v-model="dataDetail.kelas_id">
+                                <option selected :value="null">
+                                    NULL
+                                </option>
+                                <!-- <option disabled selected> -->
+                                <!-- {{ data.kelas.nama }} -->
+                                <!-- </option> -->
+                                <option v-for="(item, index) in pilihKelas" :value="item.id">
+                                    {{ item.label }}
+                                </option>
+                            </select>
+
+                        </div>
+                    </div>
+
+                    <div class="w-full flex justify-end mt-4 px-20">
+                        <button class="btn btn-active btn-lg btn-primary"
+                            @click="doApply(dataDetail.sekolah_id, dataDetail.kelas_id)">
+                            Apply
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="space-x-2">
         <input name="fileUpload" @change="onChangefileUpload($event)" type="file"
             class="file-input file-input-bordered file-input-info w-full max-w-xs" />
-        <button @click="doImport()" class="btn btn-sm btn-primary">
-            Import Excel
+        <button @click="doPeriksaDariApiWebUjianLama()" class="btn btn-sm btn-primary">
+            PERIKSA DATA DARI APIPROBK (WEB UJIAN LAMA)
+        </button>
+        <button @click="doStoreKeWebBaru()" class="btn btn-sm btn-success">
+            SIMPAN KE WEB Baru
         </button>
         <button @click="fnReset()" class="btn btn-sm btn-secondary">
             Reset
@@ -339,6 +625,24 @@ const fnApiprobkStore = async (index, username) => {
                                     {{
                                         props.row.tgl_import ? moment(props.row.tgl_import).format("DD MMMM YYYY") : null
                                     }}
+                                </div>
+                            </span>
+                            <span v-else-if="props.column.field == 'data_sertifikat'">
+                                <div class="text-center">
+                                    {{
+                                        props.row.data_sertifikat ? 'Ada' : "-"
+                                    }}
+                                    <button class="btn btn-sm btn-info" @click="fnPeriksaDataSertifikat(props.index)"
+                                        v-if="props.row.data_sertifikat">Periksa</button>
+                                </div>
+                            </span>
+                            <span v-else-if="props.column.field == 'data_deteksi'">
+                                <div class="text-center">
+                                    {{
+                                        props.row.data_deteksi ? "Ada" : "-"
+                                    }}
+                                    <button class="btn btn-sm btn-info" @click="fnPeriksaDataDeteksi(props.index)"
+                                        v-if="props.row.data_deteksi">Periksa</button>
                                 </div>
                             </span>
                             <!-- <span v-else-if="props.column.field == 'status'">

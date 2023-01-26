@@ -13,6 +13,11 @@ const ApiprobkRoutes = [
                         name: "admin.apiprobkv2",
                         component: () => import("@/views/admin/apiprobkv2/ApiprobkIndex.vue"),
                     },
+                    {
+                        path: `${prefix}/apiprobkv2/getdata`,
+                        name: "admin.apiprobkv2.getdata",
+                        component: () => import("@/views/admin/apiprobkv2/ApiprobkGetdata.vue"),
+                    },
                 ],
             },
         ],
