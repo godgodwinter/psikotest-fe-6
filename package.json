@@ -23,6 +23,7 @@
     "moment": "^2.29.3",
     "mosha-vue-toastify": "^1.0.23",
     "pinia": "^2.0.14",
+    "uuid": "^9.0.0",
     "vee-validate": "^4.5.11",
     "vue": "^3.2.36",
     "vue-good-table-next": "^0.2.1",

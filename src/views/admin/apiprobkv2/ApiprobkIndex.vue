@@ -13,6 +13,7 @@ import { useRouter, useRoute } from "vue-router";
 import { useStoreAdminBar } from "@/stores/adminBar";
 import Toast from "@/components/lib/Toast";
 import { useStoreGuruBk } from "@/stores/guruBk";
+import { v4 as uuidv4 } from "uuid";
 
 
 import "ag-grid-community/styles/ag-grid.css"; // Core grid CSS, always needed
@@ -376,6 +377,8 @@ const fn_Import_store_ke_db = async () => {
         }
     }
 }
+const token_import = ref(uuidv4());
+// console.log(token_import.value);
 const fnApiprobkStore = async (index, username, data_sertifikat, data_deteksi) => {
 
     let dataStore = {
@@ -383,7 +386,8 @@ const fnApiprobkStore = async (index, username, data_sertifikat, data_deteksi) =
         kelas_id: kelas_id.value,
         sekolah_id: sekolah_id.value,
         data_sertifikat,
-        data_deteksi
+        data_deteksi,
+        token_import: token_import.value
     };
     console.log(dataStore);
     try {
@@ -607,7 +611,7 @@ const fnPeriksaDataDeteksi = (index) => {
                         enabled: true,
                     }" :pagination-options="{
     enabled: true,
-    perPageDropdown: [10, 20, 50],
+    perPageDropdown: [100, 200, 500],
 }" styleClass="vgt-table striped bordered condensed" class="py-0">
                         <template #table-row="props">
                             <span v-if="props.column.field == 'actions'">
