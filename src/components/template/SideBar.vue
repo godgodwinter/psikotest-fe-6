@@ -111,7 +111,7 @@ const pagesActiveClass = ref(
                 <span class="ml-3">Profile </span>
               </router-link>
             </li>
-            <li class="lg:w-full py-0" :class="[pagesActive == 'apiprobk' ? pagesActiveClass : '']">
+            <!-- <li class="lg:w-full py-0" :class="[pagesActive == 'apiprobk' ? pagesActiveClass : '']">
               <router-link :to="{ name: 'AdminApiprobk' }"
                 class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -120,7 +120,7 @@ const pagesActiveClass = ref(
                 </svg>
                 <span class="ml-3">APIPROBK </span>
               </router-link>
-            </li>
+            </li> -->
             <li class="lg:w-full py-0" :class="[pagesActive == 'sekolah' ? pagesActiveClass : '']">
               <router-link :to="{ name: 'AdminSekolah' }"
                 class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link">
@@ -315,17 +315,6 @@ const pagesActiveClass = ref(
               <h3 class="text-base-content font-bold rounded-lg flex items-center p-2 group hover:link">DEVELOPMENT
               </h3>
             </li>
-            <li class=" lg:w-full py-0" :class="[pagesActive == 'apiprobk' ? pagesActiveClass : '']" v-if="superadmin">
-              <router-link :to="{ name: 'admin.apiprobkv2' }"
-                class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd"
-                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                    clip-rule="evenodd" />
-                </svg>
-                <span class="ml-3">APIPROBK</span>
-              </router-link>
-            </li>
             <li class=" lg:w-full py-0" :class="[pagesActive == 'aspek' ? pagesActiveClass : '']">
               <router-link :to="{ name: 'admin.aspek' }"
                 class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link">
@@ -335,6 +324,17 @@ const pagesActiveClass = ref(
                     clip-rule="evenodd" />
                 </svg>
                 <span class="ml-3">Aspek Minat Bidang Studi</span>
+              </router-link>
+            </li>
+            <li class=" lg:w-full py-0" :class="[pagesActive == 'apiprobk' ? pagesActiveClass : '']" v-if="superadmin">
+              <router-link :to="{ name: 'admin.apiprobkv2' }"
+                class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd"
+                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                    clip-rule="evenodd" />
+                </svg>
+                <span class="ml-3">APIPROBK</span>
               </router-link>
             </li>
           </ul>

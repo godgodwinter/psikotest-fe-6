@@ -331,6 +331,9 @@ const doPeriksaDariApiWebUjianLama = async () => {
     }
 }
 const doStoreKeWebBaru = async () => {
+    token_import.value = uuidv4();
+    // console.log(token_import.value);
+
     // console.log(dataExcel.value);
     if (dataExcel.value.length < 1) {
         Toast.babeng("Warning", "Data tidak boleh kosong!");
