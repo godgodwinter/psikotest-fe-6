@@ -132,7 +132,7 @@ const doExport = (id = null, token = moment().format("YYYY-MM-DD")) => {
                   <router-link :to="{
                     name: 'admin.sekolah.kelas.pindahsekolah',
                     params: { id, id2: props.row.id },
-                  }">
+                  }" v-if="superadmin">
                     <button class="btn btn-sm btn-primary tooltip" data-tip="Pindah Sekolah">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-6 h-6">
