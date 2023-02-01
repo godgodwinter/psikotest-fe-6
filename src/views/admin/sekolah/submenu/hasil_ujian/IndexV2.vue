@@ -174,6 +174,16 @@ const doCetak = (kelas_id = kelas_id.value, token = moment().format("YYYY-MM-DD"
     );
   }
 };
+
+const doCetakLess = (kelas_id = kelas_id.value, token = moment().format("YYYY-MM-DD")) => {
+  if (id === null) {
+    Toast.danger("Warning", "Data tidak valid!");
+  } else {
+    window.open(
+      `${BASE_URL}api/guest/cetak/hasilujian/lintasbidangstudi_perkelas/${encode(kelas_id)}/less?token=${encode(token)}`
+    );
+  }
+};
 const doGeneratePerkelas = async (kelas_id = kelas_id.value) => {
   if (confirm("Apakah anda yakin generate data ini?")) {
     try {
@@ -195,11 +205,19 @@ const doGeneratePerkelas = async (kelas_id = kelas_id.value) => {
       <div class="pt-4 px-10 md:flex justify-between">
         <div> <span class="text-2xl sm:text-3xl leading-none font-bold text-base-content shadow-sm">
             Hasil Ujian kelas {{
-                getDataSekolah.length > 0 ? getDataSekolah[0].nama_kelas : null
+              getDataSekolah.length > 0 ? getDataSekolah[0].nama_kelas : null
             }}</span>
           <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-700 shadow-sm px-4 space-x-2"
             v-if="dataAsli">
             <ButtonCetak @click="doCetak(kelas_id)" />
+
+            <button class="btn btn-warning btn-sm tooltip" data-tip="cetak v2" @click="doCetakLess(kelas_id)">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+              </svg>
+            </button>
             <button @click="doGeneratePerkelas(kelas_id)" class="btn btn-danger btn-sm tooltip" data-tip="generate">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                 stroke="currentColor" class="w-6 h-6">
