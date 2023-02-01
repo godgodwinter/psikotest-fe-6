@@ -96,6 +96,18 @@ const doExport = (id = null, token = moment().format("YYYY-MM-DD")) => {
     );
   }
 };
+const forceDestroy = async (id2, index) => {
+  if (confirm("Apakah anda yakin menghapus PERMANENT data ini? data tidak bisa dikembalikan")) {
+    try {
+      const response = await Api.delete(`admin/datasekolah/${id}/kelas/${id2}/forceDestroy`);
+      data.value.splice(index, 1);
+      Toast.success("Success", "Data Berhasil dihapus!");
+      return response.data;
+    } catch (error) {
+      console.error(error);
+    }
+  }
+};
 </script>
 <template>
   <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
@@ -149,6 +161,15 @@ const doExport = (id = null, token = moment().format("YYYY-MM-DD")) => {
                       stroke="currentColor" class="w-6 h-6">
                       <path stroke-linecap="round" stroke-linejoin="round"
                         d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                    </svg>
+
+                  </button>
+                  <button class="btn btn-danger btn-sm tooltip" data-tip="Permanent Delete (Kelas, Siswa, ApiProBK)"
+                    @click="forceDestroy(props.row.id, props.index)" v-if="superadmin">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                      stroke="currentColor" class="w-6 h-6">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M12 9.75L14.25 12m0 0l2.25 2.25M14.25 12l2.25-2.25M14.25 12L12 14.25m-2.58 4.92l-6.375-6.375a1.125 1.125 0 010-1.59L9.42 4.83c.211-.211.498-.33.796-.33H19.5a2.25 2.25 0 012.25 2.25v10.5a2.25 2.25 0 01-2.25 2.25h-9.284c-.298 0-.585-.119-.796-.33z" />
                     </svg>
 
                   </button>
