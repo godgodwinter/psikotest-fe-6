@@ -196,7 +196,7 @@ const doCetakLess = (id = null, token = moment().format("YYYY-MM-DD")) => {
                                         {{ mapel.ujian_paketsoal_kategori_nama }}
                                     </td>
                                     <td class="whitespace-nowrap w-1/12">:</td>
-                                    <td class="whitespace-nowrap w-3/12">{{ mapel.nilaiAkhir.toFixed(1) }} - {{
+                                    <td class="whitespace-nowrap w-3/12">{{ mapel.nilaiAkhir }} - {{
                                         mapel.nilaiAkhir_ket
                                     }}
                                         ({{
@@ -284,7 +284,7 @@ const doCetakLess = (id = null, token = moment().format("YYYY-MM-DD")) => {
                                     }}</td>
                                     <td class="whitespace-nowrap w-1/12">:</td>
                                     <td class="whitespace-nowrap w-3/12">
-                                        {{ item.nilaiAkhir.toFixed(1) }}
+                                        {{ item.nilaiAkhir }}
                                     </td>
 
                                 </tr>
