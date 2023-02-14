@@ -316,16 +316,18 @@ const doCetakLess = (id = null, token = moment().format("YYYY-MM-DD")) => {
                                             <td class="whitespace-nowrap w-1/12">{{ i + 1 }}</td>
                                             <td class="whitespace-nowrap w-3/12 text-left"> {{
                                                 item.ujian_paketsoal_kategori_nama
-                                            }}</td>
+                                            }} </td>
                                             <td class="whitespace-nowrap w-1/12">:</td>
                                             <td class="whitespace-nowrap w-3/12">
                                                 {{ item.nilaiAkhir }}
                                             </td>
                                             <td class="whitespace-nowrap w-3/12">
                                                 {{
-                                                    item.nilaiAkhir_ket_singkatan_revisi ? `${item.nilaiAkhir_ket_revisi}
-                                                                                                (${item.nilaiAkhir_ket_singkatan_revisi})` :
-                                                        `${item.nilaiAkhir_ket} (${item.nilaiAkhir_ket_singkatan})`
+                                                    item.nilaiAkhir_ket_singkatan_revisi ?
+                                                        `${fn_studi_ket(item.nilaiAkhir)}
+                                                                                                (${fn_studi_ket_singkatan(item.nilaiAkhir)})` :
+                                                        `${fn_studi_ket(item.nilaiAkhir)}
+                                                                                                (${fn_studi_ket_singkatan(item.nilaiAkhir)})`
                                                 }}
                                             </td>
 
