@@ -247,11 +247,9 @@ const doCetakLess = (id = null, token = moment().format("YYYY-MM-DD")) => {
         </div> -->
 
         <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
-            <!-- <h2 class="font-bold uppercase">JURUSAN </h2> -->
-            <div>
-                <h2 class="font-bold uppercase">KESIMPULAN DAN SARAN </h2>
-                <h4 class="font-bold capitalize">Penguasaan Peminatan Jurusan </h4>
-            </div>
+            <h2 class="font-bold uppercase">JURUSAN </h2>
+            <!-- <h2 class="font-bold uppercase">KESIMPULAN DAN SARAN </h2> -->
+            <!-- <h4 class="font-bold capitalize">Penguasaan Peminatan Jurusan </h4> -->
             <div class="w-full lg:w-full">
                 <div class="bg-white shadow rounded-lg px-4 py-4">
                     <div class="overflow-x-auto">
@@ -276,6 +274,31 @@ const doCetakLess = (id = null, token = moment().format("YYYY-MM-DD")) => {
             </div>
         </div>
 
+        <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
+            <h2 class="font-bold uppercase">Minat Bidang Studi Terkuat </h2>
+            <div class="w-full lg:w-full">
+                <div class="bg-white shadow rounded-lg px-4 py-4">
+                    <div class="overflow-x-auto">
+                        <table class="table table-compact">
+                            <tbody>
+                                <tr v-for="item, i in dataMinatbidangstudi" :key="item.nilaiAkhir">
+                                    <td class="whitespace-nowrap w-1/12">{{ i + 1 }}</td>
+                                    <td class="whitespace-nowrap w-3/12 text-left"> {{
+                                        item.ujian_paketsoal_kategori_nama
+                                    }}</td>
+                                    <td class="whitespace-nowrap w-1/12">:</td>
+                                    <td class="whitespace-nowrap w-3/12">
+                                        {{ item.nilaiAkhir }}
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
             <h2 class="font-bold uppercase">Kesimpulan dan Saran</h2>
@@ -296,42 +319,7 @@ const doCetakLess = (id = null, token = moment().format("YYYY-MM-DD")) => {
                         dataJurusan[2].aspek_nama
                     }}</span>
                 </p>
-
-
-                <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
-                    <h2 class="font-bold uppercase">Minat Bidang Studi Terkuat </h2>
-                    <div class="w-full lg:w-full">
-                        <div class="bg-white shadow rounded-lg px-4 py-4">
-                            <div class="overflow-x-auto">
-                                <table class="table table-compact">
-                                    <tbody>
-                                        <tr v-for="item, i in dataMinatbidangstudi" :key="item.nilaiAkhir">
-                                            <td class="whitespace-nowrap w-1/12">{{ i + 1 }}</td>
-                                            <td class="whitespace-nowrap w-3/12 text-left"> {{
-                                                item.ujian_paketsoal_kategori_nama
-                                            }}</td>
-                                            <td class="whitespace-nowrap w-1/12">:</td>
-                                            <td class="whitespace-nowrap w-3/12">
-                                                {{ item.nilaiAkhir }}
-                                            </td>
-                                            <td class="whitespace-nowrap w-3/12">
-                                                {{
-                                                    item.nilaiAkhir_ket_singkatan_revisi ? `${item.nilaiAkhir_ket_revisi}
-                                                                                                (${item.nilaiAkhir_ket_singkatan_revisi})` :
-                                                        `${item.nilaiAkhir_ket} (${item.nilaiAkhir_ket_singkatan})`
-                                                }}
-                                            </td>
-
-                                        </tr>
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- <p class="indent-8 py-4">
+                <p class="indent-8 py-4">
                     Sedangkan minat Subyek terkuat utk mempelajari dibidang studi mata pelajaran lain yaitu <span
                         class="font-bold">{{
                             dataMinatbidangstudi[0].ujian_paketsoal_kategori_nama
@@ -350,31 +338,6 @@ const doCetakLess = (id = null, token = moment().format("YYYY-MM-DD")) => {
 
 
                 </div>
-                </p> -->
-                <p class="indent-8 py-4">Sedangkan minat Subyek untuk mempelajari dibidang studi yang disukai dan
-                    terkuat yaitu <span class="font-bold"> {{ dataMinatbidangstudi[0].ujian_paketsoal_kategori_nama }},
-                        {{
-                            dataMinatbidangstudi[1].ujian_paketsoal_kategori_nama
-                        }}, {{
-    dataMinatbidangstudi[2].ujian_paketsoal_kategori_nama
-}}, {{
-    dataMinatbidangstudi[3].ujian_paketsoal_kategori_nama
-}}, dan {{
-    dataMinatbidangstudi[4].ujian_paketsoal_kategori_nama
-}}</span>
-
-                    sebagai
-                    penunjang dari kelancaran studi lanjud dan keberhasilan pencapaian cita-cita dalam menempuh profesi
-                    yang dinginkan. Selain itu juga Subyek harus belajar membiasakan menyukai mata pelajaran bidang
-                    studi yang nilainya kurang dan tidak disukai terutama :
-
-                    <span class="font-bold"> 1.{{
-                        dataTidakDisukai[0].ujian_paketsoal_kategori_nama
-                    }} 2.{{
-    dataTidakDisukai[1].ujian_paketsoal_kategori_nama
-}} 3.{{
-    dataTidakDisukai[2].ujian_paketsoal_kategori_nama
-}}</span>
                 </p>
             </div>
         </div>
