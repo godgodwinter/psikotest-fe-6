@@ -2,11 +2,6 @@
 import ButtonCetak from "@/components/atoms/ButtonCetak.vue";
 import moment from "moment/min/moment-with-locales";
 import localization from "moment/locale/id";
-moment.updateLocale("id", localization);
-
-const BASE_URL = import.meta.env.VITE_API_URL
-    ? import.meta.env.VITE_API_URL
-    : "http://localhost:8000/";
 
 import CardLockedFitur from "@/components/organismes/CardLockedFitur.vue";
 import Api from "@/axios/axios";
@@ -18,6 +13,12 @@ import { Field, Form } from "vee-validate";
 import { useStoreAdminBar } from "@/stores/adminBar";
 import { useRouter, useRoute } from "vue-router";
 import Toast from "@/components/lib/Toast.js";
+import { fn_studi_ket, fn_studi_ket_singkatan } from "@/components/lib/Psikotest.js"
+moment.updateLocale("id", localization);
+
+const BASE_URL = import.meta.env.VITE_API_URL
+    ? import.meta.env.VITE_API_URL
+    : "http://localhost:8000/";
 
 const router = useRouter();
 const route = useRoute();
@@ -196,12 +197,18 @@ const doCetakLess = (id = null, token = moment().format("YYYY-MM-DD")) => {
                                         {{ mapel.ujian_paketsoal_kategori_nama }}
                                     </td>
                                     <td class="whitespace-nowrap w-1/12">:</td>
-                                    <td class="whitespace-nowrap w-3/12">{{ mapel.nilaiAkhir }} - {{
+                                    <td class="whitespace-nowrap w-3/12">{{ mapel.nilaiAkhir }} -
+                                        {{ fn_studi_ket(mapel.nilaiAkhir) }} ( {{
+                                            fn_studi_ket_singkatan(mapel.nilaiAkhir)
+                                        }})
+                                        <!-- {{
                                         mapel.nilaiAkhir_ket
                                     }}
                                         ({{
                                             mapel.nilaiAkhir_ket_singkatan
-                                        }})</td>
+                                        }}) -->
+
+                                    </td>
                                 </tr>
 
                             </tbody>
