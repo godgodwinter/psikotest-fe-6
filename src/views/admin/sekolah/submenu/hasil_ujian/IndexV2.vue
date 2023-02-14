@@ -1,7 +1,4 @@
 <script setup>
-const BASE_URL = import.meta.env.VITE_API_URL
-  ? import.meta.env.VITE_API_URL
-  : "http://localhost:8000/";
 import Api from "@/axios/axios";
 import { ref, watch, computed } from "vue";
 import BreadCrumb from "@/components/atoms/BreadCrumb.vue";
@@ -16,6 +13,9 @@ import moment from "moment/min/moment-with-locales";
 import localization from "moment/locale/id";
 moment.updateLocale("id", localization);
 
+const BASE_URL = import.meta.env.VITE_API_URL
+  ? import.meta.env.VITE_API_URL
+  : "http://localhost:8000/";
 const storeGuruBk = useStoreGuruBk();
 const storeAdminBar = useStoreAdminBar();
 storeAdminBar.setsubMenuActive("hasil_ujian");
