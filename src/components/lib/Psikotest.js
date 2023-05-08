@@ -129,21 +129,21 @@ const getKesimpulanEqSq = (item = null) => {
 
 export const fn_studi_ket = (item = null) => {
   let hasil = "Angka tidak valid!";
-  if (item > 88) {
+  if (item > 87) {
     hasil = "Sangat Baik Sekali";
-  } else if (88 > item && item >= 78) {
+  } else if (87 > item && item >= 77) {
     hasil = "Baik Sekali";
-  } else if (78 > item && item >= 68) {
+  } else if (77 > item && item >= 67) {
     hasil = "Baik";
-  } else if (68 > item && item >= 61) {
+  } else if (67 > item && item >= 60) {
     hasil = "Cukup Baik";
-  } else if (61 > item && item >= 44) {
+  } else if (60 > item && item >= 42) {
     hasil = "Cukup";
-  } else if (44 > item && item >= 34) {
+  } else if (42 > item && item >= 32) {
     hasil = "Hampir Cukup";
-  } else if (34 > item && item >= 28) {
+  } else if (32 > item && item >= 27) {
     hasil = "Kurang";
-  } else if (28 > item && item >= 18) {
+  } else if (27 > item && item >= 17) {
     hasil = "Kurang Sekali";
   } else {
     hasil = "Sangat Kurang Sekali";
@@ -152,21 +152,21 @@ export const fn_studi_ket = (item = null) => {
 };
 export const fn_studi_ket_singkatan = (item = null) => {
   let hasil = "Angka tidak valid!";
-  if (item > 88) {
+  if (item > 87) {
     hasil = "SBS";
-  } else if (88 > item && item >= 78) {
+  } else if (87 > item && item >= 77) {
     hasil = "BS";
-  } else if (78 > item && item >= 68) {
+  } else if (77 > item && item >= 67) {
     hasil = "B";
-  } else if (68 > item && item >= 61) {
+  } else if (67 > item && item >= 60) {
     hasil = "CB";
-  } else if (61 > item && item >= 44) {
+  } else if (60 > item && item >= 42) {
     hasil = "C";
-  } else if (44 > item && item >= 34) {
+  } else if (42 > item && item >= 32) {
     hasil = "HC";
-  } else if (34 > item && item >= 28) {
+  } else if (32 > item && item >= 27) {
     hasil = "K";
-  } else if (28 > item && item >= 18) {
+  } else if (27 > item && item >= 17) {
     hasil = "KS";
   } else {
     hasil = "SKS";
