@@ -256,7 +256,8 @@ const doGenerateSiswaHasil = async (siswa) => {
 }})
                                     </td>
                                     <td class="whitespace-nowrap w-10/12">
-                                        <div class="space-x-2"> <button class="btn btn-sm btn-primary tooltip"
+                                        <div class="space-x-2"> 
+                                            <button class="btn btn-sm btn-primary tooltip"
                                                 data-tip="Reset Waktu"
                                                 @click="doResetWaktu(item.proses_id, item.skolastik_paketsoal_aspek_id)">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"

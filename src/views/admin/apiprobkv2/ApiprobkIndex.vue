@@ -495,7 +495,7 @@ const fnPeriksaDataDeteksi = (index) => {
     <div class="pt-4 px-10 md:flex justify-between">
         <div>
             <!-- <span class="text-2xl sm:text-3xl leading-none font-bold text-base-content shadow-sm">APIPROBK
-            </span> -->
+                </span> -->
         </div>
         <div class="md:py-0 py-4">
             <BreadCrumb>
@@ -527,13 +527,13 @@ const fnPeriksaDataDeteksi = (index) => {
                                 </option>
                             </select>
                             <!-- <v-select
-                          @change="changedValue"
-                          @selected="changedLabel"
-                          class="py-2 px-3 w-72 mx-auto md:mx-0"
-                          :options="pilihSekolah"
-                          v-model="dataDetail.sekolah_id"
-                          v-bind:class="{ disabled: false }"
-                        ></v-select> -->
+                              @change="changedValue"
+                              @selected="changedLabel"
+                              class="py-2 px-3 w-72 mx-auto md:mx-0"
+                              :options="pilihSekolah"
+                              v-model="dataDetail.sekolah_id"
+                              v-bind:class="{ disabled: false }"
+                            ></v-select> -->
 
                         </div>
 
@@ -541,11 +541,11 @@ const fnPeriksaDataDeteksi = (index) => {
                             <label for="name" class="text-sm font-medium text-gray-900 block mb-2">Pilih Kelas
                             </label>
                             <!-- <v-select
-                          class="py-2 px-3 w-72 mx-auto md:mx-0"
-                          :options="pilihKelas"
-                          v-model="dataDetail.kelas_id"
-                          v-bind:class="{ disabled: false }"
-                        ></v-select> -->
+                              class="py-2 px-3 w-72 mx-auto md:mx-0"
+                              :options="pilihKelas"
+                              v-model="dataDetail.kelas_id"
+                              v-bind:class="{ disabled: false }"
+                            ></v-select> -->
                             <select class="select select-info w-full max-w-xs" v-model="dataDetail.kelas_id">
                                 <option selected :value="null">
                                     NULL
@@ -653,11 +653,11 @@ const fnPeriksaDataDeteksi = (index) => {
                                 </div>
                             </span>
                             <!-- <span v-else-if="props.column.field == 'status'">
-                                <div class="text-center" v-if="props.row.username != '' && props.row.username != null">
-                                    Sudah
-                                </div>
-                                <div class="text-center" v-else>Belum</div>
-                            </span> -->
+                                    <div class="text-center" v-if="props.row.username != '' && props.row.username != null">
+                                        Sudah
+                                    </div>
+                                    <div class="text-center" v-else>Belum</div>
+                                </span> -->
 
                             <span v-else>
                                 {{ props.formattedRow[props.column.field] }}
@@ -668,5 +668,4 @@ const fnPeriksaDataDeteksi = (index) => {
             </div>
         </div>
     </div>
-
 </template>

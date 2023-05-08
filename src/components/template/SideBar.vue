@@ -42,15 +42,15 @@ const pagesActiveClass = ref(
             <li class="lg:w-full">
               <div class="flex gap-2 items-center justify-center">
                 <!-- <img
-                  src="@/assets/img/avatar/baemon-ava-2.jpg"
-                  alt=""
-                  class="rounded-full w-20 h-20 object-cover"
-                /> -->
+                    src="@/assets/img/avatar/baemon-ava-2.jpg"
+                    alt=""
+                    class="rounded-full w-20 h-20 object-cover"
+                  /> -->
                 <!-- <div class="avatar">
-                  <div class="w-24 mask mask-squircle">
-                    <img src="@/assets/img/avatar/baemon-ava-2.jpg" />
-                  </div>
-                </div> -->
+                    <div class="w-24 mask mask-squircle">
+                      <img src="@/assets/img/avatar/baemon-ava-2.jpg" />
+                    </div>
+                  </div> -->
                 <div class="avatar online" v-if="getIdentitas.photo">
                   <div class="w-24 rounded-full border border-sky-200 hover:border-sky-400 shadow hover:shadow-lg">
                     <img v-if="getIdentitas.photo.user" :src="getIdentitas.photo.user" />
@@ -112,21 +112,20 @@ const pagesActiveClass = ref(
               </router-link>
             </li>
             <!-- <li class="lg:w-full py-0" :class="[pagesActive == 'apiprobk' ? pagesActiveClass : '']">
-              <router-link :to="{ name: 'AdminApiprobk' }"
-                class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                    clip-rule="evenodd" />
-                </svg>
-                <span class="ml-3">APIPROBK </span>
-              </router-link>
-            </li> -->
+                <router-link :to="{ name: 'AdminApiprobk' }"
+                  class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                      clip-rule="evenodd" />
+                  </svg>
+                  <span class="ml-3">APIPROBK </span>
+                </router-link>
+              </li> -->
             <li class="lg:w-full py-0" :class="[pagesActive == 'sekolah' ? pagesActiveClass : '']">
               <router-link :to="{ name: 'AdminSekolah' }"
                 class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                    clip-rule="evenodd" />
+                  <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
                 </svg>
                 <span class="ml-3">Sekolah </span>
               </router-link>
@@ -300,16 +299,16 @@ const pagesActiveClass = ref(
               </router-link>
             </li>
             <!-- <li class="lg:w-full py-0" :class="[pagesActive == 'skolastik_ujian' ? pagesActiveClass : '']">
-              <router-link :to="{ name: 'admin.skolastik.ujian' }"
-                class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                  <path fill-rule="evenodd"
-                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                    clip-rule="evenodd" />
-                </svg>
-                <span class="ml-3">Menu Ujian Skolastik</span>
-              </router-link>
-            </li> -->
+                <router-link :to="{ name: 'admin.skolastik.ujian' }"
+                  class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd"
+                      d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                      clip-rule="evenodd" />
+                  </svg>
+                  <span class="ml-3">Menu Ujian Skolastik</span>
+                </router-link>
+              </li> -->
 
             <li class="lg:w-full py-0">
               <h3 class="text-base-content font-bold rounded-lg flex items-center p-2 group hover:link">DEVELOPMENT
@@ -324,6 +323,32 @@ const pagesActiveClass = ref(
                     clip-rule="evenodd" />
                 </svg>
                 <span class="ml-3">Aspek Minat Bidang Studi</span>
+              </router-link>
+            </li>
+            <li class="lg:w-full py-0">
+              <h3 class="text-base-content font-bold rounded-lg flex items-center p-2 group hover:link">BARU
+              </h3>
+            </li>
+            <li class=" lg:w-full py-0" :class="[pagesActive == 'aspek' ? pagesActiveClass : '']">
+              <router-link :to="{ name: 'admin.aspek' }"
+                class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd"
+                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                    clip-rule="evenodd" />
+                </svg>
+                <span class="ml-3">Banksoal Minat Bidang Studi</span>
+              </router-link>
+            </li>
+            <li class=" lg:w-full py-0" :class="[pagesActive == 'aspek' ? pagesActiveClass : '']">
+              <router-link :to="{ name: 'admin.aspek' }"
+                class="text-base-content font-normal rounded-lg flex items-center p-2 group hover:link">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd"
+                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                    clip-rule="evenodd" />
+                </svg>
+                <span class="ml-3">Paketsoal Minat Bidang Studi</span>
               </router-link>
             </li>
             <li class=" lg:w-full py-0" :class="[pagesActive == 'apiprobk' ? pagesActiveClass : '']" v-if="superadmin">

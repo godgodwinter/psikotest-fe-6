@@ -97,8 +97,8 @@ const onSubmit = async (values) => {
                     <div class="flex flex-col">
                         <label>Waktu : (menit)</label>
                         <div>
-                            <Field :rules="fnValidasi.validateDataNumber" v-model="dataForm.waktu" name="waktu"
-                                type="text" max="100" min="0" class="input input-bordered w-11/12" />
+                            <Field :rules="fnValidasi.validateDataNumber" v-model="dataForm.waktu" name="waktu" type="text"
+                                max="100" min="0" class="input input-bordered w-11/12" />
                             <div class="text-xs text-red-600 mt-1">
                                 {{ errors.waktu }}
                             </div>
@@ -110,8 +110,7 @@ const onSubmit = async (values) => {
                             <div class="form-control">
                                 <label class="label cursor-pointer">
                                     <span class="label-text">Random Soal</span>
-                                    <input type="checkbox" class="toggle" v-model="dataForm.randomSoal"
-                                        name="randomSoal" />
+                                    <input type="checkbox" class="toggle" v-model="dataForm.randomSoal" name="randomSoal" />
                                 </label>
                             </div>
                         </div>
@@ -139,12 +138,12 @@ const onSubmit = async (values) => {
                         </div>
                         <div>
                             <!-- <Field v-if="dataForm.instruksiStatus" :rules="fnValidasi.validateData" v-model="dataForm.instruksi"
-              name="instruksi" type="text" placeholder="Instruksi" class="input input-bordered w-11/12" /> -->
+                  name="instruksi" type="text" placeholder="Instruksi" class="input input-bordered w-11/12" /> -->
 
                             <textarea v-if="dataForm.instruksiStatus" v-model="dataForm.instruksi"
                                 :rules="fnValidasi.validateData" name="instruksi" ref="instruksi"
                                 class="textarea textarea-bordered md:w-full  w-11/12" placeholder="">
-            </textarea>
+                </textarea>
                             <div class="text-xs text-red-600 mt-1">
                                 {{ errors.instruksi }}
                             </div>
@@ -162,13 +161,13 @@ const onSubmit = async (values) => {
                         </div>
                         <div>
                             <!-- <Field v-if="dataForm.lembar_prasoalStatus" :rules="fnValidasi.validateData"
-              v-model="dataForm.lembar_prasoal" name="lembar_prasoal" type="text"
-              class="input input-bordered w-11/12" /> -->
+                  v-model="dataForm.lembar_prasoal" name="lembar_prasoal" type="text"
+                  class="input input-bordered w-11/12" /> -->
 
                             <textarea v-if="dataForm.lembar_prasoalStatus" v-model="dataForm.lembar_prasoal"
                                 :rules="fnValidasi.validateData" name="lembar_prasoal" ref="lembar_prasoal"
                                 class="textarea textarea-bordered md:w-full  w-11/12" placeholder="">
-            </textarea>
+                </textarea>
                             <div class="text-xs text-red-600 mt-1">
                                 {{ errors.lembar_prasoal }}
                             </div>
@@ -186,13 +185,13 @@ const onSubmit = async (values) => {
                         </div>
                         <div>
                             <!-- <Field v-if="dataForm.instruksi_pengerjaanStatus" :rules="fnValidasi.validateData"
-              v-model="dataForm.instruksi_pengerjaan" name="instruksi_pengerjaan" type="text"
-              class="input input-bordered w-11/12" /> -->
+                  v-model="dataForm.instruksi_pengerjaan" name="instruksi_pengerjaan" type="text"
+                  class="input input-bordered w-11/12" /> -->
 
                             <textarea v-if="dataForm.instruksi_pengerjaanStatus" v-model="dataForm.instruksi_pengerjaan"
                                 :rules="fnValidasi.validateData" name="instruksi_pengerjaan" ref="instruksi_pengerjaan"
                                 class="textarea textarea-bordered md:w-full  w-11/12" placeholder="">
-            </textarea>
+                </textarea>
                             <div class="text-xs text-red-600 mt-1">
                                 {{ errors.instruksi_pengerjaan }}
                             </div>
