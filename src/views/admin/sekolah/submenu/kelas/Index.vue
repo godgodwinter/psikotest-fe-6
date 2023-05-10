@@ -131,6 +131,15 @@ const doCetakDeteksiMasalah = (id = null, token = moment().format("YYYY-MM-DD"))
     );
   }
 };
+const doCetakDeteksiMasalah_tanpa_ttd = (id = null, token = moment().format("YYYY-MM-DD")) => {
+  if (id === null) {
+    Toast.danger("Warning", "Data tidak valid!");
+  } else {
+    window.open(
+      `${BASE_URL}api/guest/cetak/deteksimasalah_perkelas/${id}/tanpa_ttd`
+    );
+  }
+};
 </script>
 <template>
   <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
@@ -206,6 +215,14 @@ const doCetakDeteksiMasalah = (id = null, token = moment().format("YYYY-MM-DD"))
                     </svg>
 
 
+                  </button>
+                  <button class="btn btn-sm btn-info tooltip" data-tip="Cetak Deteksi Masalah Per kelas tanpa ttd"
+                    @click="doCetakDeteksiMasalah_tanpa_ttd(props.row.id)">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                      stroke="currentColor" class="w-6 h-6">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+                    </svg>
                   </button>
                   <button class="btn btn-danger btn-sm tooltip" data-tip="Permanent Delete (Kelas, Siswa, ApiProBK)"
                     @click="forceDestroy(props.row.id, props.index)" v-if="superadmin">
