@@ -124,6 +124,15 @@ const doCetak = (id = null, token = moment().format("YYYY-MM-DD")) => {
     );
   }
 };
+const doCetak_tanpa_ttd = (id = null, token = moment().format("YYYY-MM-DD")) => {
+  if (id === null) {
+    Toast.danger("Warning", "Data tidak valid!");
+  } else {
+    window.open(
+      `${BASE_URL}api/guest/cetak/deteksimasalah/${id}/tanpa_ttd`
+    );
+  }
+};
 </script>
 <template>
   <div class="pt-4 px-10 md:flex justify-between">
@@ -146,6 +155,7 @@ const doCetak = (id = null, token = moment().format("YYYY-MM-DD")) => {
       <span class="text-2xl sm:text-3xl leading-none font-bold text-gray-700 shadow-sm">Deteksi Psikologis</span>
 
       <ButtonCetak @click="doCetak(id2)" />
+      <ButtonCetak @click="doCetak_tanpa_ttd(id2)" />
     </div>
     <div class="md:py-0 py-4 space-x-2 space-y-2">
       <span @click="router.go(-1)">
