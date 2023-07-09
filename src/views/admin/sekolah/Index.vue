@@ -151,7 +151,7 @@ const forceDestroy = async (id, index) => {
             enabled: true,
           }" :pagination-options="{
   enabled: true,
-  perPageDropdown: [10, 20, 50],
+  perPageDropdown: [50, 100, 150],
 }" styleClass="vgt-table striped bordered condensed" class="py-0">
             <template #table-actions>
               <div class="space-x-1 space-y-1 gap-1">

@@ -323,8 +323,8 @@ const doDeleteData = async (id2, index) => {
   <div class="pt-4 px-10 md:flex justify-between">
     <div>
       <span class="text-2xl sm:text-3xl leading-none font-bold text-base-content shadow-sm">Siswa kelas {{
-    getDataSekolah.length > 0 ? getDataSekolah[0].nama_kelas : null
-}}
+        getDataSekolah.length > 0 ? getDataSekolah[0].nama_kelas : null
+      }}
       </span>
     </div>
     <div class="md:py-0 py-4 space-x-2 space-y-2">
@@ -369,16 +369,16 @@ const doDeleteData = async (id2, index) => {
       <div class="bg-base-200 shadow rounded-lg px-4 py-4">
         <div v-if="data">
           <vue-good-table :line-numbers="true" :columns="columns" :rows="data" :search-options="{
+            enabled: true,
+          }" :pagination-options="{
   enabled: true,
-}" :pagination-options="{
-  enabled: true,
-  perPageDropdown: [10, 20, 50],
+  perPageDropdown: [50, 100, 150],
 }" styleClass="vgt-table striped bordered condensed" class="py-0 space-x-2">
             <template #table-actions>
               <div class="space-x-1 space-y-1 gap-1">
                 <router-link :to="{
-  name: 'admin.sekolah.siswa.tambah',
-}">
+                  name: 'admin.sekolah.siswa.tambah',
+                }">
                   <button class="btn btn-sm btn-primary tooltip" data-tip="Tambah Siswa" v-if="superadmin">
 
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -415,9 +415,9 @@ const doDeleteData = async (id2, index) => {
 
                   <ButtonDelete @click="doDeleteData(props.row.id, props.index)" v-if="superadmin" />
                   <router-link :to="{
-  name: 'admin.sekolah.siswa.edit',
-  params: { id, id2: props.row.id },
-}">
+                    name: 'admin.sekolah.siswa.edit',
+                    params: { id, id2: props.row.id },
+                  }">
                     <button class="btn btn-sm btn-warning tooltip" data-tip="Edit">
                       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                         <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
@@ -427,9 +427,9 @@ const doDeleteData = async (id2, index) => {
                       </svg></button>
                   </router-link>
                   <router-link :to="{
-  name: 'admin.sekolah.siswa.pindahkelas',
-  params: { id, id2: props.row.id },
-}">
+                    name: 'admin.sekolah.siswa.pindahkelas',
+                    params: { id, id2: props.row.id },
+                  }">
                     <button class="btn btn-sm btn-primary tooltip" data-tip="Pindah Kelas">
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="w-6 h-6">
