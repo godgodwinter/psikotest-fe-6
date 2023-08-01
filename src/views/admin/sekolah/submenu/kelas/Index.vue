@@ -16,6 +16,9 @@ moment.updateLocale("id", localization);
 const BASE_URL = import.meta.env.VITE_API_URL
   ? import.meta.env.VITE_API_URL
   : "http://localhost:8000/";
+const VITE_API_URL_CETAK_REACT = import.meta.env.VITE_API_URL_CETAK_REACT
+  ? import.meta.env.VITE_API_URL_CETAK_REACT
+  : "http://localhost:3500/";
 const storeGuruBk = useStoreGuruBk();
 const storeAdminBar = useStoreAdminBar();
 storeAdminBar.setsubMenuActive("kelas");
@@ -140,6 +143,24 @@ const doCetakDeteksiMasalah_tanpa_ttd = (id = null, token = moment().format("YYY
     );
   }
 };
+const doCetakKewirausahaan = (id = null, token = moment().format("YYYY-MM-DD")) => {
+  if (id === null) {
+    Toast.danger("Warning", "Data tidak valid!");
+  } else {
+    window.open(
+      `${VITE_API_URL_CETAK_REACT}kewirausahaan/data/cetak/${id}`
+    );
+  }
+};
+const doCetakDeteksiMasalah_v2_b = (id = null, token = moment().format("YYYY-MM-DD")) => {
+  if (id === null) {
+    Toast.danger("Warning", "Data tidak valid!");
+  } else {
+    window.open(
+      `${VITE_API_URL_CETAK_REACT}deteksimasalah/v2/b/data/cetak/${id}`
+    );
+  }
+};
 </script>
 <template>
   <div class="md:py-2 px-4 lg:flex flex-wrap gap-4">
@@ -224,7 +245,23 @@ const doCetakDeteksiMasalah_tanpa_ttd = (id = null, token = moment().format("YYY
                         d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
                     </svg>
                   </button>
-                  <button class="btn btn-danger btn-sm tooltip" data-tip="Permanent Delete (Kelas, Siswa, ApiProBK)"
+                  <button class="btn btn-sm btn-info tooltip" data-tip="Cetak Kewirausahaan Per kelas "
+                    @click="doCetakKewirausahaan(props.row.id)">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                      stroke="currentColor" class="w-6 h-6">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+                    </svg>
+                  </button>
+                  <button class="btn btn-sm btn-primary tooltip" data-tip="Cetak Deteksi Masalah (baru) Per kelas "
+                    @click="doCetakDeteksiMasalah_v2_b(props.row.id)">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                      stroke="currentColor" class="w-6 h-6">
+                      <path stroke-linecap="round" stroke-linejoin="round"
+                        d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z" />
+                    </svg>
+                  </button>
+                  <button class="btn btn-success btn-sm tooltip" data-tip="Permanent Delete (Kelas, Siswa, ApiProBK)"
                     @click="forceDestroy(props.row.id, props.index)" v-if="superadmin">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                       stroke="currentColor" class="w-6 h-6">
