@@ -161,12 +161,12 @@ const doCetakDeteksiSq_react = (id = null, token = moment().format("YYYY-MM-DD")
     );
   }
 };
-const doCetakDeteksiMasalah_v2_b = (id = null, token = moment().format("YYYY-MM-DD")) => {
+const doCetakDeteksiMasalah_v2_b = (id = null, ttd = "true", token = moment().format("YYYY-MM-DD")) => {
   if (id === null) {
     Toast.danger("Warning", "Data tidak valid!");
   } else {
     window.open(
-      `${VITE_API_URL_CETAK_REACT}deteksimasalah/v2/b/data/cetak/${id}`
+      `${VITE_API_URL_CETAK_REACT}deteksimasalah/v2/b/data/cetak/${id}/${ttd}`
     );
   }
 };
@@ -256,7 +256,7 @@ const doCetakDeteksiMasalah_v2_b = (id = null, token = moment().format("YYYY-MM-
                   </button> -->
 
                   <button class="btn btn-sm btn-primary tooltip" data-tip="Cetak Deteksi Masalah (baru) Per kelas "
-                    @click="doCetakDeteksiMasalah_v2_b(props.row.id)">
+                    @click="doCetakDeteksiMasalah_v2_b(props.row.id, 'true')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                       stroke="currentColor" class="w-6 h-6">
                       <path stroke-linecap="round" stroke-linejoin="round"
@@ -265,7 +265,7 @@ const doCetakDeteksiMasalah_v2_b = (id = null, token = moment().format("YYYY-MM-
 
                   </button>
                   <button class="btn btn-sm btn-info tooltip" data-tip="Cetak Deteksi Masalah Per kelas tanpa ttd"
-                    @click="doCetakDeteksiMasalah_tanpa_ttd(props.row.id)">
+                    @click="doCetakDeteksiMasalah_v2_b(props.row.id, 'false')">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                       stroke="currentColor" class="w-6 h-6">
                       <path stroke-linecap="round" stroke-linejoin="round"
