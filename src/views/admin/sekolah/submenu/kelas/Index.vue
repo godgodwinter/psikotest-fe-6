@@ -152,12 +152,21 @@ const doCetakKewirausahaan = (id = null, token = moment().format("YYYY-MM-DD")) 
     );
   }
 };
+// const doCetakDeteksiSq_react = (id = null, token = moment().format("YYYY-MM-DD")) => {
+//   if (id === null) {
+//     Toast.danger("Warning", "Data tidak valid!");
+//   } else {
+//     window.open(
+//       `${VITE_API_URL_CETAK_REACT}deteksisqscq/data/cetak/${id}`
+//     );
+//   }
+// };
 const doCetakDeteksiSq_react = (id = null, token = moment().format("YYYY-MM-DD")) => {
   if (id === null) {
     Toast.danger("Warning", "Data tidak valid!");
   } else {
     window.open(
-      `${VITE_API_URL_CETAK_REACT}deteksisqscq/data/cetak/${id}`
+      `${VITE_API_URL_CETAK_REACT}deteksisqscq/api/v2/data/cetak/${id}`
     );
   }
 };
