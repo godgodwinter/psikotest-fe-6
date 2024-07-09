@@ -98,6 +98,7 @@ const forceDestroy = async (id, index) => {
     }
   }
 };
+
 </script>
 <template>
   <div class="pt-4 px-10 md:flex justify-between">
@@ -148,16 +149,16 @@ const forceDestroy = async (id, index) => {
       <div class="bg-white shadow rounded-lg px-4 py-4">
         <div v-if="data">
           <vue-good-table :columns="columns" :rows="data" :search-options="{
-            enabled: true,
-          }" :pagination-options="{
-  enabled: true,
-  perPageDropdown: [50, 100, 150],
-}" styleClass="vgt-table striped bordered condensed" class="py-0">
+          enabled: true,
+        }" :pagination-options="{
+          enabled: true,
+          perPageDropdown: [50, 100, 150],
+        }" styleClass="vgt-table striped bordered condensed" class="py-0">
             <template #table-actions>
               <div class="space-x-1 space-y-1 gap-1">
                 <router-link :to="{
-                  name: 'admin.sekolah.tambah',
-                }">
+          name: 'admin.sekolah.tambah',
+        }">
                   <button class="btn btn-sm btn-primary tooltip" data-tip="Tambah SEKOLAH" v-if="superadmin">
 
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
@@ -175,9 +176,9 @@ const forceDestroy = async (id, index) => {
                   <ButtonEdit @click="doEditData(props.row.id, props.index)" />
                   <ButtonDelete @click="forceDestroy(props.row.id, props.index)" v-if="superadmin" />
                   <router-link :to="{
-                    name: 'AdminSekolahDetailDashboard',
-                    params: { id: props.row.id },
-                  }">
+          name: 'AdminSekolahDetailDashboard',
+          params: { id: props.row.id },
+        }">
                     <button class="btn btn-sm btn-primary tooltip" data-tip="Detail">
                       <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
                         stroke="currentColor" stroke-width="2">

@@ -4,7 +4,7 @@
   "scripts": {
     "dev": "vite --port 3005",
     "build": "vite build",
-    "preview": "vite preview --port 3306 --host",
+    "preview": "vite preview --port 3106 --host",
     "copy:owner": "vite build && rm -rf ../deploy/d-psikotest/owner && mkdir ../deploy/d-psikotest/owner  && cp -r dist/* ../deploy/d-psikotest/owner && cp -r ../deploy/d-psikotest/.htaccess ../deploy/d-psikotest/owner",
     "build:copy": "npm run copy:owner",
     "copy:owner2": "vite build && rm -rf ../deploy/d-psikotest/owner && mkdir ../deploy/d-psikotest/owner  && cp -r dist/* ../deploy/d-psikotest/owner && cp -r ../deploy/d-psikotest/.htaccess ../deploy/d-psikotest/owner",

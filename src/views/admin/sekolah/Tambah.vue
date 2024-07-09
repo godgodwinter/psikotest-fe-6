@@ -50,6 +50,7 @@ const dataDetailTemp = ref({});
 const dataPaket = ref([]);
 const getPaket = async () => {
   try {
+    // console.log(Api.get(`owner/paket`));
     const response = await Api.get(`owner/paket`);
     // console.log(response);
     // dataDetail.value = response.data;
